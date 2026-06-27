@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ivete Sangalo — GYULYIA®</title>
+<link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@400;500;700&family=Manrope:wght@300;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{--black:#000;--white:#fff;--gray:#aeaca8;--border:rgba(255,255,255,0.08);--mono:"Martian Mono",monospace;--sans:"Manrope",sans-serif}
+body{background:var(--black);color:var(--white);font-family:var(--mono);overflow-x:hidden;cursor:none;-webkit-font-smoothing:antialiased}
+.cur{position:fixed;width:8px;height:8px;background:var(--white);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .15s,height .15s}
+.cur-ring{position:fixed;width:32px;height:32px;border:1px solid rgba(255,255,255,.35);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s,height .25s}
+.cur-ring.big{width:56px;height:56px;border-color:rgba(255,255,255,.7)}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:grid;grid-template-columns:1fr 1fr 1fr 1fr;align-items:flex-start;padding:20px;mix-blend-mode:difference}
+.nav-col{display:flex;flex-direction:column;gap:1px}
+.nav-col.r{align-items:flex-end;text-align:right}
+.nav-col.c{align-items:center;text-align:center}
+.nav-logo{font-size:11px;letter-spacing:-.5px;line-height:1.3em;text-transform:uppercase;color:var(--white);text-decoration:none}
+.nav-links-row{display:flex;gap:0;align-items:center}
+.nav-links-row a,.nav-links-row span{font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:var(--white);text-decoration:none;opacity:.7;transition:opacity .2s}
+.nav-links-row a:hover{opacity:1}
+.nav-links-row .sep{opacity:.4;margin:0 1px}
+.nav-cell{font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:var(--white);opacity:.7;display:block}
+.hero{position:relative;height:100vh;overflow:hidden;background:var(--black)}
+.hero-media{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.hero-overlay{position:absolute;inset:0;background:rgba(0,0,0,.35);z-index:1}
+.hero-info{position:absolute;bottom:0;left:0;right:0;z-index:3;padding:5px 20px;border-top:1px solid var(--border)}
+.hero-title-row{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:0}
+.hero-cell{font-family:var(--mono);font-size:11px;letter-spacing:-.5px;line-height:1.3em;text-transform:uppercase;color:var(--white);padding:4px 0}
+.hero-cell.c{text-align:center}
+.hero-cell.r{text-align:right}
+.corner{position:absolute;width:8px;height:8px;z-index:4}
+.corner svg{overflow:visible}
+.c-tl{top:20px;left:20px}.c-bl{bottom:20px;left:20px;transform:rotate(270deg)}.c-tr{top:20px;right:20px;transform:rotate(90deg)}.c-br{bottom:20px;right:20px;transform:rotate(180deg)}
+.sec-detail{background:var(--white);padding:96px 20px 52px}
+.detail-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-bottom:1px solid rgba(0,0,0,.08);padding-bottom:52px;margin-bottom:52px}
+@media(max-width:809px){.detail-grid{grid-template-columns:1fr 1fr;gap:40px 0}}
+.detail-block{display:flex;flex-direction:column;gap:4px}
+.detail-label{font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:#aeaca8;line-height:1.3em}
+.detail-value{font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:#000;line-height:1.5em}
+.project-title{font-family:var(--sans);font-size:clamp(40px,9vw,140px);font-weight:300;letter-spacing:-.05em;line-height:.85em;text-transform:uppercase;color:#000;margin-bottom:40px}
+.project-desc{display:grid;grid-template-columns:1fr 1fr;gap:40px 72px;max-width:1160px;margin:0 auto}
+@media(max-width:809px){.project-desc{grid-template-columns:1fr}}
+.desc-col-label{font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:#aeaca8;margin-bottom:12px}
+.desc-col-text{font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:#000;line-height:1.8em}
+.sec-gallery{background:var(--black);padding:0}
+.gallery-item{width:100%;position:relative;overflow:hidden}
+.gallery-item video,.gallery-item img{width:100%;display:block;object-fit:cover}
+.sec-next{background:var(--white);display:block;text-decoration:none;padding:0 20px;border-top:1px solid rgba(0,0,0,.08)}
+.next-inner{display:flex;justify-content:space-between;align-items:center;padding:20px 0}
+.next-label{font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:#aeaca8}
+.next-title{font-family:var(--sans);font-size:clamp(40px,7vw,120px);font-weight:300;letter-spacing:-.05em;line-height:.85em;text-transform:uppercase;color:#000;transition:padding-left .3s}
+.sec-next:hover .next-title{padding-left:24px}
+.arrow-svg{width:80px;height:80px;flex-shrink:0}
+@media(max-width:809px){.arrow-svg{width:44px;height:44px}}
+footer{background:var(--white)}
+.footer-inner{padding:0 20px}
+.footer-bar{display:flex;justify-content:space-between;padding:20px 0;border-top:1px solid rgba(0,0,0,.08)}
+.footer-small{font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:#aeaca8}
+.hl{position:relative;display:inline-block}
+.hl::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .3s}
+.hl:hover::after{transform:scaleX(1);transform-origin:left}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:none}
+@media(max-width:809px){nav{padding:10px;grid-template-columns:1fr 1fr}.nav-col:nth-child(3),.nav-col:nth-child(4){display:none}.hero-title-row{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="cur" id="cur"></div>
+<div class="cur-ring" id="curRing"></div>
+<nav>
+  <div class="nav-col">
+    <a href="../index.html" class="nav-logo hl">gyulyia®</a>
+    <div class="nav-links-row">
+      <a href="../index.html" class="hl">home</a><span class="sep">/</span>
+      <a href="../index.html#latest" class="hl">work</a><span class="sep">/</span>
+      <a href="../index.html#about" class="hl">info</a>
+    </div>
+  </div>
+  <div class="nav-col c"><span class="nav-cell">3D Visuals</span><span class="nav-cell">Rock in Rio Lisboa</span></div>
+  <div class="nav-col c"><a href="mailto:gyulyia3d@gmail.com" class="nav-cell hl">gyulyia3d@gmail.com</a><a href="https://instagram.com/gyulyia" target="_blank" class="nav-cell hl">instagram</a></div>
+  <div class="nav-col r"><span class="nav-cell" id="navTime">—</span><span class="nav-cell">GMT-3</span></div>
+</nav>
+<section class="hero">
+  <video class="hero-media" autoplay muted loop playsinline
+    src="https://mfaofirmvmoiqajpeajh.supabase.co/storage/v1/object/public/videos/ivete.mp4"></video>
+  <div class="hero-overlay"></div>
+  <div class="corner c-tl"><svg viewBox="0 0 8 8" overflow="visible"><path d="M 0 8 L 0 0 L 8 0" fill="none" stroke="white" stroke-width="1.3"/></svg></div>
+  <div class="corner c-bl"><svg viewBox="0 0 8 8" overflow="visible"><path d="M 0 8 L 0 0 L 8 0" fill="none" stroke="white" stroke-width="1.3"/></svg></div>
+  <div class="corner c-tr"><svg viewBox="0 0 8 8" overflow="visible"><path d="M 0 8 L 0 0 L 8 0" fill="none" stroke="white" stroke-width="1.3"/></svg></div>
+  <div class="corner c-br"><svg viewBox="0 0 8 8" overflow="visible"><path d="M 0 8 L 0 0 L 8 0" fill="none" stroke="white" stroke-width="1.3"/></svg></div>
+  <div class="hero-info">
+    <div class="hero-title-row">
+      <div class="hero-cell">Ivete Sangalo</div>
+      <div class="hero-cell c">Rock in Rio Lisboa</div>
+      <div class="hero-cell c">Lisbon, Portugal</div>
+      <div class="hero-cell r">2025</div>
+    </div>
+  </div>
+</section>
+<section class="sec-detail">
+  <h1 class="project-title reveal">Ivete<br>Sangalo</h1>
+  <div class="detail-grid reveal">
+    <div class="detail-block">
+      <div class="detail-label">Client</div>
+      <div class="detail-value">Ivete Sangalo</div>
+    </div>
+    <div class="detail-block">
+      <div class="detail-label">Role</div>
+      <div class="detail-value">3D Visuals</div>
+      <div class="detail-value">Stage Design</div>
+    </div>
+    <div class="detail-block">
+      <div class="detail-label">Event</div>
+      <div class="detail-value">Rock in Rio Lisboa</div>
+    </div>
+    <div class="detail-block">
+      <div class="detail-label">Year / Location</div>
+      <div class="detail-value">2025</div>
+      <div class="detail-value">Lisbon, Portugal</div>
+    </div>
+  </div>
+  <div class="project-desc reveal">
+    <div>
+      <div class="desc-col-label">About the Project</div>
+      <div class="desc-col-text">3D visuals created for Ivete Sangalo's performance at Rock in Rio Lisboa — one of the biggest music festivals in the world. The project brought immersive, cinematic visuals to the main stage, amplifying the energy of one of Brazil's most celebrated artists to a global audience.</div>
+    </div>
+    <div>
+      <div class="desc-col-label">Tools & Process</div>
+      <div class="desc-col-text">3D animation and motion design developed for large-scale LED stage environment. Visual content engineered to sync with live performance, translating the artist's musical identity into dynamic visual storytelling.</div>
+    </div>
+  </div>
+</section>
+<section class="sec-gallery">
+  <div class="gallery-item">
+    <video autoplay muted loop playsinline
+      src="https://mfaofirmvmoiqajpeajh.supabase.co/storage/v1/object/public/videos/ivete.mp4"
+      style="max-height:80vh"></video>
+  </div>
+  <!-- adicione mais mídias aqui -->
+</section>
+<a class="sec-next reveal" href="pedro-sampaio.html">
+  <div class="next-inner">
+    <div>
+      <div class="next-label">next project</div>
+      <div class="next-title">Pedro<br>Sampaio</div>
+    </div>
+    <svg class="arrow-svg" viewBox="0 0 160 162" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M 73.846 161.829 L 73.846 21.829 L 9.231 81.829 L 0 74.286 L 80 0 L 160 74.286 L 150.769 81.829 L 86.154 21.829 L 86.154 161.829 Z" fill="black" transform="rotate(45 80 80.914)"/>
+    </svg>
+  </div>
+</a>
+<footer><div class="footer-inner"><div class="footer-bar"><span class="footer-small">all rights reserved</span><span class="footer-small">gyulyia</span><span class="footer-small">©2026</span></div></div></footer>
+<script>
+const cur=document.getElementById('cur'),ring=document.getElementById('curRing');
+document.addEventListener('mousemove',e=>{cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';ring.style.left=e.clientX+'px';ring.style.top=e.clientY+'px'});
+document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>ring.classList.add('big'));el.addEventListener('mouseleave',()=>ring.classList.remove('big'))});
+function updateTime(){const t=new Date().toLocaleTimeString('en-GB',{timeZone:'America/Sao_Paulo',hour:'2-digit',minute:'2-digit',second:'2-digit'});const el=document.getElementById('navTime');if(el)el.textContent=t}
+setInterval(updateTime,1000);updateTime();
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}}),{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

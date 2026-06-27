@@ -1,0 +1,1751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GYULYIA®</title>
+<link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@400;500;700&family=Manrope:wght@500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{
+  --black:#000;
+  --white:#fff;
+  --gray:#aeaca8;
+  --border:rgba(0,0,0,0.08);
+  --border-w:rgba(255,255,255,0.08);
+  --mono:"Martian Mono",monospace;
+  --sans:"Manrope",sans-serif;
+}
+body{background:var(--black);color:var(--white);font-family:var(--mono);overflow-x:hidden;cursor:none;-webkit-font-smoothing:antialiased}
+
+/* CURSOR */
+.cur{position:fixed;width:8px;height:8px;background:var(--white);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .15s,height .15s}
+.cur-ring{position:fixed;width:32px;height:32px;border:1px solid rgba(255,255,255,.35);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s,height .25s}
+.cur-ring.big{width:56px;height:56px;border-color:rgba(255,255,255,.7)}
+
+/* NAV — 4-column grid matching original */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:grid;grid-template-columns:1fr 1fr 1fr 1fr;align-items:flex-start;padding:20px;mix-blend-mode:difference}
+.nav-col{display:flex;flex-direction:column;gap:1px}
+.nav-col.r{align-items:flex-end;text-align:right}
+.nav-col.c{align-items:center;text-align:center}
+.nav-logo{font-size:11px;letter-spacing:-.5px;line-height:1.3em;text-transform:uppercase;color:var(--white);text-decoration:none}
+.nav-links-row{display:flex;gap:0;align-items:center}
+.nav-links-row a,.nav-links-row span{font-size:11px;letter-spacing:-.5px;line-height:1.3em;text-transform:uppercase;color:var(--white);text-decoration:none;opacity:.7;transition:opacity .2s}
+.nav-links-row a:hover{opacity:1}
+.nav-links-row .sep{opacity:.4;margin:0 1px}
+.nav-cell{font-size:11px;letter-spacing:-.5px;line-height:1.3em;text-transform:uppercase;color:var(--white);opacity:.7;display:block}
+.nav-time{font-variant-numeric:tabular-nums}
+
+/* HERO */
+.hero{
+  position:relative;height:100vh;overflow:hidden;background:var(--black);
+  cursor:none;
+}
+/* vídeos sobrepostos para crossfade */
+.hero-video-wrap{position:absolute;inset:0;width:100%;height:100%}
+.hero-vid{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;display:block;
+  opacity:0;transition:opacity .8s ease;
+}
+.hero-vid.active{opacity:1}
+.hero-overlay{position:absolute;inset:0;background:rgba(0,0,0,.3);z-index:1}
+
+/* [PLAY]/[PAUSE] — segue cursor, fixed */
+.hero-playpause{
+  position:fixed;pointer-events:none;z-index:999;
+  font-family:var(--mono);font-size:11px;letter-spacing:-.5px;
+  text-transform:uppercase;color:var(--white);
+  opacity:0;transition:opacity .15s;
+  transform:translate(-50%,-28px);
+  white-space:nowrap;
+}
+.hero-playpause.vis{opacity:1}
+
+/* 4 textos do projeto — centro vertical, visíveis no hover */
+.hero-meta-row{
+  position:absolute;
+  top:50%;left:0;right:0;
+  transform:translateY(-50%);
+  z-index:4;
+  display:grid;grid-template-columns:1fr 1fr 1fr 1fr;
+  align-items:center;
+  padding:0 20px;
+  pointer-events:none;
+}
+.hero:hover .hero-meta-row{pointer-events:all}
+
+.hero-meta-cell{
+  font-family:var(--mono);font-size:11px;letter-spacing:-.5px;
+  text-transform:uppercase;color:var(--white);
+  text-decoration:none;position:relative;
+  display:inline-block;width:fit-content;
+  /* animação individual de entrada/saída */
+  opacity:0;transform:translateY(8px);
+  transition:opacity .35s ease, transform .35s ease;
+}
+.hero:hover .hero-meta-cell{opacity:1;transform:translateY(0)}
+/* stagger de entrada */
+.hero:hover .hero-meta-cell:nth-child(1){transition-delay:.00s}
+.hero:hover .hero-meta-cell:nth-child(2){transition-delay:.06s}
+.hero:hover .hero-meta-cell:nth-child(3){transition-delay:.12s}
+.hero:hover .hero-meta-cell:nth-child(4){transition-delay:.18s}
+
+.hero-meta-cell::after{
+  content:'';position:absolute;bottom:-2px;left:0;right:0;height:1px;
+  background:var(--white);transform:scaleX(0);transform-origin:right;
+  transition:transform .3s ease;
+}
+.hero-meta-cell:hover::after{transform:scaleX(1);transform-origin:left}
+.hero-meta-cell.c{justify-self:center;text-align:center}
+.hero-meta-cell.r{justify-self:end;text-align:right}
+
+/* textos animados de troca (título bottom) */
+.hero-info{
+  position:absolute;bottom:0;left:0;right:0;
+  z-index:3;padding:5px 20px;
+}
+.hero-title-row{
+  display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:0;
+}
+.hero-cell{
+  font-family:var(--mono);font-size:11px;letter-spacing:-.5px;
+  line-height:1.3em;text-transform:uppercase;color:var(--white);
+  overflow:hidden;height:1.3em;position:relative;
+}
+.hero-cell.center{text-align:center}
+.hero-cell.right{text-align:right}
+/* inner span que anima */
+.hero-cell-inner{
+  display:block;
+  transition:transform .45s cubic-bezier(.22,.61,.36,1), opacity .45s ease;
+}
+.hero-cell-inner.exit-up{transform:translateY(-110%);opacity:0}
+.hero-cell-inner.enter-down{transform:translateY(110%);opacity:0}
+.hero-cell-inner.enter-down.in{transform:translateY(0);opacity:1}
+
+/* scroll / credits link */
+.hero-scroll{
+  position:absolute;bottom:28px;left:50%;transform:translateX(-50%);
+  z-index:5;font-family:var(--mono);font-size:11px;letter-spacing:-.5px;
+  text-transform:uppercase;color:var(--white);text-decoration:none;
+  opacity:.6;transition:opacity .2s;white-space:nowrap;
+}
+.hero-scroll:hover{opacity:1}
+.hero-scroll::after{
+  content:'';display:block;width:100%;height:1px;background:currentColor;
+  transform:scaleX(0);transform-origin:right;transition:transform .3s;
+}
+.hero-scroll:hover::after{transform:scaleX(1);transform-origin:left}
+
+/* PROGRESS BAR */
+.hero-progress{position:absolute;bottom:0;left:0;right:0;height:1px;background:rgba(255,255,255,.12);z-index:6}
+.hero-progress-bar{height:100%;background:rgba(255,255,255,.55);width:0%;transition:width .1s linear}
+
+/* slide counter (canto superior direito da hero, dentro) */
+.hero-counter{
+  position:absolute;bottom:5px;right:20px;z-index:4;
+  font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:var(--white);
+  opacity:.5;font-family:var(--mono);
+}
+
+@media(max-width:809px){
+  .hero-meta-cell.c,.hero-meta-cell:nth-child(3){display:none}
+  .hero-title-row{grid-template-columns:1fr 1fr}
+  .hero-cell.center{display:none}
+}
+
+/* SECTION BASE */
+section{width:100%}
+
+/* SECTION LATEST — white bg */
+.sec-latest{background:var(--white);padding-top:96px}
+.sec-latest .container{max-width:1160px;margin:0 auto;padding:0 20px}
+.sec-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:0}
+.sec-header h1,.sec-count{font-family:var(--sans);font-size:160px;font-weight:300;letter-spacing:-.05em;line-height:.8em;text-transform:uppercase;color:var(--black)}
+@media(max-width:1199px){.sec-header h1,.sec-count{font-size:100px}}
+@media(max-width:809px){.sec-header h1,.sec-count{font-size:50px}}
+
+/* WORKS GRID */
+.works-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:52px}
+@media(max-width:809px){.works-grid{grid-template-columns:1fr}}
+.work-item{display:flex;flex-direction:column;cursor:pointer;text-decoration:none;padding-bottom:20px}
+.work-thumb-wrap{position:relative;aspect-ratio:1.65;overflow:hidden;background:#111}
+.work-thumb-wrap video,
+.work-thumb-wrap img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  transition:transform .5s ease, filter .4s ease;
+  filter:none;
+}
+/* hover: P&B + zoom suave */
+.work-item:hover .work-thumb-wrap video,
+.work-item:hover .work-thumb-wrap img{
+  transform:scale(1.03);
+  filter:grayscale(100%);
+}
+
+/* HOVER OVERLAY */
+.work-hover-overlay{
+  position:absolute;inset:0;z-index:2;
+  display:flex;flex-direction:column;
+  justify-content:space-between;
+  padding:20px;
+  background:rgba(0,0,0,0);
+  transition:background .35s;
+  pointer-events:none;
+}
+.work-item:hover .work-hover-overlay{background:rgba(0,0,0,.12)}
+
+/* VIEW label — centro */
+.work-view-label{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%) scale(.9);
+  font-size:11px;letter-spacing:-.5px;line-height:1.3em;
+  text-transform:uppercase;color:var(--white);
+  opacity:0;
+  transition:opacity .3s ease,transform .3s ease;
+  white-space:nowrap;z-index:3;pointer-events:none;
+}
+.work-item:hover .work-view-label{opacity:1;transform:translate(-50%,-50%) scale(1)}
+
+/* metadata bottom row */
+.work-hover-bottom{
+  display:grid;grid-template-columns:1fr 1fr 1fr 1fr;
+  align-items:flex-end;
+  margin-top:auto;
+}
+.work-hover-cell{
+  font-size:11px;letter-spacing:-.5px;line-height:1.3em;
+  text-transform:uppercase;color:var(--white);
+  opacity:0;transform:translateY(6px);
+  transition:opacity .3s ease,transform .3s ease;
+}
+.work-hover-cell.c{text-align:center}
+.work-hover-cell.r{text-align:right}
+.work-item:hover .work-hover-cell{opacity:1;transform:none}
+
+/* below-thumb meta (always visible) */
+.work-meta{padding:12px 20px 0;display:flex;justify-content:space-between;align-items:flex-start}
+.work-meta-left{display:flex;flex-direction:column;gap:1px}
+.work-name{font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:var(--black);line-height:1.3em}
+.work-brand{font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:var(--gray);line-height:1.3em}
+.work-date{font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:var(--black);line-height:1.3em;align-self:flex-end}
+
+/* ABOUT REDIRECT */
+.about-redirect{display:block;width:100%;padding:0 20px 0;text-decoration:none;border-top:1px solid var(--border);margin-top:62px}
+.about-redirect-inner{display:flex;justify-content:space-between;align-items:center;padding:0}
+.about-redirect h1{font-family:var(--sans);font-size:160px;font-weight:300;letter-spacing:-.05em;line-height:.8em;text-transform:uppercase;color:var(--black);transition:padding-left .3s}
+@media(max-width:1199px){.about-redirect h1{font-size:100px}}
+@media(max-width:809px){.about-redirect h1{font-size:50px}}
+.about-redirect:hover h1{padding-left:24px}
+.arrow-svg{width:160px;height:162px;flex-shrink:0}
+@media(max-width:809px){.arrow-svg{width:44px;height:45px}}
+
+/* SECTION ABOUT — services block */
+.sec-about{background:var(--white);padding:96px 20px}
+.about-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:0;
+  padding-bottom:52px;
+  border-bottom:1px solid var(--border);
+}
+@media(max-width:1199px){.about-grid{grid-template-columns:repeat(2,1fr);gap:52px 0}}
+@media(max-width:809px){.about-grid{grid-template-columns:1fr;gap:32px 0}}
+.about-grid-bottom{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:0;
+  padding-top:40px;
+  border-top:1px solid var(--border);
+  margin-top:40px;
+  padding-bottom:40px;
+  border-bottom:1px solid var(--border);
+}
+@media(max-width:809px){.about-grid-bottom{grid-template-columns:1fr;gap:52px 0}}
+.about-block{display:flex;flex-direction:column;gap:0}
+.about-block-title{font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:var(--gray);line-height:1.3em;margin-bottom:0;margin-top:0}
+.about-block-item{font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:var(--black);line-height:1.3em;padding:0}
+
+/* SECTION BANNER — dark */
+.sec-banner{background:var(--black);height:100vh;position:relative;overflow:hidden;display:flex;flex-direction:column}
+.banner-titles{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:flex-start;padding:20px;position:sticky;top:20px}
+.banner-title{font-family:var(--sans);font-size:24px;font-weight:500;letter-spacing:0;line-height:1em;text-transform:uppercase;color:var(--white)}
+.banner-video-wrap{position:absolute;inset:0;z-index:1}
+.banner-video-wrap video{width:100%;height:100%;object-fit:cover;display:block}
+.banner-video-wrap::after{content:'';position:absolute;inset:0;background:rgba(0,0,0,.35)}
+
+/* SECTION POINTS */
+.sec-points{background:var(--white);padding:96px 0 0}
+.points-headline{padding:0 20px;margin-bottom:76px}
+.points-headline h2{font-family:var(--sans);font-size:24px;font-weight:500;letter-spacing:0;line-height:1em;text-transform:uppercase;color:var(--black);text-align:center}
+.points-desc{display:grid;grid-template-columns:1fr 1fr;gap:52px 72px;padding:0 20px 76px;max-width:1160px;margin:0 auto}
+@media(max-width:809px){.points-desc{grid-template-columns:1fr;gap:52px}}
+.points-col{}
+.points-col-label{font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:var(--gray);line-height:1.3em;margin-bottom:16px}
+.points-col-text{font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:var(--black);line-height:1.3em}
+/* SECTION CLIENTS — logo abaixo do hero */
+.sec-clients{
+  background:var(--white);
+  padding:52px 20px;
+  border-bottom:1px solid var(--border);
+}
+.clients-label{
+  font-size:11px;letter-spacing:-.5px;text-transform:uppercase;
+  color:var(--gray);margin-bottom:24px;line-height:1.3em;
+  text-align:center;
+}
+.clients-text{
+  font-size:11px;letter-spacing:-.5px;text-transform:uppercase;
+  color:var(--black);line-height:1.8em;
+  text-align:center;max-width:750px;margin:0 auto;
+}
+
+/* ── AUTO-SCROLL TICKER (substitui strip + filmstrip) ── */
+.ticker-section{
+  background:var(--white);
+  padding:0;overflow:hidden;
+  border-top:1px solid var(--border);
+}
+
+/* track externo: clip + esconde scrollbar */
+.ticker-outer{
+  overflow:hidden;
+  width:100%;
+  cursor:none;
+}
+
+/* track interno: inline-flex, animação de slide */
+.ticker-track{
+  display:inline-flex;
+  gap:0;
+  animation:tickerMove 40s linear infinite;
+  will-change:transform;
+}
+/* pausa quando qualquer card está em hover */
+.ticker-track.paused{animation-play-state:paused}
+
+@keyframes tickerMove{
+  0%  {transform:translateX(0)}
+  100%{transform:translateX(-50%)}
+}
+
+/* card individual */
+.ticker-card{
+  position:relative;
+  width:380px;height:260px;
+  flex-shrink:0;
+  overflow:hidden;
+  border-right:1px solid rgba(0,0,0,.05);
+  cursor:none;
+}
+
+/* media dentro do card */
+.ticker-card img,
+.ticker-card video{
+  width:100%;height:100%;
+  object-fit:cover;display:block;
+  transition:filter .4s ease, transform .5s ease;
+  transform:scale(1.04);
+}
+/* hover: P&B + scale normal */
+.ticker-card:hover img,
+.ticker-card:hover video{
+  filter:grayscale(100%);
+  transform:scale(1);
+}
+
+/* overlay escuro no hover */
+.ticker-overlay{
+  position:absolute;inset:0;z-index:2;
+  background:rgba(0,0,0,0);
+  transition:background .35s;
+  pointer-events:none;
+}
+.ticker-card:hover .ticker-overlay{background:rgba(0,0,0,.18)}
+
+/* nome do projeto — centro, aparece no hover */
+.ticker-label{
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%) translateY(6px);
+  z-index:3;
+  font-family:var(--mono);font-size:11px;
+  letter-spacing:-.5px;line-height:1.3em;
+  text-transform:uppercase;color:var(--white);
+  text-align:center;
+  opacity:0;
+  transition:opacity .3s ease, transform .3s ease;
+  pointer-events:none;
+  white-space:nowrap;
+}
+.ticker-card:hover .ticker-label{
+  opacity:1;
+  transform:translate(-50%,-50%) translateY(0);
+}
+
+/* link clicável que cobre o card inteiro */
+.ticker-link{
+  position:absolute;inset:0;z-index:4;
+  text-decoration:none;
+  display:block;
+}
+
+/* bottom caption — sempre visível, baixa opacidade */
+.ticker-caption{
+  position:absolute;bottom:0;left:0;right:0;z-index:3;
+  display:flex;justify-content:space-between;align-items:flex-end;
+  padding:8px 12px;
+  background:linear-gradient(to top,rgba(0,0,0,.55) 0%,transparent 100%);
+  opacity:.6;
+  transition:opacity .3s;
+}
+.ticker-card:hover .ticker-caption{opacity:0} /* some no hover para dar destaque ao label */
+.ticker-cap-name{
+  font-family:var(--mono);font-size:11px;
+  letter-spacing:-.5px;text-transform:uppercase;
+  color:var(--white);line-height:1.3em;
+}
+.ticker-cap-idx{
+  font-family:var(--mono);font-size:11px;
+  letter-spacing:-.5px;color:rgba(255,255,255,.4);
+}
+
+/* SECTION FINAL BANNER */
+.sec-final{background:var(--black);height:80vh;position:relative;overflow:hidden;display:flex;flex-direction:column}
+.final-bg{position:absolute;inset:0;z-index:1}
+.final-bg img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.05)}
+.final-overlay{position:absolute;inset:0;background:rgba(0,0,0,.4);z-index:2}
+.final-content{position:relative;z-index:3;width:100%;height:100%;display:flex;flex-direction:column;justify-content:space-between;padding:20px}
+.final-est-row{display:flex}
+.final-small{font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:rgba(255,255,255,.7);line-height:1.3em}
+.final-mid-row{display:grid;grid-template-columns:auto 1fr auto;align-items:center}
+.final-mid-h{font-family:var(--sans);font-size:24px;font-weight:500;letter-spacing:0;line-height:1em;text-transform:uppercase;color:var(--white);text-align:center}
+.final-letters-row{display:grid;grid-template-columns:1fr auto 1fr auto;align-items:flex-end}
+.final-big{font-family:var(--sans);font-size:clamp(40px,11vw,160px);font-weight:300;letter-spacing:-.05em;line-height:.8em;text-transform:uppercase;color:var(--white);text-align:center}
+/* corner marks */
+.corner{position:absolute;width:8px;height:8px;z-index:4}
+.corner svg{overflow:visible}
+.c-tl{top:20px;left:20px}
+.c-bl{bottom:20px;left:20px;transform:rotate(270deg)}
+.c-tr{top:20px;right:20px;transform:rotate(90deg)}
+.c-br{bottom:20px;right:20px;transform:rotate(180deg)}
+
+/* FOOTER */
+footer{background:var(--white);position:relative;z-index:2}
+.footer-inner-wrap{padding:0 20px}
+.footer-top-bar{display:grid;grid-template-columns:1fr 1fr 1fr;padding:20px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.footer-small{font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:var(--gray);line-height:1.3em}
+
+/* CTA BOX — hover swaps text ↔ email */
+.footer-cta-wrap{display:flex;justify-content:center;align-items:center;padding:40px 0;border-bottom:1px solid var(--border)}
+.footer-cta-box{
+  position:relative;
+  display:flex;align-items:center;justify-content:center;
+  width:500px;max-width:90%;min-height:100px;
+  border:1px solid rgba(0,0,0,.18);
+  text-decoration:none;padding:28px 40px;
+  overflow:hidden;cursor:pointer;
+}
+.cta-corner{position:absolute;width:8px;height:8px}
+.cta-corner svg{overflow:visible}
+.cta-tl{top:1px;left:1px}
+.cta-tr{top:1px;right:1px;transform:rotate(90deg)}
+.cta-bl{bottom:1px;left:1px;transform:rotate(270deg)}
+.cta-br{bottom:1px;right:1px;transform:rotate(180deg)}
+.cta-text-layer,.cta-email-layer{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
+  transition:transform .35s ease,opacity .3s ease;
+  padding:0 20px;
+}
+.cta-text-layer{transform:translateY(0);opacity:1}
+.cta-email-layer{transform:translateY(100%);opacity:0}
+.footer-cta-box:hover .cta-text-layer{transform:translateY(-100%);opacity:0}
+.footer-cta-box:hover .cta-email-layer{transform:translateY(0);opacity:1}
+.cta-line{
+  font-family:var(--sans);font-size:clamp(14px,2vw,24px);font-weight:500;
+  letter-spacing:0;line-height:1em;
+  text-transform:uppercase;color:var(--black);text-align:center;
+}
+
+/* footer links */
+.footer-links{display:grid;grid-template-columns:repeat(4,1fr);padding:52px 0}
+@media(max-width:809px){.footer-links{grid-template-columns:repeat(2,1fr);gap:52px 24px}}
+.footer-col h4{font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:var(--gray);margin-bottom:24px;line-height:1.3em}
+.footer-col a,.footer-col span{display:block;font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:var(--black);line-height:1.3em;text-decoration:none;margin-bottom:1px;transition:opacity .2s}
+.footer-col a:hover{opacity:.4}
+.footer-bottom-bar{display:flex;justify-content:space-between;padding:20px 0;border-top:1px solid var(--border)}
+
+/* HOVER LINK UNDERLINE */
+.hl{position:relative;display:inline-block}
+.hl::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .3s}
+.hl:hover::after{transform:scaleX(1);transform-origin:left}
+
+/* MOBILE */
+@media(max-width:809px){
+  nav{padding:10px;grid-template-columns:1fr 1fr}
+  .nav-col:nth-child(3),.nav-col:nth-child(4){display:none}
+  .sec-about{padding:96px 10px}
+  .banner-titles{padding:10px}
+  .cta-line{font-size:14px}
+  .hero-title-row{grid-template-columns:1fr 1fr}
+  .hero-cell.hide-mobile{display:none}
+  .footer-inner-wrap{padding:0 10px}
+}
+
+/* SCROLL FADE */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:none}
+
+/* ── LANGUAGE TOGGLE — fixed bottom center ── */
+.lang-btn{
+  position:fixed;
+  bottom:24px;left:50%;transform:translateX(-50%);
+  z-index:500;
+  display:flex;align-items:center;gap:0;
+  background:var(--black);
+  border:1px solid rgba(255,255,255,.2);
+  border-radius:2px;
+  overflow:hidden;
+  font-family:var(--mono);
+}
+.lang-opt{
+  font-size:11px;letter-spacing:-.5px;text-transform:uppercase;
+  color:rgba(255,255,255,.4);
+  padding:7px 14px;
+  cursor:pointer;
+  transition:color .2s,background .2s;
+  user-select:none;
+  border:none;background:none;
+  font-family:var(--mono);
+}
+.lang-opt.active{color:var(--white);background:rgba(255,255,255,.08)}
+.lang-opt:hover{color:var(--white)}
+.lang-sep{width:1px;height:20px;background:rgba(255,255,255,.15);flex-shrink:0}
+
+/* ── CONTACT POPUP ── */
+.popup-overlay{
+  position:fixed;inset:0;z-index:2000;
+  background:rgba(0,0,0,.85);
+  backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;
+  transition:opacity .3s ease;
+}
+.popup-overlay.open{opacity:1;pointer-events:all}
+
+.popup-box{
+  width:min(680px,92vw);
+  background:var(--black);
+  border:1px solid rgba(255,255,255,.12);
+  padding:0;
+  position:relative;
+  transform:translateY(20px);
+  transition:transform .35s ease;
+}
+.popup-overlay.open .popup-box{transform:translateY(0)}
+
+/* header bar */
+.popup-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 24px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.popup-title{
+  font-family:var(--mono);font-size:11px;letter-spacing:-.5px;
+  text-transform:uppercase;color:var(--white);
+}
+.popup-close{
+  background:none;border:none;cursor:none;
+  font-family:var(--mono);font-size:11px;letter-spacing:-.5px;
+  text-transform:uppercase;color:rgba(255,255,255,.5);
+  transition:color .2s;padding:0;
+}
+.popup-close:hover{color:var(--white)}
+
+/* form title */
+.popup-form-title{
+  font-family:var(--sans);font-size:clamp(32px,7vw,80px);
+  font-weight:300;letter-spacing:-.05em;line-height:.85em;
+  text-transform:uppercase;color:var(--white);
+  padding:24px 24px 20px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+/* fields grid */
+.popup-fields{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.popup-field{
+  padding:14px 24px;
+  border-right:1px solid rgba(255,255,255,.08);
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.popup-field:nth-child(even){border-right:none}
+.popup-field.full{grid-column:1/-1;border-right:none}
+.popup-field label{
+  display:block;
+  font-family:var(--mono);font-size:11px;letter-spacing:-.5px;
+  text-transform:uppercase;color:rgba(255,255,255,.45);
+  margin-bottom:8px;font-weight:700;
+}
+.popup-field input,
+.popup-field textarea{
+  width:100%;background:none;border:none;outline:none;
+  font-family:var(--mono);font-size:11px;letter-spacing:-.5px;
+  text-transform:uppercase;color:var(--white);
+  resize:none;
+  caret-color:var(--white);
+}
+.popup-field input::placeholder,
+.popup-field textarea::placeholder{
+  color:rgba(255,255,255,.2);
+}
+.popup-field textarea{
+  min-height:80px;
+  line-height:1.5em;
+}
+
+/* action buttons */
+.popup-actions{
+  display:grid;grid-template-columns:1fr 1fr;
+  border-top:1px solid rgba(255,255,255,.08);
+}
+.popup-btn{
+  display:flex;align-items:center;justify-content:center;gap:12px;
+  padding:18px 24px;
+  font-family:var(--mono);font-size:11px;letter-spacing:-.5px;
+  text-transform:uppercase;color:var(--white);
+  background:none;border:none;
+  cursor:none;
+  text-decoration:none;
+  transition:background .25s;
+  font-weight:700;
+}
+.popup-btn:first-child{
+  background:var(--white);color:var(--black);
+  border-right:1px solid rgba(255,255,255,.08);
+}
+.popup-btn:first-child:hover{background:rgba(255,255,255,.88)}
+.popup-btn:last-child:hover{background:rgba(255,255,255,.08)}
+.popup-btn svg{flex-shrink:0}
+
+/* clients — simples, centralizado */
+.sec-clients{
+  background:var(--white);
+  padding:52px 20px;
+  border-bottom:1px solid var(--border);
+}
+.clients-label{
+  font-size:11px;letter-spacing:-.5px;text-transform:uppercase;
+  color:var(--gray);margin-bottom:24px;line-height:1.3em;
+  text-align:center;
+}
+.clients-text{
+  font-size:11px;letter-spacing:-.5px;text-transform:uppercase;
+  color:var(--black);line-height:1.8em;
+  text-align:center;max-width:750px;margin:0 auto;
+}
+</style>
+</head>
+<body>
+
+<div class="cur" id="cur"></div>
+<div class="cur-ring" id="curRing"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-col">
+    <a href="#" class="nav-logo hl">gyulyia®</a>
+    <div class="nav-links-row">
+      <a href="#" class="hl" data-i18n="nav-home">home</a>
+      <span class="sep">/</span>
+      <a href="#latest" class="hl" data-i18n="nav-index">index</a>
+      <span class="sep">/</span>
+      <a href="#latest" class="hl" data-i18n="nav-work">work</a>
+      <span class="sep">/</span>
+      <a href="#about" class="hl" data-i18n="nav-info">info</a>
+      <span class="sep">/</span>
+      <a href="#" class="hl" onclick="openPopup();return false;" data-i18n="nav-contact">contact</a>
+    </div>
+  </div>
+  <div class="nav-col c">
+    <span class="nav-cell" data-i18n="nav-role">Creative Technologist:: Multimedia Artist</span>
+    <span class="nav-cell" data-i18n="nav-city">based in são paulo, brazil</span>
+  </div>
+  <div class="nav-col c">
+    <a href="mailto:gyulyia3d@gmail.com" class="nav-cell hl">gyulyia3d@gmail.com</a>
+    <a href="https://instagram.com/gyulyia" target="_blank" class="nav-cell hl">instagram</a>
+  </div>
+  <div class="nav-col r">
+    <span class="nav-cell nav-time" id="navTime">—</span>
+    <span class="nav-cell">GMT-3</span>
+  </div>
+</nav>
+
+<!-- LANGUAGE TOGGLE — fixed bottom center -->
+<div class="lang-btn" id="langBtn">
+  <button class="lang-opt active" id="langEN" onclick="setLang('en')">EN</button>
+  <div class="lang-sep"></div>
+  <button class="lang-opt" id="langPT" onclick="setLang('pt')">PT-BR</button>
+</div>
+
+<!-- CONTACT POPUP -->
+<div class="popup-overlay" id="popupOverlay" onclick="handleOverlayClick(event)">
+  <div class="popup-box">
+    <div class="popup-header">
+      <span class="popup-title" data-i18n="popup-title">contact</span>
+      <button class="popup-close" onclick="closePopup()" data-i18n="popup-close">✕ close</button>
+    </div>
+    <div class="popup-form-title" data-i18n="popup-heading">CONTATO</div>
+    <form id="contactForm" onsubmit="submitForm(event)">
+      <div class="popup-fields">
+        <div class="popup-field">
+          <label data-i18n="field-name">Nome</label>
+          <input type="text" name="name" placeholder="Gyulyia" required autocomplete="off">
+        </div>
+        <div class="popup-field">
+          <label data-i18n="field-email">E-mail</label>
+          <input type="email" name="email" placeholder="gyulyia3d@gmail.com" required autocomplete="off">
+        </div>
+        <div class="popup-field full">
+          <label data-i18n="field-phone">Telefone</label>
+          <input type="tel" name="phone" placeholder="+55 (11) 9 0000-0000" autocomplete="off">
+        </div>
+        <div class="popup-field full">
+          <label data-i18n="field-message">Mensagem</label>
+          <textarea name="message" rows="4" placeholder="Olá Gyulyia..." required></textarea>
+        </div>
+      </div>
+      <div class="popup-actions">
+        <button type="submit" class="popup-btn">
+          <span data-i18n="btn-send">Enviar</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+        <a href="https://instagram.com/gyulyia" target="_blank" rel="noopener" class="popup-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          <span data-i18n="btn-instagram">Instagram</span>
+        </a>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- [PLAY]/[PAUSE] segue cursor -->
+<div class="hero-playpause" id="heroPlayPause">[PAUSE]</div>
+
+<!-- HERO -->
+<section class="hero" id="heroSection">
+  <!-- dois vídeos para crossfade -->
+  <div class="hero-video-wrap">
+    <video class="hero-vid active" id="heroVidA" autoplay muted playsinline
+      src="https://mfaofirmvmoiqajpeajh.supabase.co/storage/v1/object/public/videos/DeepWater.mp4"></video>
+    <video class="hero-vid" id="heroVidB" muted playsinline
+      src=""></video>
+  </div>
+  <div class="hero-overlay"></div>
+
+  <!-- 4 textos centralizados — aparecem no hover, clicáveis -->
+  <div class="hero-meta-row" id="heroMetaRow">
+    <a class="hero-meta-cell"   id="hMeta0" href="works/saltwind-motel.html">GYULYIA</a>
+    <a class="hero-meta-cell c" id="hMeta1" href="works/saltwind-motel.html">AGRADA GREGOS</a>
+    <a class="hero-meta-cell c" id="hMeta2" href="works/saltwind-motel.html">UNREAL ENGINE</a>
+    <a class="hero-meta-cell r" id="hMeta3" href="works/saltwind-motel.html">2024</a>
+  </div>
+
+  <!-- bottom bar — textos animados na troca -->
+  <div class="hero-info">
+    <div class="hero-title-row">
+      <div class="hero-cell"><span class="hero-cell-inner" id="hTitle">GYULYIA</span></div>
+      <div class="hero-cell center"><span class="hero-cell-inner" id="hClient">DEMO REEL 2026</span></div>
+      <div class="hero-cell center"><span class="hero-cell-inner" id="hLoc">SÃO PAULO, BRAZIL</span></div>
+      <div class="hero-cell right"><span class="hero-cell-inner" id="hYear">2026</span></div>
+    </div>
+  </div>
+
+  <span class="hero-counter" id="heroCounter">01 / 04</span>
+  <a href="#latest" class="hero-scroll">scroll down</a>
+  <div class="hero-progress"><div class="hero-progress-bar" id="heroBar"></div></div>
+</section>
+
+<!-- CLIENTS — logo abaixo do hero -->
+<section class="sec-clients">
+  <div class="clients-label reveal" data-i18n="clients-label">clients</div>
+  <div class="clients-text reveal" data-i18n="clients-text">
+    RACIONAIS MC'S | FORBES | IVETE SANGALO | MATUÊ | PABLLO VITTAR | PEDRO SAMPAIO | LINIKER | MOCHAKK | GLORIA GROOVE | ROCK IN RIO | KILLATK | TONI GARRIDO | LATINO | VIVACIDADE AMOSTRA | EXPOSIÇÃO "OS MUNDOS DE LEONARDO DA VINCI" | EXPOSIÇÃO "MARÉ DE MUDANÇAS" | BIJARI STUDIO | FESTA DA LUZ | SSA MAPPING | CENA FESTIVAL | ARCANE — RIOT GAMES | SP-ARTE + BRIFW | BURNING MAN | BIENAL DO LIVRO | WORKSHOP "UNREAL PARA FILMMAKERS" — CREATIVE MONSTERS SCHOOL
+  </div>
+</section>
+
+<!-- SECTION LATEST -->
+<section class="sec-latest" id="latest">
+  <div class="container">
+    <div class="sec-header reveal">
+      <h1>HIGHLIGHTS</h1>
+      <svg style="width:80px;height:80px;flex-shrink:0" viewBox="0 0 160 162" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M 73.846 161.829 L 73.846 21.829 L 9.231 81.829 L 0 74.286 L 80 0 L 160 74.286 L 150.769 81.829 L 86.154 21.829 L 86.154 161.829 Z" fill="black" transform="rotate(45 80 80.914)"/>
+      </svg>
+    </div>
+    <div class="works-grid">
+
+      <!-- ITEM 1 -->
+      <a class="work-item reveal" href="works/racionais-mcs.html">
+        <div class="work-thumb-wrap">
+          <video autoplay muted loop playsinline src="https://mfaofirmvmoiqajpeajh.supabase.co/storage/v1/object/public/videos/TEMPOS_GIU_1.mp4"></video>
+          <div class="work-hover-overlay">
+            <div></div>
+            <div class="work-hover-bottom">
+              <span class="work-hover-cell">Racionais MC's</span>
+              <span class="work-hover-cell c">Boogie Week, Podpah e A77</span>
+              <span class="work-hover-cell c">São Paulo</span>
+              <span class="work-hover-cell r">2025</span>
+            </div>
+          </div>
+          <span class="work-view-label">VIEW</span>
+        </div>
+        <div class="work-meta">
+          <div class="work-meta-left">
+            <span class="work-name">Racionais MC's</span>
+            <span class="work-brand">A77 LAB</span>
+          </div>
+          <span class="work-date">2025</span>
+        </div>
+      </a>
+
+      <!-- ITEM 2 -->
+      <a class="work-item reveal" href="works/ivete-sangalo.html">
+        <div class="work-thumb-wrap">
+          <video autoplay muted loop playsinline src="https://mfaofirmvmoiqajpeajh.supabase.co/storage/v1/object/public/videos/ivete.mp4"></video>
+          <div class="work-hover-overlay">
+            <div></div>
+            <div class="work-hover-bottom">
+              <span class="work-hover-cell">Ivete Sangalo</span>
+              <span class="work-hover-cell c">Rock in Rio</span>
+              <span class="work-hover-cell c">Lisboa</span>
+              <span class="work-hover-cell r">2025</span>
+            </div>
+          </div>
+          <span class="work-view-label">VIEW</span>
+        </div>
+        <div class="work-meta">
+          <div class="work-meta-left">
+            <span class="work-name">Ivete Sangalo</span>
+            <span class="work-brand">Rock in Rio</span>
+          </div>
+          <span class="work-date">2025</span>
+        </div>
+      </a>
+
+      <!-- ITEM 3 -->
+      <a class="work-item reveal" href="works/pedro-sampaio.html">
+        <div class="work-thumb-wrap">
+          <img src="https://mfaofirmvmoiqajpeajh.supabase.co/storage/v1/object/public/videos/pedro.png" alt="Pedro Sampaio">
+          <div class="work-hover-overlay">
+            <div></div>
+            <div class="work-hover-bottom">
+              <span class="work-hover-cell">Pedro Sampaio</span>
+              <span class="work-hover-cell c">Rock in Rio</span>
+              <span class="work-hover-cell c">Lisboa</span>
+              <span class="work-hover-cell r">2026</span>
+            </div>
+          </div>
+          <span class="work-view-label">VIEW</span>
+        </div>
+        <div class="work-meta">
+          <div class="work-meta-left">
+            <span class="work-name">Pedro Sampaio</span>
+            <span class="work-brand">Rock in Rio Lisboa</span>
+          </div>
+          <span class="work-date">2026</span>
+        </div>
+      </a>
+
+      <!-- ITEM 4 — vídeo → substitua src por URL do Supabase -->
+      <a class="work-item reveal" href="works/saltwind-motel.html">
+        <div class="work-thumb-wrap">
+          <video autoplay muted loop playsinline src="https://framerusercontent.com/assets/bV45ZFxzcVbOzAY3AVe4DEu48QI.mp4"></video>
+          <div class="work-hover-overlay">
+            <div></div>
+            <div class="work-hover-bottom">
+              <span class="work-hover-cell">Mochakk World Tour</span>
+              <span class="work-hover-cell c">Mochakk</span>
+              <span class="work-hover-cell c">France</span>
+              <span class="work-hover-cell r">2022</span>
+            </div>
+          </div>
+          <span class="work-view-label">VIEW</span>
+        </div>
+        <div class="work-meta">
+          <div class="work-meta-left">
+            <span class="work-name">Mochakk World Tour</span>
+            <span class="work-brand">Mochakk</span>
+          </div>
+          <span class="work-date">2022</span>
+        </div>
+      </a>
+
+      <!-- ITEM 5 — vídeo → substitua src por URL do Supabase -->
+      <a class="work-item reveal" href="works/saltwind-motel.html">
+        <div class="work-thumb-wrap">
+          <video autoplay muted loop playsinline src="https://framerusercontent.com/assets/jpCu5NfkRAYGPf9sAsTclehjPU.mp4"></video>
+          <div class="work-hover-overlay">
+            <div></div>
+            <div class="work-hover-bottom">
+              <span class="work-hover-cell">SSA Mapping</span>
+              <span class="work-hover-cell c">Festa da Luz</span>
+              <span class="work-hover-cell c">Bahia, Brazil</span>
+              <span class="work-hover-cell r">2023</span>
+            </div>
+          </div>
+          <span class="work-view-label">VIEW</span>
+        </div>
+        <div class="work-meta">
+          <div class="work-meta-left">
+            <span class="work-name">SSA Mapping</span>
+            <span class="work-brand">Festa da Luz</span>
+          </div>
+          <span class="work-date">2023</span>
+        </div>
+      </a>
+
+      <!-- ITEM 6 — imagem → substitua src por URL do Supabase -->
+      <a class="work-item reveal" href="works/saltwind-motel.html">
+        <div class="work-thumb-wrap">
+          <img src="https://framerusercontent.com/images/RXvN2EH3fJ86vgxm6sNmJavO6go.png" alt="Burning Man">
+          <div class="work-hover-overlay">
+            <div></div>
+            <div class="work-hover-bottom">
+              <span class="work-hover-cell">Burning Man</span>
+              <span class="work-hover-cell c">AR JAM — SP-Arte</span>
+              <span class="work-hover-cell c">Nevada, USA</span>
+              <span class="work-hover-cell r">2021</span>
+            </div>
+          </div>
+          <span class="work-view-label">VIEW</span>
+        </div>
+        <div class="work-meta">
+          <div class="work-meta-left">
+            <span class="work-name">Burning Man</span>
+            <span class="work-brand">AR JAM — SP-Arte</span>
+          </div>
+          <span class="work-date">2021</span>
+        </div>
+      </a>
+
+      <!-- ITEM 7 -->
+      <a class="work-item reveal" href="works/mare-morta.html">
+        <div class="work-thumb-wrap">
+          <video autoplay muted loop playsinline src="https://mfaofirmvmoiqajpeajh.supabase.co/storage/v1/object/public/videos/document_5042045963439442314.mp4"></video>
+          <div class="work-hover-overlay">
+            <div></div>
+            <div class="work-hover-bottom">
+              <span class="work-hover-cell">Maré Morta</span>
+              <span class="work-hover-cell c">ART EXHIBITIONS</span>
+              <span class="work-hover-cell c">National Tour</span>
+              <span class="work-hover-cell r">2025-2026</span>
+            </div>
+          </div>
+          <span class="work-view-label">VIEW</span>
+        </div>
+        <div class="work-meta">
+          <div class="work-meta-left">
+            <span class="work-name">Maré Morta</span>
+            <span class="work-brand">ART EXHIBITIONS</span>
+          </div>
+          <span class="work-date">2025-2026</span>
+        </div>
+      </a>
+
+      <!-- ITEM 8 — imagem → substitua src por URL do Supabase -->
+      <a class="work-item reveal" href="works/saltwind-motel.html">
+        <div class="work-thumb-wrap">
+          <img src="https://framerusercontent.com/images/uOCaxIUgozaMetfMLVPj9TlVJ4.png" alt="Festa da Luz">
+          <div class="work-hover-overlay">
+            <div></div>
+            <div class="work-hover-bottom">
+              <span class="work-hover-cell">Festa da Luz</span>
+              <span class="work-hover-cell c">National Brazilian Tour</span>
+              <span class="work-hover-cell c">Brazil</span>
+              <span class="work-hover-cell r">2023</span>
+            </div>
+          </div>
+          <span class="work-view-label">VIEW</span>
+        </div>
+        <div class="work-meta">
+          <div class="work-meta-left">
+            <span class="work-name">Festa da Luz</span>
+            <span class="work-brand">National Brazilian Tour</span>
+          </div>
+          <span class="work-date">2023</span>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- SETA → ABOUT (clicável para página about) -->
+    <a class="about-redirect reveal" href="#about">
+      <div class="about-redirect-inner">
+        <h1>about</h1>
+        <svg style="width:80px;height:80px;flex-shrink:0" viewBox="0 0 160 162" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M 73.846 161.829 L 73.846 21.829 L 9.231 81.829 L 0 74.286 L 80 0 L 160 74.286 L 150.769 81.829 L 86.154 21.829 L 86.154 161.829 Z" fill="black" transform="rotate(45 80 80.914)"/>
+        </svg>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- SECTION ABOUT / SERVICES -->
+<section class="sec-about" id="about">
+  <div class="about-grid reveal">
+
+    <!-- COL 1 — identity -->
+    <div class="about-block" style="gap:0;line-height:1.2em">
+      <div class="about-block-item" style="color:var(--black)">gyulyia</div>
+      <div class="about-block-item" style="color:var(--black)" data-i18n="ab-role1">Technical Creative &</div>
+      <div class="about-block-item" style="color:var(--black)" data-i18n="ab-role2">Computer-Graphics Artist</div>
+      <div class="about-block-item" style="color:var(--black)" data-i18n="ab-since">Since 2020</div>
+      <div class="about-block-item" style="color:var(--black);margin-top:12px;max-width:240px;line-height:1.5em" data-i18n="ab-bio">
+        Multimedia artist from São Paulo, specialized in animation, immersion, and expanded audiovisual.
+      </div>
+    </div>
+
+    <!-- COL 2 — services -->
+    <div class="about-block">
+      <div class="about-block-item" style="color:var(--gray)" data-i18n="ab-services">services</div>
+      <div class="about-block-item">VJ Performance</div>
+      <div class="about-block-item">Virtual Production</div>
+      <div class="about-block-item">Generative Art</div>
+      <div class="about-block-item" data-i18n="ab-3dart">3D Art & Animation</div>
+      <div class="about-block-item" data-i18n="ab-immersive">Immersive Installations</div>
+      <div class="about-block-item" data-i18n="ab-direction">Creative Direction</div>
+      <div class="about-block-item">Motion Graphics</div>
+      <div class="about-block-item">AI & Vibe Coding</div>
+      <div class="about-block-item" data-i18n="ab-mapping">Mapping Projection</div>
+      <div class="about-block-item">Real-Time Performance</div>
+      <div class="about-block-item" data-i18n="ab-artdir">Art Direction</div>
+      <div class="about-block-item" data-i18n="ab-script">Script & Narrative</div>
+      <div class="about-block-item" data-i18n="ab-scouting">Technical Scouting</div>
+      <div class="about-block-item" data-i18n="ab-workshops">Educational Workshops</div>
+    </div>
+
+    <!-- COL 3 — focus -->
+    <div class="about-block">
+      <div class="about-block-item" style="color:var(--gray)" data-i18n="ab-focus">focus</div>
+      <div class="about-block-item" data-i18n="ab-festivals">Festivals</div>
+      <div class="about-block-item" data-i18n="ab-museums">Museums</div>
+      <div class="about-block-item" data-i18n="ab-cultural">Cultural Centers</div>
+      <div class="about-block-item" data-i18n="ab-corporate">Corporate Events</div>
+      <div class="about-block-item" data-i18n="ab-stage">Stage Visuals</div>
+      <div class="about-block-item" data-i18n="ab-campaigns">Campaigns</div>
+      <div class="about-block-item" data-i18n="ab-mapping2">Mapping Projections</div>
+      <div class="about-block-item" data-i18n="ab-music">Music Videos</div>
+      <div class="about-block-item" data-i18n="ab-live">Live Performances</div>
+      <div class="about-block-item" data-i18n="ab-gallery">Gallery Exhibitions</div>
+      <div class="about-block-item" data-i18n="ab-brand">Brand Activations</div>
+    </div>
+
+    <!-- COL 4 — capabilities -->
+    <div class="about-block">
+      <div class="about-block-item" style="color:var(--gray)" data-i18n="ab-capabilities">capabilities</div>
+      <div class="about-block-item">Unreal Engine</div>
+      <div class="about-block-item">Autodesk Maya</div>
+      <div class="about-block-item">Cinema 4D</div>
+      <div class="about-block-item">Artificial Intelligence</div>
+      <div class="about-block-item">Adobe Package</div>
+      <div class="about-block-item">Web Design</div>
+      <div class="about-block-item">Resolume</div>
+      <div class="about-block-item">TouchDesigner</div>
+      <div class="about-block-item">WebGL / GLSL</div>
+      <div class="about-block-item">Three.js</div>
+      <div class="about-block-item">AR / VR / XR</div>
+    </div>
+
+  </div>
+
+  <!-- BOTTOM ROW — formation, presence, instructor -->
+  <div class="about-grid-bottom reveal">
+
+    <!-- formation & prizes -->
+    <div class="about-block">
+      <div class="about-block-item" style="color:var(--gray)" data-i18n="ab-formation">formation & prizes</div>
+      <div class="about-block-item">Faculdade Méliès</div>
+      <div class="about-block-item" data-i18n="ab-degree">Degree in Audiovisual Production</div>
+      <div class="about-block-item" style="font-weight:700">Merit Scholarship — 1st Place</div>
+      <div class="about-block-item" style="margin-top:8px">SP-ARTE + Brazil Immersive Fashion Week</div>
+      <div class="about-block-item" style="font-weight:700">AR JAM — 1st Place</div>
+    </div>
+
+    <!-- presence -->
+    <div class="about-block">
+      <div class="about-block-item" style="color:var(--gray)" data-i18n="ab-presence">presence</div>
+      <div class="about-block-item">Rock in Rio — Lisbon and Brazil</div>
+      <div class="about-block-item">Parque Jardim Botânico — Espírito Santo, Brazil</div>
+      <div class="about-block-item">Museu Oceanográfico — Rio Grande do Sul, Brazil</div>
+      <div class="about-block-item">SSA Mapping — Bahia, Brazil</div>
+      <div class="about-block-item">Vivacidade Amostra — São Paulo, Brazil</div>
+      <div class="about-block-item">Museu da Ciência e Criatividade — Rio de Janeiro, Brazil</div>
+      <div class="about-block-item" data-i18n="ab-festaluz">Festa da Luz — National Brazilian Tour</div>
+      <div class="about-block-item">SP-ARTE — São Paulo, Brazil</div>
+      <div class="about-block-item">Mochakk World Tour — France</div>
+      <div class="about-block-item">Festa das Luzes — Minas Gerais, Brazil</div>
+      <div class="about-block-item">Burning Man — USA</div>
+    </div>
+
+    <!-- instructor -->
+    <div class="about-block">
+      <div class="about-block-item" style="color:var(--gray)">instructor</div>
+      <div class="about-block-item" style="font-weight:700">Epic Games — Online Instructor, Authorized</div>
+      <div class="about-block-item" style="margin-top:8px">Unreal Engine: Cinematics for Independent Artists — Creative Monsters School</div>
+      <div class="about-block-item" style="margin-top:8px">Anamorphic Billboards Techniques — Orbital School</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SECTION BANNER (dark, full video) -->
+<section class="sec-banner">
+  <div class="banner-video-wrap">
+    <video autoplay muted loop playsinline src="https://mfaofirmvmoiqajpeajh.supabase.co/storage/v1/object/public/videos/gyulyia.mp4"></video>
+  </div>
+</section>
+
+<!-- SECTION POINTS -->
+<section class="sec-points">
+  <div class="points-headline reveal">
+    <h2>A VJ & MULTIMEDIA ARTIST FOCUSED ON CRAFTING VISUAL NARRATIVES THAT BLEND EMOTION, RHYTHM, AND STORY INTO CINEMATIC TECHNIQUES AND NEW TECHNOLOGIES</h2>
+  </div>
+  <div class="points-desc reveal">
+    <div class="points-col">
+      <div class="points-col-label">PROJECT FOCUS</div>
+      <div class="points-col-text">DEVELOPING CONTENT FOR BRANDS, ARTISTS, FESTIVALS AND INSTITUTIONS — TRANSLATING IDEAS INTO COMPUTER GRAPHICS VISUAL STORIES THAT FEEL AUTHENTIC, INTENTIONAL, AND ALIVE.</div>
+    </div>
+    <div class="points-col" style="text-align:right">
+      <div class="points-col-label">APPROACH</div>
+      <div class="points-col-text">FROM ART DIRECTION TO REAL-TIME PERFORMANCE, THE WORKFLOW REMAINS FOCUSED ON STORYTELLING. EVERY PROJECT MUST LOOK MAGICAL AND ALIVE.</div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER GLOBAL — auto-scroll com hover P&B + link -->
+<div class="ticker-section" id="tickerGlobal">
+  <div class="ticker-outer">
+    <div class="ticker-track" id="tickerTrackGlobal">
+
+      <div class="ticker-card">
+        <video autoplay muted loop playsinline src="https://framerusercontent.com/assets/NeG2pJOMoF4UewAMHLzoxI0nF7Y.mp4"></video>
+        <div class="ticker-overlay"></div>
+        <span class="ticker-label">Golden Static</span>
+        <div class="ticker-caption"><span class="ticker-cap-name">AURELIA STUDIOS</span><span class="ticker-cap-idx">01</span></div>
+        <a class="ticker-link" href="works/saltwind-motel.html"></a>
+      </div>
+
+      <div class="ticker-card">
+        <video autoplay muted loop playsinline src="https://framerusercontent.com/assets/PjWqliZwgzcqWZiatBpYufPn9Q.mp4"></video>
+        <div class="ticker-overlay"></div>
+        <span class="ticker-label">Ultraviolet Bloom</span>
+        <div class="ticker-caption"><span class="ticker-cap-name">LUMORA LAB</span><span class="ticker-cap-idx">02</span></div>
+        <a class="ticker-link" href="works/saltwind-motel.html"></a>
+      </div>
+
+      <div class="ticker-card">
+        <img src="https://framerusercontent.com/images/FkXs0Sgl2G5XBRhdacfHqAALTTg.jpg?width=640" alt="">
+        <div class="ticker-overlay"></div>
+        <span class="ticker-label">Aurora Motion</span>
+        <div class="ticker-caption"><span class="ticker-cap-name">AURORA MOTION</span><span class="ticker-cap-idx">03</span></div>
+        <a class="ticker-link" href="works/saltwind-motel.html"></a>
+      </div>
+
+      <div class="ticker-card">
+        <video autoplay muted loop playsinline src="https://framerusercontent.com/assets/jpCu5NfkRAYGPf9sAsTclehjPU.mp4"></video>
+        <div class="ticker-overlay"></div>
+        <span class="ticker-label">The Quiet Parade</span>
+        <div class="ticker-caption"><span class="ticker-cap-name">RIVERA COLLECTIVE</span><span class="ticker-cap-idx">04</span></div>
+        <a class="ticker-link" href="works/saltwind-motel.html"></a>
+      </div>
+
+      <div class="ticker-card">
+        <video autoplay muted loop playsinline src="https://framerusercontent.com/assets/bV45ZFxzcVbOzAY3AVe4DEu48QI.mp4"></video>
+        <div class="ticker-overlay"></div>
+        <span class="ticker-label">Cobalt Season</span>
+        <div class="ticker-caption"><span class="ticker-cap-name">CASA LUMI</span><span class="ticker-cap-idx">05</span></div>
+        <a class="ticker-link" href="works/saltwind-motel.html"></a>
+      </div>
+
+      <div class="ticker-card">
+        <video autoplay muted loop playsinline src="https://framerusercontent.com/assets/zr6SYymnXKDlRzC65KHgSxkOU.mp4"></video>
+        <div class="ticker-overlay"></div>
+        <span class="ticker-label">Horizon Film Co.</span>
+        <div class="ticker-caption"><span class="ticker-cap-name">HORIZON FILM CO.</span><span class="ticker-cap-idx">06</span></div>
+        <a class="ticker-link" href="works/saltwind-motel.html"></a>
+      </div>
+
+      <div class="ticker-card">
+        <video autoplay muted loop playsinline src="https://framerusercontent.com/assets/0qjxFiW2lHTlIaW8nYafAc25w.mp4"></video>
+        <div class="ticker-overlay"></div>
+        <span class="ticker-label">Saltwind Motel</span>
+        <div class="ticker-caption"><span class="ticker-cap-name">VOID COLLECTIVE</span><span class="ticker-cap-idx">07</span></div>
+        <a class="ticker-link" href="works/saltwind-motel.html"></a>
+      </div>
+
+      <div class="ticker-card">
+        <img src="https://framerusercontent.com/images/FkXs0Sgl2G5XBRhdacfHqAALTTg.jpg?width=640" alt="">
+        <div class="ticker-overlay"></div>
+        <span class="ticker-label">Signal Films</span>
+        <div class="ticker-caption"><span class="ticker-cap-name">SIGNAL FILMS</span><span class="ticker-cap-idx">08</span></div>
+        <a class="ticker-link" href="works/saltwind-motel.html"></a>
+      </div>
+
+      <!-- duplicatas loop seamless -->
+      <div class="ticker-card">
+        <video autoplay muted loop playsinline src="https://framerusercontent.com/assets/NeG2pJOMoF4UewAMHLzoxI0nF7Y.mp4"></video>
+        <div class="ticker-overlay"></div>
+        <span class="ticker-label">Golden Static</span>
+        <div class="ticker-caption"><span class="ticker-cap-name">AURELIA STUDIOS</span><span class="ticker-cap-idx">01</span></div>
+        <a class="ticker-link" href="works/saltwind-motel.html"></a>
+      </div>
+      <div class="ticker-card">
+        <video autoplay muted loop playsinline src="https://framerusercontent.com/assets/PjWqliZwgzcqWZiatBpYufPn9Q.mp4"></video>
+        <div class="ticker-overlay"></div>
+        <span class="ticker-label">Ultraviolet Bloom</span>
+        <div class="ticker-caption"><span class="ticker-cap-name">LUMORA LAB</span><span class="ticker-cap-idx">02</span></div>
+        <a class="ticker-link" href="works/saltwind-motel.html"></a>
+      </div>
+      <div class="ticker-card">
+        <img src="https://framerusercontent.com/images/FkXs0Sgl2G5XBRhdacfHqAALTTg.jpg?width=640" alt="">
+        <div class="ticker-overlay"></div>
+        <span class="ticker-label">Aurora Motion</span>
+        <div class="ticker-caption"><span class="ticker-cap-name">AURORA MOTION</span><span class="ticker-cap-idx">03</span></div>
+        <a class="ticker-link" href="works/saltwind-motel.html"></a>
+      </div>
+      <div class="ticker-card">
+        <video autoplay muted loop playsinline src="https://framerusercontent.com/assets/jpCu5NfkRAYGPf9sAsTclehjPU.mp4"></video>
+        <div class="ticker-overlay"></div>
+        <span class="ticker-label">The Quiet Parade</span>
+        <div class="ticker-caption"><span class="ticker-cap-name">RIVERA COLLECTIVE</span><span class="ticker-cap-idx">04</span></div>
+        <a class="ticker-link" href="works/saltwind-motel.html"></a>
+      </div>
+      <div class="ticker-card">
+        <video autoplay muted loop playsinline src="https://framerusercontent.com/assets/bV45ZFxzcVbOzAY3AVe4DEu48QI.mp4"></video>
+        <div class="ticker-overlay"></div>
+        <span class="ticker-label">Cobalt Season</span>
+        <div class="ticker-caption"><span class="ticker-cap-name">CASA LUMI</span><span class="ticker-cap-idx">05</span></div>
+        <a class="ticker-link" href="works/saltwind-motel.html"></a>
+      </div>
+      <div class="ticker-card">
+        <video autoplay muted loop playsinline src="https://framerusercontent.com/assets/zr6SYymnXKDlRzC65KHgSxkOU.mp4"></video>
+        <div class="ticker-overlay"></div>
+        <span class="ticker-label">Horizon Film Co.</span>
+        <div class="ticker-caption"><span class="ticker-cap-name">HORIZON FILM CO.</span><span class="ticker-cap-idx">06</span></div>
+        <a class="ticker-link" href="works/saltwind-motel.html"></a>
+      </div>
+      <div class="ticker-card">
+        <video autoplay muted loop playsinline src="https://framerusercontent.com/assets/0qjxFiW2lHTlIaW8nYafAc25w.mp4"></video>
+        <div class="ticker-overlay"></div>
+        <span class="ticker-label">Saltwind Motel</span>
+        <div class="ticker-caption"><span class="ticker-cap-name">VOID COLLECTIVE</span><span class="ticker-cap-idx">07</span></div>
+        <a class="ticker-link" href="works/saltwind-motel.html"></a>
+      </div>
+      <div class="ticker-card">
+        <img src="https://framerusercontent.com/images/FkXs0Sgl2G5XBRhdacfHqAALTTg.jpg?width=640" alt="">
+        <div class="ticker-overlay"></div>
+        <span class="ticker-label">Signal Films</span>
+        <div class="ticker-caption"><span class="ticker-cap-name">SIGNAL FILMS</span><span class="ticker-cap-idx">08</span></div>
+        <a class="ticker-link" href="works/saltwind-motel.html"></a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER REVEAL WRAPPER — sticky scroll effect -->
+<div class="footer-reveal-wrap" id="footerRevealWrap">
+
+  <!-- SECTION FINAL BANNER — sticky, revealed by scroll -->
+  <section class="sec-final" id="secFinal">
+    <div class="final-bg">
+      <img src="https://framerusercontent.com/images/FkXs0Sgl2G5XBRhdacfHqAALTTg.jpg?width=2048" alt="">
+    </div>
+    <div class="final-overlay"></div>
+    <!-- corner marks -->
+    <div class="corner c-tl"><svg viewBox="0 0 8 8" overflow="visible"><path d="M 0 8 L 0 0 L 8 0" fill="none" stroke="white" stroke-width="1.3"/></svg></div>
+    <div class="corner c-bl"><svg viewBox="0 0 8 8" overflow="visible"><path d="M 0 8 L 0 0 L 8 0" fill="none" stroke="white" stroke-width="1.3"/></svg></div>
+    <div class="corner c-tr"><svg viewBox="0 0 8 8" overflow="visible"><path d="M 0 8 L 0 0 L 8 0" fill="none" stroke="white" stroke-width="1.3"/></svg></div>
+    <div class="corner c-br"><svg viewBox="0 0 8 8" overflow="visible"><path d="M 0 8 L 0 0 L 8 0" fill="none" stroke="white" stroke-width="1.3"/></svg></div>
+    <div class="final-content">
+      <div class="final-est-row">
+        <span class="final-small">est.</span>
+      </div>
+      <div class="final-mid-row">
+        <span class="final-small" style="padding-left:20px">20</span>
+        <h2 class="final-mid-h" id="finalMidH">TECHNICAL CREATIVE &<br>COMPUTER-GRAPHICS ARTIST</h2>
+        <span class="final-small" style="padding-right:20px">20</span>
+      </div>
+      <div class="final-letters-row">
+        <span class="final-big">GYULYIA</span>
+        <span class="final-big">.</span>
+        <span class="final-big">COM</span>
+        <span class="final-big" style="text-align:right">®</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER — white, sits below the banner -->
+  <footer id="contact">
+    <div class="footer-inner-wrap">
+      <!-- top bar: all rights / name / year -->
+      <div class="footer-top-bar">
+        <span class="footer-small">all rights reserved</span>
+        <span class="footer-small" style="text-align:center">gyulyia</span>
+        <span class="footer-small" style="text-align:right">©2026</span>
+      </div>
+
+      <!-- CTA BOX — hover swaps text ↔ email -->
+      <div class="footer-cta-wrap">
+        <a class="footer-cta-box" href="mailto:gyulyia3d@gmail.com" id="ctaBox">
+          <!-- corner marks -->
+          <div class="cta-corner cta-tl"><svg viewBox="0 0 8 8" overflow="visible"><path d="M 0 8 L 0 0 L 8 0" fill="none" stroke="black" stroke-width="1.3" opacity=".2"/></svg></div>
+          <div class="cta-corner cta-tr"><svg viewBox="0 0 8 8" overflow="visible"><path d="M 0 8 L 0 0 L 8 0" fill="none" stroke="black" stroke-width="1.3" opacity=".2"/></svg></div>
+          <div class="cta-corner cta-bl"><svg viewBox="0 0 8 8" overflow="visible"><path d="M 0 8 L 0 0 L 8 0" fill="none" stroke="black" stroke-width="1.3" opacity=".2"/></svg></div>
+          <div class="cta-corner cta-br"><svg viewBox="0 0 8 8" overflow="visible"><path d="M 0 8 L 0 0 L 8 0" fill="none" stroke="black" stroke-width="1.3" opacity=".2"/></svg></div>
+
+          <!-- text layer (default) -->
+          <div class="cta-text-layer" id="ctaText">
+            <span class="cta-line">EVERY FRAME</span>
+            <span class="cta-line">EVERY MOVEMENT, EVERY DETAIL</span>
+            <span class="cta-line">CARRIES INTENT</span>
+          </div>
+          <!-- email layer (hover) -->
+          <div class="cta-email-layer" id="ctaEmail">
+            <span class="cta-line cta-email-str">gyulyia3d@gmail.com</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- footer links grid -->
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4 data-i18n="footer-nav">navigation</h4>
+          <a href="#" class="hl" data-i18n="nav-home">home</a>
+          <a href="#latest" class="hl" data-i18n="nav-index">index</a>
+          <a href="#latest" class="hl" data-i18n="nav-work">work</a>
+          <a href="#about" class="hl" data-i18n="nav-info">info</a>
+          <a href="#" onclick="openPopup();return false;" class="hl" data-i18n="nav-contact">contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>contacts</h4>
+          <a href="mailto:gyulyia3d@gmail.com" class="hl">gyulyia3d@gmail.com</a>
+          <a href="https://gyulyia.com" class="hl">gyulyia.com</a>
+        </div>
+        <div class="footer-col">
+          <h4>policies</h4>
+          <span>privacy policy</span>
+          <span>cookies policy</span>
+        </div>
+        <div class="footer-col">
+          <h4>social</h4>
+          <a href="https://instagram.com/gyulyia" target="_blank" rel="noopener" class="hl">instagram</a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener" class="hl">linkedin</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom-bar">
+        <span class="footer-small">all rights reserved — gyulyia® — ©2026</span>
+        <span class="footer-small">são paulo, brazil</span>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script>
+// ── CLOCK ────────────────────────────────────────────
+function updateClock(){
+  const t=new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:true,timeZone:'America/Sao_Paulo'});
+  const el=document.getElementById('navTime');if(el)el.textContent=t;
+}
+updateClock();setInterval(updateClock,1000);
+
+// ── CURSOR ───────────────────────────────────────────
+const cur=document.getElementById('cur'),ring=document.getElementById('curRing');
+const pp=document.getElementById('heroPlayPause');
+const heroSection=document.getElementById('heroSection');
+let mx=0,my=0,rx=0,ry=0;
+
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  cur.style.left=mx+'px';cur.style.top=my+'px';
+  if(heroSection.matches(':hover')){
+    pp.style.left=mx+'px';pp.style.top=my+'px';
+  }
+});
+(function animRing(){
+  rx+=(mx-rx)*.1;ry+=(my-ry)*.1;
+  ring.style.left=rx+'px';ring.style.top=ry+'px';
+  requestAnimationFrame(animRing);
+})();
+document.querySelectorAll('a,button,.work-item').forEach(el=>{
+  el.addEventListener('mouseenter',()=>ring.classList.add('big'));
+  el.addEventListener('mouseleave',()=>ring.classList.remove('big'));
+});
+
+// ── HERO DATA ────────────────────────────────────────
+const heroData=[
+  {src:'https://framerusercontent.com/assets/NeG2pJOMoF4UewAMHLzoxI0nF7Y.mp4',
+   title:'GYULYIA',client:'FESTIVAL AGRADA GREGOS',location:'UNREAL ENGINE',year:'2024',
+   href:'works/agrada-gregos.html'},
+  {src:'https://mfaofirmvmoiqajpeajh.supabase.co/storage/v1/object/public/videos/Cena1_LVLSequence%20(1).mp4',
+   title:'GYULYIA',client:'FESTIVAL AGRADA GREGOS',location:'UNREAL ENGINE',year:'2024',
+   href:'works/saltwind-motel.html'},
+  {src:'https://framerusercontent.com/assets/jpCu5NfkRAYGPf9sAsTclehjPU.mp4',
+   title:'INSTALAÇÃO',client:'VIRTUAL PRODUCTION',location:'SÃO PAULO, BRAZIL',year:'2024',
+   href:'works/saltwind-motel.html'},
+  {src:'https://framerusercontent.com/assets/bV45ZFxzcVbOzAY3AVe4DEu48QI.mp4',
+   title:'GENERATIVE ART',client:'UNREAL ENGINE',location:'SÃO PAULO, BRAZIL',year:'2023',
+   href:'works/saltwind-motel.html'},
+];
+let hIdx=0,transitioning=false,isPlaying=true;
+
+const vidA=document.getElementById('heroVidA');
+const vidB=document.getElementById('heroVidB');
+const hBar=document.getElementById('heroBar');
+const hCounter=document.getElementById('heroCounter');
+
+// meta row cells
+const metas=[
+  document.getElementById('hMeta0'),document.getElementById('hMeta1'),
+  document.getElementById('hMeta2'),document.getElementById('hMeta3'),
+];
+// bottom bar cells
+const cells=[
+  document.getElementById('hTitle'),document.getElementById('hClient'),
+  document.getElementById('hLoc'),document.getElementById('hYear'),
+];
+
+let activeVid=vidA,nextVid=vidB;
+
+// ── ANIMATE TEXT OUT/IN ──────────────────────────────
+function animateTextOut(cb){
+  cells.forEach((c,i)=>{
+    c.style.transitionDelay=(i*.06)+'s';
+    c.classList.add('exit-up');
+  });
+  setTimeout(cb,350);
+}
+function setTexts(d){
+  const vals=[d.title,d.client,d.location,d.year];
+  cells.forEach((c,i)=>{
+    c.classList.remove('exit-up','enter-down','in');
+    c.textContent=vals[i];
+    void c.offsetWidth; // reflow
+    c.classList.add('enter-down');
+    c.style.transitionDelay=(i*.06)+'s';
+    requestAnimationFrame(()=>requestAnimationFrame(()=>c.classList.add('in')));
+  });
+  // meta row
+  const metaVals=[d.title,d.client,d.location,d.year];
+  metas.forEach((m,i)=>{m.textContent=metaVals[i];m.href=d.href});
+  // counter
+  hCounter.textContent=String(hIdx+1).padStart(2,'0')+' / 0'+heroData.length;
+}
+
+// ── CROSSFADE TO NEXT ────────────────────────────────
+function goTo(idx){
+  if(transitioning)return;
+  transitioning=true;
+  hIdx=((idx%heroData.length)+heroData.length)%heroData.length;
+  const d=heroData[hIdx];
+
+  nextVid.src=d.src;
+  nextVid.muted=true;
+  nextVid.load();
+  nextVid.play().catch(()=>{});
+
+  // progress reset
+  hBar.style.transition='none';hBar.style.width='0%';
+
+  // animate text out, then crossfade video, then text in
+  animateTextOut(()=>{
+    // swap active/next
+    activeVid.classList.remove('active');
+    nextVid.classList.add('active');
+    // swap references
+    [activeVid,nextVid]=[nextVid,activeVid];
+    // text in
+    setTexts(d);
+    // re-attach timeupdate
+    attachProgress();
+    setTimeout(()=>{transitioning=false},500);
+  });
+}
+
+// ── PROGRESS BAR ─────────────────────────────────────
+function attachProgress(){
+  activeVid.addEventListener('timeupdate',onProgress);
+}
+function onProgress(){
+  if(activeVid.duration)
+    hBar.style.width=(activeVid.currentTime/activeVid.duration*100)+'%';
+  if(activeVid.ended){
+    activeVid.removeEventListener('timeupdate',onProgress);
+    goTo(hIdx+1);
+  }
+}
+
+// ── INIT ─────────────────────────────────────────────
+vidA.addEventListener('canplay',()=>{
+  vidA.classList.add('active');
+  cells.forEach(c=>{c.classList.remove('enter-down');c.classList.add('in')});
+},{once:true});
+setTexts(heroData[0]);
+attachProgress();
+vidA.play().catch(()=>{});
+
+// ── PLAY / PAUSE on click (hero) ─────────────────────
+heroSection.addEventListener('mouseenter',()=>pp.classList.add('vis'));
+heroSection.addEventListener('mouseleave',()=>pp.classList.remove('vis'));
+
+heroSection.addEventListener('click',e=>{
+  if(e.target.closest('a'))return;
+  if(isPlaying){
+    activeVid.pause();
+    pp.textContent='[PLAY]';isPlaying=false;
+  } else {
+    activeVid.play().catch(()=>{});
+    pp.textContent='[PAUSE]';isPlaying=true;
+  }
+});
+activeVid.addEventListener('play', ()=>{pp.textContent='[PAUSE]';isPlaying=true});
+activeVid.addEventListener('pause',()=>{pp.textContent='[PLAY]'; isPlaying=false});
+
+// ── SCROLL REVEAL ─────────────────────────────────────
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')});
+},{threshold:.08});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// ── CONTACT POPUP ────────────────────────────────────
+function openPopup(){
+  document.getElementById('popupOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closePopup(){
+  document.getElementById('popupOverlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+function handleOverlayClick(e){
+  if(e.target===document.getElementById('popupOverlay')) closePopup();
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closePopup();});
+
+function submitForm(e){
+  e.preventDefault();
+  const f=document.getElementById('contactForm');
+  const name=f.name.value;
+  const email=f.email.value;
+  const phone=f.phone.value;
+  const message=f.message.value;
+  const subject=encodeURIComponent('Contato pelo site — '+name);
+  const body=encodeURIComponent(
+    'Nome: '+name+'\n'+
+    'E-mail: '+email+'\n'+
+    'Telefone: '+phone+'\n\n'+
+    message
+  );
+  window.location.href='mailto:gyulyia3d@gmail.com?subject='+subject+'&body='+body;
+}
+
+// ── I18N ─────────────────────────────────────────────
+const i18n={
+  en:{
+    'nav-contact':'contact',
+    'nav-home':'home','nav-index':'index','nav-work':'work','nav-info':'info',
+    'nav-role':'Creative Technologist: Multimedia Artist',
+    'nav-city':'based in são paulo, brazil',
+    'footer-nav':'navigation',
+    'popup-title':'contact','popup-close':'✕ close',
+    'popup-heading':'CONTACT',
+    'field-name':'Name','field-email':'E-mail',
+    'field-phone':'Phone','field-message':'Message',
+    'btn-send':'Send','btn-instagram':'Instagram',
+    'clients-label':'clients',
+    'clients-text':'RACIONAIS MC\'S | FORBES | IVETE SANGALO | MATUÊ | PABLLO VITTAR | PEDRO SAMPAIO | LINIKER | MOCHAKK | GLORIA GROOVE | ROCK IN RIO | KILLATK | TONI GARRIDO | LATINO | VIVACIDADE AMOSTRA | EXHIBITION "THE WORLDS OF LEONARDO DA VINCI" | EXHIBITION "MARÉ DE MUDANÇAS" | BIJARI STUDIO | FESTA DA LUZ | SSA MAPPING | CENA FESTIVAL | ARCANE — RIOT GAMES | SP-ARTE + BRIFW | BURNING MAN | BOOK FAIR | WORKSHOP "UNREAL FOR FILMMAKERS" — CREATIVE MONSTERS SCHOOL',
+    'hero-scroll':'scroll down',
+    'sec-latest':'HIGHLIGHTS',
+    'about-title':'about',
+    'banner-left':'TECHNICAL CREATIVE &<br>COMPUTER-GRAPHICS ARTIST',
+    'banner-right':'creating solutions<br>based in São Paulo, BR',
+    'points-headline':'A VJ & MULTIMEDIA ARTIST FOCUSED ON CRAFTING VISUAL NARRATIVES THAT BLEND EMOTION, RHYTHM, AND STORY INTO CINEMATIC TECHNIQUES AND NEW TECHNOLOGIES',
+    'points-focus-label':'PROJECT FOCUS',
+    'points-focus-text':'DEVELOPING CONTENT FOR BRANDS, ARTISTS, FESTIVALS AND INSTITUTIONS — TRANSLATING IDEAS INTO COMPUTER GRAPHICS VISUAL STORIES THAT FEEL AUTHENTIC, INTENTIONAL, AND ALIVE.',
+    'points-approach-label':'APPROACH',
+    'points-approach-text':'FROM ART DIRECTION TO REAL-TIME PERFORMANCE, THE WORKFLOW REMAINS FOCUSED ON STORYTELLING. EVERY PROJECT MUST LOOK MAGICAL AND ALIVE.',
+    'footer-all-rights':'all rights reserved — gyulyia® — ©2026',
+    'footer-city':'são paulo, brazil',
+    'cta-line1':'EVERY FRAME',
+    'cta-line2':'EVERY MOVEMENT, EVERY DETAIL MATTERS',
+    'cta-line3':'CONTACT ME',
+    'footer-nav-h':'navigation','footer-contacts-h':'contacts',
+    'footer-policies-h':'policies','footer-social-h':'social',
+    'footer-privacy':'privacy policy','footer-cookies':'cookies policy',
+    'footer-copyright':'all rights reserved',
+    // about col1 identity
+    'ab-role1':'Technical Creative &','ab-role2':'Computer-Graphics Artist',
+    'ab-since':'Since 2020',
+    'ab-bio':'Multimedia artist from São Paulo, specialized in animation, immersion, and expanded audiovisual.',
+    'final-mid':'TECHNICAL CREATIVE &<br>COMPUTER-GRAPHICS ARTIST',
+    // about labels
+    'ab-services':'services','ab-focus':'focus','ab-capabilities':'capabilities',
+    'ab-formation':'formation & prizes','ab-presence':'presence',
+    // about services (não traduzidos permanecem iguais)
+    'ab-3dart':'3D Art & Animation','ab-immersive':'Immersive Installations',
+    'ab-direction':'Creative Direction','ab-mapping':'Mapping Projection',
+    'ab-artdir':'Art Direction','ab-script':'Script & Narrative',
+    'ab-scouting':'Technical Scouting','ab-workshops':'Educational Workshops',
+    // about focus
+    'ab-festivals':'Festivals','ab-museums':'Museums','ab-cultural':'Cultural Centers',
+    'ab-corporate':'Corporate Events','ab-stage':'Stage Visuals','ab-campaigns':'Campaigns',
+    'ab-mapping2':'Mapping Projections','ab-music':'Music Videos',
+    'ab-live':'Live Performances','ab-gallery':'Gallery Exhibitions','ab-brand':'Brand Activations',
+    // about formation
+    'ab-degree':'Degree in Audiovisual Production',
+    'ab-festaluz':'Festa da Luz — National Brazilian Tour',
+  },
+  pt:{
+    'nav-contact':'contato',
+    'nav-home':'início','nav-index':'índice','nav-work':'trabalhos','nav-info':'sobre',
+    'nav-role':'Creative Technologist: Artist Multimídia',
+    'nav-city':'baseada em são paulo, brasil',
+    'footer-nav':'navegação',
+    'popup-title':'contato','popup-close':'✕ fechar',
+    'popup-heading':'CONTATO',
+    'field-name':'Nome','field-email':'E-mail',
+    'field-phone':'Telefone','field-message':'Mensagem',
+    'btn-send':'Enviar','btn-instagram':'Instagram',
+    'clients-label':'clientes',
+    'clients-text':'RACIONAIS MC\'S | FORBES | IVETE SANGALO | MATUÊ | PABLLO VITTAR | PEDRO SAMPAIO | LINIKER | MOCHAKK | GLORIA GROOVE | ROCK IN RIO | KILLATK | TONI GARRIDO | LATINO | VIVACIDADE AMOSTRA | EXPOSIÇÃO "OS MUNDOS DE LEONARDO DA VINCI" | EXPOSIÇÃO "MARÉ DE MUDANÇAS" | BIJARI STUDIO | FESTA DA LUZ | SSA MAPPING | CENA FESTIVAL | ARCANE — RIOT GAMES | SP-ARTE + BRIFW | BURNING MAN | BIENAL DO LIVRO | WORKSHOP "UNREAL PARA FILMMAKERS" — CREATIVE MONSTERS SCHOOL',
+    'hero-scroll':'rolar para baixo',
+    'sec-latest':'DESTAQUES',
+    'about-title':'sobre',
+    'banner-left':'CRIATIVA TÉCNICA & ARTISTA DE COMPUTAÇÃO GRÁFICA',
+    'banner-right':'soluções criativas<br>baseada em São Paulo, BR',
+    'points-headline':'UMA ARTISTA VJ & MULTIMÍDIA FOCADA EM CRIAR NARRATIVAS VISUAIS QUE UNEM EMOÇÃO, RITMO E HISTÓRIA EM TÉCNICAS CINEMATOGRÁFICAS E NOVAS TECNOLOGIAS',
+    'points-focus-label':'FOCO DO PROJETO',
+    'points-focus-text':'DESENVOLVENDO CONTEÚDO PARA MARCAS, ARTISTAS, FESTIVAIS E INSTITUIÇÕES — TRADUZINDO IDEIAS EM HISTÓRIAS VISUAIS DE COMPUTAÇÃO GRÁFICA QUE SE SENTEM AUTÊNTICAS, INTENCIONAIS E VIVAS.',
+    'points-approach-label':'ABORDAGEM',
+    'points-approach-text':'DA DIREÇÃO DE ARTE À PERFORMANCE EM TEMPO REAL, O FLUXO DE TRABALHO PERMANECE FOCADO NA NARRATIVA. CADA PROJETO DEVE PARECER MÁGICO E VIVO.',
+    'footer-all-rights':'todos os direitos reservados — gyulyia® — ©2026',
+    'footer-city':'são paulo, brasil',
+    'cta-line1':'CADA FRAME',
+    'cta-line2':'CADA MOVIMENTO, CADA DETALHE IMPORTA',
+    'cta-line3':'FALE COMIGO',
+    'footer-nav-h':'navegação','footer-contacts-h':'contatos',
+    'footer-policies-h':'políticas','footer-social-h':'redes sociais',
+    'footer-privacy':'política de privacidade','footer-cookies':'política de cookies',
+    'footer-copyright':'todos os direitos reservados',
+    // about col1 identity PT-BR
+    'ab-role1':'Criativa Técnica &','ab-role2':'Artista de Computação Gráfica',
+    'ab-since':'Desde 2020',
+    'ab-bio':'Artista multimídia de São Paulo, especializada em animação, imersão e audiovisual expandido.',
+    'final-mid':'CRIATIVA TÉCNICA &<br>ARTISTA DE COMPUTAÇÃO GRÁFICA',
+    // about labels PT-BR
+    'ab-services':'serviços','ab-focus':'abordagens','ab-capabilities':'ferramentas',
+    'ab-formation':'formação e prêmios','ab-presence':'eventos',
+    // about services PT-BR (apenas os que traduzem)
+    'ab-3dart':'3D Art & Animation','ab-immersive':'Instalações Imersivas',
+    'ab-direction':'Direção Criativa','ab-mapping':'Projeção Mapeada',
+    'ab-artdir':'Direção de Arte','ab-script':'Roteiro & Narrativa',
+    'ab-scouting':'Scouting Técnico','ab-workshops':'Workshops Educacionais',
+    // about focus PT-BR
+    'ab-festivals':'Festivais','ab-museums':'Museus','ab-cultural':'Centros Culturais',
+    'ab-corporate':'Eventos Corporativos','ab-stage':'Visuais de Palco','ab-campaigns':'Campanhas',
+    'ab-mapping2':'Projeções Mapeadas','ab-music':'Videoclipes',
+    'ab-live':'Performances Ao Vivo','ab-gallery':'Exposições','ab-brand':'Ativações de Marca',
+    // about formation PT-BR
+    'ab-degree':'Graduação em Produção Audiovisual',
+    'ab-festaluz':'Festa da Luz — Tour Nacional Brasileiro',
+  }
+};
+
+let currentLang='en';
+function setLang(lang){
+  currentLang=lang;
+  document.getElementById('langEN').classList.toggle('active',lang==='en');
+  document.getElementById('langPT').classList.toggle('active',lang==='pt');
+  const t=i18n[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key=el.dataset.i18n;
+    if(t[key]!==undefined) el.textContent=t[key];
+  });
+  // hero scroll text
+  const hs=document.querySelector('.hero-scroll');
+  if(hs) hs.textContent=t['hero-scroll'];
+  // points headline
+  const ph=document.querySelector('.points-headline h2');
+  if(ph) ph.textContent=t['points-headline'];
+  // points cols
+  const labels=document.querySelectorAll('.points-col-label');
+  const texts=document.querySelectorAll('.points-col-text');
+  if(labels[0]) labels[0].textContent=t['points-focus-label'];
+  if(texts[0])  texts[0].textContent=t['points-focus-text'];
+  if(labels[1]) labels[1].textContent=t['points-approach-label'];
+  if(texts[1])  texts[1].textContent=t['points-approach-text'];
+  // cta box
+  const clines=document.querySelectorAll('.cta-line');
+  if(clines[0]) clines[0].textContent=t['cta-line1'];
+  if(clines[1]) clines[1].textContent=t['cta-line2'];
+  if(clines[2]) clines[2].textContent=t['cta-line3'];
+  // footer bottom bar
+  const fbar=document.querySelectorAll('.footer-bottom-bar .footer-small');
+  if(fbar[0]) fbar[0].textContent=t['footer-all-rights'];
+  if(fbar[1]) fbar[1].textContent=t['footer-city'];
+  // footer top bar
+  const ftop=document.querySelectorAll('.footer-top-bar .footer-small');
+  if(ftop[0]) ftop[0].textContent=t['footer-copyright'];
+  // footer col headers
+  const fh=document.querySelectorAll('.footer-col h4');
+  if(fh[0]) fh[0].textContent=t['footer-nav-h'];
+  if(fh[1]) fh[1].textContent=t['footer-contacts-h'];
+  if(fh[2]) fh[2].textContent=t['footer-policies-h'];
+  if(fh[3]) fh[3].textContent=t['footer-social-h'];
+  // footer policies
+  const fps=document.querySelectorAll('.footer-col:nth-child(3) span');
+  if(fps[0]) fps[0].textContent=t['footer-privacy'];
+  if(fps[1]) fps[1].textContent=t['footer-cookies'];
+  // sec-latest h1
+  const slh=document.querySelector('.sec-header h1');
+  if(slh) slh.textContent=t['sec-latest'];
+  // about redirect
+  const arh=document.querySelector('.about-redirect h1');
+  if(arh) arh.textContent=t['about-title'];
+  // banner titles (innerHTML para preservar <br>)
+  const banners=document.querySelectorAll('.banner-title[data-i18n]');
+  banners.forEach(b=>{
+    const key=b.dataset.i18n;
+    if(t[key]!==undefined) b.innerHTML=t[key];
+  });
+  // final mid-h
+  const fmh=document.getElementById('finalMidH');
+  if(fmh&&t['final-mid']!==undefined) fmh.innerHTML=t['final-mid'];
+  // popup placeholder adaptation
+  const inputs=document.querySelectorAll('#contactForm input, #contactForm textarea');
+  const ph_map={en:['Gyulyia','gyulyia3d@gmail.com','+55 (11) 9 0000-0000','Hello Gyulyia...'],
+                pt:['Gyulyia','gyulyia3d@gmail.com','+55 (11) 9 0000-0000','Olá Gyulyia...']};
+  inputs.forEach((inp,i)=>{if(ph_map[lang][i])inp.placeholder=ph_map[lang][i]});
+}
+function initTicker(trackId){
+  const track=document.getElementById(trackId);
+  if(!track)return;
+  const cards=track.querySelectorAll('.ticker-card');
+  cards.forEach(card=>{
+    card.addEventListener('mouseenter',()=>track.classList.add('paused'));
+    card.addEventListener('mouseleave',()=>track.classList.remove('paused'));
+  });
+}
+initTicker('tickerTrack');
+initTicker('tickerTrackGlobal');
+</script>
+</body>
+</html>
