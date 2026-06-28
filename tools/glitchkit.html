@@ -3,770 +3,559 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
-<title>GLITCH.KIT</title>
-<!-- Supabase SDK -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-<script>
-// ╔══════════════════════════════════════════════════════════════╗
-// ║  SUPABASE CONFIG — paste your Project URL + anon key here   ║
-// ║  https://supabase.com → New Project → Settings → API        ║
-// ╚══════════════════════════════════════════════════════════════╝
-const SUPABASE_URL  = 'https://YOUR_PROJECT.supabase.co';
-const SUPABASE_ANON = 'YOUR_ANON_KEY';
-const _sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
-let _user = null;
-// Try restoring session from localStorage
-_sb.auth.getSession().then(({data})=>{ if(data?.session) _user=data.session.user; });
-</script>
+<title>GLITCH.KIT — GYULYIA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --bg:#000;--p:#030303;--b1:#0a0a0a;--b2:#111;--b3:#191919;
-  --fg:#999;--d1:#555;--d2:#2e2e2e;--d3:#1a1a1a;
-  --red:#df0008;--grn:#00e040;
-  --F:'Helvetica Neue',Helvetica,Arial,sans-serif;
-  --M:'Courier New',monospace;
-  --panel-h:52px; /* mobile bottom bar collapsed height */
+  --bg:#000;
+  --panel:#f9f9f9;
+  --b1:rgba(0,0,0,.06);
+  --b2:rgba(0,0,0,.10);
+  --b3:rgba(0,0,0,.17);
+  --fg:#111;
+  --d1:#444;
+  --d2:#888;
+  --d3:#bbb;
+  --F:"Martian Mono",monospace;
 }
-html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--fg);font-family:var(--F);-webkit-font-smoothing:antialiased}
-#app{display:flex;height:100vh;width:100vw;overflow:hidden}
-
-/* ── VIEWPORT ── */
-#vp{flex:1;position:relative;background:#000;overflow:hidden;min-width:0}
-#glc,#ov{position:absolute;display:block;pointer-events:none}
-#ov{z-index:2}
-#nosrc{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:1;cursor:pointer}
-#nosrc.hid{display:none}
-.dzf{border:1px solid #0c0c0c;padding:44px 64px;display:flex;flex-direction:column;align-items:center;gap:14px;transition:border-color .2s}
-#nosrc.drag .dzf{border-color:#181818}
-.dz-t{font-size:8px;letter-spacing:.5em;color:#111;text-transform:uppercase;line-height:2.5;text-align:center}
-.dz-x{width:18px;height:18px;position:relative;opacity:.05}
-.dz-x::before,.dz-x::after{content:'';position:absolute;background:#fff}
-.dz-x::before{width:1px;height:100%;left:50%}
-.dz-x::after{height:1px;width:100%;top:50%}
-
-/* ── MOBILE PANEL TOGGLE ── */
-#mob-tog{display:none;position:absolute;bottom:calc(var(--panel-h) + 8px);right:12px;z-index:30;
-  background:rgba(8,8,8,.92);border:1px solid var(--b3);
-  width:38px;height:38px;cursor:pointer;align-items:center;justify-content:center;
-  font-size:14px;color:var(--d1);transition:all .15s;backdrop-filter:blur(4px)}
-#mob-tog:hover{border-color:var(--d1);color:var(--fg)}
-/* Cam flip button (mobile) */
-#cam-flip{display:none;position:absolute;top:12px;right:12px;z-index:30;
-  background:rgba(8,8,8,.85);border:1px solid var(--b3);
-  width:36px;height:36px;cursor:pointer;align-items:center;justify-content:center;
-  font-size:15px;color:var(--d1);transition:all .15s;backdrop-filter:blur(4px)}
-#cam-flip.show{display:flex}
-
-/* ── PANEL (desktop sidebar) ── */
-#panel{width:210px;min-width:148px;max-width:360px;background:var(--p);border-left:1px solid var(--b1);
-  display:flex;flex-direction:column;overflow:hidden;position:relative;flex-shrink:0;user-select:none;
-  transition:transform .3s cubic-bezier(.4,0,.2,1)}
-#rh{position:absolute;left:0;top:0;bottom:0;width:4px;cursor:ew-resize;z-index:10}
-#rh:hover{background:rgba(255,255,255,.03)}
-
-/* ── HEADER ── */
-#ph{padding:12px 13px 10px;border-bottom:1px solid var(--b1);flex-shrink:0;display:flex;align-items:baseline;justify-content:space-between;gap:8px}
-.ph-l{font-size:7px;letter-spacing:.4em;color:#444;text-transform:uppercase;font-weight:300;line-height:1.2}
-.ph-l strong{font-size:13px;letter-spacing:.5em;color:#ddd;font-weight:800;display:block;line-height:1.3;text-transform:uppercase}
-.ph-l a{color:inherit;text-decoration:none;transition:color .15s}
-.ph-l a:hover{color:#fff}
-.ph-b{font-size:6px;letter-spacing:.15em;color:#1a1a1a}
-.ph-b a{color:inherit;text-decoration:none;transition:color .1s}
-.ph-b a:hover{color:var(--d1)}
-/* Close button inside panel on mobile */
-#ph-close{display:none;background:none;border:none;color:var(--d2);cursor:pointer;font-size:14px;padding:0 2px;margin-left:auto;transition:color .1s}
-#ph-close:hover{color:var(--fg)}
-
-/* ── PANEL BODY ── */
-#pb{flex:1;overflow-y:auto;overflow-x:hidden;padding-bottom:6px;-webkit-overflow-scrolling:touch}
-#pb::-webkit-scrollbar{width:2px}
-#pb::-webkit-scrollbar-thumb{background:var(--b3)}
-
-/* ── SECTIONS ── */
-.sec{padding:8px 12px;border-bottom:1px solid var(--b1)}
-.sh{font-size:7px;letter-spacing:.35em;color:var(--d2);text-transform:uppercase;margin-bottom:7px;display:flex;align-items:center;gap:6px}
-.sh::after{content:'';flex:1;height:1px;background:var(--b1)}
-
-/* ── BUTTONS ── */
-.sg{display:flex;flex-direction:column;gap:3px}
-.sbn{background:none;border:1px solid var(--b3);color:var(--d1);font-family:var(--F);font-size:8px;letter-spacing:.28em;padding:7px 10px;cursor:pointer;transition:all .1s;text-transform:uppercase;text-align:left;display:flex;align-items:center;gap:7px;width:100%}
-.sbn:hover,.sbn:active{border-color:#222;color:var(--fg)}
-.sbn.on{border-color:var(--red);color:var(--red)}
-.sbn i{font-style:normal;font-family:var(--M);font-size:9px}
-.mg{display:grid;grid-template-columns:1fr 1fr 1fr;gap:3px;margin-bottom:4px}
-.mg2{display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-bottom:4px}
-.mb{background:none;border:1px solid var(--b2);color:var(--d2);font-family:var(--F);font-size:7px;letter-spacing:.18em;padding:6px 3px;cursor:pointer;transition:all .1s;text-transform:uppercase;text-align:center}
-.mb:hover,.mb:active{border-color:var(--d2);color:var(--fg)}
-.mb.on{border-color:var(--d1);color:var(--fg)}
-.mb.hot{border-color:#2a0002;color:#500}
-.mb.hot:hover,.mb.hot:active{border-color:var(--red);color:var(--red)}
-
-/* ── SLIDERS ── */
-.sr{display:flex;align-items:center;gap:6px;margin-bottom:5px}
-.sr-n{font-size:7px;letter-spacing:.12em;color:var(--d2);width:54px;flex-shrink:0;text-transform:uppercase}
-input[type=range]{flex:1;-webkit-appearance:none;height:1px;background:var(--b3);outline:none;cursor:pointer;min-width:0}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;background:var(--d1);cursor:pointer;transition:background .1s;border-radius:0}
-input[type=range]:hover::-webkit-slider-thumb,input[type=range]:active::-webkit-slider-thumb{background:var(--fg)}
-.sr-v{font-size:7px;color:var(--d2);width:22px;text-align:right;flex-shrink:0;font-family:var(--M)}
-
-/* ── TOGGLES ── */
-.tr{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px}
-.tn{font-size:7px;letter-spacing:.12em;color:var(--d2);text-transform:uppercase;flex:1}
-.tg{width:28px;height:13px;background:var(--b3);cursor:pointer;position:relative;flex-shrink:0;transition:background .12s}
-.tg.on{background:var(--red)}
-.tg::after{content:'';position:absolute;width:9px;height:9px;background:var(--fg);top:2px;left:2px;transition:left .12s}
-.tg.on::after{left:17px}
-
-/* ── COLOR PICKER ── */
-.cr{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px}
-.cr-n{font-size:7px;letter-spacing:.12em;color:var(--d2);text-transform:uppercase}
-input[type=color]{width:36px;height:18px;border:1px solid var(--b3);background:none;cursor:pointer;padding:0;outline:none}
-
-/* ── FREQ VIZ ── */
-#fviz{width:100%;height:22px;display:block;margin-bottom:6px;background:var(--b1)}
-
-/* ── TRIGGER ── */
-#trig{display:block;width:calc(100% - 24px);margin:7px 12px 2px;padding:12px;background:none;border:1px solid var(--b2);color:var(--d2);font-family:var(--F);font-size:8px;letter-spacing:.38em;cursor:pointer;text-transform:uppercase;transition:all .1s}
-#trig:hover,#trig:active{border-color:var(--red);color:var(--red)}
-#trig.fl{background:var(--red);color:#000;border-color:var(--red)}
-.kh{font-size:7px;color:var(--d2);text-align:center;padding:4px 0 5px;font-family:var(--M)}
-.kh b{color:var(--d1)}
-
-/* ── EXPORT ── */
-#do-exp{display:block;width:100%;padding:11px;background:none;border:1px solid var(--b3);color:var(--d2);font-family:var(--F);font-size:8px;letter-spacing:.32em;cursor:pointer;text-transform:uppercase;transition:all .1s;margin-top:5px}
-#do-exp:hover,#do-exp:active{border-color:var(--fg);color:var(--fg)}
-#do-exp.rec{border-color:var(--red);color:var(--red);animation:bk .45s steps(1) infinite}
-@keyframes bk{0%,100%{opacity:1}50%{opacity:0}}
-
-/* Payment buttons */
-.pay-btns{display:flex;flex-direction:column;gap:4px;margin-top:8px}
-.pay-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:10px;background:none;border:1px solid var(--b3);color:var(--d2);font-family:var(--F);font-size:8px;letter-spacing:.22em;cursor:pointer;text-transform:uppercase;transition:all .1s}
-.pay-btn:hover,.pay-btn:active{border-color:var(--d1);color:var(--fg)}
-.pay-btn.pp{border-color:#003087;color:#003087}
-.pay-btn.pp:hover{background:#003087;color:#fff}
-.pay-btn.mp{border-color:#009ee3;color:#009ee3}
-.pay-btn.mp:hover{background:#009ee3;color:#fff}
-.pay-note{font-size:7px;color:var(--d2);letter-spacing:.1em;line-height:1.7;margin-top:6px}
-
-/* ── BOTTOM BAR ── */
-#bbar{
-  position:fixed;bottom:0;left:0;right:0;height:32px;
-  background:#000;border-top:1px solid var(--b1);
-  display:flex;align-items:center;z-index:40;
-  padding:0 10px;gap:0;flex-shrink:0;
+html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:var(--F);}
+/* ── Layout ─────────────────────────────── */
+#wrap{display:flex;width:100%;height:100%;}
+#vp{
+  flex:1;min-width:0;position:relative;background:#000;
+  display:flex;align-items:center;justify-content:center;overflow:hidden;
 }
-.bb-txt{font-size:7px;letter-spacing:.3em;color:#252525;text-transform:uppercase;
-  font-family:var(--F);white-space:nowrap;padding:0 8px;border-right:1px solid var(--b1)}
-.bb-txt strong{color:var(--red)}
-.bb-fps{font-size:7px;font-family:var(--M);color:var(--red);padding:0 8px;border-right:1px solid var(--b1);min-width:42px}
-.bb-btn{background:none;border:none;font-size:7px;letter-spacing:.25em;color:var(--d2);
-  font-family:var(--F);cursor:pointer;padding:0 8px;text-transform:uppercase;height:100%;
-  border-right:1px solid var(--b1);transition:color .1s;white-space:nowrap}
-.bb-btn:hover{color:var(--fg)}
-.bb-btn.red{color:var(--red)}
-.bb-btn.red:hover{color:#ff4455}
-.bb-glow-on{color:var(--grn) !important}
-.bb-flex{flex:1}
-/* Adjust app height for bottom bar */
-#app{height:calc(100vh - 32px) !important}
-@media(max-width:768px){
-  #bbar{height:28px}
-  #app{height:calc(100vh - 28px) !important}
-  .bb-txt{display:none}
+#glc{position:absolute;display:block;}
+#ov{position:absolute;pointer-events:none;}
+/* ── Drop zone ──────────────────────────── */
+#nosrc{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:12px;
+  color:rgba(255,255,255,.5);font-size:11px;letter-spacing:.07em;
+  pointer-events:none;
 }
-
-/* ── GLOW CSS ON CANVAS ── */
-#glc.glow-on{filter:brightness(1.08) contrast(1.05);}
-.sd{width:4px;height:4px;background:var(--d2);flex-shrink:0}
-.sd.live{background:var(--red);animation:bk .9s steps(1) infinite}
-.st{font-size:7px;letter-spacing:.1em;color:var(--d2);flex:1;font-family:var(--M);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.sf{font-size:7px;color:var(--d2);font-family:var(--M)}
-
-/* ── OVERLAYS ── */
-#bf{position:absolute;inset:0;background:var(--red);opacity:0;pointer-events:none;z-index:4;mix-blend-mode:multiply}
-@keyframes bfa{0%{opacity:.07}100%{opacity:0}}
-#bf.fire{animation:bfa .18s ease-out forwards}
-#rind{position:absolute;top:11px;left:13px;z-index:5;display:flex;align-items:center;gap:6px;pointer-events:none;opacity:0;transition:opacity .2s}
-#rind.show{opacity:1}
-.rdot{width:5px;height:5px;background:var(--red);border-radius:50%;animation:bk .55s steps(1) infinite}
-.rtxt{font-size:8px;letter-spacing:.3em;color:var(--red);font-family:var(--M)}
-#wm{position:absolute;bottom:10px;left:12px;font-size:7px;letter-spacing:.5em;color:#0c0c0c;text-transform:uppercase;pointer-events:none;z-index:1}
-
-/* ── MODALS ── */
-.modal{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.88);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(3px);padding:16px}
-.modal.hid{display:none}
-.mbox{background:#070707;border:1px solid var(--b3);padding:24px 26px;width:330px;max-width:100%;max-height:90vh;overflow-y:auto}
-.mbox::-webkit-scrollbar{width:2px}
-.mbox::-webkit-scrollbar-thumb{background:var(--b3)}
-.mh{font-size:9px;letter-spacing:.45em;color:var(--fg);text-transform:uppercase;margin-bottom:3px}
-.ms{font-size:7px;letter-spacing:.2em;color:var(--d2);margin-bottom:18px;text-transform:uppercase}
-.mf{margin-bottom:9px}
-.mf label{display:block;font-size:7px;letter-spacing:.22em;color:var(--d2);text-transform:uppercase;margin-bottom:4px}
-.mf input{width:100%;background:var(--b1);border:1px solid var(--b3);color:var(--fg);font-family:var(--M);font-size:13px;padding:9px 10px;outline:none;transition:border-color .1s;-webkit-appearance:none}
-.mf input:focus{border-color:var(--d1)}
-.mbtns{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:16px}
-.mbtn{padding:11px;border:1px solid var(--b3);background:none;color:var(--d1);font-family:var(--F);font-size:8px;letter-spacing:.22em;cursor:pointer;text-transform:uppercase;transition:all .1s}
-.mbtn:hover,.mbtn:active{border-color:var(--d1);color:var(--fg)}
-.mbtn.p{border-color:var(--fg);color:var(--fg)}
-.mbtn.p:hover,.mbtn.p:active{background:var(--fg);color:#000}
-.mbtn.d{border-color:var(--red);color:var(--red)}
-.mbtn.d:hover,.mbtn.d:active{background:var(--red);color:#000}
-.mi{font-size:7px;letter-spacing:.1em;color:var(--d2);line-height:1.9;margin-top:12px}
-.mi span{color:var(--d1)}
-
-/* ── AUTH MODAL ── */
-#m-auth{z-index:200;background:rgba(0,0,0,.96)}
-.auth-logo{font-size:13px;letter-spacing:.7em;color:#666;text-transform:uppercase;text-align:center;margin-bottom:2px}
-.auth-sub-logo{font-size:7px;letter-spacing:.2em;color:#1e1e1e;text-align:center;margin-bottom:22px}
-.auth-sub-logo a{color:#1e1e1e;text-decoration:none;transition:color .1s}
-.auth-sub-logo a:hover{color:#444}
-.auth-tabs{display:flex;margin-bottom:18px;border-bottom:1px solid var(--b3)}
-.atab{flex:1;padding:10px 8px;background:none;border:none;color:var(--d2);font-family:var(--F);font-size:8px;letter-spacing:.3em;cursor:pointer;text-transform:uppercase;transition:color .1s;border-bottom:1px solid transparent;margin-bottom:-1px}
-.atab:hover{color:var(--fg)}
-.atab.on{color:var(--fg);border-bottom-color:var(--fg)}
-.auth-form{display:none}
-.auth-form.on{display:block}
-.auth-err{font-size:7px;color:var(--red);letter-spacing:.15em;margin-bottom:8px;min-height:16px}
-.auth-ok{font-size:7px;color:var(--grn);letter-spacing:.15em;margin-bottom:8px;min-height:16px}
-.auth-or{font-size:7px;color:var(--d2);text-align:center;letter-spacing:.2em;margin:14px 0;position:relative}
-.auth-or::before,.auth-or::after{content:'';position:absolute;top:50%;width:38%;height:1px;background:var(--b3)}
-.auth-or::before{left:0}.auth-or::after{right:0}
-.auth-social{display:flex;gap:5px;margin-bottom:4px}
-.asoc{flex:1;padding:10px 6px;background:none;border:1px solid var(--b3);color:var(--d2);font-family:var(--F);font-size:7px;letter-spacing:.2em;cursor:pointer;text-transform:uppercase;transition:all .1s;text-align:center}
-.asoc:hover,.asoc:active{border-color:var(--d2);color:var(--fg)}
-.auth-note{font-size:7px;color:var(--d2);text-align:center;margin-top:12px;line-height:1.8;letter-spacing:.1em}
-.auth-note a{color:var(--d1);text-decoration:none}
-
-/* ── GOOGLE TRANSLATE ── */
-#gt-wrap{position:fixed;bottom:12px;right:12px;z-index:50}
-#gt-btn{background:none;border:1px solid var(--b3);color:var(--d2);font-family:var(--F);font-size:7px;letter-spacing:.25em;padding:7px 10px;cursor:pointer;text-transform:uppercase;transition:all .1s}
-#gt-btn:hover{border-color:var(--d1);color:var(--fg)}
-#gt-dropdown{position:absolute;bottom:100%;right:0;margin-bottom:4px;background:#080808;border:1px solid var(--b3);min-width:160px;display:none;max-height:220px;overflow-y:auto}
-#gt-dropdown.open{display:block}
-#gt-dropdown::-webkit-scrollbar{width:2px}
-#gt-dropdown::-webkit-scrollbar-thumb{background:var(--b3)}
-.gt-lang{display:block;width:100%;padding:8px 12px;background:none;border:none;color:var(--d2);font-family:var(--F);font-size:7px;letter-spacing:.2em;cursor:pointer;text-align:left;transition:all .1s;text-transform:uppercase}
-.gt-lang:hover,.gt-lang:active{background:var(--b1);color:var(--fg)}
-
-/* ══════════════════════════════════════════════════════════════
-   RESPONSIVE — MOBILE (≤ 768px)
-   Panel becomes full-width bottom sheet with toggle
-══════════════════════════════════════════════════════════════ */
-@media (max-width: 768px){
-  #app{flex-direction:column}
-  #vp{
-    width:100%;
-    height:calc(100vh - var(--panel-h));
-    flex:none;
-  }
-  #panel{
-    position:fixed;
-    bottom:0;left:0;right:0;
-    width:100% !important;
-    min-width:100% !important;
-    max-width:100% !important;
-    height:85vh;
-    border-left:none;
-    border-top:1px solid var(--b2);
-    transform:translateY(calc(100% - var(--panel-h)));
-    transition:transform .32s cubic-bezier(.4,0,.2,1);
-    z-index:20;
-  }
-  #panel.open{transform:translateY(0)}
-  #rh{display:none}
-  /* Drag handle on top of panel */
-  #panel::before{
-    content:'';display:block;width:36px;height:3px;
-    background:var(--b3);border-radius:2px;
-    margin:10px auto 6px;flex-shrink:0;
-  }
-  #ph{padding:8px 14px 7px}
-  #ph-close{display:block}
-  #mob-tog{display:flex}
-  #cam-flip.show{display:flex}
-  /* Bigger touch targets */
-  .sbn{padding:11px 12px;font-size:9px}
-  .mb{padding:9px 4px;font-size:8px}
-  input[type=range]::-webkit-slider-thumb{width:20px;height:20px}
-  .tg{width:36px;height:16px}
-  .tg::after{width:12px;height:12px;top:2px;left:2px}
-  .tg.on::after{left:22px}
-  #trig{padding:14px}
-  .sr-n{width:60px;font-size:8px}
-  .sr-v{font-size:8px;width:24px}
-  #gt-wrap{bottom:calc(var(--panel-h) + 10px)}
-  .kh{display:none} /* hide keyboard hints on mobile */
-  #wm{display:none}
+#nosrc.hid{display:none;}
+#nosrc-brand{font-size:11px;letter-spacing:.18em;color:rgba(255,255,255,.35);margin-bottom:4px;}
+#nosrc-big{font-size:20px;letter-spacing:.12em;color:rgba(255,255,255,.8);}
+/* ── Beat flash ─────────────────────────── */
+#bf{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;}
+#bf.fire{animation:flash .18s ease-out;}
+@keyframes flash{0%{opacity:.18;}100%{opacity:0;}}
+/* ── Freq viz ────────────────────────────── */
+#fviz{position:absolute;bottom:0;left:0;right:0;height:36px;opacity:.35;pointer-events:none;}
+/* ── Cam flip ────────────────────────────── */
+#cam-flip{
+  display:none;position:absolute;bottom:12px;right:12px;
+  font-family:var(--F);font-size:10px;letter-spacing:.06em;
+  color:#fff;background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.2);
+  padding:5px 10px;cursor:pointer;
 }
-
-/* Very small screens */
-@media (max-width: 400px){
-  .mbox{padding:18px 16px}
-  .auth-logo{font-size:10px;letter-spacing:.5em}
+#cam-flip.show{display:block;}
+/* ── Panel ───────────────────────────────── */
+#panel{
+  width:300px;flex-shrink:0;background:var(--panel);
+  border-left:1px solid var(--b2);
+  display:flex;flex-direction:column;height:100%;overflow:hidden;
+  position:relative;
 }
-
+#brand-tab{
+  width:28px;flex-shrink:0;background:#111;
+  display:flex;align-items:center;justify-content:center;
+  border-left:1px solid #222;cursor:pointer;
+  text-decoration:none;
+}
+#brand-tab span{
+  display:block;
+  font-family:"Martian Mono",monospace;
+  font-size:9px;letter-spacing:.14em;color:rgba(255,255,255,.7);
+  writing-mode:vertical-rl;transform:rotate(180deg);
+  white-space:nowrap;
+}
+#brand-tab:hover span{color:#fff;}
+#rh{position:absolute;left:-4px;top:0;bottom:0;width:8px;cursor:col-resize;z-index:10;}
+/* ── Panel header ────────────────────────── */
+#ph{
+  height:46px;min-height:46px;display:flex;align-items:center;gap:8px;
+  padding:0 14px;border-bottom:1px solid var(--b2);flex-shrink:0;
+}
+.ph-label{font-size:11px;letter-spacing:.06em;color:var(--d1);display:flex;align-items:center;gap:4px;}
+.ph-label strong{color:var(--fg);margin-left:2px;}
+.ph-flex{flex:1;}
+.ph-status{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--d2);}
+.ph-dot{width:6px;height:6px;background:var(--d3);border-radius:50%;transition:background .2s;}
+.ph-dot.live{background:#555;}
+#rind{display:none;align-items:center;gap:4px;font-size:10px;color:var(--d1);}
+#rind.show{display:flex;}
+#rind .rdot{width:6px;height:6px;background:#333;border-radius:50%;animation:blink .8s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.15;}}
+.ph-link{
+  font-size:10px;letter-spacing:.07em;color:var(--d1);text-decoration:none;
+  border:1px solid var(--b2);padding:4px 8px;transition:border-color .15s,color .15s;
+}
+.ph-link:hover{color:var(--fg);border-color:var(--b3);}
+/* ── Source bar ──────────────────────────── */
+#src-bar{
+  padding:8px 12px;border-bottom:1px solid var(--b1);
+  display:flex;gap:5px;align-items:center;flex-shrink:0;flex-wrap:wrap;
+}
+.sb-btn{
+  font-family:var(--F);font-size:10px;letter-spacing:.05em;
+  color:var(--fg);background:transparent;border:1px solid var(--b2);
+  padding:5px 9px;cursor:pointer;transition:background .12s,border-color .12s;white-space:nowrap;
+}
+.sb-btn:hover{background:rgba(0,0,0,.05);}
+.sb-btn.on{background:#111;color:#fff;border-color:#111;}
+.sb-flex{flex:1;}
+#do-exp{
+  font-family:var(--F);font-size:10px;letter-spacing:.05em;
+  color:#fff;background:#111;border:none;padding:5px 11px;cursor:pointer;
+  transition:background .12s;
+}
+#do-exp:hover{background:#333;}
+#do-exp.rec{background:#444;}
+/* ── Scroll ──────────────────────────────── */
+#scroll{flex:1;overflow-y:auto;overflow-x:hidden;}
+#scroll::-webkit-scrollbar{width:3px;}
+#scroll::-webkit-scrollbar-thumb{background:var(--b3);}
+/* ── Section ─────────────────────────────── */
+.sec{border-bottom:1px solid var(--b1);}
+.sh{
+  display:flex;align-items:center;padding:10px 14px;
+  cursor:pointer;font-size:11px;letter-spacing:.07em;color:var(--fg);
+  user-select:none;transition:background .1s;
+}
+.sh:hover{background:rgba(0,0,0,.03);}
+.sh-lbl{flex:1;}
+.sh-arr{font-size:8px;color:var(--d2);transition:transform .15s;}
+.sec.collapsed .sec-body{display:none;}
+.sec.collapsed .sh-arr{transform:rotate(-90deg);}
+.sec-body{padding:8px 14px 12px;}
+/* ── Slider row ──────────────────────────── */
+.sr{display:flex;align-items:center;gap:7px;margin-bottom:8px;}
+.sr-n{font-size:10px;color:var(--d1);width:76px;flex-shrink:0;letter-spacing:.03em;}
+.sr-v{font-size:10px;color:var(--d2);width:34px;text-align:right;flex-shrink:0;}
+input[type=range]{
+  flex:1;height:3px;-webkit-appearance:none;
+  background:var(--b2);border-radius:2px;cursor:pointer;outline:none;
+}
+input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;width:14px;height:14px;border-radius:50%;
+  background:#111;border:2px solid #f9f9f9;box-shadow:0 0 0 1px #bbb;cursor:pointer;
+}
+input[type=range]::-moz-range-thumb{
+  width:14px;height:14px;border-radius:50%;
+  background:#111;border:2px solid #f9f9f9;cursor:pointer;
+}
+/* ── Toggle ──────────────────────────────── */
+.tr{display:flex;align-items:center;gap:7px;margin-bottom:8px;}
+.tn{flex:1;font-size:10px;color:var(--d1);letter-spacing:.03em;}
+.tg{
+  width:30px;height:17px;border-radius:9px;background:var(--b2);
+  border:1px solid var(--b3);cursor:pointer;position:relative;transition:background .14s;flex-shrink:0;
+}
+.tg::after{
+  content:'';position:absolute;top:2px;left:2px;width:11px;height:11px;
+  border-radius:50%;background:var(--d2);transition:left .14s,background .14s;
+}
+.tg.on{background:#111;border-color:#111;}
+.tg.on::after{left:15px;background:#fff;}
+/* ── Color row ───────────────────────────── */
+.cr{display:flex;align-items:center;gap:7px;margin-bottom:8px;}
+.cr-n{font-size:10px;color:var(--d1);flex:1;letter-spacing:.03em;}
+input[type=color]{
+  width:30px;height:22px;border:1px solid var(--b2);
+  background:transparent;cursor:pointer;padding:2px;border-radius:2px;flex-shrink:0;
+}
+/* ── Multi-btn ───────────────────────────── */
+.mb-row{display:flex;gap:4px;margin-bottom:8px;flex-wrap:wrap;}
+.mb{
+  font-family:var(--F);font-size:10px;color:var(--d1);background:transparent;
+  border:1px solid var(--b2);padding:5px 8px;cursor:pointer;
+  transition:background .1s,color .1s,border-color .1s;letter-spacing:.04em;
+}
+.mb:hover{background:rgba(0,0,0,.04);}
+.mb.on{background:#111;color:#fff;border-color:#111;}
+.mb.fl{background:#444;color:#fff;}
+/* ── Label / text input ──────────────────── */
+.sec-lbl{font-size:10px;color:var(--d2);letter-spacing:.04em;margin-bottom:5px;display:block;}
+.txt-in{
+  width:100%;font-family:var(--F);font-size:10px;color:var(--fg);
+  background:transparent;border:1px solid var(--b2);
+  padding:6px 9px;outline:none;letter-spacing:.04em;transition:border-color .12s;
+}
+.txt-in:focus{border-color:var(--b3);}
+.txt-in::placeholder{color:var(--d3);}
+/* ── Footer ──────────────────────────────── */
+#foot{
+  border-top:1px solid var(--b1);padding:6px 14px;flex-shrink:0;
+  display:flex;align-items:center;gap:8px;
+  font-size:10px;color:var(--d2);
+}
+#foot .f-flex{flex:1;}
 </style>
-<!-- Google Translate (no-display, we handle UI manually) -->
-<div id="google_translate_element" style="display:none"></div>
-<script>
-function googleTranslateElementInit(){
-  new google.translate.TranslateElement({pageLanguage:'en',layout:google.translate.TranslateElement.InlineLayout.SIMPLE},'google_translate_element');
-}
-</script>
-<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
 </head>
 <body>
-<div id="app">
 
+<!-- Hidden file inputs — ALWAYS outside collapsed sections -->
+<input type="file" id="fi"  style="display:none">
+<input type="file" id="afi" accept="audio/*,video/*" style="display:none">
+<input type="file" id="fi2" accept="image/*,video/*" style="display:none">
+
+<div id="wrap">
+
+  <!-- ── Canvas viewport ── -->
   <div id="vp">
     <canvas id="glc"></canvas>
     <canvas id="ov"></canvas>
-    <div id="bf"></div>
-    <div id="rind"><div class="rdot"></div><span class="rtxt">REC</span></div>
-    <!-- Mobile controls -->
-    <button id="mob-tog" onclick="togglePanel()" aria-label="Toggle panel">⊞</button>
-    <button id="cam-flip" onclick="flipCam()" aria-label="Flip camera">🔄</button>
     <div id="nosrc">
-      <div class="dzf">
-        <div class="dz-x"></div>
-        <div class="dz-t">Drop image or video<br><span style="color:#0d0d0d">or use panel →</span></div>
-      </div>
+      <span id="nosrc-brand">GYULYIA.COM</span>
+      <span id="nosrc-big">GLITCH.KIT</span>
+      <span>Drop image / video here — or use panel →</span>
     </div>
-    <div id="wm">GLITCH.KIT</div>
+    <div id="bf"></div>
+    <canvas id="fviz" width="800" height="36"></canvas>
+    <button id="cam-flip" onclick="flipCam()">⟳ Flip</button>
   </div>
 
+  <!-- ── Brand tab ── -->
+  <a id="brand-tab" href="https://gyulyia.com" target="_blank"><span>GYULYIA.COM</span></a>
+
+  <!-- ── Panel ── -->
   <div id="panel">
     <div id="rh"></div>
+
+    <!-- Header -->
     <div id="ph">
-      <span class="ph-l">GLITCH KIT<strong><a href="https://gyulyia.com" target="_blank">GYULYIA</a></strong></span>
-      <button id="ph-close" onclick="togglePanel()" aria-label="Close panel">✕</button>
+      <span class="ph-label">Tools<strong> GLITCH.KIT</strong></span>
+      <span class="ph-flex"></span>
+      <span class="ph-status">
+        <span class="ph-dot" id="sdot"></span>
+        <span id="stxt"></span>
+      </span>
+      &nbsp;
+      <span id="rind"><span class="rdot"></span>REC</span>
+      &nbsp;
+      <a href="https://gyulyia.com" target="_blank" class="ph-link">GYULYIA↗</a>
     </div>
-    <div id="pb">
 
-      <div class="sec">
-        <div class="sh">Source</div>
-        <div class="sg">
-          <button class="sbn" id="b-img"><i>↑</i> Image</button>
-          <button class="sbn" id="b-vid"><i>↑</i> Video</button>
-          <button class="sbn" id="b-cam"><i>◉</i> Webcam</button>
-        </div>
-        <input type="file" id="fi" accept="image/*,video/*" style="display:none">
-      </div>
+    <!-- Source + Export bar -->
+    <div id="src-bar">
+      <button class="sb-btn" id="b-img">Image</button>
+      <button class="sb-btn" id="b-vid">Video</button>
+      <button class="sb-btn" id="b-cam">Camera</button>
+      <button class="sb-btn" id="a-file">Audio</button>
+      <button class="sb-btn" id="a-mic">Mic</button>
+      <div class="sb-flex"></div>
+      <button id="do-exp">⬇ Export</button>
+    </div>
 
-      <div class="sec">
-        <div class="sh">Audio</div>
-        <canvas id="fviz" width="186" height="22"></canvas>
-        <div class="mg2" style="margin-bottom:6px">
-          <button class="mb" id="a-file"><i style="font-style:normal">↑</i> File</button>
-          <button class="mb" id="a-mic">◉ Mic</button>
-        </div>
-        <input type="file" id="afi" accept="audio/*,video/*" style="display:none">
-        <div class="tr"><span class="tn">Bass → Datamosh</span><div class="tg on" id="rx-dtm"></div></div>
-        <div class="tr"><span class="tn">Bass → Strobe</span><div class="tg on" id="rx-str"></div></div>
-        <div class="tr"><span class="tn">Mid → Complexity</span><div class="tg on" id="rx-mid"></div></div>
-        <div class="tr"><span class="tn">Low → CRT Waves</span><div class="tg on" id="rx-crt"></div></div>
-        <div class="sr"><span class="sr-n">Sensitivity</span><input type="range" id="r-asns" min="1" max="100" value="65"><span class="sr-v" id="v-asns">65</span></div>
-      </div>
+    <!-- Scrollable sections -->
+    <div id="scroll">
 
-      <div class="sec">
-        <div class="sh">Master</div>
-        <div class="sr"><span class="sr-n">Intensity</span><input type="range" id="r-int" min="0" max="100" value="82"><span class="sr-v" id="v-int">82</span></div>
-        <div class="sr"><span class="sr-n">Speed</span><input type="range" id="r-spd" min="1" max="100" value="50"><span class="sr-v" id="v-spd">50</span></div>
-        <div class="sr"><span class="sr-n">Contrast</span><input type="range" id="r-con" min="0" max="100" value="65"><span class="sr-v" id="v-con">65</span></div>
-        <div class="sr"><span class="sr-n">Color</span><input type="range" id="r-bw" min="0" max="100" value="100"><span class="sr-v" id="v-bw">B&W</span></div>
-        <div class="tr"><span class="tn">Mirror X</span><div class="tg" id="tg-mir"></div></div>
-        <div class="tr"><span class="tn">Animate</span><div class="tg on" id="tg-anim"></div></div>
-      </div>
 
-      <div class="sec">
-        <div class="sh">Displacement</div>
-        <div class="mg" style="margin-bottom:7px">
-          <button class="mb on" id="dm-def" data-dm="0">DEFAULT</button>
-          <button class="mb" id="dm-grid" data-dm="1">GRID</button>
-          <button class="mb" id="dm-band" data-dm="2">BANDS</button>
-        </div>
-        <div class="sr"><span class="sr-n">Big Block</span><input type="range" id="r-blk" min="0" max="100" value="68"><span class="sr-v" id="v-blk">68</span></div>
-        <div class="sr"><span class="sr-n">Thin Slice</span><input type="range" id="r-slc" min="0" max="100" value="52"><span class="sr-v" id="v-slc">52</span></div>
-        <div class="sr"><span class="sr-n">Chroma</span><input type="range" id="r-chr" min="0" max="100" value="18"><span class="sr-v" id="v-chr">18</span></div>
-      </div>
-
-      <div class="sec">
-        <div class="sh">Pixel Sort (Drip ↓)</div>
-        <div class="sr"><span class="sr-n">Amount</span><input type="range" id="r-pxs" min="0" max="100" value="48"><span class="sr-v" id="v-pxs">48</span></div>
-        <div class="sr"><span class="sr-n">Reach</span><input type="range" id="r-pxr" min="1" max="100" value="55"><span class="sr-v" id="v-pxr">55</span></div>
-        <div class="sr"><span class="sr-n">Density</span><input type="range" id="r-pxd" min="1" max="100" value="50"><span class="sr-v" id="v-pxd">50</span></div>
-      </div>
-
-      <div class="sec">
-        <div class="sh">Datamosh</div>
-        <div class="sr"><span class="sr-n">Accum.</span><input type="range" id="r-dtm" min="0" max="100" value="50"><span class="sr-v" id="v-dtm">50</span></div>
-        <div class="sr"><span class="sr-n">Snap Bleed</span><input type="range" id="r-snp" min="0" max="100" value="75"><span class="sr-v" id="v-snp">75</span></div>
-      </div>
-
-      <div class="sec">
-        <div class="sh">Look</div>
-        <div class="sr"><span class="sr-n">Threshold</span><input type="range" id="r-thr" min="0" max="100" value="0"><span class="sr-v" id="v-thr">0</span></div>
-        <div class="sr"><span class="sr-n">Strobe</span><input type="range" id="r-str" min="0" max="100" value="65"><span class="sr-v" id="v-str">65</span></div>
-        <div class="sr"><span class="sr-n">Halftone</span><input type="range" id="r-dot" min="0" max="100" value="48"><span class="sr-v" id="v-dot">48</span></div>
-        <div class="sr"><span class="sr-n">CRT</span><input type="range" id="r-crt" min="0" max="100" value="0"><span class="sr-v" id="v-crt">0</span></div>
-        <div class="sr"><span class="sr-n">Glow</span><input type="range" id="r-glow" min="0" max="100" value="0"><span class="sr-v" id="v-glow">0</span></div>
-      </div>
-
-      <div class="sec">
-        <div class="sh">Film</div>
-        <div class="sr"><span class="sr-n">Grain</span><input type="range" id="r-grn" min="0" max="100" value="55"><span class="sr-v" id="v-grn">55</span></div>
-        <div class="sr"><span class="sr-n">Vignette</span><input type="range" id="r-vig" min="0" max="100" value="52"><span class="sr-v" id="v-vig">52</span></div>
-        <div class="sr"><span class="sr-n">Scanline</span><input type="range" id="r-scn" min="0" max="100" value="22"><span class="sr-v" id="v-scn">22</span></div>
-        <div class="sr"><span class="sr-n">Flicker</span><input type="range" id="r-flk" min="0" max="100" value="18"><span class="sr-v" id="v-flk">18</span></div>
-      </div>
-
-      <div class="sec">
-        <div class="sh">Blob Track</div>
-        <div class="tr"><span class="tn">Enable</span><div class="tg on" id="tg-blob"></div></div>
-        <div class="mg2" style="margin-bottom:6px">
-          <button class="mb on" id="bm-fill">FILL</button>
-          <button class="mb" id="bm-out">OUTLINE</button>
-        </div>
-        <div class="sr"><span class="sr-n">Sensitivity</span><input type="range" id="r-bsn" min="5" max="95" value="68"><span class="sr-v" id="v-bsn">68</span></div>
-        <div class="sr"><span class="sr-n">Decay</span><input type="range" id="r-bdec" min="1" max="100" value="35"><span class="sr-v" id="v-bdec">35</span></div>
-        <div class="sr"><span class="sr-n">Size</span><input type="range" id="r-bsz" min="0" max="100" value="40"><span class="sr-v" id="v-bsz">40</span></div>
-        <div class="cr">
-          <span class="cr-n">Color</span>
-          <input type="color" id="blob-color" value="#ff0000">
-        </div>
-        <div class="tr"><span class="tn">Coords x,y</span><div class="tg on" id="tg-bxy"></div></div>
-        <div class="sr"><span class="sr-n">Outline</span><input type="range" id="r-bstk" min="1" max="20" value="2"><span class="sr-v" id="v-bstk">2</span></div>
-        <div class="sr"><span class="sr-n">Font Size</span><input type="range" id="r-bfnt" min="7" max="28" value="9"><span class="sr-v" id="v-bfnt">9</span></div>
-        <div class="cr" style="flex-direction:column;align-items:flex-start;gap:5px">
-          <span class="cr-n">Coord Type</span>
-          <div class="mg" style="width:100%;margin-bottom:0">
-            <button class="mb on" id="bct-xy">X,Y</button>
-            <button class="mb" id="bct-px">PIXEL</button>
-            <button class="mb" id="bct-pct">%</button>
+      <!-- COLOR / B&W -->
+      <div class="sec" id="sec-col">
+        <div class="sh" data-sec="sec-col"><span class="sh-lbl">COLOR MODE</span><span class="sh-arr">▾</span></div>
+        <div class="sec-body">
+          <div class="mb-row">
+            <button class="mb on" id="btn-color">COLOR</button>
+            <button class="mb" id="btn-bw">BLACK &amp; WHITE</button>
           </div>
         </div>
-        <div class="cr" style="flex-direction:column;align-items:flex-start;gap:5px;margin-top:5px">
-          <span class="cr-n">Custom Label (.txt)</span>
-          <button class="mb" id="b-txtimp" style="width:100%;padding:7px">↑ IMPORT .TXT</button>
-          <input type="file" id="fi-txt" accept=".txt,text/plain" style="display:none">
-          <span id="txt-lbl" style="font-size:7px;color:var(--d2);letter-spacing:.1em;font-family:var(--M);word-break:break-all"></span>
+      </div>
+
+      <!-- DISPLACEMENT -->
+      <div class="sec collapsed" id="sec-dsp">
+        <div class="sh" data-sec="sec-dsp"><span class="sh-lbl">DISPLACEMENT</span><span class="sh-arr">▾</span></div>
+        <div class="sec-body">
+          <div class="sr"><span class="sr-n">Amount</span><input type="range" id="r-dsp" min="0" max="100" value="0"><span class="sr-v" id="v-dsp">0</span></div>
+          <div class="mb-row">
+            <button class="mb on" data-dm="0">Wave</button>
+            <button class="mb" data-dm="1">Pixel</button>
+            <button class="mb" data-dm="2">Mirror</button>
+          </div>
+          <div class="tr"><span class="tn">Mirror X</span><div class="tg" id="tg-mir"></div></div>
+          <div class="tr"><span class="tn">Block Slice</span><div class="tg" id="tg-blk"></div></div>
+          <div class="sr"><span class="sr-n">Slice</span><input type="range" id="r-slc" min="0" max="100" value="0"><span class="sr-v" id="v-slc">0</span></div>
         </div>
       </div>
 
-      <div class="sec">
-        <div class="sh">Presets</div>
-        <div class="mg2">
-          <button class="mb" data-p="photo">PHOTO</button>
-          <button class="mb" data-p="vhs">VHS</button>
-          <button class="mb hot" data-p="kit01">KIT 01</button>
-          <button class="mb" data-p="void">VOID</button>
+      <!-- PIXEL SORT -->
+      <div class="sec collapsed" id="sec-pxs">
+        <div class="sh" data-sec="sec-pxs"><span class="sh-lbl">PIXEL SORT</span><span class="sh-arr">▾</span></div>
+        <div class="sec-body">
+          <div class="sr"><span class="sr-n">Amount</span><input type="range" id="r-pxs" min="0" max="100" value="0"><span class="sr-v" id="v-pxs">0</span></div>
+          <div class="sr"><span class="sr-n">Drip</span><input type="range" id="r-pxd" min="0" max="100" value="0"><span class="sr-v" id="v-pxd">0</span></div>
+          <div class="sr"><span class="sr-n">Range</span><input type="range" id="r-pxr" min="1" max="100" value="30"><span class="sr-v" id="v-pxr">30</span></div>
         </div>
       </div>
 
-      <button id="trig">▶ BEAT / TRIGGER</button>
-      <div class="kh"><b>SPC</b> beat · <b>R</b> seed · <b>T</b> threshold</div>
-
-      <div class="sec">
-        <div class="sh">Transitions</div>
-        <div class="sg" style="margin-bottom:8px">
-          <button class="sbn" id="b-src2"><i>↑</i> Source B</button>
-        </div>
-        <input type="file" id="fi2" accept="image/*,video/*" style="display:none">
-        <div class="mg" style="margin-bottom:7px">
-          <button class="mb on" id="tm-glitch" data-tm="0">GLITCH</button>
-          <button class="mb" id="tm-disp" data-tm="1">DISPLACE</button>
-          <button class="mb" id="tm-mosh" data-tm="2">DATAMOSH</button>
-        </div>
-        <div class="tr"><span class="tn">Audio (Bass)</span><div class="tg on" id="tg-fbaud"></div></div>
-        <div class="sr"><span class="sr-n">Speed</span><input type="range" id="r-fbspd" min="1" max="100" value="40"><span class="sr-v" id="v-fbspd">40</span></div>
-        <div class="sr"><span class="sr-n">A Time</span><input type="range" id="r-fbt1" min="1" max="60" value="5"><span class="sr-v" id="v-fbt1">5s</span></div>
-        <div class="sr"><span class="sr-n">B Time</span><input type="range" id="r-fbt2" min="1" max="60" value="5"><span class="sr-v" id="v-fbt2">5s</span></div>
-        <div class="sr"><span class="sr-n">Blend</span><input type="range" id="r-fbblend" min="0" max="100" value="0"><span class="sr-v" id="v-fbblend">0</span></div>
-      </div>
-
-      <div class="sec">
-        <div class="sh">Export</div>
-        <div class="mg2" id="res-sel">
-          <button class="mb on" data-res="fhd">FULL HD</button>
-          <button class="mb" data-res="4k">4K</button>
-        </div>
-        <div class="mg2" id="fmt-sel" style="margin-bottom:6px">
-          <button class="mb on" data-fmt="mp4">MP4</button>
-          <button class="mb" data-fmt="webm">WEBM</button>
-        </div>
-        <div class="sr"><span class="sr-n">Duration</span><input type="range" id="r-dur" min="1" max="120" value="10"><span class="sr-v" id="v-dur">10s</span></div>
-        <div class="sr"><span class="sr-n">FPS</span><input type="range" id="r-fps" min="24" max="60" step="6" value="30"><span class="sr-v" id="v-fps">30</span></div>
-        <button id="do-exp">⬇ FREE EXPORT (30s, FHD, MP4)</button>
-        <div class="pay-note" style="margin:5px 0 6px">FREE: 30s · Full HD · MP4 · watermark<br>PRO: unlimited · MOV/MP4/WEBM · no watermark</div>
-        <div class="pay-btns">
-          <button class="pay-btn pp" onclick="openPayPalPro()">𝐏 PRO via PayPal</button>
-          <button class="pay-btn mp" onclick="openMercadoPagoPro()">₰ PRO via MercadoPago</button>
+      <!-- DATAMOSH -->
+      <div class="sec collapsed" id="sec-dtm">
+        <div class="sh" data-sec="sec-dtm"><span class="sh-lbl">DATAMOSH</span><span class="sh-arr">▾</span></div>
+        <div class="sec-body">
+          <div class="sr"><span class="sr-n">Amount</span><input type="range" id="r-dtm" min="0" max="100" value="0"><span class="sr-v" id="v-dtm">0</span></div>
+          <div class="sr"><span class="sr-n">Mosh</span><input type="range" id="r-mosh" min="0" max="100" value="0"><span class="sr-v" id="v-mosh">0</span></div>
+          <div class="tr"><span class="tn">Audio Reactive</span><div class="tg" id="rx-dtm"></div></div>
+          <button class="mb" id="b-snap" style="margin-top:4px">Snapshot</button>
         </div>
       </div>
 
+      <!-- CHROMATIC AB. -->
+      <div class="sec collapsed" id="sec-chr">
+        <div class="sh" data-sec="sec-chr"><span class="sh-lbl">CHROMATIC AB.</span><span class="sh-arr">▾</span></div>
+        <div class="sec-body">
+          <div class="sr"><span class="sr-n">Amount</span><input type="range" id="r-chr" min="0" max="100" value="0"><span class="sr-v" id="v-chr">0</span></div>
+        </div>
+      </div>
+
+      <!-- THRESHOLD -->
+      <div class="sec collapsed" id="sec-thr">
+        <div class="sh" data-sec="sec-thr"><span class="sh-lbl">THRESHOLD</span><span class="sh-arr">▾</span></div>
+        <div class="sec-body">
+          <div class="sr"><span class="sr-n">Amount</span><input type="range" id="r-thr" min="0" max="100" value="0"><span class="sr-v" id="v-thr">0</span></div>
+
+          <div class="sr"><span class="sr-n">Contrast</span><input type="range" id="r-con" min="0" max="100" value="50"><span class="sr-v" id="v-con">50</span></div>
+          <div class="sr"><span class="sr-n">Intensity</span><input type="range" id="r-int" min="0" max="100" value="50"><span class="sr-v" id="v-int">50</span></div>
+        </div>
+      </div>
+
+      <!-- GRAIN -->
+      <div class="sec collapsed" id="sec-grn">
+        <div class="sh" data-sec="sec-grn"><span class="sh-lbl">GRAIN (KODAK 500T)</span><span class="sh-arr">▾</span></div>
+        <div class="sec-body">
+          <div class="sr"><span class="sr-n">Amount</span><input type="range" id="r-grn" min="0" max="100" value="0"><span class="sr-v" id="v-grn">0</span></div>
+          <div class="sr"><span class="sr-n">Speed</span><input type="range" id="r-spd" min="0" max="100" value="50"><span class="sr-v" id="v-spd">50</span></div>
+          <div class="sr"><span class="sr-n">Scanlines</span><input type="range" id="r-scn" min="0" max="100" value="0"><span class="sr-v" id="v-scn">0</span></div>
+          <div class="sr"><span class="sr-n">Flicker</span><input type="range" id="r-flk" min="0" max="100" value="0"><span class="sr-v" id="v-flk">0</span></div>
+        </div>
+      </div>
+
+      <!-- STROBE -->
+      <div class="sec collapsed" id="sec-strb">
+        <div class="sh" data-sec="sec-strb"><span class="sh-lbl">STROBE</span><span class="sh-arr">▾</span></div>
+        <div class="sec-body">
+          <div class="tr"><span class="tn">Audio (Bass)</span><div class="tg" id="tg-strb-audio"></div></div>
+          <div class="tr"><span class="tn">Rate Mode</span><div class="tg" id="tg-strb-rate"></div></div>
+          <div class="sr"><span class="sr-n">Rate Hz</span><input type="range" id="r-strb-rate" min="1" max="30" value="8"><span class="sr-v" id="v-strb-rate">8Hz</span></div>
+          <div class="sr"><span class="sr-n">Duration</span><input type="range" id="r-strb-duty" min="5" max="95" value="50"><span class="sr-v" id="v-strb-duty">50%</span></div>
+          <div class="sr"><span class="sr-n">Opacity</span><input type="range" id="r-strb-alph" min="0" max="100" value="80"><span class="sr-v" id="v-strb-alph">80</span></div>
+          <div class="cr"><span class="cr-n">Color</span><input type="color" id="strb-color" value="#ffffff"></div>
+        </div>
+      </div>
+
+      <!-- GLOW -->
+      <div class="sec collapsed" id="sec-glow">
+        <div class="sh" data-sec="sec-glow"><span class="sh-lbl">GLOW / BLOOM</span><span class="sh-arr">▾</span></div>
+        <div class="sec-body">
+          <div class="sr"><span class="sr-n">Amount</span><input type="range" id="r-glow" min="0" max="100" value="0"><span class="sr-v" id="v-glow">0</span></div>
+          <div class="sr"><span class="sr-n">Feedback</span><input type="range" id="r-feed" min="0" max="100" value="0"><span class="sr-v" id="v-feed">0</span></div>
+          <div class="sr"><span class="sr-n">Vignette</span><input type="range" id="r-vig" min="0" max="100" value="0"><span class="sr-v" id="v-vig">0</span></div>
+        </div>
+      </div>
+
+      <!-- HALFTONE -->
+      <div class="sec collapsed" id="sec-dot">
+        <div class="sh" data-sec="sec-dot"><span class="sh-lbl">HALFTONE</span><span class="sh-arr">▾</span></div>
+        <div class="sec-body">
+          <div class="sr"><span class="sr-n">Amount</span><input type="range" id="r-dot" min="0" max="100" value="0"><span class="sr-v" id="v-dot">0</span></div>
+        </div>
+      </div>
+
+      <!-- AUDIO REACT -->
+      <div class="sec collapsed" id="sec-aud">
+        <div class="sh" data-sec="sec-aud"><span class="sh-lbl">AUDIO REACT</span><span class="sh-arr">▾</span></div>
+        <div class="sec-body">
+          <div class="tr"><span class="tn">Active</span><div class="tg" id="tg-anim"></div></div>
+          <div class="tr"><span class="tn">Mid Freq</span><div class="tg" id="rx-mid"></div></div>
+          <div class="sr"><span class="sr-n">Sensitivity</span><input type="range" id="r-asns" min="0" max="100" value="50"><span class="sr-v" id="v-asns">50</span></div>
+          <span class="sec-lbl" style="margin-top:2px">Beat Trigger</span>
+          <div class="mb-row">
+            <button class="mb" id="trig">BEAT</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- BLOB TRACK -->
+      <div class="sec collapsed" id="sec-blob">
+        <div class="sh" data-sec="sec-blob"><span class="sh-lbl">BLOB TRACK</span><span class="sh-arr">▾</span></div>
+        <div class="sec-body">
+          <div class="tr"><span class="tn">Track</span><div class="tg" id="tg-blob"></div></div>
+          <div class="tr"><span class="tn">Show Coords</span><div class="tg on" id="tg-bxy"></div></div>
+          <div class="sr"><span class="sr-n">Sensitivity</span><input type="range" id="r-bsn" min="0" max="100" value="20"><span class="sr-v" id="v-bsn">20</span></div>
+          <div class="sr"><span class="sr-n">Min Size</span><input type="range" id="r-bsz" min="0" max="100" value="5"><span class="sr-v" id="v-bsz">5</span></div>
+          <div class="sr"><span class="sr-n">Decay</span><input type="range" id="r-bdec" min="0" max="100" value="50"><span class="sr-v" id="v-bdec">50</span></div>
+          <div class="mb-row">
+            <button class="mb on" id="bm-fill">Fill</button>
+            <button class="mb" id="bm-out">Outline</button>
+          </div>
+          <div class="mb-row">
+            <button class="mb on" id="bct-xy">XY</button>
+            <button class="mb" id="bct-px">PX</button>
+            <button class="mb" id="bct-pct">%</button>
+          </div>
+          <div class="cr"><span class="cr-n">Color</span><input type="color" id="blob-color" value="#ff0000"></div>
+          <span class="sec-lbl" style="margin-top:4px">Custom Label (leave blank for coords)</span>
+          <input type="text" id="blob-custom-text" class="txt-in" placeholder="e.g. TRACKING">
+        </div>
+      </div>
+
+      <!-- PRESETS -->
+      <div class="sec collapsed" id="sec-pre">
+        <div class="sh" data-sec="sec-pre"><span class="sh-lbl">PRESETS</span><span class="sh-arr">▾</span></div>
+        <div class="sec-body">
+          <div class="mb-row">
+            <button class="mb" data-p="photo">Photo</button>
+            <button class="mb" data-p="vhs">VHS</button>
+            <button class="mb" data-p="kit01">Kit01</button>
+            <button class="mb" data-p="void">Void</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- EXPORT SETTINGS -->
+      <div class="sec collapsed" id="sec-exp">
+        <div class="sh" data-sec="sec-exp"><span class="sh-lbl">EXPORT SETTINGS</span><span class="sh-arr">▾</span></div>
+        <div class="sec-body">
+          <span class="sec-lbl">Format</span>
+          <div class="mb-row" id="fmt-sel">
+            <button class="mb on" data-fmt="webm">WEBM</button>
+            <button class="mb" data-fmt="mp4">MP4</button>
+          </div>
+          <span class="sec-lbl">Resolution</span>
+          <div class="mb-row" id="res-sel">
+            <button class="mb on" data-res="fhd">FHD</button>
+            <button class="mb" data-res="hd">HD</button>
+          </div>
+          <div class="sr"><span class="sr-n">Duration</span><input type="range" id="r-dur" min="1" max="30" value="15"><span class="sr-v" id="v-dur">15s</span></div>
+          <div class="sr"><span class="sr-n">FPS</span><input type="range" id="r-fps" min="15" max="60" value="30"><span class="sr-v" id="v-fps">30</span></div>
+        </div>
+      </div>
+
+      <!-- hidden stubs for engine refs (transition, b-src2 etc) -->
+      <div style="display:none">
+        <input type="range" id="r-snp" min="0" max="100" value="40"><span id="v-snp"></span>
+        <input type="range" id="r-str" min="0" max="100" value="0"><span id="v-str"></span>
+        <input type="range" id="r-bw"  min="0" max="100" value="100"><span id="v-bw"></span>
+        <input type="range" id="r-blk" min="0" max="100" value="0"><span id="v-blk"></span>
+        <input type="range" id="r-crt" min="0" max="100" value="0"><span id="v-crt"></span>
+        <input type="range" id="r-fbt1" min="0" max="5" step="0.1" value="1"><span id="v-fbt1"></span>
+        <input type="range" id="r-fbt2" min="0" max="5" step="0.1" value="1"><span id="v-fbt2"></span>
+        <div id="tg-blk" class="tg"></div>
+        <div id="rx-str" class="tg"></div>
+        <div id="rx-crt" class="tg"></div>
+        <div id="tg-fbaud" class="tg"></div>
+        <button id="b-src2"></button>
+        <span id="sfps"></span>
+      </div>
+
+    </div><!-- /scroll -->
+
+    <!-- Footer -->
+    <div id="foot">
+      <span>GLITCH.KIT</span>
+      <span class="f-flex"></span>
+      <span id="bb-fps">-- fps</span>
     </div>
-    <div id="sb"><div class="sd" id="sdot"></div><span class="st" id="stxt">NO SOURCE</span><span class="sf" id="sfps">--</span></div>
-  </div>
-</div>
-
-<!-- BOTTOM STATUS BAR -->
-<div id="bbar">
-  <span class="bb-txt">GLITCH KIT &nbsp;·&nbsp; BY &nbsp;<strong>GYULYIA.COM</strong></span>
-  <span class="bb-fps" id="bb-fps">--fps</span>
-  <button class="bb-btn" id="bb-glow" onclick="toggleGlow()">GLOW OFF</button>
-  <div class="bb-flex"></div>
-  <button class="bb-btn red" onclick="document.getElementById('do-exp').click()">EXPORT</button>
-  <button class="bb-btn" id="bb-login" onclick="document.getElementById('m-auth').classList.remove('hid')">LOGIN</button>
-</div>
-
-<!-- MODALS -->
-<div class="modal hid" id="m-reg">
-  <div class="mbox">
-    <div class="mh">Export Access</div>
-    <div class="ms">Registration required</div>
-    <div class="mf"><label>Name</label><input type="text" id="rn" autocomplete="name" placeholder="Your name"></div>
-    <div class="mf"><label>Email</label><input type="email" id="re" autocomplete="email" placeholder="email@domain.com"></div>
-    <div class="mf"><label>Phone</label><input type="tel" id="rt" autocomplete="tel" placeholder="+55 11 99999-9999"></div>
-    <div class="mf"><label>Password</label><input type="password" id="rp" placeholder="Create a password"></div>
-    <div class="mi">Free tier: up to <span>15 seconds</span> · <span>Full HD</span>.<br>4K or longer requires Pro access.</div>
-    <div class="mbtns">
-      <button class="mbtn" id="rc">Cancel</button>
-      <button class="mbtn p" id="rk">Confirm & Export</button>
-    </div>
-  </div>
-</div>
-
-<div class="modal hid" id="m-pay">
-  <div class="mbox">
-    <div class="mh">GLITCH.KIT PRO</div>
-    <div class="ms">Upgrade required</div>
-    <div class="mi">Selected export (<span id="pay-why">4K</span>) requires a Pro plan.<br><br>Pro: <span>4K export</span> · <span>Unlimited duration</span> · <span>All presets</span></div>
-    <div class="mbtns">
-      <button class="mbtn" id="pc">Cancel</button>
-      <button class="mbtn d" id="pg">Get Pro →</button>
-    </div>
-  </div>
-</div>
-
-<!-- AUTH MODAL (shows on load) -->
-<div class="modal" id="m-auth">
-  <div class="mbox" style="width:360px">
-    <div class="auth-logo">GLITCH.KIT</div>
-    <div class="auth-sub-logo">by <a href="https://gyulyia.com" target="_blank">GYULYIA</a></div>
-    <div class="auth-tabs">
-      <button class="atab on" id="atab-login" onclick="switchAuthTab('login')">Login</button>
-      <button class="atab" id="atab-reg" onclick="switchAuthTab('reg')">Register</button>
-    </div>
-    <!-- LOGIN FORM -->
-    <div class="auth-form on" id="af-login">
-      <div class="auth-err" id="login-err"></div>
-      <div class="mf"><label>Email</label><input type="email" id="l-email" placeholder="email@domain.com" autocomplete="email"></div>
-      <div class="mf"><label>Password</label><input type="password" id="l-pwd" placeholder="Your password"></div>
-      <div class="mbtns" style="margin-top:14px">
-        <button class="mbtn" onclick="authGuest()">Continue as Guest</button>
-        <button class="mbtn p" onclick="doLogin()">Login</button>
-      </div>
-      <div class="auth-or">OR</div>
-      <div class="auth-social">
-        <button class="asoc" onclick="authGuest()">G  Google</button>
-        <button class="asoc" onclick="authGuest()">f  Facebook</button>
-      </div>
-      <div class="auth-note">Don't have an account? <a href="#" onclick="switchAuthTab('reg');return false">Register for free</a></div>
-    </div>
-    <!-- REGISTER FORM -->
-    <div class="auth-form" id="af-reg">
-      <div class="auth-err" id="reg-err2"></div>
-      <div class="mf"><label>Name</label><input type="text" id="rg-name" placeholder="Your name" autocomplete="name"></div>
-      <div class="mf"><label>Email</label><input type="email" id="rg-email" placeholder="email@domain.com" autocomplete="email"></div>
-      <div class="mf"><label>Phone</label><input type="tel" id="rg-tel" placeholder="+55 11 99999-9999" autocomplete="tel"></div>
-      <div class="mf"><label>Password</label><input type="password" id="rg-pwd" placeholder="Create a password"></div>
-      <div class="mbtns" style="margin-top:14px">
-        <button class="mbtn" onclick="authGuest()">Continue as Guest</button>
-        <button class="mbtn p" onclick="doRegister()">Create Account</button>
-      </div>
-      <div class="auth-note">Already have an account? <a href="#" onclick="switchAuthTab('login');return false">Login</a></div>
-    </div>
-  </div>
-</div>
-
-<!-- GOOGLE TRANSLATE WIDGET -->
-<div id="gt-wrap">
-  <button id="gt-btn" onclick="toggleGT()">🌐 TRANSLATE</button>
-  <div id="gt-dropdown" id="gt-dd">
-    <button class="gt-lang" onclick="setLang('en')">English</button>
-    <button class="gt-lang" onclick="setLang('pt')">Português</button>
-    <button class="gt-lang" onclick="setLang('es')">Español</button>
-    <button class="gt-lang" onclick="setLang('fr')">Français</button>
-    <button class="gt-lang" onclick="setLang('de')">Deutsch</button>
-    <button class="gt-lang" onclick="setLang('it')">Italiano</button>
-    <button class="gt-lang" onclick="setLang('ja')">日本語</button>
-    <button class="gt-lang" onclick="setLang('ko')">한국어</button>
-    <button class="gt-lang" onclick="setLang('zh-CN')">中文(简体)</button>
-    <button class="gt-lang" onclick="setLang('zh-TW')">中文(繁體)</button>
-    <button class="gt-lang" onclick="setLang('ar')">العربية</button>
-    <button class="gt-lang" onclick="setLang('ru')">Русский</button>
-    <button class="gt-lang" onclick="setLang('hi')">हिन्दी</button>
-    <button class="gt-lang" onclick="setLang('nl')">Nederlands</button>
-    <button class="gt-lang" onclick="setLang('pl')">Polski</button>
-    <button class="gt-lang" onclick="setLang('tr')">Türkçe</button>
-    <button class="gt-lang" onclick="setLang('sv')">Svenska</button>
-    <button class="gt-lang" onclick="setLang('no')">Norsk</button>
-    <button class="gt-lang" onclick="setLang('da')">Dansk</button>
-    <button class="gt-lang" onclick="setLang('fi')">Suomi</button>
-  </div>
-</div>
+  </div><!-- /panel -->
+</div><!-- /wrap -->
 
 <script>
-// ── AUTH (Supabase real DB) ──────────────────────────────────────
-function switchAuthTab(tab){
-  ['login','reg'].forEach(t=>{
-    document.getElementById('atab-'+t).classList.toggle('on',t===tab);
-    document.getElementById('af-'+t).classList.toggle('on',t===tab);
+
+// ── Drop zone drag & drop ───────────────────────────────────────────
+(()=>{
+  const vp=document.getElementById('vp');
+  vp.addEventListener('dragover',e=>{e.preventDefault();vp.style.outline='2px dashed rgba(255,255,255,.3)';});
+  vp.addEventListener('dragleave',()=>{vp.style.outline='none';});
+  vp.addEventListener('drop',e=>{
+    e.preventDefault();vp.style.outline='none';
+    const f=e.dataTransfer.files[0];if(!f)return;
+    const url=URL.createObjectURL(f);
+    const fi=document.getElementById('fi');
+    // Create a DataTransfer and dispatch change manually
+    const dt=new DataTransfer();dt.items.add(f);fi.files=dt.files;
+    fi.dispatchEvent(new Event('change'));
   });
-  ['login-err','reg-err2'].forEach(id=>{ const el=document.getElementById(id); if(el){el.textContent='';el.style.color='';} });
-}
-function _authMsg(id,msg,ok=false){
-  const el=document.getElementById(id); if(!el)return;
-  el.textContent=msg; el.style.color=ok?'var(--grn)':'var(--red)';
-}
-function authGuest(){ _user=null; document.getElementById('m-auth').classList.add('hid'); }
+})();
 
-async function doLogin(){
-  const em=document.getElementById('l-email').value.trim();
-  const pw=document.getElementById('l-pwd').value;
-  if(!em||!pw){ _authMsg('login-err','Fill email and password.'); return; }
-  _authMsg('login-err','Signing in…');
-  try{
-    const {data,error}=await _sb.auth.signInWithPassword({email:em,password:pw});
-    if(error) throw error;
-    _user=data.user;
-    document.getElementById('m-auth').classList.add('hid');
-  }catch(e){
-    _authMsg('login-err',
-      e.message.includes('Invalid')?'Invalid email or password.':
-      (e.message.includes('fetch')||e.message.includes('NetworkError'))?'Network error — check Supabase config.':
-      e.message);
+// ── COLOR / B&W buttons ────────────────────────────────────────────
+(()=>{
+  const btnColor=document.getElementById('btn-color');
+  const btnBw   =document.getElementById('btn-bw');
+  function setColorMode(bw){
+    P.bw=bw;
+    // Sync hidden slider
+    const rBw=document.getElementById('r-bw');
+    if(rBw) rBw.value=bw*100;
+    if(btnColor){ btnColor.classList.toggle('on',!bw); }
+    if(btnBw)   { btnBw.classList.toggle('on', !!bw); }
   }
+  if(btnColor) btnColor.addEventListener('click',()=>setColorMode(0));
+  if(btnBw)    btnBw.addEventListener('click',()=>setColorMode(1));
+})();
+
+// ── Collapsible sections ────────────────────────────────────────────
+document.querySelectorAll('.sh[data-sec]').forEach(h=>{
+  h.addEventListener('click',()=>h.closest('.sec').classList.toggle('collapsed'));
+});
+
+
+// ── Camera state (was in auth script, restored) ────────────────────
+let camFacing = 'user';
+function flipCam(){
+  camFacing = camFacing === 'user' ? 'environment' : 'user';
+  // Re-trigger camera with new facing
+  const btn = document.getElementById('b-cam');
+  if(btn) btn.click();
 }
 
-async function doRegister(){
-  const nm=document.getElementById('rg-name').value.trim();
-  const em=document.getElementById('rg-email').value.trim();
-  const tel=document.getElementById('rg-tel').value.trim();
-  const pw=document.getElementById('rg-pwd').value;
-  if(!nm||!em||!pw){ _authMsg('reg-err2','Name, email and password are required.'); return; }
-  if(pw.length<6){ _authMsg('reg-err2','Password must be at least 6 characters.'); return; }
-  _authMsg('reg-err2','Creating account…');
-  try{
-    const {data,error}=await _sb.auth.signUp({
-      email:em, password:pw,
-      options:{data:{full_name:nm,phone:tel}}
+// ── Strobe UI wiring ────────────────────────────────────────────────
+(()=>{
+  function hex3(h){return[parseInt(h.slice(1,3),16)/255,parseInt(h.slice(3,5),16)/255,parseInt(h.slice(5,7),16)/255];}
+  const rRate=document.getElementById('r-strb-rate');
+  const rDuty=document.getElementById('r-strb-duty');
+  const rAlph=document.getElementById('r-strb-alph');
+  const cCol =document.getElementById('strb-color');
+  if(rRate) rRate.addEventListener('input',function(){
+    P.strbRate=+this.value;
+    const v=document.getElementById('v-strb-rate');if(v)v.textContent=this.value+'Hz';
+  });
+  if(rDuty) rDuty.addEventListener('input',function(){
+    P.strbDuty=+this.value/100;
+    const v=document.getElementById('v-strb-duty');if(v)v.textContent=this.value+'%';
+  });
+  if(rAlph) rAlph.addEventListener('input',function(){
+    P.strbAlph=+this.value/100;
+    const v=document.getElementById('v-strb-alph');if(v)v.textContent=this.value;
+  });
+  if(cCol) cCol.addEventListener('input',function(){P.strbColRGB=hex3(this.value);});
+  const tAudio=document.getElementById('tg-strb-audio');
+  if(tAudio) tAudio.addEventListener('click',()=>{
+    P.strbAudioOn=!P.strbAudioOn;tAudio.classList.toggle('on',P.strbAudioOn);
+  });
+  const tRateM=document.getElementById('tg-strb-rate');
+  if(tRateM) tRateM.addEventListener('click',()=>{
+    P.strbRateOn=!P.strbRateOn;tRateM.classList.toggle('on',P.strbRateOn);
+  });
+})();
+
+// ── B&W toggle wires to r-bw slider ────────────────────────────────
+document.addEventListener('DOMContentLoaded',()=>{
+  const tgBw=document.getElementById('tg-bw');
+  const rBw =document.getElementById('r-bw');
+  if(tgBw&&rBw){
+    tgBw.addEventListener('click',()=>{
+      const on=tgBw.classList.contains('on');
+      rBw.value=on?0:100;
+      P.bw=on?0:1;
+      tgBw.classList.toggle('on',!on);
     });
-    if(error) throw error;
-    if(data.user&&!data.session){
-      _authMsg('reg-err2','Check your email to confirm your account.',true);
-    } else {
-      _user=data.user;
-      document.getElementById('m-auth').classList.add('hid');
-    }
-  }catch(e){
-    _authMsg('reg-err2',
-      e.message.includes('already registered')?'Email already in use — try login.':
-      (e.message.includes('fetch')||e.message.includes('NetworkError'))?'Network error — check Supabase config.':
-      e.message);
-  }
-}
-
-async function doSocialLogin(provider){
-  try{
-    const {error}=await _sb.auth.signInWithOAuth({provider,options:{redirectTo:location.href}});
-    if(error) throw error;
-  }catch(e){ alert('OAuth error: '+e.message); }
-}
-
-document.addEventListener('keydown',e=>{
-  if(document.getElementById('m-auth').classList.contains('hid')) return;
-  if(e.key==='Enter'){
-    if(document.getElementById('af-login').classList.contains('on')) doLogin();
-    else doRegister();
   }
 });
 
-// ── MOBILE PANEL ────────────────────────────────────────────────
-function togglePanel(){
-  document.getElementById('panel').classList.toggle('open');
-}
-(()=>{
-  let ty=0;
-  document.getElementById('vp').addEventListener('touchstart',e=>{ty=e.touches[0].clientY;},{passive:true});
-  document.getElementById('vp').addEventListener('touchend',e=>{
-    if(e.changedTouches[0].clientY-ty < -55) document.getElementById('panel').classList.add('open');
-  },{passive:true});
-  const panel=document.getElementById('panel');
-  panel.addEventListener('touchstart',e=>{ty=e.touches[0].clientY;},{passive:true});
-  panel.addEventListener('touchend',e=>{
-    if(e.changedTouches[0].clientY-ty > 60) panel.classList.remove('open');
-  },{passive:true});
-})();
-
-// ── WEBCAM FLIP ─────────────────────────────────────────────────
-let camFacing='environment';
-async function flipCam(){
-  if(srcType!=='webcam') return;
-  camFacing=camFacing==='environment'?'user':'environment';
-  stopSrc();
-  setStatus('Switching camera…');
-  try{
-    const s=await navigator.mediaDevices.getUserMedia({
-      video:{facingMode:{ideal:camFacing},width:{ideal:1920},height:{ideal:1080}}
-    });
-    const v=document.createElement('video');
-    v.srcObject=s;v.autoplay=true;v.playsInline=true;v.muted=true;
-    v.onloadedmetadata=()=>{
-      srcEl=v;srcType='webcam';hasSrc=true;
-      posCanvas(v.videoWidth,v.videoHeight);v.play();
-      hideDZ();
-      setStatus((camFacing==='user'?'FRONT':'REAR')+' '+v.videoWidth+'×'+v.videoHeight,true);
-      setABtn('b-cam');
-    };
-  }catch(e){ setStatus('CAM ERROR'); }
-}
-
-// ── PAYMENTS ────────────────────────────────────────────────────
-// Configure your IDs below then deploy
-const PAYPAL_CLIENT_ID='YOUR_PAYPAL_CLIENT_ID'; // developer.paypal.com
-const PAYPAL_PLAN_ID  ='YOUR_PAYPAL_PLAN_ID';   // or single payment order
-const MP_PREF_ID      ='YOUR_MP_PREFERENCE_ID'; // developers.mercadopago.com
-
-function openPayPal(){
-  if(PAYPAL_CLIENT_ID==='YOUR_PAYPAL_CLIENT_ID'){
-    alert('PayPal not yet configured.\nAdd PAYPAL_CLIENT_ID and PAYPAL_PLAN_ID in the source code.\nCreate at: developer.paypal.com'); return;
-  }
-  window.open(`https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=${PAYPAL_PLAN_ID}`,'_blank');
-}
-function openMercadoPago(){
-  if(MP_PREF_ID==='YOUR_MP_PREFERENCE_ID'){
-    alert('Mercado Pago not yet configured.\nAdd MP_PREF_ID in the source code.\nCreate preference at: developers.mercadopago.com'); return;
-  }
-  window.open(`https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=${MP_PREF_ID}`,'_blank');
-}
-
-// ── GOOGLE TRANSLATE ────────────────────────────────────────────
-function toggleGT(){
-  const dd=document.getElementById('gt-dropdown');
-  dd.classList.toggle('open');
-  document.addEventListener('click',function h(e){
-    if(!document.getElementById('gt-wrap').contains(e.target)){dd.classList.remove('open');document.removeEventListener('click',h);}
-  });
-}
-function setLang(lang){
-  document.getElementById('gt-dropdown').classList.remove('open');
-  const val=lang==='en'?'/en/en':'/en/'+lang;
-  document.cookie='googtrans='+val+'; path=/; domain='+location.hostname;
-  document.cookie='googtrans='+val+'; path=/';
-  location.reload();
-}
 </script>
 <script>
 // ══════════════════════════════════════════════════════════════════
@@ -808,6 +597,8 @@ uniform float u_dot,u_crt,u_grn,u_vig,u_scn,u_flk;
 uniform float u_glow;              // glow intensity
 uniform float u_feedback;          // feedback blend
 uniform float u_bass,u_mid,u_low;
+uniform float u_strb_rate,u_strb_duty,u_strb_alph;
+uniform vec3  u_strb_col;
 uniform vec2  u_res;
 
 // ── Hash / Noise ───────────────────────────────────────────────
@@ -971,8 +762,6 @@ void main(){
   // Low mid → photographic grain. High mid → threshold + strobe.
   float midD=clamp(u_mid*2.2-.25,0.,1.);
   float dynThr=u_thr+midD*.8;
-  float dynStr=u_str*(u_beat+midD*.4);
-  dynStr=clamp(dynStr,0.,1.);
 
   // ── THRESHOLD + STROBE ────────────────────────────────────────
   float thrT=clamp(dynThr,0.,1.);
@@ -982,9 +771,15 @@ void main(){
     col=mix(col,vec3(bin),thrT);
     lum=dot(col,vec3(.299,.587,.114));
   }
-  // Strobe invert flash on beat frames
-  float strobeFl=step(.48,fract(T*22.))*dynStr*.48;
-  col=mix(col,1.-col,strobeFl);
+  // ── STROBE (After Effects style) ─────────────────────────────────
+  {
+    float sRate=max(u_strb_rate,0.1);
+    float sPhase=fract(T*sRate);
+    float rateGate=step(1.-u_strb_duty,sPhase);
+    float audioGate=u_str*u_beat;
+    float strobeBlend=max(rateGate*step(.001,u_strb_duty),audioGate)*u_strb_alph;
+    col=mix(col,u_strb_col,clamp(strobeBlend,0.,1.));
+  }
 
   // ── HALFTONE DOTS (small dense grid, faithful to references) ─
   // Img1: uniform tiny dots, luminance-driven radius, no color
@@ -1060,26 +855,33 @@ void main(){
     col*=mix(1.,crtEdge,crtA*.6);
   }
 
-  // ── FILM GRAIN + NOISE (image 1 style) ───────────────────────
-  // Image 1: dense coarse grain, horizontal banding streaks,
-  //          heavier at edges/corners, occasional bright specks
-  float gA=u_grn*I+midD*.07;
+  // ── FILM GRAIN (After Effects style) ────────────────────────────
+  // Gaussian-distributed luminance grain, size & softness aware
+  float gA=u_grn*I+midD*.05;
   if(gA>.01){
-    // Layer 1: coarse photographic grain (large clumps)
-    float g1=vn(uv*120.+T*2.1)*.45+vn(uv*240.-T*1.7+1.3)*.35+vn(uv*480.+T*0.9+2.7)*.20;
-    // Layer 2: fine electronic noise (high freq)
-    float g2=h2(uv*u_res+vec2(T*17.,T*23.))*.55+h3(uv*u_res+vec2(T*13.+1.,T*19.+2.))*.45;
-    // Layer 3: horizontal banding (film scan lines artifact)
-    float band=vn(vec2(uv.y*80.+T*0.4, T*0.3))*.3+vn(vec2(uv.y*200.+T*0.8, T*0.5+5.))*.15;
-    // Edge darkening grain (heavier at corners — image 1 characteristic)
-    float edgeDist=length((uv-.5)*vec2(1.2,1.0));
-    float edgeGrain=smoothstep(.3,.7,edgeDist)*.5;
-    // Mix grain layers
-    float grain=(g1*.5+g2*.35+band*.15-0.4)*(1.0+edgeGrain);
-    col+=(grain-.05)*gA*0.35;
-    // Bright specks (film dust particles)
-    float specks=step(.998, h2(uv*u_res*0.5+T*3.)) * gA * 0.5;
-    col+=vec3(specks);
+    float gLum=dot(col,vec3(.299,.587,.114));
+    // AE grain: shadow/highlight response curve
+    float lumMask=4.0*gLum*(1.-gLum); // peaks at midtones
+    // Fine layer (highlights) — tight, low amplitude
+    float gFine = vn(uv*520.+T*2.3)*.28
+                + vn(uv*380.+T*1.7+1.1)*.22;
+    // Medium layer (midtones) — AE characteristic size
+    float gMid  = vn(uv*190.+T*1.1)*.35
+                + vn(uv*260.-T*0.9+2.5)*.28;
+    // Coarse layer (shadows) — soft spread
+    float gCoarse= vn(uv*80. +T*0.5)*.25
+                 + vn(uv*55. -T*0.4+4.1)*.18;
+    // Blend layers with luminance masking like AE
+    float shadowMask=1.-smoothstep(.15,.7,gLum); // heavy in shadows
+    float grain=(gFine*.35 + gMid*.45 + gCoarse*shadowMask*.20);
+    // Soft Gaussian falloff (AE "softness")
+    float softness=vn(uv*30.+T*.2)*.08+0.96;
+    grain=(grain-0.36)*softness*lumMask;
+    // Monochromatic, single channel
+    col+=vec3(grain*gA*.45);
+    // Rare bright sparks (film halation)
+    float spark=step(.9982,h2(uv*u_res*.45+T*1.9))*gA*.22;
+    col+=vec3(spark);
   }
 
   // ── FLICKER ───────────────────────────────────────────────────
@@ -1143,7 +945,7 @@ const progMain=mkPr(FS), progBlit=mkPr(FS_BLIT);
 function getU(pr,ns){ const U={}; ns.forEach(n=>{U[n]=gl.getUniformLocation(pr,'u_'+n);}); return U; }
 const UM=getU(progMain,['src','prev','snap','t','seed','int','spd','con','bw','mir','dsp',
   'blk','slc','chr','pxs','pxr','pxd','dtm','mosh','thr','str','beat','dot','crt','grn','vig','scn','flk',
-  'glow','feedback','bass','mid','low','res']);
+  'glow','feedback','bass','mid','low','res','strb_rate','strb_duty','strb_alph','strb_col']);
 const UB=getU(progBlit,['tex']);
 
 // ── QUAD BUFFER ────────────────────────────────────────────────────
@@ -1240,12 +1042,13 @@ const P={
   thr:0,str:.65,dot:.48,crt:0,grn:.55,vig:.52,scn:.22,flk:.18,
   glow:0, feedback:0,
   blobOn:true,blobMode:'fill',blobSens:.68,blobDecay:.35,blobSize:.4,blobCoords:true,
-  blobStroke:2,blobFontSize:9,blobCoordType:'xy',blobCustomLabels:[],blobLabelIdx:0,
+  blobStroke:2,blobFontSize:11,blobCoordType:'xy',blobCustomLabels:[],blobLabelIdx:0,
   fbMode:0,fbAudio:true,fbSpeed:.4,fbTimeA:5,fbTimeB:5,fbBlend:0,
   exportFmt:'mp4',
   rxDtm:true,rxStr:true,rxMid:true,rxCrt:true,
   asns:.65,
   glowOn:false,
+  strbRate:8,strbDuty:.5,strbAlph:0.,strbColRGB:[1.,1.,1.],strbRateOn:false,strbAudioOn:false,
   feedMode:'glitch', feedTime:3,
   exportRes:'fhd',exportDur:30,exportFps:30
 };
@@ -1449,11 +1252,9 @@ function drawBlobTrack(){
     // Label
     if(P.blobCoords){
       let labelTxt='';
-      if(P.blobCustomLabels.length>0){
-        // Use custom .txt labels, cycle through them
-        const idx=(bi+P.blobLabelIdx)%P.blobCustomLabels.length;
-        labelTxt=P.blobCustomLabels[idx];
-      } else {
+      const _ct=(document.getElementById('blob-custom-text')||{}).value||'';
+          if(_ct.trim()){labelTxt=_ct.trim();}
+          else if(P.blobCustomLabels.length>0){const idx=(bi+P.blobLabelIdx)%P.blobCustomLabels.length;labelTxt=P.blobCustomLabels[idx];} else {
         const lx=Math.round(rect.cx),ly=Math.round(H-rect.cy);
         const lpct_x=Math.round(rect.cx/W*100),lpct_y=Math.round((H-rect.cy)/H*100);
         if(P.blobCoordType==='xy')   labelTxt=`x:${lx}  y:${ly}`;
@@ -1461,7 +1262,7 @@ function drawBlobTrack(){
         else if(P.blobCoordType==='pct') labelTxt=`${lpct_x}%  ${lpct_y}%`;
         else labelTxt=`x:${lx}  y:${ly}`;
       }
-      ctx2.font=`${fnt}px "Courier New",monospace`;
+      ctx2.font=`500 ${fnt}px "Martian Mono",monospace`;
       ctx2.fillStyle=`rgba(${r},${g},${b},${a*.88})`;
       ctx2.fillText(labelTxt,rect.x+4,rect.y-5);
     }
@@ -1479,38 +1280,53 @@ function stopSrc(){if(srcType==='webcam'&&srcEl?.srcObject)srcEl.srcObject.getTr
 function loadImg(url){
   stopSrc();
   const img=new Image();
-  img.onload=()=>{srcEl=img;srcType='image';hasSrc=true;posCanvas(img.naturalWidth,img.naturalHeight);upSrc(img);hideDZ();setStatus('IMG '+img.naturalWidth+'×'+img.naturalHeight);setABtn('b-img');};
+  img.onload=()=>{
+    srcEl=img;srcType='image';hasSrc=true;
+    posCanvas(img.naturalWidth,img.naturalHeight);upSrc(img);
+    hideDZ();setStatus('IMG '+img.naturalWidth+'×'+img.naturalHeight);setABtn('b-img');
+    applyPreset('photo','#ffffff');
+  };
   img.src=url;
 }
 function loadVid(url){
   stopSrc();
   const v=document.createElement('video');
   v.src=url;v.loop=true;v.muted=true;v.autoplay=true;v.playsInline=true;
-  v.onloadedmetadata=()=>{srcEl=v;srcType='video';hasSrc=true;posCanvas(v.videoWidth,v.videoHeight);v.play();hideDZ();setStatus('VID '+v.videoWidth+'×'+v.videoHeight,true);setABtn('b-vid');};
+  v.onloadedmetadata=()=>{
+    srcEl=v;srcType='video';hasSrc=true;
+    posCanvas(v.videoWidth,v.videoHeight);v.play();
+    hideDZ();setStatus('VID '+v.videoWidth+'×'+v.videoHeight,true);setABtn('b-vid');
+    applyPreset('photo','#ffffff');
+  };
 }
 
 document.getElementById('b-img').addEventListener('click',()=>{const fi=document.getElementById('fi');fi.accept='image/*';fi.click();});
 document.getElementById('b-vid').addEventListener('click',()=>{const fi=document.getElementById('fi');fi.accept='video/*';fi.click();});
 document.getElementById('b-cam').addEventListener('click',async()=>{
   stopSrc();setStatus('requesting cam…');
-  try{
-    const isMob=/Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-    const constraints={
-      video:{
-        facingMode:{ideal:camFacing},
-        width:{ideal:isMob?1920:1280},
-        height:{ideal:isMob?1080:720}
-      }
-    };
-    const s=await navigator.mediaDevices.getUserMedia(constraints);
+  if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){
+    setStatus('CAM: not supported — serve over HTTPS');return;
+  }
+  async function tryConstraints(c){
+    const s=await navigator.mediaDevices.getUserMedia(c);
     const v=document.createElement('video');v.srcObject=s;v.autoplay=true;v.playsInline=true;v.muted=true;
     v.onloadedmetadata=()=>{
       srcEl=v;srcType='webcam';hasSrc=true;posCanvas(v.videoWidth,v.videoHeight);v.play();
       hideDZ();setStatus('CAM '+v.videoWidth+'×'+v.videoHeight,true);setABtn('b-cam');
-      // Show flip button on mobile
       document.getElementById('cam-flip').classList.add('show');
+      applyPreset('photo','#ffffff');
     };
-  }catch(e){setStatus('CAM ERROR: '+e.name);}
+    return v;
+  }
+  try{
+    // Try preferred facing first
+    await tryConstraints({video:{facingMode:{ideal:camFacing},width:{ideal:1280},height:{ideal:720}}});
+  }catch(e1){
+    try{
+      // Fallback: any camera, no constraints
+      await tryConstraints({video:true});
+    }catch(e2){setStatus('CAM ERROR: '+e2.name+' — check permissions/HTTPS');}
+  }
 });
 document.getElementById('fi').addEventListener('change',e=>{
   const f=e.target.files[0];if(!f)return;
@@ -1571,19 +1387,6 @@ mkTg('tg-blob','blobOn');mkTg('tg-bxy','blobCoords');mkTg('tg-fbaud','fbAudio');
   });
 });
 
-// Blob .txt import
-document.getElementById('b-txtimp').addEventListener('click',()=>document.getElementById('fi-txt').click());
-document.getElementById('fi-txt').addEventListener('change',e=>{
-  const f=e.target.files[0]; if(!f) return;
-  const reader=new FileReader();
-  reader.onload=ev=>{
-    P.blobCustomLabels=ev.target.result.split('\n').map(l=>l.trim()).filter(Boolean);
-    P.blobLabelIdx=0;
-    document.getElementById('txt-lbl').textContent=P.blobCustomLabels.length+' labels loaded';
-  };
-  reader.readAsText(f);
-  e.target.value='';
-});
 
 // Transition mode
 document.querySelectorAll('[data-tm]').forEach(b=>{
@@ -1651,6 +1454,30 @@ document.querySelectorAll('#res-sel .mb').forEach(b=>{
 });
 
 // Presets
+// Apply a preset by name + optional blob color override
+function applyPreset(name, blobHex){
+  const p=PRESETS[name]; if(!p)return;
+  SLs.forEach(k=>{
+    if(p[k]===undefined)return;
+    const mapKey=k==='bsn'?'blobSens':k==='bdec'?'blobDecay':k==='bsz'?'blobSize':k==='asns'?'asns':k;
+    P[mapKey]=p[k]/100;
+    const el=document.getElementById('r-'+k),vl=document.getElementById('v-'+k);
+    if(el){el.value=p[k];if(vl)vl.textContent=k==='bw'?(p[k]===0?'CLR':p[k]===100?'B&W':p[k]+'%'):p[k];}
+  });
+  // Sync COLOR/BW buttons
+  const isBw=(p.bw||0)>=50;
+  const bc=document.getElementById('btn-color'),bb=document.getElementById('btn-bw');
+  if(bc){bc.classList.toggle('on',!isBw);}
+  if(bb){bb.classList.toggle('on',isBw);}
+  // Blob color
+  if(blobHex){
+    blobColor=blobHex;
+    const bcp=document.getElementById('blob-color');
+    if(bcp)bcp.value=blobHex;
+  }
+  seed=Math.random()*1000;
+}
+
 const PRESETS={
   photo:{int:40,spd:25,con:50,bw:100,blk:12,slc:8,chr:6,pxs:5,pxr:30,pxd:30,dtm:15,snp:40,thr:0,str:30,dot:22,crt:0,grn:55,vig:60,scn:15,flk:10},
   vhs:{int:65,spd:45,con:45,bw:100,blk:38,slc:50,chr:28,pxs:22,pxr:40,pxd:45,dtm:38,snp:55,thr:5,str:40,dot:18,crt:0,grn:65,vig:55,scn:68,flk:30},
@@ -1712,29 +1539,9 @@ document.getElementById('do-exp').addEventListener('click',()=>{
   startExportFree();
 });
 
-function openPayPalPro(){
-  if(!_user){ document.getElementById('m-auth').classList.remove('hid'); return; }
-  openPayPal();
-}
-function openMercadoPagoPro(){
-  if(!_user){ document.getElementById('m-auth').classList.remove('hid'); return; }
-  openMercadoPago();
-}
-document.getElementById('rc').addEventListener('click',()=>document.getElementById('m-reg').classList.add('hid'));
-document.getElementById('rk').addEventListener('click',()=>{
-  const n=document.getElementById('rn').value.trim();
-  const em=document.getElementById('re').value.trim();
-  const pw=document.getElementById('rp').value;
-  if(!n||!em||!pw){alert('Fill in all required fields');return;}
-  document.getElementById('m-reg').classList.add('hid');
-  const isFree=P.exportRes==='fhd'&&P.exportDur<=15;
-  if(!isFree){
-    document.getElementById('pay-why').textContent=P.exportRes==='4k'?'4K resolution':'Duration > 15s';
-    document.getElementById('m-pay').classList.remove('hid');
-  }else startExport();
-});
-document.getElementById('pc').addEventListener('click',()=>document.getElementById('m-pay').classList.add('hid'));
-document.getElementById('pg').addEventListener('click',()=>window.open('https://gyulyia.com','_blank'));
+
+
+
 
 // FREE export: watermark canvas overlay, max 30s, FHD, webm/mp4
 const wmCanvas=document.createElement('canvas');
@@ -1742,19 +1549,21 @@ const wmCtx=wmCanvas.getContext('2d');
 let wmStream=null, wmAF=null;
 
 function drawWatermark(){
-  wmCanvas.width=glCanvas.width; wmCanvas.height=glCanvas.height;
+  wmCanvas.width=glCanvas.width;wmCanvas.height=glCanvas.height;
   wmCtx.drawImage(glCanvas,0,0);
-  if(wmCanvas.width>0&&wmCanvas.height>0){
+  // Composite blob overlay into export
+  try{if(ovCanvas&&ovCanvas.width>0)wmCtx.drawImage(ovCanvas,0,0);}catch(e){}
+  if(wmCanvas.width>0){
     wmCtx.save();
-    wmCtx.globalAlpha=0.55;
-    wmCtx.fillStyle='#fff';
-    wmCtx.font=`bold ${Math.max(10,Math.floor(wmCanvas.width/65))}px Helvetica,Arial,sans-serif`;
+    wmCtx.globalAlpha=0.50;
+    wmCtx.fillStyle='#ffffff';
+    wmCtx.font='400 14px "Martian Mono",monospace';
     wmCtx.textAlign='right';
     wmCtx.textBaseline='bottom';
-    wmCtx.fillText('glitch-kit-gyulyia.vercel.app  by gyulyia.com',wmCanvas.width-10,wmCanvas.height-8);
+    wmCtx.fillText('GYULYIA.COM/GLITCH-KIT',wmCanvas.width-12,wmCanvas.height-10);
     wmCtx.restore();
   }
-  if(isRecording) wmAF=requestAnimationFrame(drawWatermark);
+  if(isRecording)wmAF=requestAnimationFrame(drawWatermark);
 }
 
 function startExportFree(){
@@ -1779,7 +1588,7 @@ function startExportFree(){
     const url=URL.createObjectURL(blob);
     const a=document.createElement('a');a.href=url;a.download=`glitch_kit_free_${Date.now()}.webm`;a.click();
     URL.revokeObjectURL(url);
-    btn.textContent='⬇ FREE EXPORT (30s, FHD, MP4)';btn.classList.remove('rec');
+    btn.textContent='⬇ Export';btn.classList.remove('rec');
     document.getElementById('rind').classList.remove('show');
     btn.onclick=startExportFree;
   };
@@ -1788,11 +1597,7 @@ function startExportFree(){
   btn.onclick=()=>{clearTimeout(stopT);rec.stop();};
 }
 
-function startExport(){
-  // PRO: no watermark, user must be logged in
-  if(!_user){document.getElementById('m-auth').classList.remove('hid');return;}
-  startExportFree(); // For now same stream, watermark removed in PRO flow
-}
+function startExport(){ startExportFree(); }
 
 // ── RENDER LOOP ──────────────────────────────────────────────────────
 function render(ts){
@@ -1855,13 +1660,17 @@ function render(ts){
   gl.uniform1f(UM.pxs,P.pxs);   gl.uniform1f(UM.pxr,P.pxr);    gl.uniform1f(UM.pxd,P.pxd);
   gl.uniform1f(UM.dtm,P.dtm);
   gl.uniform1f(UM.mosh,rxDtm?moshBlend*P.snp:0.);
-  gl.uniform1f(UM.thr,P.thr);   gl.uniform1f(UM.str,P.str);     gl.uniform1f(UM.beat,audioBeat);
+  gl.uniform1f(UM.thr,P.thr);   gl.uniform1f(UM.str, P.strbAudioOn ? 1.0 : 0.0);     gl.uniform1f(UM.beat,audioBeat);
   gl.uniform1f(UM.dot,P.dot);   gl.uniform1f(UM.crt,Math.min(audioCrt,1.));
   gl.uniform1f(UM.grn,P.grn);   gl.uniform1f(UM.vig,P.vig);
   gl.uniform1f(UM.scn,P.scn);   gl.uniform1f(UM.flk,P.flk);
-  gl.uniform1f(UM.glow, P.glowOn ? P.glow : 0.);
+  gl.uniform1f(UM.glow, P.glow);
   gl.uniform1f(UM.feedback, P.feedback);
   gl.uniform1f(UM.bass,bassLvl);gl.uniform1f(UM.mid,audioMid);  gl.uniform1f(UM.low,audioLow);
+  gl.uniform1f(UM.strb_rate,P.strbRate||8.);
+  gl.uniform1f(UM.strb_duty,P.strbRateOn?(P.strbDuty||.5):0.);
+  gl.uniform1f(UM.strb_alph,P.strbAlph||0.);
+  {const sc=P.strbColRGB||[1.,1.,1.];gl.uniform3f(UM.strb_col,sc[0],sc[1],sc[2]);}
   gl.uniform2f(UM.res,W,H);
   gl.drawArrays(gl.TRIANGLE_STRIP,0,4);
 
