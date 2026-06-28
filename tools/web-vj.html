@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WEB VJ — GYULYIA®</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@300;400&family=Manrope:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--black:#0a0a0a;--white:#f5f5f0;--gray:#888;--border:rgba(0,0,0,.1);--mono:'Martian Mono',monospace;--sans:'Manrope',sans-serif}
+html,body{height:100%;background:var(--black);color:var(--white)}
+a{text-decoration:none;color:inherit}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:grid;grid-template-columns:1fr auto 1fr auto;padding:14px 20px;gap:12px;mix-blend-mode:difference}
+.nav-col{display:flex;flex-direction:column;gap:4px}
+.nav-col.c{align-items:center}
+.nav-col.r{align-items:flex-end}
+.nav-logo{font-family:var(--mono);font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:var(--white)}
+.nav-links-row{display:flex;gap:0;align-items:center}
+.nav-links-row a,.nav-links-row span{font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:var(--white);text-decoration:none;opacity:.7;transition:opacity .2s}
+.nav-links-row a:hover{opacity:1}
+.nav-links-row .sep{opacity:.4;margin:0 1px}
+.nav-cell{font-family:var(--mono);font-size:10px;letter-spacing:-.5px;text-transform:uppercase;color:var(--white);opacity:.6}
+.hl{position:relative;display:inline-block}
+.hl::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .3s}
+.hl:hover::after{transform:scaleX(1);transform-origin:left}
+.tool-hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:100px 20px 48px;position:relative;border-bottom:1px solid rgba(255,255,255,.1)}
+.tool-hero-placeholder{position:absolute;inset:0;background:#0d0d0d;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.1);letter-spacing:-.5px;text-transform:uppercase}
+.tool-hero-content{position:relative;z-index:2}
+.tool-tag{font-family:var(--mono);font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:20px}
+.tool-title{font-family:var(--mono);font-size:clamp(40px,8vw,96px);letter-spacing:-.05em;text-transform:uppercase;color:var(--white);line-height:.95em;margin-bottom:32px}
+.tool-desc{font-family:var(--sans);font-size:clamp(14px,1.6vw,20px);font-weight:200;color:rgba(255,255,255,.7);max-width:600px;line-height:1.6em;text-transform:uppercase}
+.tool-info{padding:72px 20px;border-bottom:1px solid rgba(255,255,255,.1);background:var(--black)}
+.tool-info-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+@media(max-width:600px){.tool-info-grid{grid-template-columns:1fr}}
+.info-label{font-family:var(--mono);font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:12px}
+.info-val{font-family:var(--sans);font-size:clamp(13px,1.4vw,16px);font-weight:200;text-transform:uppercase;color:rgba(255,255,255,.85);line-height:1.6em}
+.tool-cta{padding:72px 20px;text-align:center;background:var(--black)}
+.tool-cta-link{font-family:var(--mono);font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.2);padding:14px 32px;display:inline-block;transition:color .25s,border-color .25s}
+.tool-cta-link:hover{color:var(--white);border-color:var(--white)}
+footer{padding:24px 20px;border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;background:var(--black)}
+footer span,footer a{font-family:var(--mono);font-size:10px;letter-spacing:-.5px;text-transform:uppercase;color:rgba(255,255,255,.3)}
+.lang-btn{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:500;display:flex;align-items:center;background:var(--black);border:1px solid rgba(255,255,255,.2);border-radius:2px;overflow:hidden;font-family:var(--mono);}
+.lang-opt{font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:rgba(255,255,255,.4);padding:7px 14px;cursor:pointer;transition:color .2s,background .2s;user-select:none;border:none;background:none;font-family:var(--mono);}
+.lang-opt.active{color:var(--white);background:rgba(255,255,255,.08)}
+.lang-opt:hover{color:var(--white)}
+.lang-sep{width:1px;height:20px;background:rgba(255,255,255,.15);flex-shrink:0}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-col">
+    <a href="../index.html" class="nav-logo hl">gyulyia®</a>
+    <div class="nav-links-row">
+      <a href="../index.html" class="hl">home</a><span class="sep">/</span>
+      <a href="../index.html#latest" class="hl">work</a><span class="sep">/</span>
+      <a href="../index.html#tools" class="hl">tools</a><span class="sep">/</span>
+      <a href="../index.html#about" class="hl">info</a><span class="sep">/</span>
+      <a href="mailto:gyulyia3d@gmail.com" class="hl">contact</a>
+    </div>
+  </div>
+  <div class="nav-col c">
+    <span class="nav-cell">Creative Technologist</span>
+    <span class="nav-cell">Multimedia Artist</span>
+  </div>
+  <div class="nav-col c">
+    <a href="mailto:gyulyia3d@gmail.com" class="nav-cell hl">gyulyia3d@gmail.com</a>
+    <a href="https://instagram.com/gyulyia" target="_blank" class="nav-cell hl">instagram</a>
+    <a href="https://wa.me/5511981120017" target="_blank" class="nav-cell hl">whatsapp</a>
+  </div>
+  <div class="nav-col r">
+    <span class="nav-cell" id="navTime">—</span>
+    <span class="nav-cell">GMT-3</span>
+  </div>
+</nav>
+
+<div class="tool-hero">
+  <div class="tool-hero-placeholder">live demo coming soon</div>
+  <div class="tool-hero-content">
+    <div class="tool-tag">live performance tool · 2025</div>
+    <h1 class="tool-title">WEB<br>VJ</h1>
+    <p class="tool-desc">Browser-based VJ tool for real-time video mixing and performance. Control clips, effects and transitions from any device, no software required.</p>
+  </div>
+</div>
+
+<div class="tool-info">
+  <div class="tool-info-grid">
+    <div>
+      <div class="info-label">Type</div>
+      <div class="info-val">Live Performance Tool / Web App</div>
+    </div>
+    <div>
+      <div class="info-label">Status</div>
+      <div class="info-val">In Development</div>
+    </div>
+    <div>
+      <div class="info-label">Technology</div>
+      <div class="info-val">WebGL · Web Audio API · JavaScript</div>
+    </div>
+    <div>
+      <div class="info-label">Use Case</div>
+      <div class="info-val">Concerts · Festivals · Live Events · Clubs</div>
+    </div>
+  </div>
+</div>
+
+<div class="tool-cta">
+  <a href="mailto:gyulyia3d@gmail.com?subject=WEB VJ" class="tool-cta-link hl">request early access</a>
+</div>
+
+<footer>
+  <span>gyulyia® · web vj</span>
+  <a href="../index.html#tools" class="hl">← back to tools</a>
+</footer>
+
+<div class="lang-btn" id="langBtn">
+  <button class="lang-opt active" id="langEN" onclick="setLang('en')">EN</button>
+  <div class="lang-sep"></div>
+  <button class="lang-opt" id="langPT" onclick="setLang('pt')">PT-BR</button>
+</div>
+
+<script>
+function updateTime(){
+  const d=new Date();
+  const s=d.toLocaleTimeString('pt-BR',{timeZone:'America/Sao_Paulo',hour:'2-digit',minute:'2-digit'});
+  document.getElementById('navTime').textContent=s;
+}
+updateTime();setInterval(updateTime,1000);
+function setLang(l){
+  document.getElementById('langEN').classList.toggle('active',l==='en');
+  document.getElementById('langPT').classList.toggle('active',l==='pt');
+  localStorage.setItem('lang',l);
+}
+(function(){const l=localStorage.getItem('lang')||'en';if(l==='pt')setLang('pt');})();
+</script>
+</body>
+</html>

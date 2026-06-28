@@ -38,120 +38,22 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:grid;grid-template-c
 .nav-time{font-variant-numeric:tabular-nums}
 
 /* HERO */
-.hero{
-  position:relative;height:100vh;overflow:hidden;background:var(--black);
-  cursor:none;
-}
-/* vídeos sobrepostos para crossfade */
-.hero-video-wrap{position:absolute;inset:0;width:100%;height:100%}
-.hero-vid{
-  position:absolute;inset:0;width:100%;height:100%;
-  object-fit:cover;display:block;
-  opacity:0;transition:opacity .8s ease;
-}
-.hero-vid.active{opacity:1}
-.hero-overlay{position:absolute;inset:0;background:rgba(0,0,0,.3);z-index:1}
-
-/* [PLAY]/[PAUSE] — segue cursor, fixed */
-.hero-playpause{
-  position:fixed;pointer-events:none;z-index:999;
-  font-family:var(--mono);font-size:11px;letter-spacing:-.5px;
-  text-transform:uppercase;color:var(--white);
-  opacity:0;transition:opacity .15s;
-  transform:translate(-50%,-28px);
-  white-space:nowrap;
-}
-.hero-playpause.vis{opacity:1}
-
-/* 4 textos do projeto — centro vertical, visíveis no hover */
-.hero-meta-row{
-  position:absolute;
-  top:50%;left:0;right:0;
-  transform:translateY(-50%);
-  z-index:4;
-  display:grid;grid-template-columns:1fr 1fr 1fr 1fr;
-  align-items:center;
-  padding:0 20px;
-  pointer-events:none;
-}
-.hero:hover .hero-meta-row{pointer-events:all}
-
-.hero-meta-cell{
-  font-family:var(--mono);font-size:11px;letter-spacing:-.5px;
-  text-transform:uppercase;color:var(--white);
-  text-decoration:none;position:relative;
-  display:inline-block;width:fit-content;
-  /* animação individual de entrada/saída */
-  opacity:0;transform:translateY(8px);
-  transition:opacity .35s ease, transform .35s ease;
-}
-.hero:hover .hero-meta-cell{opacity:1;transform:translateY(0)}
-/* stagger de entrada */
-.hero:hover .hero-meta-cell:nth-child(1){transition-delay:.00s}
-.hero:hover .hero-meta-cell:nth-child(2){transition-delay:.06s}
-.hero:hover .hero-meta-cell:nth-child(3){transition-delay:.12s}
-.hero:hover .hero-meta-cell:nth-child(4){transition-delay:.18s}
-
-.hero-meta-cell::after{
-  content:'';position:absolute;bottom:-2px;left:0;right:0;height:1px;
-  background:var(--white);transform:scaleX(0);transform-origin:right;
-  transition:transform .3s ease;
-}
-.hero-meta-cell:hover::after{transform:scaleX(1);transform-origin:left}
-.hero-meta-cell.c{justify-self:center;text-align:center}
-.hero-meta-cell.r{justify-self:end;text-align:right}
-
-/* textos animados de troca (título bottom) */
-.hero-info{
-  position:absolute;bottom:0;left:0;right:0;
-  z-index:3;padding:5px 20px;
-}
-.hero-title-row{
-  display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:0;
-}
-.hero-cell{
-  font-family:var(--mono);font-size:11px;letter-spacing:-.5px;
-  line-height:1.3em;text-transform:uppercase;color:var(--white);
-  overflow:hidden;height:1.3em;position:relative;
-}
+.hero{position:relative;height:100vh;overflow:hidden;background:var(--black);cursor:none}
+.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.hero-overlay{position:absolute;inset:0;background:rgba(0,0,0,.35);z-index:1}
+.hero-info{position:absolute;bottom:0;left:0;right:0;z-index:3;padding:5px 20px;border-top:1px solid var(--border-w)}
+.hero-title-row{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:0}
+.hero-cell{font-family:var(--mono);font-size:11px;letter-spacing:-.5px;line-height:1.3em;text-transform:uppercase;color:var(--white);padding:4px 0}
 .hero-cell.center{text-align:center}
 .hero-cell.right{text-align:right}
-/* inner span que anima */
-.hero-cell-inner{
-  display:block;
-  transition:transform .45s cubic-bezier(.22,.61,.36,1), opacity .45s ease;
-}
-.hero-cell-inner.exit-up{transform:translateY(-110%);opacity:0}
-.hero-cell-inner.enter-down{transform:translateY(110%);opacity:0}
-.hero-cell-inner.enter-down.in{transform:translateY(0);opacity:1}
-
-/* scroll / credits link */
-.hero-scroll{
-  position:absolute;bottom:28px;left:50%;transform:translateX(-50%);
-  z-index:5;font-family:var(--mono);font-size:11px;letter-spacing:-.5px;
-  text-transform:uppercase;color:var(--white);text-decoration:none;
-  opacity:.6;transition:opacity .2s;white-space:nowrap;
-}
+.hero-scroll{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);z-index:5;font-family:var(--mono);font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:var(--white);text-decoration:none;opacity:.6;transition:opacity .2s;white-space:nowrap}
 .hero-scroll:hover{opacity:1}
-.hero-scroll::after{
-  content:'';display:block;width:100%;height:1px;background:currentColor;
-  transform:scaleX(0);transform-origin:right;transition:transform .3s;
-}
+.hero-scroll::after{content:'';display:block;width:100%;height:1px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .3s}
 .hero-scroll:hover::after{transform:scaleX(1);transform-origin:left}
-
-/* PROGRESS BAR */
-.hero-progress{position:absolute;bottom:0;left:0;right:0;height:1px;background:rgba(255,255,255,.12);z-index:6}
-.hero-progress-bar{height:100%;background:rgba(255,255,255,.55);width:0%;transition:width .1s linear}
-
-/* slide counter (canto superior direito da hero, dentro) */
-.hero-counter{
-  position:absolute;bottom:5px;right:20px;z-index:4;
-  font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:var(--white);
-  opacity:.5;font-family:var(--mono);
-}
-
 @media(max-width:809px){
-  .hero-meta-cell.c,.hero-meta-cell:nth-child(3){display:none}
+  .hero-title-row{grid-template-columns:1fr 1fr}
+  .hero-cell.hide-mobile{display:none}
+}
   .hero-title-row{grid-template-columns:1fr 1fr}
   .hero-cell.center{display:none}
 }
@@ -161,14 +63,14 @@ section{width:100%}
 
 /* SECTION LATEST — white bg */
 .sec-latest{background:var(--white);padding-top:96px}
-.sec-latest .container{max-width:1160px;margin:0 auto;padding:0 20px}
-.sec-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:0}
+.sec-latest .container{max-width:none;margin:0;padding:0}
+.sec-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:0;padding:0 20px}
 .sec-header h1,.sec-count{font-family:var(--sans);font-size:160px;font-weight:300;letter-spacing:-.05em;line-height:.8em;text-transform:uppercase;color:var(--black)}
 @media(max-width:1199px){.sec-header h1,.sec-count{font-size:100px}}
 @media(max-width:809px){.sec-header h1,.sec-count{font-size:50px}}
 
 /* WORKS GRID */
-.works-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:52px}
+.works-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:40px}
 @media(max-width:809px){.works-grid{grid-template-columns:1fr}}
 .work-item{display:flex;flex-direction:column;cursor:pointer;text-decoration:none;padding-bottom:20px}
 .work-thumb-wrap{position:relative;aspect-ratio:1.65;overflow:hidden;background:#111}
@@ -277,30 +179,19 @@ section{width:100%}
 .banner-video-wrap::after{content:'';position:absolute;inset:0;background:rgba(0,0,0,.35)}
 
 /* SECTION POINTS */
-.sec-points{background:var(--white);padding:96px 0 0}
-.points-headline{padding:0 20px;margin-bottom:76px}
-.points-headline h2{font-family:var(--sans);font-size:24px;font-weight:500;letter-spacing:0;line-height:1em;text-transform:uppercase;color:var(--black);text-align:center}
-.points-desc{display:grid;grid-template-columns:1fr 1fr;gap:52px 72px;padding:0 20px 76px;max-width:1160px;margin:0 auto}
-@media(max-width:809px){.points-desc{grid-template-columns:1fr;gap:52px}}
+.sec-points{background:var(--white);padding:96px 0;border-bottom:1px solid var(--border)}
+.points-headline{padding:0 20px;margin-bottom:60px;text-align:center}
+.points-headline h2{font-family:var(--sans);font-size:24px;font-weight:500;letter-spacing:0;line-height:1em;text-transform:uppercase;color:var(--black);text-align:center;max-width:550px;margin:0 auto}
+.points-desc{display:grid;grid-template-columns:1fr 1fr;padding:0 20px}
+@media(max-width:809px){.points-desc{grid-template-columns:1fr;gap:40px}}
 .points-col{}
-.points-col-label{font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:var(--gray);line-height:1.3em;margin-bottom:16px}
-.points-col-text{font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:var(--black);line-height:1.3em}
-/* SECTION CLIENTS — logo abaixo do hero */
-.sec-clients{
-  background:var(--white);
-  padding:52px 20px;
-  border-bottom:1px solid var(--border);
-}
-.clients-label{
-  font-size:11px;letter-spacing:-.5px;text-transform:uppercase;
-  color:var(--gray);margin-bottom:24px;line-height:1.3em;
-  text-align:center;
-}
-.clients-text{
-  font-size:11px;letter-spacing:-.5px;text-transform:uppercase;
-  color:var(--black);line-height:1.8em;
-  text-align:center;max-width:750px;margin:0 auto;
-}
+.points-col-label{font-family:var(--mono);font-size:11px;font-weight:400;letter-spacing:-.55px;text-transform:uppercase;color:#aeaca8;line-height:1.3em;margin-bottom:12px}
+.points-col-text{font-family:var(--mono);font-size:11px;font-weight:400;letter-spacing:-.55px;text-transform:uppercase;color:var(--black);line-height:1.3em;max-width:420px}
+/* SECTION CLIENTS — wideangles exact */
+.sec-clients{background:var(--white);display:flex;align-items:center;justify-content:center;flex-direction:column;padding:76px 20px 96px;border-bottom:1px solid var(--border);overflow:hidden}
+.clients-inner{display:flex;flex-direction:column;align-items:center;gap:24px;width:100%}
+.clients-label{font-family:var(--mono);font-size:11px;font-weight:400;letter-spacing:-.55px;text-transform:uppercase;color:#aeaca8;line-height:1.3em;text-align:center}
+.clients-text{font-family:var(--mono);font-size:11px;font-weight:400;letter-spacing:-.55px;text-transform:uppercase;color:var(--black);line-height:1.3em;text-align:center;max-width:650px}
 
 /* ── AUTO-SCROLL TICKER (substitui strip + filmstrip) ── */
 .ticker-section{
@@ -438,37 +329,56 @@ footer{background:var(--white);position:relative;z-index:2}
 .footer-top-bar{display:grid;grid-template-columns:1fr 1fr 1fr;padding:20px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
 .footer-small{font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:var(--gray);line-height:1.3em}
 
-/* CTA BOX — hover swaps text ↔ email */
-.footer-cta-wrap{display:flex;justify-content:center;align-items:center;padding:40px 0;border-bottom:1px solid var(--border)}
+/* CTA BOX — wideangles clone: row-per-line, each clips + slides */
+.footer-cta-wrap{display:flex;justify-content:center;align-items:center;padding:60px 0;border-bottom:1px solid var(--border)}
 .footer-cta-box{
-  position:relative;
-  display:flex;align-items:center;justify-content:center;
-  width:500px;max-width:90%;min-height:100px;
-  border:1px solid rgba(0,0,0,.18);
-  text-decoration:none;padding:28px 40px;
-  overflow:hidden;cursor:pointer;
+  position:relative;display:inline-flex;align-items:center;justify-content:center;
+  height:96px;padding:12px 52px;
+  text-decoration:none;cursor:pointer;overflow:hidden;
 }
-.cta-corner{position:absolute;width:8px;height:8px}
-.cta-corner svg{overflow:visible}
-.cta-tl{top:1px;left:1px}
-.cta-tr{top:1px;right:1px;transform:rotate(90deg)}
-.cta-bl{bottom:1px;left:1px;transform:rotate(270deg)}
-.cta-br{bottom:1px;right:1px;transform:rotate(180deg)}
-.cta-text-layer,.cta-email-layer{
-  position:absolute;inset:0;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
-  transition:transform .35s ease,opacity .3s ease;
-  padding:0 20px;
-}
-.cta-text-layer{transform:translateY(0);opacity:1}
-.cta-email-layer{transform:translateY(100%);opacity:0}
-.footer-cta-box:hover .cta-text-layer{transform:translateY(-100%);opacity:0}
-.footer-cta-box:hover .cta-email-layer{transform:translateY(0);opacity:1}
+/* 4 corner L-marks — mix-blend-mode:difference → black on white, white on black */
+.cta-corners{position:absolute;inset:0;z-index:2;pointer-events:none;mix-blend-mode:difference}
+.cta-c{position:absolute;width:8px;height:8px;border-style:solid;border-color:#fff}
+.cta-c-tl{top:0;left:0;border-width:1.5px 0 0 1.5px}
+.cta-c-tr{top:0;right:0;border-width:1.5px 1.5px 0 0}
+.cta-c-bl{bottom:0;left:0;border-width:0 0 1.5px 1.5px}
+.cta-c-br{bottom:0;right:0;border-width:0 1.5px 1.5px 0}
+/* text columns */
+.cta-text-wrap{display:flex;flex-direction:column;align-items:center;gap:0;width:100%}
+/* each row clips to 24px — only one line shows at a time */
+.cta-row{height:24px;overflow:hidden;display:flex;align-items:center;justify-content:center;align-self:stretch;position:relative}
+/* text line */
 .cta-line{
-  font-family:var(--sans);font-size:clamp(14px,2vw,24px);font-weight:500;
-  letter-spacing:0;line-height:1em;
-  text-transform:uppercase;color:var(--black);text-align:center;
+  font-family:var(--sans);font-size:24px;font-weight:500;
+  letter-spacing:0;line-height:24px;text-transform:uppercase;
+  color:var(--black);text-align:center;white-space:nowrap;
+  position:absolute;width:100%;
+  transition:transform .55s cubic-bezier(.16,1,.3,1);
 }
+/* default: main text visible, email hidden below */
+.cta-line-main{transform:translateY(0)}
+.cta-line-email{transform:translateY(100%)}
+/* hover: all main text slides up, email slides in to middle row */
+.footer-cta-box:hover .cta-row-a .cta-line{transform:translateY(-100%)}
+.footer-cta-box:hover .cta-line-main{transform:translateY(-100%)}
+.footer-cta-box:hover .cta-line-email{transform:translateY(0)}
+.footer-cta-box:hover .cta-row-b .cta-line{transition-delay:.04s}
+.footer-cta-box:hover .cta-row-c .cta-line{transform:translateY(-100%);transition-delay:.08s}
+
+/* CUSTOM CURSOR for cards */
+#card-cursor{
+  position:fixed;top:0;left:0;
+  width:72px;height:72px;border-radius:50%;
+  background:var(--black);color:var(--white);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:10px;letter-spacing:-.4px;
+  text-transform:uppercase;white-space:nowrap;
+  pointer-events:none;z-index:9999;
+  opacity:0;scale:0.6;
+  transition:opacity .25s ease,scale .25s ease;
+  will-change:transform;
+}
+#card-cursor.visible{opacity:1;scale:1}
 
 /* footer links */
 .footer-links{display:grid;grid-template-columns:repeat(4,1fr);padding:52px 0}
@@ -489,7 +399,7 @@ footer{background:var(--white);position:relative;z-index:2}
   .nav-col:nth-child(3),.nav-col:nth-child(4){display:none}
   .sec-about{padding:96px 10px}
   .banner-titles{padding:10px}
-  .cta-line{font-size:14px}
+  .footer-cta-box{padding:12px 32px}
   .hero-title-row{grid-template-columns:1fr 1fr}
   .hero-cell.hide-mobile{display:none}
   .footer-inner-wrap{padding:0 10px}
@@ -613,6 +523,10 @@ footer{background:var(--white);position:relative;z-index:2}
 
 /* action buttons */
 .popup-actions{
+  display:flex;flex-direction:column;
+  border-top:1px solid rgba(255,255,255,.08);
+}
+.popup-actions-row{
   display:grid;grid-template-columns:1fr 1fr;
   border-top:1px solid rgba(255,255,255,.08);
 }
@@ -627,30 +541,42 @@ footer{background:var(--white);position:relative;z-index:2}
   transition:background .25s;
   font-weight:700;
 }
-.popup-btn:first-child{
+.popup-btn-send{
   background:var(--white);color:var(--black);
-  border-right:1px solid rgba(255,255,255,.08);
+  width:100%;
 }
-.popup-btn:first-child:hover{background:rgba(255,255,255,.88)}
-.popup-btn:last-child:hover{background:rgba(255,255,255,.08)}
+.popup-btn-send:hover{background:rgba(255,255,255,.88)}
+.popup-btn-social{border-right:1px solid rgba(255,255,255,.08)}
+.popup-btn-social:last-child{border-right:none}
+.popup-btn-social:hover{background:rgba(255,255,255,.08)}
 .popup-btn svg{flex-shrink:0}
 
-/* clients — simples, centralizado */
-.sec-clients{
-  background:var(--white);
-  padding:52px 20px;
-  border-bottom:1px solid var(--border);
-}
-.clients-label{
-  font-size:11px;letter-spacing:-.5px;text-transform:uppercase;
-  color:var(--gray);margin-bottom:24px;line-height:1.3em;
-  text-align:center;
-}
-.clients-text{
-  font-size:11px;letter-spacing:-.5px;text-transform:uppercase;
-  color:var(--black);line-height:1.8em;
-  text-align:center;max-width:750px;margin:0 auto;
-}
+/* clients — mobile override apenas */
+
+/* WORK — load more */
+.work-item.work-hidden{display:none}
+.load-more-wrap{display:flex;justify-content:center;padding:40px 20px;border-top:1px solid var(--border);margin-top:20px}
+.load-more-btn{font-family:var(--mono);font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:var(--black);background:none;border:1px solid rgba(0,0,0,.2);padding:14px 52px;cursor:none;transition:background .25s,color .25s}
+.load-more-btn:hover{background:var(--black);color:var(--white)}
+.work-thumb-placeholder{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:rgba(255,255,255,.18);text-align:center;padding:20px;line-height:1.5em}
+
+/* ── LABS / TOOLS SECTION ── */
+.sec-tools{background:var(--white);padding-top:96px;border-bottom:1px solid var(--border)}
+.sec-tools .container{max-width:none;margin:0;padding:0}
+
+.tools-grid{display:grid;grid-template-columns:repeat(2,1fr);border-top:1px solid var(--border)}
+@media(max-width:809px){.tools-grid{grid-template-columns:1fr}}
+.tool-item{position:relative;display:block;overflow:hidden;aspect-ratio:16/9;cursor:none;text-decoration:none;border-right:1px solid var(--border)}
+.tool-item:last-child{border-right:none}
+.tool-thumb-wrap{position:absolute;inset:0;overflow:hidden;background:var(--black)}
+.tool-thumb-wrap video,.tool-thumb-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.tool-item:hover .tool-thumb-wrap video,.tool-item:hover .tool-thumb-wrap img{transform:scale(1.04)}
+.tool-placeholder{position:absolute;inset:0;background:#0a0a0a;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.18);letter-spacing:-.5px;text-transform:uppercase}
+.tool-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.75) 0%,transparent 55%);opacity:.6;transition:opacity .3s}
+.tool-item:hover .tool-overlay{opacity:1}
+.tool-meta{position:absolute;bottom:0;left:0;right:0;padding:24px 28px;display:flex;justify-content:space-between;align-items:flex-end}
+.tool-name{font-family:var(--mono);font-size:14px;letter-spacing:-.5px;text-transform:uppercase;color:var(--white);font-weight:400}
+.tool-tag{font-family:var(--mono);font-size:10px;letter-spacing:-.5px;text-transform:uppercase;color:rgba(255,255,255,.45)}
 </style>
 </head>
 <body>
@@ -665,9 +591,9 @@ footer{background:var(--white);position:relative;z-index:2}
     <div class="nav-links-row">
       <a href="#" class="hl" data-i18n="nav-home">home</a>
       <span class="sep">/</span>
-      <a href="#latest" class="hl" data-i18n="nav-index">index</a>
-      <span class="sep">/</span>
       <a href="#latest" class="hl" data-i18n="nav-work">work</a>
+      <span class="sep">/</span>
+      <a href="#tools" class="hl" data-i18n="nav-tools">tools</a>
       <span class="sep">/</span>
       <a href="#about" class="hl" data-i18n="nav-info">info</a>
       <span class="sep">/</span>
@@ -680,7 +606,11 @@ footer{background:var(--white);position:relative;z-index:2}
   </div>
   <div class="nav-col c">
     <a href="mailto:gyulyia3d@gmail.com" class="nav-cell hl">gyulyia3d@gmail.com</a>
-    <a href="https://instagram.com/gyulyia" target="_blank" class="nav-cell hl">instagram</a>
+    <div style="display:flex;gap:8px;align-items:center">
+      <a href="https://instagram.com/gyulyia" target="_blank" class="nav-cell hl" style="display:inline">instagram</a>
+      <span class="nav-cell" style="opacity:.3;display:inline">/</span>
+      <a href="https://wa.me/5511981120017" target="_blank" class="nav-cell hl" style="display:inline">whatsapp</a>
+    </div>
   </div>
   <div class="nav-col r">
     <span class="nav-cell nav-time" id="navTime">—</span>
@@ -723,282 +653,122 @@ footer{background:var(--white);position:relative;z-index:2}
         </div>
       </div>
       <div class="popup-actions">
-        <button type="submit" class="popup-btn">
+        <button type="submit" class="popup-btn popup-btn-send">
           <span data-i18n="btn-send">Enviar</span>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </button>
-        <a href="https://instagram.com/gyulyia" target="_blank" rel="noopener" class="popup-btn">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-          <span data-i18n="btn-instagram">Instagram</span>
-        </a>
+        <div class="popup-actions-row">
+          <a href="https://instagram.com/gyulyia" target="_blank" rel="noopener" class="popup-btn popup-btn-social">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            <span data-i18n="btn-instagram">Instagram</span>
+          </a>
+          <a href="https://wa.me/5511981120017" target="_blank" rel="noopener" class="popup-btn popup-btn-social">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            <span data-i18n="btn-whatsapp">WhatsApp</span>
+          </a>
+        </div>
       </div>
     </form>
   </div>
 </div>
 
-<!-- [PLAY]/[PAUSE] segue cursor -->
-<div class="hero-playpause" id="heroPlayPause">[PAUSE]</div>
-
 <!-- HERO -->
 <section class="hero" id="heroSection">
-  <!-- dois vídeos para crossfade -->
-  <div class="hero-video-wrap">
-    <video class="hero-vid active" id="heroVidA" autoplay muted playsinline
-      src="https://mfaofirmvmoiqajpeajh.supabase.co/storage/v1/object/public/videos/DeepWater.mp4"></video>
-    <video class="hero-vid" id="heroVidB" muted playsinline
-      src=""></video>
-  </div>
+  <video class="hero-video" autoplay muted loop playsinline
+    src="https://efjupouazqieacludooz.supabase.co/storage/v1/object/public/videos/gyulyia.mp4"></video>
   <div class="hero-overlay"></div>
-
-  <!-- 4 textos centralizados — aparecem no hover, clicáveis -->
-  <div class="hero-meta-row" id="heroMetaRow">
-    <a class="hero-meta-cell"   id="hMeta0" href="works/saltwind-motel.html">GYULYIA</a>
-    <a class="hero-meta-cell c" id="hMeta1" href="works/saltwind-motel.html">AGRADA GREGOS</a>
-    <a class="hero-meta-cell c" id="hMeta2" href="works/saltwind-motel.html">UNREAL ENGINE</a>
-    <a class="hero-meta-cell r" id="hMeta3" href="works/saltwind-motel.html">2024</a>
-  </div>
-
-  <!-- bottom bar — textos animados na troca -->
+  <div class="corner c-tl"><svg viewBox="0 0 8 8" overflow="visible"><path d="M 0 8 L 0 0 L 8 0" fill="none" stroke="white" stroke-width="1.3"/></svg></div>
+  <div class="corner c-bl"><svg viewBox="0 0 8 8" overflow="visible"><path d="M 0 8 L 0 0 L 8 0" fill="none" stroke="white" stroke-width="1.3"/></svg></div>
+  <div class="corner c-tr"><svg viewBox="0 0 8 8" overflow="visible"><path d="M 0 8 L 0 0 L 8 0" fill="none" stroke="white" stroke-width="1.3"/></svg></div>
+  <div class="corner c-br"><svg viewBox="0 0 8 8" overflow="visible"><path d="M 0 8 L 0 0 L 8 0" fill="none" stroke="white" stroke-width="1.3"/></svg></div>
   <div class="hero-info">
     <div class="hero-title-row">
-      <div class="hero-cell"><span class="hero-cell-inner" id="hTitle">GYULYIA</span></div>
-      <div class="hero-cell center"><span class="hero-cell-inner" id="hClient">DEMO REEL 2026</span></div>
-      <div class="hero-cell center"><span class="hero-cell-inner" id="hLoc">SÃO PAULO, BRAZIL</span></div>
-      <div class="hero-cell right"><span class="hero-cell-inner" id="hYear">2026</span></div>
+      <div class="hero-cell">GYULYIA®</div>
+      <div class="hero-cell center">DEMO REEL</div>
+      <div class="hero-cell center hide-mobile">SÃO PAULO, BRAZIL</div>
+      <div class="hero-cell right">2026</div>
     </div>
   </div>
-
-  <span class="hero-counter" id="heroCounter">01 / 04</span>
   <a href="#latest" class="hero-scroll">scroll down</a>
-  <div class="hero-progress"><div class="hero-progress-bar" id="heroBar"></div></div>
 </section>
 
 <!-- CLIENTS — logo abaixo do hero -->
 <section class="sec-clients">
+  <div class="clients-inner">
   <div class="clients-label reveal" data-i18n="clients-label">clients</div>
   <div class="clients-text reveal" data-i18n="clients-text">
     RACIONAIS MC'S | FORBES | IVETE SANGALO | MATUÊ | PABLLO VITTAR | PEDRO SAMPAIO | LINIKER | MOCHAKK | GLORIA GROOVE | ROCK IN RIO | KILLATK | TONI GARRIDO | LATINO | VIVACIDADE AMOSTRA | EXPOSIÇÃO "OS MUNDOS DE LEONARDO DA VINCI" | EXPOSIÇÃO "MARÉ DE MUDANÇAS" | BIJARI STUDIO | FESTA DA LUZ | SSA MAPPING | CENA FESTIVAL | ARCANE — RIOT GAMES | SP-ARTE + BRIFW | BURNING MAN | BIENAL DO LIVRO | WORKSHOP "UNREAL PARA FILMMAKERS" — CREATIVE MONSTERS SCHOOL
   </div>
+  </div>
 </section>
 
-<!-- SECTION LATEST -->
+<!-- SECTION WORK -->
 <section class="sec-latest" id="latest">
   <div class="container">
     <div class="sec-header reveal">
-      <h1>HIGHLIGHTS</h1>
+      <h1 data-i18n="sec-latest">WORK</h1>
       <svg style="width:80px;height:80px;flex-shrink:0" viewBox="0 0 160 162" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M 73.846 161.829 L 73.846 21.829 L 9.231 81.829 L 0 74.286 L 80 0 L 160 74.286 L 150.769 81.829 L 86.154 21.829 L 86.154 161.829 Z" fill="black" transform="rotate(45 80 80.914)"/>
       </svg>
     </div>
-    <div class="works-grid">
-
-      <!-- ITEM 1 — vídeo → substitua src por URL do Supabase -->
-      <a class="work-item reveal" href="works/saltwind-motel.html">
-        <div class="work-thumb-wrap">
-          <video autoplay muted loop playsinline src="https://mfaofirmvmoiqajpeajh.supabase.co/storage/v1/object/public/videos/TEMPOS_GIU_1.mp4"></video>
-          <div class="work-hover-overlay">
-            <div></div>
-            <div class="work-hover-bottom">
-              <span class="work-hover-cell">Racionais MC's</span>
-              <span class="work-hover-cell c">Boogie Week, Podpah e A77</span>
-              <span class="work-hover-cell c">São Paulo</span>
-              <span class="work-hover-cell r">2025</span>
-            </div>
-          </div>
-          <span class="work-view-label">VIEW</span>
-        </div>
-        <div class="work-meta">
-          <div class="work-meta-left">
-            <span class="work-name">Racionais MC's</span>
-            <span class="work-brand">A77 LAB</span>
-          </div>
-          <span class="work-date">2025</span>
-        </div>
-      </a>
-
-      <!-- ITEM 2 — vídeo → substitua src por URL do Supabase -->
-      <a class="work-item reveal" href="works/saltwind-motel.html">
-        <div class="work-thumb-wrap">
-          <video autoplay muted loop playsinline src="https://mfaofirmvmoiqajpeajh.supabase.co/storage/v1/object/public/videos/ivete.mp4"></video>
-          <div class="work-hover-overlay">
-            <div></div>
-            <div class="work-hover-bottom">
-              <span class="work-hover-cell">Ivete Sangalo</span>
-              <span class="work-hover-cell c">Rock in Rio</span>
-              <span class="work-hover-cell c">Lisboa</span>
-              <span class="work-hover-cell r">2025</span>
-            </div>
-          </div>
-          <span class="work-view-label">VIEW</span>
-        </div>
-        <div class="work-meta">
-          <div class="work-meta-left">
-            <span class="work-name">Ivete Sangalo</span>
-            <span class="work-brand">Rock in Rio</span>
-          </div>
-          <span class="work-date">2025</span>
-        </div>
-      </a>
-
-      <!-- ITEM 3 — imagem → substitua src por URL do Supabase -->
-      <a class="work-item reveal" href="works/pedro-sampaio.html">
-        <div class="work-thumb-wrap">
-          <img src="https://mfaofirmvmoiqajpeajh.supabase.co/storage/v1/object/public/videos/pedro.png" alt="Pedro Sampaio">
-          <div class="work-hover-overlay">
-            <div></div>
-            <div class="work-hover-bottom">
-              <span class="work-hover-cell">Pedro Sampaio</span>
-              <span class="work-hover-cell c">Rock in Rio</span>
-              <span class="work-hover-cell c">Lisboa</span>
-              <span class="work-hover-cell r">2026</span>
-            </div>
-          </div>
-          <span class="work-view-label">VIEW</span>
-        </div>
-        <div class="work-meta">
-          <div class="work-meta-left">
-            <span class="work-name">Pedro Sampaio</span>
-            <span class="work-brand">Rock in Rio Lisboa</span>
-          </div>
-          <span class="work-date">2026</span>
-        </div>
-      </a>
-
-      <!-- ITEM 4 — vídeo → substitua src por URL do Supabase -->
-      <a class="work-item reveal" href="works/saltwind-motel.html">
-        <div class="work-thumb-wrap">
-          <video autoplay muted loop playsinline src="https://framerusercontent.com/assets/bV45ZFxzcVbOzAY3AVe4DEu48QI.mp4"></video>
-          <div class="work-hover-overlay">
-            <div></div>
-            <div class="work-hover-bottom">
-              <span class="work-hover-cell">Mochakk World Tour</span>
-              <span class="work-hover-cell c">Mochakk</span>
-              <span class="work-hover-cell c">France</span>
-              <span class="work-hover-cell r">2022</span>
-            </div>
-          </div>
-          <span class="work-view-label">VIEW</span>
-        </div>
-        <div class="work-meta">
-          <div class="work-meta-left">
-            <span class="work-name">Mochakk World Tour</span>
-            <span class="work-brand">Mochakk</span>
-          </div>
-          <span class="work-date">2022</span>
-        </div>
-      </a>
-
-      <!-- ITEM 5 — vídeo → substitua src por URL do Supabase -->
-      <a class="work-item reveal" href="works/saltwind-motel.html">
-        <div class="work-thumb-wrap">
-          <video autoplay muted loop playsinline src="https://framerusercontent.com/assets/jpCu5NfkRAYGPf9sAsTclehjPU.mp4"></video>
-          <div class="work-hover-overlay">
-            <div></div>
-            <div class="work-hover-bottom">
-              <span class="work-hover-cell">SSA Mapping</span>
-              <span class="work-hover-cell c">Festa da Luz</span>
-              <span class="work-hover-cell c">Bahia, Brazil</span>
-              <span class="work-hover-cell r">2023</span>
-            </div>
-          </div>
-          <span class="work-view-label">VIEW</span>
-        </div>
-        <div class="work-meta">
-          <div class="work-meta-left">
-            <span class="work-name">SSA Mapping</span>
-            <span class="work-brand">Festa da Luz</span>
-          </div>
-          <span class="work-date">2023</span>
-        </div>
-      </a>
-
-      <!-- ITEM 6 — imagem → substitua src por URL do Supabase -->
-      <a class="work-item reveal" href="works/saltwind-motel.html">
-        <div class="work-thumb-wrap">
-          <img src="https://framerusercontent.com/images/RXvN2EH3fJ86vgxm6sNmJavO6go.png" alt="Burning Man">
-          <div class="work-hover-overlay">
-            <div></div>
-            <div class="work-hover-bottom">
-              <span class="work-hover-cell">Burning Man</span>
-              <span class="work-hover-cell c">AR JAM — SP-Arte</span>
-              <span class="work-hover-cell c">Nevada, USA</span>
-              <span class="work-hover-cell r">2021</span>
-            </div>
-          </div>
-          <span class="work-view-label">VIEW</span>
-        </div>
-        <div class="work-meta">
-          <div class="work-meta-left">
-            <span class="work-name">Burning Man</span>
-            <span class="work-brand">AR JAM — SP-Arte</span>
-          </div>
-          <span class="work-date">2021</span>
-        </div>
-      </a>
-
-      <!-- ITEM 7 — vídeo → substitua src por URL do Supabase -->
-      <a class="work-item reveal" href="works/saltwind-motel.html">
-        <div class="work-thumb-wrap">
-          <video autoplay muted loop playsinline src="https://mfaofirmvmoiqajpeajh.supabase.co/storage/v1/object/public/videos/document_5042045963439442314.mp4"></video>
-          <div class="work-hover-overlay">
-            <div></div>
-            <div class="work-hover-bottom">
-              <span class="work-hover-cell">Maré Morta</span>
-              <span class="work-hover-cell c">ART EXHIBITIONS</span>
-              <span class="work-hover-cell c">National Tour</span>
-              <span class="work-hover-cell r">2025-2026</span>
-            </div>
-          </div>
-          <span class="work-view-label">VIEW</span>
-        </div>
-        <div class="work-meta">
-          <div class="work-meta-left">
-            <span class="work-name">Maré Morta</span>
-            <span class="work-brand">ART EXHIBITIONS</span>
-          </div>
-          <span class="work-date">2025-2026</span>
-        </div>
-      </a>
-
-      <!-- ITEM 8 — imagem → substitua src por URL do Supabase -->
-      <a class="work-item reveal" href="works/saltwind-motel.html">
-        <div class="work-thumb-wrap">
-          <img src="https://framerusercontent.com/images/uOCaxIUgozaMetfMLVPj9TlVJ4.png" alt="Festa da Luz">
-          <div class="work-hover-overlay">
-            <div></div>
-            <div class="work-hover-bottom">
-              <span class="work-hover-cell">Festa da Luz</span>
-              <span class="work-hover-cell c">National Brazilian Tour</span>
-              <span class="work-hover-cell c">Brazil</span>
-              <span class="work-hover-cell r">2023</span>
-            </div>
-          </div>
-          <span class="work-view-label">VIEW</span>
-        </div>
-        <div class="work-meta">
-          <div class="work-meta-left">
-            <span class="work-name">Festa da Luz</span>
-            <span class="work-brand">National Brazilian Tour</span>
-          </div>
-          <span class="work-date">2023</span>
-        </div>
-      </a>
-
+    <div class="works-grid" id="worksGrid">
+      <!-- preenchido via JS -->
+    </div>
+    <div class="load-more-wrap" id="loadMoreWrap">
+      <button class="load-more-btn" id="loadMoreBtn" onclick="loadMore()">VIEW MORE</button>
     </div>
 
-    <!-- SETA → ABOUT (clicável para página about) -->
+  </div>
+</section>
+
+<!-- SECTION TOOLS -->
+
+
+  <!-- TOOLS SECTION -->
+  <section class="sec-tools" id="tools">
+    <div class="container">
+      <div class="sec-header reveal">
+        <h1 data-i18n="sec-tools">TOOLS</h1>
+        <svg style="width:80px;height:80px;flex-shrink:0" viewBox="0 0 160 162" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M 73.846 161.829 L 73.846 21.829 L 9.231 81.829 L 0 74.286 L 80 0 L 160 74.286 L 150.769 81.829 L 86.154 21.829 L 86.154 161.829 Z" fill="black" transform="rotate(45 80 80.914)"/></svg>
+      </div>
+      <div class="tools-grid">
+
+        <!-- GLITCHKIT -->
+        <a class="tool-item reveal" href="tools/glitchkit.html">
+          <div class="tool-thumb-wrap">
+            <div class="tool-placeholder">glitchkit preview</div>
+          </div>
+          <div class="tool-overlay"></div>
+          <div class="tool-meta">
+            <span class="tool-name">GLITCHKIT</span>
+            <span class="tool-tag">Browser Tool</span>
+          </div>
+        </a>
+
+        <!-- WEB VJ -->
+        <a class="tool-item reveal" href="tools/web-vj.html">
+          <div class="tool-thumb-wrap">
+            <div class="tool-placeholder">web vj preview</div>
+          </div>
+          <div class="tool-overlay"></div>
+          <div class="tool-meta">
+            <span class="tool-name">WEB VJ</span>
+            <span class="tool-tag">Live Performance Tool</span>
+          </div>
+        </a>
+
+      </div>
     <a class="about-redirect reveal" href="#about">
       <div class="about-redirect-inner">
-        <h1>about</h1>
+        <h1 data-i18n="about-title">about</h1>
         <svg style="width:80px;height:80px;flex-shrink:0" viewBox="0 0 160 162" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M 73.846 161.829 L 73.846 21.829 L 9.231 81.829 L 0 74.286 L 80 0 L 160 74.286 L 150.769 81.829 L 86.154 21.829 L 86.154 161.829 Z" fill="black" transform="rotate(45 80 80.914)"/>
         </svg>
       </div>
     </a>
-  </div>
-</section>
+    </div>
+  </section>
 
-<!-- SECTION ABOUT / SERVICES -->
 <section class="sec-about" id="about">
   <div class="about-grid reveal">
 
@@ -1109,7 +879,7 @@ footer{background:var(--white);position:relative;z-index:2}
 <!-- SECTION BANNER (dark, full video) -->
 <section class="sec-banner">
   <div class="banner-video-wrap">
-    <video autoplay muted loop playsinline src="https://mfaofirmvmoiqajpeajh.supabase.co/storage/v1/object/public/videos/gyulyia.mp4"></video>
+    <video autoplay muted loop playsinline src="https://efjupouazqieacludooz.supabase.co/storage/v1/object/public/videos/gyulyia.mp4"></video>
   </div>
 </section>
 
@@ -1123,140 +893,18 @@ footer{background:var(--white);position:relative;z-index:2}
       <div class="points-col-label">PROJECT FOCUS</div>
       <div class="points-col-text">DEVELOPING CONTENT FOR BRANDS, ARTISTS, FESTIVALS AND INSTITUTIONS — TRANSLATING IDEAS INTO COMPUTER GRAPHICS VISUAL STORIES THAT FEEL AUTHENTIC, INTENTIONAL, AND ALIVE.</div>
     </div>
-    <div class="points-col" style="text-align:right">
+    <div class="points-col" style="display:flex;flex-direction:column;align-items:flex-end">
       <div class="points-col-label">APPROACH</div>
-      <div class="points-col-text">FROM ART DIRECTION TO REAL-TIME PERFORMANCE, THE WORKFLOW REMAINS FOCUSED ON STORYTELLING. EVERY PROJECT MUST LOOK MAGICAL AND ALIVE.</div>
+      <div class="points-col-text" style="text-align:right;max-width:420px">FROM ART DIRECTION TO REAL-TIME PERFORMANCE, THE WORKFLOW REMAINS FOCUSED ON STORYTELLING. EVERY PROJECT MUST LOOK MAGICAL AND ALIVE.</div>
     </div>
   </div>
 </section>
 
-<!-- TICKER GLOBAL — auto-scroll com hover P&B + link -->
+<!-- TICKER — projetos em scroll automático -->
 <div class="ticker-section" id="tickerGlobal">
   <div class="ticker-outer">
     <div class="ticker-track" id="tickerTrackGlobal">
-
-      <div class="ticker-card">
-        <video autoplay muted loop playsinline src="https://framerusercontent.com/assets/NeG2pJOMoF4UewAMHLzoxI0nF7Y.mp4"></video>
-        <div class="ticker-overlay"></div>
-        <span class="ticker-label">Golden Static</span>
-        <div class="ticker-caption"><span class="ticker-cap-name">AURELIA STUDIOS</span><span class="ticker-cap-idx">01</span></div>
-        <a class="ticker-link" href="works/saltwind-motel.html"></a>
-      </div>
-
-      <div class="ticker-card">
-        <video autoplay muted loop playsinline src="https://framerusercontent.com/assets/PjWqliZwgzcqWZiatBpYufPn9Q.mp4"></video>
-        <div class="ticker-overlay"></div>
-        <span class="ticker-label">Ultraviolet Bloom</span>
-        <div class="ticker-caption"><span class="ticker-cap-name">LUMORA LAB</span><span class="ticker-cap-idx">02</span></div>
-        <a class="ticker-link" href="works/saltwind-motel.html"></a>
-      </div>
-
-      <div class="ticker-card">
-        <img src="https://framerusercontent.com/images/FkXs0Sgl2G5XBRhdacfHqAALTTg.jpg?width=640" alt="">
-        <div class="ticker-overlay"></div>
-        <span class="ticker-label">Aurora Motion</span>
-        <div class="ticker-caption"><span class="ticker-cap-name">AURORA MOTION</span><span class="ticker-cap-idx">03</span></div>
-        <a class="ticker-link" href="works/saltwind-motel.html"></a>
-      </div>
-
-      <div class="ticker-card">
-        <video autoplay muted loop playsinline src="https://framerusercontent.com/assets/jpCu5NfkRAYGPf9sAsTclehjPU.mp4"></video>
-        <div class="ticker-overlay"></div>
-        <span class="ticker-label">The Quiet Parade</span>
-        <div class="ticker-caption"><span class="ticker-cap-name">RIVERA COLLECTIVE</span><span class="ticker-cap-idx">04</span></div>
-        <a class="ticker-link" href="works/saltwind-motel.html"></a>
-      </div>
-
-      <div class="ticker-card">
-        <video autoplay muted loop playsinline src="https://framerusercontent.com/assets/bV45ZFxzcVbOzAY3AVe4DEu48QI.mp4"></video>
-        <div class="ticker-overlay"></div>
-        <span class="ticker-label">Cobalt Season</span>
-        <div class="ticker-caption"><span class="ticker-cap-name">CASA LUMI</span><span class="ticker-cap-idx">05</span></div>
-        <a class="ticker-link" href="works/saltwind-motel.html"></a>
-      </div>
-
-      <div class="ticker-card">
-        <video autoplay muted loop playsinline src="https://framerusercontent.com/assets/zr6SYymnXKDlRzC65KHgSxkOU.mp4"></video>
-        <div class="ticker-overlay"></div>
-        <span class="ticker-label">Horizon Film Co.</span>
-        <div class="ticker-caption"><span class="ticker-cap-name">HORIZON FILM CO.</span><span class="ticker-cap-idx">06</span></div>
-        <a class="ticker-link" href="works/saltwind-motel.html"></a>
-      </div>
-
-      <div class="ticker-card">
-        <video autoplay muted loop playsinline src="https://framerusercontent.com/assets/0qjxFiW2lHTlIaW8nYafAc25w.mp4"></video>
-        <div class="ticker-overlay"></div>
-        <span class="ticker-label">Saltwind Motel</span>
-        <div class="ticker-caption"><span class="ticker-cap-name">VOID COLLECTIVE</span><span class="ticker-cap-idx">07</span></div>
-        <a class="ticker-link" href="works/saltwind-motel.html"></a>
-      </div>
-
-      <div class="ticker-card">
-        <img src="https://framerusercontent.com/images/FkXs0Sgl2G5XBRhdacfHqAALTTg.jpg?width=640" alt="">
-        <div class="ticker-overlay"></div>
-        <span class="ticker-label">Signal Films</span>
-        <div class="ticker-caption"><span class="ticker-cap-name">SIGNAL FILMS</span><span class="ticker-cap-idx">08</span></div>
-        <a class="ticker-link" href="works/saltwind-motel.html"></a>
-      </div>
-
-      <!-- duplicatas loop seamless -->
-      <div class="ticker-card">
-        <video autoplay muted loop playsinline src="https://framerusercontent.com/assets/NeG2pJOMoF4UewAMHLzoxI0nF7Y.mp4"></video>
-        <div class="ticker-overlay"></div>
-        <span class="ticker-label">Golden Static</span>
-        <div class="ticker-caption"><span class="ticker-cap-name">AURELIA STUDIOS</span><span class="ticker-cap-idx">01</span></div>
-        <a class="ticker-link" href="works/saltwind-motel.html"></a>
-      </div>
-      <div class="ticker-card">
-        <video autoplay muted loop playsinline src="https://framerusercontent.com/assets/PjWqliZwgzcqWZiatBpYufPn9Q.mp4"></video>
-        <div class="ticker-overlay"></div>
-        <span class="ticker-label">Ultraviolet Bloom</span>
-        <div class="ticker-caption"><span class="ticker-cap-name">LUMORA LAB</span><span class="ticker-cap-idx">02</span></div>
-        <a class="ticker-link" href="works/saltwind-motel.html"></a>
-      </div>
-      <div class="ticker-card">
-        <img src="https://framerusercontent.com/images/FkXs0Sgl2G5XBRhdacfHqAALTTg.jpg?width=640" alt="">
-        <div class="ticker-overlay"></div>
-        <span class="ticker-label">Aurora Motion</span>
-        <div class="ticker-caption"><span class="ticker-cap-name">AURORA MOTION</span><span class="ticker-cap-idx">03</span></div>
-        <a class="ticker-link" href="works/saltwind-motel.html"></a>
-      </div>
-      <div class="ticker-card">
-        <video autoplay muted loop playsinline src="https://framerusercontent.com/assets/jpCu5NfkRAYGPf9sAsTclehjPU.mp4"></video>
-        <div class="ticker-overlay"></div>
-        <span class="ticker-label">The Quiet Parade</span>
-        <div class="ticker-caption"><span class="ticker-cap-name">RIVERA COLLECTIVE</span><span class="ticker-cap-idx">04</span></div>
-        <a class="ticker-link" href="works/saltwind-motel.html"></a>
-      </div>
-      <div class="ticker-card">
-        <video autoplay muted loop playsinline src="https://framerusercontent.com/assets/bV45ZFxzcVbOzAY3AVe4DEu48QI.mp4"></video>
-        <div class="ticker-overlay"></div>
-        <span class="ticker-label">Cobalt Season</span>
-        <div class="ticker-caption"><span class="ticker-cap-name">CASA LUMI</span><span class="ticker-cap-idx">05</span></div>
-        <a class="ticker-link" href="works/saltwind-motel.html"></a>
-      </div>
-      <div class="ticker-card">
-        <video autoplay muted loop playsinline src="https://framerusercontent.com/assets/zr6SYymnXKDlRzC65KHgSxkOU.mp4"></video>
-        <div class="ticker-overlay"></div>
-        <span class="ticker-label">Horizon Film Co.</span>
-        <div class="ticker-caption"><span class="ticker-cap-name">HORIZON FILM CO.</span><span class="ticker-cap-idx">06</span></div>
-        <a class="ticker-link" href="works/saltwind-motel.html"></a>
-      </div>
-      <div class="ticker-card">
-        <video autoplay muted loop playsinline src="https://framerusercontent.com/assets/0qjxFiW2lHTlIaW8nYafAc25w.mp4"></video>
-        <div class="ticker-overlay"></div>
-        <span class="ticker-label">Saltwind Motel</span>
-        <div class="ticker-caption"><span class="ticker-cap-name">VOID COLLECTIVE</span><span class="ticker-cap-idx">07</span></div>
-        <a class="ticker-link" href="works/saltwind-motel.html"></a>
-      </div>
-      <div class="ticker-card">
-        <img src="https://framerusercontent.com/images/FkXs0Sgl2G5XBRhdacfHqAALTTg.jpg?width=640" alt="">
-        <div class="ticker-overlay"></div>
-        <span class="ticker-label">Signal Films</span>
-        <div class="ticker-caption"><span class="ticker-cap-name">SIGNAL FILMS</span><span class="ticker-cap-idx">08</span></div>
-        <a class="ticker-link" href="works/saltwind-motel.html"></a>
-      </div>
-
+      <!-- preenchido via JS -->
     </div>
   </div>
 </div>
@@ -1293,7 +941,7 @@ footer{background:var(--white);position:relative;z-index:2}
     </div>
   </section>
 
-  <!-- FOOTER — white, sits below the banner -->
+
   <footer id="contact">
     <div class="footer-inner-wrap">
       <!-- top bar: all rights / name / year -->
@@ -1306,21 +954,25 @@ footer{background:var(--white);position:relative;z-index:2}
       <!-- CTA BOX — hover swaps text ↔ email -->
       <div class="footer-cta-wrap">
         <a class="footer-cta-box" href="mailto:gyulyia3d@gmail.com" id="ctaBox">
-          <!-- corner marks -->
-          <div class="cta-corner cta-tl"><svg viewBox="0 0 8 8" overflow="visible"><path d="M 0 8 L 0 0 L 8 0" fill="none" stroke="black" stroke-width="1.3" opacity=".2"/></svg></div>
-          <div class="cta-corner cta-tr"><svg viewBox="0 0 8 8" overflow="visible"><path d="M 0 8 L 0 0 L 8 0" fill="none" stroke="black" stroke-width="1.3" opacity=".2"/></svg></div>
-          <div class="cta-corner cta-bl"><svg viewBox="0 0 8 8" overflow="visible"><path d="M 0 8 L 0 0 L 8 0" fill="none" stroke="black" stroke-width="1.3" opacity=".2"/></svg></div>
-          <div class="cta-corner cta-br"><svg viewBox="0 0 8 8" overflow="visible"><path d="M 0 8 L 0 0 L 8 0" fill="none" stroke="black" stroke-width="1.3" opacity=".2"/></svg></div>
-
-          <!-- text layer (default) -->
-          <div class="cta-text-layer" id="ctaText">
-            <span class="cta-line">EVERY FRAME</span>
-            <span class="cta-line">EVERY MOVEMENT, EVERY DETAIL</span>
-            <span class="cta-line">CARRIES INTENT</span>
+          <!-- corners mix-blend-mode:difference -->
+          <div class="cta-corners">
+            <span class="cta-c cta-c-tl"></span>
+            <span class="cta-c cta-c-tr"></span>
+            <span class="cta-c cta-c-bl"></span>
+            <span class="cta-c cta-c-br"></span>
           </div>
-          <!-- email layer (hover) -->
-          <div class="cta-email-layer" id="ctaEmail">
-            <span class="cta-line cta-email-str">gyulyia3d@gmail.com</span>
+          <!-- 3 rows, each 24px clipped — middle row swaps text↔email on hover -->
+          <div class="cta-text-wrap">
+            <div class="cta-row cta-row-a">
+              <span class="cta-line">EVERY FRAME</span>
+            </div>
+            <div class="cta-row cta-row-b">
+              <span class="cta-line cta-line-main">EVERY MOVEMENT, EVERY DETAIL</span>
+              <span class="cta-line cta-line-email">gyulyia3d@gmail.com</span>
+            </div>
+            <div class="cta-row cta-row-c">
+              <span class="cta-line">CARRIES INTENT</span>
+            </div>
           </div>
         </a>
       </div>
@@ -1330,8 +982,8 @@ footer{background:var(--white);position:relative;z-index:2}
         <div class="footer-col">
           <h4 data-i18n="footer-nav">navigation</h4>
           <a href="#" class="hl" data-i18n="nav-home">home</a>
-          <a href="#latest" class="hl" data-i18n="nav-index">index</a>
           <a href="#latest" class="hl" data-i18n="nav-work">work</a>
+          <a href="#tools" class="hl" data-i18n="nav-tools">tools</a>
           <a href="#about" class="hl" data-i18n="nav-info">info</a>
           <a href="#" onclick="openPopup();return false;" class="hl" data-i18n="nav-contact">contact</a>
         </div>
@@ -1348,7 +1000,7 @@ footer{background:var(--white);position:relative;z-index:2}
         <div class="footer-col">
           <h4>social</h4>
           <a href="https://instagram.com/gyulyia" target="_blank" rel="noopener" class="hl">instagram</a>
-          <a href="https://linkedin.com" target="_blank" rel="noopener" class="hl">linkedin</a>
+          <a href="https://wa.me/5511981120017" target="_blank" rel="noopener" class="hl">whatsapp</a>
         </div>
       </div>
 
@@ -1391,140 +1043,142 @@ document.querySelectorAll('a,button,.work-item').forEach(el=>{
   el.addEventListener('mouseleave',()=>ring.classList.remove('big'));
 });
 
-// ── HERO DATA ────────────────────────────────────────
-const heroData=[
-  {src:'https://framerusercontent.com/assets/NeG2pJOMoF4UewAMHLzoxI0nF7Y.mp4',
-   title:'GYULYIA',client:'FESTIVAL AGRADA GREGOS',location:'UNREAL ENGINE',year:'2024',
-   href:'works/agrada-gregos.html'},
-  {src:'https://mfaofirmvmoiqajpeajh.supabase.co/storage/v1/object/public/videos/Cena1_LVLSequence%20(1).mp4',
-   title:'GYULYIA',client:'FESTIVAL AGRADA GREGOS',location:'UNREAL ENGINE',year:'2024',
-   href:'works/saltwind-motel.html'},
-  {src:'https://framerusercontent.com/assets/jpCu5NfkRAYGPf9sAsTclehjPU.mp4',
-   title:'INSTALAÇÃO',client:'VIRTUAL PRODUCTION',location:'SÃO PAULO, BRAZIL',year:'2024',
-   href:'works/saltwind-motel.html'},
-  {src:'https://framerusercontent.com/assets/bV45ZFxzcVbOzAY3AVe4DEu48QI.mp4',
-   title:'GENERATIVE ART',client:'UNREAL ENGINE',location:'SÃO PAULO, BRAZIL',year:'2023',
-   href:'works/saltwind-motel.html'},
+// ── PROJECTS DATA + RENDER ───────────────────────────────
+const SB='https://efjupouazqieacludooz.supabase.co/storage/v1/object/public/videos/';
+const PROJECTS=[
+  {name:"Racionais MC's", brand:"A77 Lab",       year:"2025", media:{t:"video",s:SB+"TEMPOS_GIU_1.mp4"}, href:"works/racionais-mcs.html",  h:["Racionais MC's","Boogie Week / A77","São Paulo","2025"]},
+  {name:"Forbes",          brand:"Forbes Brasil", year:"2025", media:null,                                  href:"#",                          h:["Forbes","Forbes Brasil","São Paulo","2025"]},
+  {name:"Ivete Sangalo",   brand:"Rock in Rio",   year:"2025", media:{t:"video",s:SB+"ivete.mp4"},         href:"works/ivete-sangalo.html",   h:["Ivete Sangalo","Rock in Rio Lisboa","Lisbon","2025"]},
+  {name:"Matuê",           brand:"Stage Visuals", year:"",     media:null,                                  href:"#",                          h:["Matuê","Stage Visuals","Brazil",""]},
+  {name:"Pabllo Vittar",   brand:"Stage Visuals", year:"",     media:null,                                  href:"#",                          h:["Pabllo Vittar","Stage Visuals","Brazil",""]},
+  {name:"Pedro Sampaio",   brand:"Rock in Rio",   year:"2026", media:{t:"img",s:SB+"pedro.png"},           href:"works/pedro-sampaio.html",   h:["Pedro Sampaio","Rock in Rio Lisboa","Lisbon","2026"]},
+  {name:"Liniker",         brand:"Stage Visuals", year:"",     media:null,                                  href:"#",                          h:["Liniker","Stage Visuals","Brazil",""]},
+  {name:"Mochakk",         brand:"World Tour",    year:"2022", media:null,                                  href:"#",                          h:["Mochakk","World Tour","France","2022"]},
+  {name:"Gloria Groove",   brand:"Stage Visuals", year:"",     media:null,                                  href:"#",                          h:["Gloria Groove","Stage Visuals","Brazil",""]},
+  {name:"Rock in Rio",     brand:"Festival",      year:"",     media:null,                                  href:"#",                          h:["Rock in Rio","Festival","Brazil",""]},
+  {name:"KillaTK",         brand:"Stage Visuals", year:"",     media:null,                                  href:"#",                          h:["KillaTK","Stage Visuals","Brazil",""]},
+  {name:"Toni Garrido",    brand:"Stage Visuals", year:"",     media:null,                                  href:"#",                          h:["Toni Garrido","Stage Visuals","Brazil",""]},
+  {name:"Latino",          brand:"Stage Visuals", year:"",     media:null,                                  href:"#",                          h:["Latino","Stage Visuals","Brazil",""]},
+  {name:"Vivacidade Amostra",brand:"Maré Morta",  year:"2025", media:{t:"video",s:SB+"document_5042045963439442314.mp4"}, href:"works/mare-morta.html", h:["Maré Morta","Vivacidade Amostra","São Paulo","2025"]},
+  {name:"Os Mundos de Leonardo da Vinci",brand:"Exhibition",year:"",media:null,href:"#",h:["Leonardo da Vinci","Exhibition","Brazil",""]},
+  {name:"Maré de Mudanças",brand:"Exhibition",    year:"",     media:null,                                  href:"#",                          h:["Maré de Mudanças","Exhibition","Brazil",""]},
+  {name:"Bijari Studio",   brand:"",              year:"",     media:null,                                  href:"#",                          h:["Bijari Studio","","São Paulo",""]},
+  {name:"Festa da Luz",    brand:"National Tour", year:"2023", media:null,                                  href:"#",                          h:["Festa da Luz","National Tour","Brazil","2023"]},
+  {name:"SSA Mapping",     brand:"Bahia",         year:"2023", media:null,                                  href:"#",                          h:["SSA Mapping","Festa da Luz","Bahia","2023"]},
+  {name:"Cena Festival",   brand:"",              year:"",     media:null,                                  href:"#",                          h:["Cena Festival","Festival","Brazil",""]},
+  {name:"Arcane",          brand:"Riot Games",    year:"",     media:null,                                  href:"#",                          h:["Arcane","Riot Games","",""]},
+  {name:"SP-Arte + BRIFW", brand:"",              year:"",     media:null,                                  href:"#",                          h:["SP-Arte","BRIFW","São Paulo",""]},
+  {name:"Bienal do Livro", brand:"",              year:"",     media:null,                                  href:"#",                          h:["Bienal do Livro","","São Paulo",""]},
+  {name:"Creative Monsters School",brand:"Workshop",year:"",  media:null,                                  href:"#",                          h:["Creative Monsters","Workshop","São Paulo",""]},
 ];
-let hIdx=0,transitioning=false,isPlaying=true;
-
-const vidA=document.getElementById('heroVidA');
-const vidB=document.getElementById('heroVidB');
-const hBar=document.getElementById('heroBar');
-const hCounter=document.getElementById('heroCounter');
-
-// meta row cells
-const metas=[
-  document.getElementById('hMeta0'),document.getElementById('hMeta1'),
-  document.getElementById('hMeta2'),document.getElementById('hMeta3'),
-];
-// bottom bar cells
-const cells=[
-  document.getElementById('hTitle'),document.getElementById('hClient'),
-  document.getElementById('hLoc'),document.getElementById('hYear'),
-];
-
-let activeVid=vidA,nextVid=vidB;
-
-// ── ANIMATE TEXT OUT/IN ──────────────────────────────
-function animateTextOut(cb){
-  cells.forEach((c,i)=>{
-    c.style.transitionDelay=(i*.06)+'s';
-    c.classList.add('exit-up');
+const PG=4;
+function buildItem(p,hidden){
+  const el=document.createElement(p.href!=='#'?'a':'div');
+  el.className='work-item reveal'+(hidden?' work-hidden':'');
+  if(p.href!=='#')el.href=p.href;
+  let med='';
+  if(p.media?.t==='video') med=`<video autoplay muted loop playsinline src="${p.media.s}"></video>`;
+  else if(p.media?.t==='img') med=`<img src="${p.media.s}" alt="${p.name}">`;
+  else med=`<div class="work-thumb-placeholder">${p.name.toUpperCase()}</div>`;
+  el.innerHTML=`
+    <div class="work-thumb-wrap">
+      ${med}
+      <div class="work-hover-overlay">
+        <div></div>
+        <div class="work-hover-bottom">
+          <span class="work-hover-cell">${p.h[0]}</span>
+          <span class="work-hover-cell c">${p.h[1]}</span>
+          <span class="work-hover-cell c">${p.h[2]}</span>
+          <span class="work-hover-cell r">${p.h[3]}</span>
+        </div>
+      </div>
+      <span class="work-view-label">${p.href!=='#'?'VIEW':'—'}</span>
+    </div>
+    <div class="work-meta">
+      <div class="work-meta-left">
+        <span class="work-name">${p.name.toUpperCase()}</span>
+        ${p.brand?`<span class="work-brand">${p.brand.toUpperCase()}</span>`:''}
+      </div>
+      <span class="work-date">${p.year}</span>
+    </div>`;
+  el.addEventListener('mouseenter',()=>ring.classList.add('big'));
+  el.addEventListener('mouseleave',()=>ring.classList.remove('big'));
+  return el;
+}
+function loadMore(){
+  const hidden=document.querySelectorAll('#worksGrid .work-item.work-hidden');
+  Array.from(hidden).slice(0,PG).forEach(el=>{
+    el.classList.remove('work-hidden');
+    obs.observe(el);
   });
-  setTimeout(cb,350);
+  if(document.querySelectorAll('#worksGrid .work-item.work-hidden').length===0)
+    document.getElementById('loadMoreWrap').style.display='none';
 }
-function setTexts(d){
-  const vals=[d.title,d.client,d.location,d.year];
-  cells.forEach((c,i)=>{
-    c.classList.remove('exit-up','enter-down','in');
-    c.textContent=vals[i];
-    void c.offsetWidth; // reflow
-    c.classList.add('enter-down');
-    c.style.transitionDelay=(i*.06)+'s';
-    requestAnimationFrame(()=>requestAnimationFrame(()=>c.classList.add('in')));
-  });
-  // meta row
-  const metaVals=[d.title,d.client,d.location,d.year];
-  metas.forEach((m,i)=>{m.textContent=metaVals[i];m.href=d.href});
-  // counter
-  hCounter.textContent=String(hIdx+1).padStart(2,'0')+' / 0'+heroData.length;
-}
-
-// ── CROSSFADE TO NEXT ────────────────────────────────
-function goTo(idx){
-  if(transitioning)return;
-  transitioning=true;
-  hIdx=((idx%heroData.length)+heroData.length)%heroData.length;
-  const d=heroData[hIdx];
-
-  nextVid.src=d.src;
-  nextVid.muted=true;
-  nextVid.load();
-  nextVid.play().catch(()=>{});
-
-  // progress reset
-  hBar.style.transition='none';hBar.style.width='0%';
-
-  // animate text out, then crossfade video, then text in
-  animateTextOut(()=>{
-    // swap active/next
-    activeVid.classList.remove('active');
-    nextVid.classList.add('active');
-    // swap references
-    [activeVid,nextVid]=[nextVid,activeVid];
-    // text in
-    setTexts(d);
-    // re-attach timeupdate
-    attachProgress();
-    setTimeout(()=>{transitioning=false},500);
-  });
-}
-
-// ── PROGRESS BAR ─────────────────────────────────────
-function attachProgress(){
-  activeVid.addEventListener('timeupdate',onProgress);
-}
-function onProgress(){
-  if(activeVid.duration)
-    hBar.style.width=(activeVid.currentTime/activeVid.duration*100)+'%';
-  if(activeVid.ended){
-    activeVid.removeEventListener('timeupdate',onProgress);
-    goTo(hIdx+1);
-  }
-}
-
-// ── INIT ─────────────────────────────────────────────
-vidA.addEventListener('canplay',()=>{
-  vidA.classList.add('active');
-  cells.forEach(c=>{c.classList.remove('enter-down');c.classList.add('in')});
-},{once:true});
-setTexts(heroData[0]);
-attachProgress();
-vidA.play().catch(()=>{});
-
-// ── PLAY / PAUSE on click (hero) ─────────────────────
-heroSection.addEventListener('mouseenter',()=>pp.classList.add('vis'));
-heroSection.addEventListener('mouseleave',()=>pp.classList.remove('vis'));
-
-heroSection.addEventListener('click',e=>{
-  if(e.target.closest('a'))return;
-  if(isPlaying){
-    activeVid.pause();
-    pp.textContent='[PLAY]';isPlaying=false;
-  } else {
-    activeVid.play().catch(()=>{});
-    pp.textContent='[PAUSE]';isPlaying=true;
-  }
-});
-activeVid.addEventListener('play', ()=>{pp.textContent='[PAUSE]';isPlaying=true});
-activeVid.addEventListener('pause',()=>{pp.textContent='[PLAY]'; isPlaying=false});
 
 // ── SCROLL REVEAL ─────────────────────────────────────
 const obs=new IntersectionObserver(entries=>{
   entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')});
 },{threshold:.08});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// ── RENDER PROJECTS ──────────────────────────────────────
+(function(){
+  const grid=document.getElementById('worksGrid');
+  PROJECTS.forEach((p,i)=>{
+    const el=buildItem(p,i>=PG);
+    grid.appendChild(el);
+    if(i<PG)obs.observe(el);
+  });
+  if(PROJECTS.length<=PG)document.getElementById('loadMoreWrap').style.display='none';
+})();
+
+// ── TICKER — preenche com projetos reais ─────────────────
+(function(){
+  const track = document.getElementById('tickerTrackGlobal');
+  if(!track) return;
+
+  function makeCard(p, idx) {
+    const card = document.createElement('div');
+    card.className = 'ticker-card';
+
+    let med = '';
+    if(p.media?.t === 'video') {
+      med = `<video autoplay muted loop playsinline src="${p.media.s}"></video>`;
+    } else if(p.media?.t === 'img') {
+      med = `<img src="${p.media.s}" alt="${p.name}">`;
+    } else {
+      med = `<div style="width:100%;height:100%;background:#111;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:rgba(255,255,255,.18);text-align:center;padding:16px">${p.name.toUpperCase()}</div>`;
+    }
+
+    const num = String(idx + 1).padStart(2, '0');
+    card.innerHTML = `
+      ${med}
+      <div class="ticker-overlay"></div>
+      <span class="ticker-label">${p.name.toUpperCase()}</span>
+      <div class="ticker-caption">
+        <span class="ticker-cap-name">${p.brand ? p.brand.toUpperCase() : p.name.toUpperCase()}</span>
+        <span class="ticker-cap-idx">${num}</span>
+      </div>
+      ${p.href !== '#' ? `<a class="ticker-link" href="${p.href}"></a>` : ''}`;
+
+    card.addEventListener('mouseenter', () => track.classList.add('paused'));
+    card.addEventListener('mouseleave', () => track.classList.remove('paused'));
+    return card;
+  }
+
+  // build once, then duplicate for seamless loop
+  const cards = PROJECTS.map((p, i) => makeCard(p, i));
+  cards.forEach(c => track.appendChild(c));
+  // duplicate for loop
+  cards.forEach(c => track.appendChild(c.cloneNode(true)));
+
+  // re-attach pause on cloned cards
+  track.querySelectorAll('.ticker-card').forEach(card => {
+    card.addEventListener('mouseenter', () => track.classList.add('paused'));
+    card.addEventListener('mouseleave', () => track.classList.remove('paused'));
+  });
+})();
+
 
 // ── CONTACT POPUP ────────────────────────────────────
 function openPopup(){
@@ -1542,26 +1196,43 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closePopup();});
 
 function submitForm(e){
   e.preventDefault();
-  const f=document.getElementById('contactForm');
-  const name=f.name.value;
-  const email=f.email.value;
-  const phone=f.phone.value;
-  const message=f.message.value;
-  const subject=encodeURIComponent('Contato pelo site — '+name);
-  const body=encodeURIComponent(
-    'Nome: '+name+'\n'+
-    'E-mail: '+email+'\n'+
-    'Telefone: '+phone+'\n\n'+
-    message
-  );
-  window.location.href='mailto:gyulyia3d@gmail.com?subject='+subject+'&body='+body;
+  const form=document.getElementById('contactForm');
+  const btn=form.querySelector('[type=submit]');
+  const origSpan=btn.querySelector('span');
+  const origText=origSpan.textContent;
+  origSpan.textContent='ENVIANDO...';btn.disabled=true;
+
+  fetch('https://efjupouazqieacludooz.supabase.co/rest/v1/contact_submissions',{
+    method:'POST',
+    headers:{
+      'Content-Type':'application/json',
+      'apikey':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVmanVwb3VhenFpZWFjbHVkb296Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIzNDE0NzMsImV4cCI6MjA5NzkxNzQ3M30.FgxQZ1x0Z4GwDGQPLC4KMBcshYD1pDCep19KNzoYQFs',
+      'Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVmanVwb3VhenFpZWFjbHVkb296Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIzNDE0NzMsImV4cCI6MjA5NzkxNzQ3M30.FgxQZ1x0Z4GwDGQPLC4KMBcshYD1pDCep19KNzoYQFs',
+      'Prefer':'return=minimal'
+    },
+    body:JSON.stringify({
+      name:form.name.value,
+      email:form.email.value,
+      phone:form.phone?form.phone.value:'',
+      message:form.message.value
+    })
+  })
+  .then(r=>{
+    if(r.status===201||r.ok){
+      const box=document.querySelector('.popup-box');
+      const orig=box.innerHTML;
+      box.innerHTML=`<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:200px;gap:24px;padding:40px"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg><span style="font-family:var(--mono);font-size:14px;letter-spacing:-.5px;text-transform:uppercase;color:var(--white)">E-MAIL ENVIADO</span></div>`;
+      setTimeout(()=>{closePopup();setTimeout(()=>{box.innerHTML=orig;form.reset();},400);},2500);
+    }else{origSpan.textContent=origText;btn.disabled=false;}
+  })
+  .catch(()=>{origSpan.textContent=origText;btn.disabled=false;});
 }
 
 // ── I18N ─────────────────────────────────────────────
 const i18n={
   en:{
     'nav-contact':'contact',
-    'nav-home':'home','nav-index':'index','nav-work':'work','nav-info':'info',
+    'nav-home':'home','nav-tools':'tools','sec-tools':'TOOLS','nav-work':'work','nav-info':'info',
     'nav-role':'Creative Technologist: Multimedia Artist',
     'nav-city':'based in são paulo, brazil',
     'footer-nav':'navigation',
@@ -1569,11 +1240,11 @@ const i18n={
     'popup-heading':'CONTACT',
     'field-name':'Name','field-email':'E-mail',
     'field-phone':'Phone','field-message':'Message',
-    'btn-send':'Send','btn-instagram':'Instagram',
+    'btn-send':'Send','btn-instagram':'Instagram','btn-whatsapp':'WhatsApp',
     'clients-label':'clients',
     'clients-text':'RACIONAIS MC\'S | FORBES | IVETE SANGALO | MATUÊ | PABLLO VITTAR | PEDRO SAMPAIO | LINIKER | MOCHAKK | GLORIA GROOVE | ROCK IN RIO | KILLATK | TONI GARRIDO | LATINO | VIVACIDADE AMOSTRA | EXHIBITION "THE WORLDS OF LEONARDO DA VINCI" | EXHIBITION "MARÉ DE MUDANÇAS" | BIJARI STUDIO | FESTA DA LUZ | SSA MAPPING | CENA FESTIVAL | ARCANE — RIOT GAMES | SP-ARTE + BRIFW | BURNING MAN | BOOK FAIR | WORKSHOP "UNREAL FOR FILMMAKERS" — CREATIVE MONSTERS SCHOOL',
     'hero-scroll':'scroll down',
-    'sec-latest':'HIGHLIGHTS',
+    'sec-latest':'WORK',
     'about-title':'about',
     'banner-left':'TECHNICAL CREATIVE &<br>COMPUTER-GRAPHICS ARTIST',
     'banner-right':'creating solutions<br>based in São Paulo, BR',
@@ -1615,7 +1286,7 @@ const i18n={
   },
   pt:{
     'nav-contact':'contato',
-    'nav-home':'início','nav-index':'índice','nav-work':'trabalhos','nav-info':'sobre',
+    'nav-home':'início','nav-tools':'tools','sec-tools':'FERRAMENTAS','nav-work':'trabalhos','nav-info':'sobre',
     'nav-role':'Creative Technologist: Artist Multimídia',
     'nav-city':'baseada em são paulo, brasil',
     'footer-nav':'navegação',
@@ -1623,11 +1294,11 @@ const i18n={
     'popup-heading':'CONTATO',
     'field-name':'Nome','field-email':'E-mail',
     'field-phone':'Telefone','field-message':'Mensagem',
-    'btn-send':'Enviar','btn-instagram':'Instagram',
+    'btn-send':'Enviar','btn-instagram':'Instagram','btn-whatsapp':'WhatsApp',
     'clients-label':'clientes',
     'clients-text':'RACIONAIS MC\'S | FORBES | IVETE SANGALO | MATUÊ | PABLLO VITTAR | PEDRO SAMPAIO | LINIKER | MOCHAKK | GLORIA GROOVE | ROCK IN RIO | KILLATK | TONI GARRIDO | LATINO | VIVACIDADE AMOSTRA | EXPOSIÇÃO "OS MUNDOS DE LEONARDO DA VINCI" | EXPOSIÇÃO "MARÉ DE MUDANÇAS" | BIJARI STUDIO | FESTA DA LUZ | SSA MAPPING | CENA FESTIVAL | ARCANE — RIOT GAMES | SP-ARTE + BRIFW | BURNING MAN | BIENAL DO LIVRO | WORKSHOP "UNREAL PARA FILMMAKERS" — CREATIVE MONSTERS SCHOOL',
     'hero-scroll':'rolar para baixo',
-    'sec-latest':'DESTAQUES',
+    'sec-latest':'PROJETOS',
     'about-title':'sobre',
     'banner-left':'CRIATIVA TÉCNICA & ARTISTA DE COMPUTAÇÃO GRÁFICA',
     'banner-right':'soluções criativas<br>baseada em São Paulo, BR',
@@ -1683,6 +1354,8 @@ function setLang(lang){
   const hs=document.querySelector('.hero-scroll');
   if(hs) hs.textContent=t['hero-scroll'];
   // points headline
+  const stEl=document.querySelector('[data-i18n="sec-tools"]');
+  if(stEl) stEl.textContent=t['sec-tools'];
   const ph=document.querySelector('.points-headline h2');
   if(ph) ph.textContent=t['points-headline'];
   // points cols
@@ -1692,11 +1365,13 @@ function setLang(lang){
   if(texts[0])  texts[0].textContent=t['points-focus-text'];
   if(labels[1]) labels[1].textContent=t['points-approach-label'];
   if(texts[1])  texts[1].textContent=t['points-approach-text'];
-  // cta box
-  const clines=document.querySelectorAll('.cta-line');
-  if(clines[0]) clines[0].textContent=t['cta-line1'];
-  if(clines[1]) clines[1].textContent=t['cta-line2'];
-  if(clines[2]) clines[2].textContent=t['cta-line3'];
+  // cta box — target only the 3 main lines (not the email line)
+  const ctaRowA=document.querySelector('.cta-row-a .cta-line');
+  const ctaMainLine=document.querySelector('.cta-line-main');
+  const ctaRowC=document.querySelector('.cta-row-c .cta-line');
+  if(ctaRowA) ctaRowA.textContent=t['cta-line1'];
+  if(ctaMainLine) ctaMainLine.textContent=t['cta-line2'];
+  if(ctaRowC) ctaRowC.textContent=t['cta-line3'];
   // footer bottom bar
   const fbar=document.querySelectorAll('.footer-bottom-bar .footer-small');
   if(fbar[0]) fbar[0].textContent=t['footer-all-rights'];
@@ -1729,23 +1404,55 @@ function setLang(lang){
   // final mid-h
   const fmh=document.getElementById('finalMidH');
   if(fmh&&t['final-mid']!==undefined) fmh.innerHTML=t['final-mid'];
-  // popup placeholder adaptation
-  const inputs=document.querySelectorAll('#contactForm input, #contactForm textarea');
-  const ph_map={en:['Gyulyia','gyulyia3d@gmail.com','+55 (11) 9 0000-0000','Hello Gyulyia...'],
-                pt:['Gyulyia','gyulyia3d@gmail.com','+55 (11) 9 0000-0000','Olá Gyulyia...']};
-  inputs.forEach((inp,i)=>{if(ph_map[lang][i])inp.placeholder=ph_map[lang][i]});
+  // tools section header
+  const toolsH=document.querySelector('.sec-tools .sec-header h1');
+  if(toolsH) toolsH.textContent=t['sec-tools'];
+  // projects re-render if needed
 }
-function initTicker(trackId){
-  const track=document.getElementById(trackId);
-  if(!track)return;
-  const cards=track.querySelectorAll('.ticker-card');
-  cards.forEach(card=>{
-    card.addEventListener('mouseenter',()=>track.classList.add('paused'));
-    card.addEventListener('mouseleave',()=>track.classList.remove('paused'));
+
+// init
+setLang('en');
+
+// ── CUSTOM CURSOR FOR CARDS ──────────────────────────
+(function(){
+  const cur=document.createElement('div');
+  cur.id='card-cursor';
+  cur.textContent='VIEW';
+  document.body.appendChild(cur);
+
+  let cx=0,cy=0,tx=0,ty=0,raf=null;
+
+  function loop(){
+    cx+=(tx-cx)*.1;
+    cy+=(ty-cy)*.1;
+    cur.style.transform=`translate(${cx}px,${cy}px) translate(-50%,-50%)`;
+    raf=requestAnimationFrame(loop);
+  }
+  loop();
+
+  function onMove(e){tx=e.clientX;ty=e.clientY;}
+  document.addEventListener('mousemove',onMove,{passive:true});
+
+  const targets='[class*="work-item"],[class*="tool-item"],.tools-card';
+  document.querySelectorAll(targets).forEach(function(el){
+    el.addEventListener('mouseenter',function(){cur.classList.add('visible');});
+    el.addEventListener('mouseleave',function(){cur.classList.remove('visible');});
   });
-}
-initTicker('tickerTrack');
-initTicker('tickerTrackGlobal');
+  // also handle dynamically added work items
+  const grid=document.getElementById('worksGrid');
+  if(grid){
+    const obs=new MutationObserver(function(){
+      grid.querySelectorAll('.work-item').forEach(function(el){
+        if(!el.dataset.cursorBound){
+          el.dataset.cursorBound='1';
+          el.addEventListener('mouseenter',function(){cur.classList.add('visible');});
+          el.addEventListener('mouseleave',function(){cur.classList.remove('visible');});
+        }
+      });
+    });
+    obs.observe(grid,{childList:true});
+  }
+})();
+
 </script>
-</body>
 </html>
