@@ -63,14 +63,14 @@ section{width:100%}
 
 /* SECTION LATEST — white bg */
 .sec-latest{background:var(--white);padding-top:96px}
-.sec-latest .container{max-width:1160px;margin:0 auto;padding:0 20px}
-.sec-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:0}
+.sec-latest .container{max-width:none;margin:0;padding:0}
+.sec-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:0;padding:0 20px}
 .sec-header h1,.sec-count{font-family:var(--sans);font-size:160px;font-weight:300;letter-spacing:-.05em;line-height:.8em;text-transform:uppercase;color:var(--black)}
 @media(max-width:1199px){.sec-header h1,.sec-count{font-size:100px}}
 @media(max-width:809px){.sec-header h1,.sec-count{font-size:50px}}
 
 /* WORKS GRID */
-.works-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:52px}
+.works-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:40px}
 @media(max-width:809px){.works-grid{grid-template-columns:1fr}}
 .work-item{display:flex;flex-direction:column;cursor:pointer;text-decoration:none;padding-bottom:20px}
 .work-thumb-wrap{position:relative;aspect-ratio:1.65;overflow:hidden;background:#111}
@@ -185,23 +185,25 @@ section{width:100%}
 .points-desc{display:grid;grid-template-columns:1fr 1fr;gap:52px 72px;padding:0 20px 76px;max-width:1160px;margin:0 auto}
 @media(max-width:809px){.points-desc{grid-template-columns:1fr;gap:52px}}
 .points-col{}
-.points-col-label{font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:var(--gray);line-height:1.3em;margin-bottom:16px}
-.points-col-text{font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:var(--black);line-height:1.3em}
+.points-col-label{font-family:var(--sans);font-size:clamp(12px,1.2vw,16px);font-weight:400;letter-spacing:.05em;text-transform:uppercase;color:var(--gray);line-height:1.3em;margin-bottom:16px}
+.points-col-text{font-family:var(--sans);font-size:clamp(14px,1.6vw,20px);font-weight:200;letter-spacing:0;text-transform:uppercase;color:var(--black);line-height:1.5em}
 /* SECTION CLIENTS — logo abaixo do hero */
 .sec-clients{
   background:var(--white);
-  padding:52px 20px;
+  padding:72px 20px;
   border-bottom:1px solid var(--border);
 }
 .clients-label{
-  font-size:11px;letter-spacing:-.5px;text-transform:uppercase;
-  color:var(--gray);margin-bottom:24px;line-height:1.3em;
+  font-family:var(--sans);font-size:clamp(12px,1.2vw,16px);font-weight:400;
+  letter-spacing:.05em;text-transform:uppercase;
+  color:var(--gray);margin-bottom:28px;line-height:1.3em;
   text-align:center;
 }
 .clients-text{
-  font-size:11px;letter-spacing:-.5px;text-transform:uppercase;
-  color:var(--black);line-height:1.8em;
-  text-align:center;max-width:750px;margin:0 auto;
+  font-family:var(--sans);font-size:clamp(16px,2vw,24px);font-weight:200;
+  letter-spacing:0;text-transform:uppercase;
+  color:var(--black);line-height:1.6em;
+  text-align:center;
 }
 
 /* ── AUTO-SCROLL TICKER (substitui strip + filmstrip) ── */
@@ -540,18 +542,20 @@ footer{background:var(--white);position:relative;z-index:2}
 /* clients — simples, centralizado */
 .sec-clients{
   background:var(--white);
-  padding:52px 20px;
+  padding:72px 20px;
   border-bottom:1px solid var(--border);
 }
 .clients-label{
-  font-size:11px;letter-spacing:-.5px;text-transform:uppercase;
-  color:var(--gray);margin-bottom:24px;line-height:1.3em;
+  font-family:var(--sans);font-size:clamp(12px,1.2vw,16px);font-weight:400;
+  letter-spacing:.05em;text-transform:uppercase;
+  color:var(--gray);margin-bottom:28px;line-height:1.3em;
   text-align:center;
 }
 .clients-text{
-  font-size:11px;letter-spacing:-.5px;text-transform:uppercase;
-  color:var(--black);line-height:1.8em;
-  text-align:center;max-width:750px;margin:0 auto;
+  font-family:var(--sans);font-size:clamp(16px,2vw,24px);font-weight:200;
+  letter-spacing:0;text-transform:uppercase;
+  color:var(--black);line-height:1.6em;
+  text-align:center;
 }
 
 /* WORK — load more */
@@ -831,133 +835,11 @@ footer{background:var(--white);position:relative;z-index:2}
   </div>
 </section>
 
-<!-- TICKER GLOBAL — auto-scroll com hover P&B + link -->
+<!-- TICKER — projetos em scroll automático -->
 <div class="ticker-section" id="tickerGlobal">
   <div class="ticker-outer">
     <div class="ticker-track" id="tickerTrackGlobal">
-
-      <div class="ticker-card">
-        <video autoplay muted loop playsinline src="https://framerusercontent.com/assets/NeG2pJOMoF4UewAMHLzoxI0nF7Y.mp4"></video>
-        <div class="ticker-overlay"></div>
-        <span class="ticker-label">Golden Static</span>
-        <div class="ticker-caption"><span class="ticker-cap-name">AURELIA STUDIOS</span><span class="ticker-cap-idx">01</span></div>
-        <a class="ticker-link" href="works/saltwind-motel.html"></a>
-      </div>
-
-      <div class="ticker-card">
-        <video autoplay muted loop playsinline src="https://framerusercontent.com/assets/PjWqliZwgzcqWZiatBpYufPn9Q.mp4"></video>
-        <div class="ticker-overlay"></div>
-        <span class="ticker-label">Ultraviolet Bloom</span>
-        <div class="ticker-caption"><span class="ticker-cap-name">LUMORA LAB</span><span class="ticker-cap-idx">02</span></div>
-        <a class="ticker-link" href="works/saltwind-motel.html"></a>
-      </div>
-
-      <div class="ticker-card">
-        <img src="https://framerusercontent.com/images/FkXs0Sgl2G5XBRhdacfHqAALTTg.jpg?width=640" alt="">
-        <div class="ticker-overlay"></div>
-        <span class="ticker-label">Aurora Motion</span>
-        <div class="ticker-caption"><span class="ticker-cap-name">AURORA MOTION</span><span class="ticker-cap-idx">03</span></div>
-        <a class="ticker-link" href="works/saltwind-motel.html"></a>
-      </div>
-
-      <div class="ticker-card">
-        <video autoplay muted loop playsinline src="https://framerusercontent.com/assets/jpCu5NfkRAYGPf9sAsTclehjPU.mp4"></video>
-        <div class="ticker-overlay"></div>
-        <span class="ticker-label">The Quiet Parade</span>
-        <div class="ticker-caption"><span class="ticker-cap-name">RIVERA COLLECTIVE</span><span class="ticker-cap-idx">04</span></div>
-        <a class="ticker-link" href="works/saltwind-motel.html"></a>
-      </div>
-
-      <div class="ticker-card">
-        <video autoplay muted loop playsinline src="https://framerusercontent.com/assets/bV45ZFxzcVbOzAY3AVe4DEu48QI.mp4"></video>
-        <div class="ticker-overlay"></div>
-        <span class="ticker-label">Cobalt Season</span>
-        <div class="ticker-caption"><span class="ticker-cap-name">CASA LUMI</span><span class="ticker-cap-idx">05</span></div>
-        <a class="ticker-link" href="works/saltwind-motel.html"></a>
-      </div>
-
-      <div class="ticker-card">
-        <video autoplay muted loop playsinline src="https://framerusercontent.com/assets/zr6SYymnXKDlRzC65KHgSxkOU.mp4"></video>
-        <div class="ticker-overlay"></div>
-        <span class="ticker-label">Horizon Film Co.</span>
-        <div class="ticker-caption"><span class="ticker-cap-name">HORIZON FILM CO.</span><span class="ticker-cap-idx">06</span></div>
-        <a class="ticker-link" href="works/saltwind-motel.html"></a>
-      </div>
-
-      <div class="ticker-card">
-        <video autoplay muted loop playsinline src="https://framerusercontent.com/assets/0qjxFiW2lHTlIaW8nYafAc25w.mp4"></video>
-        <div class="ticker-overlay"></div>
-        <span class="ticker-label">Saltwind Motel</span>
-        <div class="ticker-caption"><span class="ticker-cap-name">VOID COLLECTIVE</span><span class="ticker-cap-idx">07</span></div>
-        <a class="ticker-link" href="works/saltwind-motel.html"></a>
-      </div>
-
-      <div class="ticker-card">
-        <img src="https://framerusercontent.com/images/FkXs0Sgl2G5XBRhdacfHqAALTTg.jpg?width=640" alt="">
-        <div class="ticker-overlay"></div>
-        <span class="ticker-label">Signal Films</span>
-        <div class="ticker-caption"><span class="ticker-cap-name">SIGNAL FILMS</span><span class="ticker-cap-idx">08</span></div>
-        <a class="ticker-link" href="works/saltwind-motel.html"></a>
-      </div>
-
-      <!-- duplicatas loop seamless -->
-      <div class="ticker-card">
-        <video autoplay muted loop playsinline src="https://framerusercontent.com/assets/NeG2pJOMoF4UewAMHLzoxI0nF7Y.mp4"></video>
-        <div class="ticker-overlay"></div>
-        <span class="ticker-label">Golden Static</span>
-        <div class="ticker-caption"><span class="ticker-cap-name">AURELIA STUDIOS</span><span class="ticker-cap-idx">01</span></div>
-        <a class="ticker-link" href="works/saltwind-motel.html"></a>
-      </div>
-      <div class="ticker-card">
-        <video autoplay muted loop playsinline src="https://framerusercontent.com/assets/PjWqliZwgzcqWZiatBpYufPn9Q.mp4"></video>
-        <div class="ticker-overlay"></div>
-        <span class="ticker-label">Ultraviolet Bloom</span>
-        <div class="ticker-caption"><span class="ticker-cap-name">LUMORA LAB</span><span class="ticker-cap-idx">02</span></div>
-        <a class="ticker-link" href="works/saltwind-motel.html"></a>
-      </div>
-      <div class="ticker-card">
-        <img src="https://framerusercontent.com/images/FkXs0Sgl2G5XBRhdacfHqAALTTg.jpg?width=640" alt="">
-        <div class="ticker-overlay"></div>
-        <span class="ticker-label">Aurora Motion</span>
-        <div class="ticker-caption"><span class="ticker-cap-name">AURORA MOTION</span><span class="ticker-cap-idx">03</span></div>
-        <a class="ticker-link" href="works/saltwind-motel.html"></a>
-      </div>
-      <div class="ticker-card">
-        <video autoplay muted loop playsinline src="https://framerusercontent.com/assets/jpCu5NfkRAYGPf9sAsTclehjPU.mp4"></video>
-        <div class="ticker-overlay"></div>
-        <span class="ticker-label">The Quiet Parade</span>
-        <div class="ticker-caption"><span class="ticker-cap-name">RIVERA COLLECTIVE</span><span class="ticker-cap-idx">04</span></div>
-        <a class="ticker-link" href="works/saltwind-motel.html"></a>
-      </div>
-      <div class="ticker-card">
-        <video autoplay muted loop playsinline src="https://framerusercontent.com/assets/bV45ZFxzcVbOzAY3AVe4DEu48QI.mp4"></video>
-        <div class="ticker-overlay"></div>
-        <span class="ticker-label">Cobalt Season</span>
-        <div class="ticker-caption"><span class="ticker-cap-name">CASA LUMI</span><span class="ticker-cap-idx">05</span></div>
-        <a class="ticker-link" href="works/saltwind-motel.html"></a>
-      </div>
-      <div class="ticker-card">
-        <video autoplay muted loop playsinline src="https://framerusercontent.com/assets/zr6SYymnXKDlRzC65KHgSxkOU.mp4"></video>
-        <div class="ticker-overlay"></div>
-        <span class="ticker-label">Horizon Film Co.</span>
-        <div class="ticker-caption"><span class="ticker-cap-name">HORIZON FILM CO.</span><span class="ticker-cap-idx">06</span></div>
-        <a class="ticker-link" href="works/saltwind-motel.html"></a>
-      </div>
-      <div class="ticker-card">
-        <video autoplay muted loop playsinline src="https://framerusercontent.com/assets/0qjxFiW2lHTlIaW8nYafAc25w.mp4"></video>
-        <div class="ticker-overlay"></div>
-        <span class="ticker-label">Saltwind Motel</span>
-        <div class="ticker-caption"><span class="ticker-cap-name">VOID COLLECTIVE</span><span class="ticker-cap-idx">07</span></div>
-        <a class="ticker-link" href="works/saltwind-motel.html"></a>
-      </div>
-      <div class="ticker-card">
-        <img src="https://framerusercontent.com/images/FkXs0Sgl2G5XBRhdacfHqAALTTg.jpg?width=640" alt="">
-        <div class="ticker-overlay"></div>
-        <span class="ticker-label">Signal Films</span>
-        <div class="ticker-caption"><span class="ticker-cap-name">SIGNAL FILMS</span><span class="ticker-cap-idx">08</span></div>
-        <a class="ticker-link" href="works/saltwind-motel.html"></a>
-      </div>
-
+      <!-- preenchido via JS -->
     </div>
   </div>
 </div>
@@ -1181,6 +1063,54 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
   if(PROJECTS.length<=PG)document.getElementById('loadMoreWrap').style.display='none';
 })();
 
+// ── TICKER — preenche com projetos reais ─────────────────
+(function(){
+  const track = document.getElementById('tickerTrackGlobal');
+  if(!track) return;
+
+  function makeCard(p, idx) {
+    const card = document.createElement('div');
+    card.className = 'ticker-card';
+
+    let med = '';
+    if(p.media?.t === 'video') {
+      med = `<video autoplay muted loop playsinline src="${p.media.s}"></video>`;
+    } else if(p.media?.t === 'img') {
+      med = `<img src="${p.media.s}" alt="${p.name}">`;
+    } else {
+      med = `<div style="width:100%;height:100%;background:#111;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:rgba(255,255,255,.18);text-align:center;padding:16px">${p.name.toUpperCase()}</div>`;
+    }
+
+    const num = String(idx + 1).padStart(2, '0');
+    card.innerHTML = `
+      ${med}
+      <div class="ticker-overlay"></div>
+      <span class="ticker-label">${p.name.toUpperCase()}</span>
+      <div class="ticker-caption">
+        <span class="ticker-cap-name">${p.brand ? p.brand.toUpperCase() : p.name.toUpperCase()}</span>
+        <span class="ticker-cap-idx">${num}</span>
+      </div>
+      ${p.href !== '#' ? `<a class="ticker-link" href="${p.href}"></a>` : ''}`;
+
+    card.addEventListener('mouseenter', () => track.classList.add('paused'));
+    card.addEventListener('mouseleave', () => track.classList.remove('paused'));
+    return card;
+  }
+
+  // build once, then duplicate for seamless loop
+  const cards = PROJECTS.map((p, i) => makeCard(p, i));
+  cards.forEach(c => track.appendChild(c));
+  // duplicate for loop
+  cards.forEach(c => track.appendChild(c.cloneNode(true)));
+
+  // re-attach pause on cloned cards
+  track.querySelectorAll('.ticker-card').forEach(card => {
+    card.addEventListener('mouseenter', () => track.classList.add('paused'));
+    card.addEventListener('mouseleave', () => track.classList.remove('paused'));
+  });
+})();
+
+
 // ── CONTACT POPUP ────────────────────────────────────
 function openPopup(){
   document.getElementById('popupOverlay').classList.add('open');
@@ -1197,19 +1127,44 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closePopup();});
 
 function submitForm(e){
   e.preventDefault();
-  const f=document.getElementById('contactForm');
-  const name=f.name.value;
-  const email=f.email.value;
-  const phone=f.phone.value;
-  const message=f.message.value;
-  const subject=encodeURIComponent('Contato pelo site — '+name);
-  const body=encodeURIComponent(
-    'Nome: '+name+'\n'+
-    'E-mail: '+email+'\n'+
-    'Telefone: '+phone+'\n\n'+
-    message
-  );
-  window.location.href='mailto:gyulyia3d@gmail.com?subject='+subject+'&body='+body;
+  const form=document.getElementById('contactForm');
+  const btn=form.querySelector('[type=submit]');
+  const origText=btn.querySelector('span').textContent;
+  btn.querySelector('span').textContent='ENVIANDO...';
+  btn.disabled=true;
+
+  const data=new FormData(form);
+  data.append('_subject','Contato pelo site — '+data.get('name'));
+  data.append('_template','table');
+
+  fetch('https://formsubmit.co/ajax/gyulyia3d@gmail.com',{
+    method:'POST',
+    headers:{'Accept':'application/json'},
+    body:data
+  })
+  .then(r=>r.json())
+  .then(res=>{
+    if(res.success==='true'||res.success===true){
+      // show success
+      const box=document.querySelector('.popup-box');
+      const orig=box.innerHTML;
+      box.innerHTML=`
+        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:200px;gap:24px;padding:40px">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg>
+          <span style="font-family:var(--mono);font-size:14px;letter-spacing:-.5px;text-transform:uppercase;color:var(--white)">E-MAIL ENVIADO</span>
+        </div>`;
+      setTimeout(()=>{closePopup();setTimeout(()=>{box.innerHTML=orig;form.reset();},400);},2500);
+    } else {
+      btn.querySelector('span').textContent=origText;
+      btn.disabled=false;
+      alert('Erro ao enviar. Tente novamente.');
+    }
+  })
+  .catch(()=>{
+    btn.querySelector('span').textContent=origText;
+    btn.disabled=false;
+    alert('Erro ao enviar. Tente novamente.');
+  });
 }
 
 // ── I18N ─────────────────────────────────────────────
