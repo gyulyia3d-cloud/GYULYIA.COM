@@ -23,7 +23,7 @@
 }
 html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:var(--F);}
 /* ── Layout ─────────────────────────────── */
-#wrap{display:flex;width:100%;height:100%;}
+#wrap{display:flex;width:100%;height:100vh;}
 #vp{
   flex:1;min-width:0;position:relative;background:#000;
   display:flex;align-items:center;justify-content:center;overflow:hidden;
@@ -58,7 +58,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:var
 #panel{
   width:300px;flex-shrink:0;background:var(--panel);
   border-left:1px solid var(--b2);
-  display:flex;flex-direction:column;height:100%;overflow:hidden;
+  display:flex;flex-direction:column;height:100vh;overflow:hidden;
   position:relative;
 }
 #brand-tab{
@@ -264,6 +264,8 @@ input[type=color]{
             <button class="mb on" id="btn-color">COLOR</button>
             <button class="mb" id="btn-bw">BLACK &amp; WHITE</button>
           </div>
+          <div class="sr" style="margin-top:4px"><span class="sr-n">Intensity</span><input type="range" id="r-int" min="0" max="100" value="50"><span class="sr-v" id="v-int">50</span></div>
+          <div class="sr"><span class="sr-n">Contrast</span><input type="range" id="r-con" min="0" max="100" value="50"><span class="sr-v" id="v-con">50</span></div>
         </div>
       </div>
 
@@ -271,38 +273,18 @@ input[type=color]{
       <div class="sec collapsed" id="sec-dsp">
         <div class="sh" data-sec="sec-dsp"><span class="sh-lbl">DISPLACEMENT</span><span class="sh-arr">▾</span></div>
         <div class="sec-body">
-          <div class="sr"><span class="sr-n">Amount</span><input type="range" id="r-dsp" min="0" max="100" value="0"><span class="sr-v" id="v-dsp">0</span></div>
+          <div class="sr"><span class="sr-n">Amount</span><input type="range" id="r-dsp" min="0" max="100" value="100"><span class="sr-v" id="v-dsp">100</span></div>
           <div class="mb-row">
             <button class="mb on" data-dm="0">Wave</button>
             <button class="mb" data-dm="1">Pixel</button>
             <button class="mb" data-dm="2">Mirror</button>
           </div>
-          <div class="tr"><span class="tn">Mirror X</span><div class="tg" id="tg-mir"></div></div>
           <div class="tr"><span class="tn">Block Slice</span><div class="tg" id="tg-blk"></div></div>
           <div class="sr"><span class="sr-n">Slice</span><input type="range" id="r-slc" min="0" max="100" value="0"><span class="sr-v" id="v-slc">0</span></div>
         </div>
       </div>
 
-      <!-- PIXEL SORT -->
-      <div class="sec collapsed" id="sec-pxs">
-        <div class="sh" data-sec="sec-pxs"><span class="sh-lbl">PIXEL SORT</span><span class="sh-arr">▾</span></div>
-        <div class="sec-body">
-          <div class="sr"><span class="sr-n">Amount</span><input type="range" id="r-pxs" min="0" max="100" value="0"><span class="sr-v" id="v-pxs">0</span></div>
-          <div class="sr"><span class="sr-n">Drip</span><input type="range" id="r-pxd" min="0" max="100" value="0"><span class="sr-v" id="v-pxd">0</span></div>
-          <div class="sr"><span class="sr-n">Range</span><input type="range" id="r-pxr" min="1" max="100" value="30"><span class="sr-v" id="v-pxr">30</span></div>
-        </div>
-      </div>
 
-      <!-- DATAMOSH -->
-      <div class="sec collapsed" id="sec-dtm">
-        <div class="sh" data-sec="sec-dtm"><span class="sh-lbl">DATAMOSH</span><span class="sh-arr">▾</span></div>
-        <div class="sec-body">
-          <div class="sr"><span class="sr-n">Amount</span><input type="range" id="r-dtm" min="0" max="100" value="0"><span class="sr-v" id="v-dtm">0</span></div>
-          <div class="sr"><span class="sr-n">Mosh</span><input type="range" id="r-mosh" min="0" max="100" value="0"><span class="sr-v" id="v-mosh">0</span></div>
-          <div class="tr"><span class="tn">Audio Reactive</span><div class="tg" id="rx-dtm"></div></div>
-          <button class="mb" id="b-snap" style="margin-top:4px">Snapshot</button>
-        </div>
-      </div>
 
       <!-- CHROMATIC AB. -->
       <div class="sec collapsed" id="sec-chr">
@@ -317,22 +299,10 @@ input[type=color]{
         <div class="sh" data-sec="sec-thr"><span class="sh-lbl">THRESHOLD</span><span class="sh-arr">▾</span></div>
         <div class="sec-body">
           <div class="sr"><span class="sr-n">Amount</span><input type="range" id="r-thr" min="0" max="100" value="0"><span class="sr-v" id="v-thr">0</span></div>
-
-          <div class="sr"><span class="sr-n">Contrast</span><input type="range" id="r-con" min="0" max="100" value="50"><span class="sr-v" id="v-con">0</span></div>
-          <div class="sr"><span class="sr-n">Intensity</span><input type="range" id="r-int" min="0" max="100" value="50"><span class="sr-v" id="v-int">0</span></div>
         </div>
       </div>
 
-      <!-- GRAIN -->
-      <div class="sec collapsed" id="sec-grn">
-        <div class="sh" data-sec="sec-grn"><span class="sh-lbl">GRAIN (KODAK 500T)</span><span class="sh-arr">▾</span></div>
-        <div class="sec-body">
-          <div class="sr"><span class="sr-n">Amount</span><input type="range" id="r-grn" min="0" max="100" value="0"><span class="sr-v" id="v-grn">0</span></div>
-          <div class="sr"><span class="sr-n">Speed</span><input type="range" id="r-spd" min="0" max="100" value="50"><span class="sr-v" id="v-spd">50</span></div>
-          <div class="sr"><span class="sr-n">Scanlines</span><input type="range" id="r-scn" min="0" max="100" value="0"><span class="sr-v" id="v-scn">0</span></div>
-          <div class="sr"><span class="sr-n">Flicker</span><input type="range" id="r-flk" min="0" max="100" value="0"><span class="sr-v" id="v-flk">0</span></div>
-        </div>
-      </div>
+
 
       <!-- STROBE -->
       <div class="sec collapsed" id="sec-strb">
@@ -397,9 +367,19 @@ input[type=color]{
             <button class="mb" id="bct-px">PX</button>
             <button class="mb" id="bct-pct">%</button>
           </div>
-          <div class="cr"><span class="cr-n">Color</span><input type="color" id="blob-color" value="#ff0000"></div>
+          <div class="cr"><span class="cr-n">Box Color</span><input type="color" id="blob-color" value="#ff0000"></div>
           <span class="sec-lbl" style="margin-top:4px">Custom Label (leave blank for coords)</span>
           <input type="text" id="blob-custom-text" class="txt-in" placeholder="e.g. TRACKING">
+          <span class="sec-lbl" style="margin-top:6px">Render</span>
+          <div class="mb-row">
+            <button class="mb on" id="bdr-both">Boxes+Lines</button>
+            <button class="mb" id="bdr-boxes">Boxes</button>
+            <button class="mb" id="bdr-lines">Lines</button>
+          </div>
+          <div class="cr"><span class="cr-n">Line Color</span><input type="color" id="blob-line-color" value="#ffffff"></div>
+          <span class="sec-lbl" style="margin-top:6px">Mask</span>
+          <div class="tr"><span class="tn">Mask Mode</span><div class="tg" id="tg-blob-mask"></div></div>
+          <div class="sr"><span class="sr-n">Mask Opacity</span><input type="range" id="r-bmask" min="0" max="100" value="80"><span class="sr-v" id="v-bmask">80%</span></div>
         </div>
       </div>
 
@@ -437,7 +417,16 @@ input[type=color]{
 
       <!-- hidden stubs for engine refs (transition, b-src2 etc) -->
       <div style="display:none">
-        <input type="range" id="r-snp" min="0" max="100" value="40"><span id="v-snp"></span>
+        <input type="range" id="r-grn" min="0" max="100" value="0">
+        <input type="range" id="r-spd" min="0" max="100" value="50">
+        <input type="range" id="r-pxs"  min="0" max="100" value="0">
+        <input type="range" id="r-pxd" min="0" max="100" value="0">
+        <input type="range" id="r-pxr" min="1" max="100" value="30">
+        <input type="range" id="r-dtm" min="0" max="100" value="0">
+        <input type="range" id="r-mosh" min="0" max="100" value="0">
+        <input type="range" id="r-scn" min="0" max="100" value="0">
+        <input type="range" id="r-flk" min="0" max="100" value="0">
+        <input type="range" id="r-snp"  min="0" max="100" value="40"><span id="v-snp"></span>
         <input type="range" id="r-str" min="0" max="100" value="0"><span id="v-str"></span>
         <input type="range" id="r-bw"  min="0" max="100" value="100"><span id="v-bw"></span>
         <input type="range" id="r-blk" min="0" max="100" value="0"><span id="v-blk"></span>
@@ -589,6 +578,7 @@ uniform sampler2D u_snap;  // pre-beat frozen snapshot
 uniform float u_t,u_seed,u_int,u_spd,u_con;
 uniform float u_bw,u_mir;
 uniform float u_dsp;       // displacement mode 0/1/2
+uniform float u_dsa;       // displacement amount 0-1
 uniform float u_blk,u_slc,u_chr;
 uniform float u_pxs,u_pxr,u_pxd;  // pixel sort amount/reach/density
 uniform float u_dtm,u_mosh;        // datamosh accum / snap blend
@@ -679,6 +669,8 @@ void main(){
     // Occasional band flip
     uvD.y=mix(uvD.y,fract(1.-uvD.y),step(.87,h2(vec2(bR+1.,bdT)))*u_blk*.7);
   }
+  // Apply displacement amount: 0=no displacement, 1=full
+  uvD=mix(uv,uvD,clamp(u_dsa,0.,1.));
 
   // ── VERTICAL PIXEL SORT — DRIP DOWN (Images 4,5) ─────────────
   // Technique: for each pixel, look upward N steps → take brightest found.
@@ -855,36 +847,7 @@ void main(){
     col*=mix(1.,crtEdge,crtA*.6);
   }
 
-  // ── FILM GRAIN (After Effects style) ────────────────────────────
-  // Gaussian-distributed luminance grain, size & softness aware
-  float gA=u_grn*I+midD*.05;
-  if(gA>.01){
-    float gLum=dot(col,vec3(.299,.587,.114));
-    // AE grain: shadow/highlight response curve
-    float lumMask=4.0*gLum*(1.-gLum); // peaks at midtones
-    // Fine layer (highlights) — tight, low amplitude
-    float gFine = vn(uv*520.+T*2.3)*.28
-                + vn(uv*380.+T*1.7+1.1)*.22;
-    // Medium layer (midtones) — AE characteristic size
-    float gMid  = vn(uv*190.+T*1.1)*.35
-                + vn(uv*260.-T*0.9+2.5)*.28;
-    // Coarse layer (shadows) — soft spread
-    float gCoarse= vn(uv*80. +T*0.5)*.25
-                 + vn(uv*55. -T*0.4+4.1)*.18;
-    // Blend layers with luminance masking like AE
-    float shadowMask=1.-smoothstep(.15,.7,gLum); // heavy in shadows
-    float grain=(gFine*.35 + gMid*.45 + gCoarse*shadowMask*.20);
-    // Soft Gaussian falloff (AE "softness")
-    float softness=vn(uv*30.+T*.2)*.08+0.96;
-    grain=(grain-0.36)*softness*lumMask;
-    // Monochromatic, single channel
-    col+=vec3(grain*gA*.45);
-    // Rare bright sparks (film halation)
-    float spark=step(.9982,h2(uv*u_res*.45+T*1.9))*gA*.22;
-    col+=vec3(spark);
-  }
-
-  // ── FLICKER ───────────────────────────────────────────────────
+    // ── FLICKER ───────────────────────────────────────────────────
   col*=1.-step(.92,h1(floor(T*15.+u_seed*2.5)))*u_flk*I*.55;
 
   // ── VIGNETTE ─────────────────────────────────────────────────
@@ -943,7 +906,7 @@ function mkPr(fs){
 const progMain=mkPr(FS), progBlit=mkPr(FS_BLIT);
 
 function getU(pr,ns){ const U={}; ns.forEach(n=>{U[n]=gl.getUniformLocation(pr,'u_'+n);}); return U; }
-const UM=getU(progMain,['src','prev','snap','t','seed','int','spd','con','bw','mir','dsp',
+const UM=getU(progMain,['src','prev','snap','t','seed','int','spd','con','bw','mir','dsp','dsa',
   'blk','slc','chr','pxs','pxr','pxd','dtm','mosh','thr','str','beat','dot','crt','grn','vig','scn','flk',
   'glow','feedback','bass','mid','low','res','strb_rate','strb_duty','strb_alph','strb_col']);
 const UB=getU(progBlit,['tex']);
@@ -1036,7 +999,7 @@ function posCanvas(sw,sh){
 // ── STATE ───────────────────────────────────────────────────────────
 const P={
   int:.82,spd:.5,con:.65,bw:1.0,mir:false,animate:true,
-  dsp:0,blk:.68,slc:.52,chr:.18,
+  dsp:0,dsa:1,blk:.68,slc:.52,chr:.18,
   pxs:.48,pxr:.55,pxd:.5,
   dtm:.5,snp:.75,
   thr:0,str:.65,dot:.48,crt:0,grn:.55,vig:.52,scn:.22,flk:.18,
@@ -1133,6 +1096,9 @@ document.getElementById('a-mic').addEventListener('click',async()=>{
 let blobRects=[];
 let blobFrame=0;
 let blobColor='#ff0000';
+let blobLineColor='#ffffff';
+let blobDrawMode='both'; // 'both' | 'boxes' | 'lines'
+let blobMaskOn=false;
 
 function hexRGB(h){return[parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)];}
 
@@ -1171,7 +1137,9 @@ function detectBlobs(){
       if(!vis[py*BW+px]&&grid[py*BW+px]>0){
         const b={x0:px,x1:px,y0:py,y1:py,ls:0,n:0};
         flood(py,px,b);
-        if(b.n>=2) blobs.push(b);
+        // Min size filter: blobSize 0=smallest blobs, 1=only large blobs
+        const minN=2+Math.round(P.blobSize*120);
+        if(b.n>=minN) blobs.push(b);
       }
     }
   }
@@ -1195,7 +1163,7 @@ function drawBlobTrack(){
   if(blobFrame%3===0){
     const blobs=detectBlobs();
     const sx=W/BW,sy=H/BH;
-    const pad=10+P.blobSize*30+beatPulse*12;
+    const pad=10+beatPulse*12;
     blobRects=blobs.map(b=>({
       x:b.x0*sx-pad, y:b.y0*sy-pad,
       w:(b.x1-b.x0+1)*sx+pad*2, h:(b.y1-b.y0+1)*sy+pad*2,
@@ -1205,70 +1173,115 @@ function drawBlobTrack(){
   }
 
   blobRects=blobRects.map(r=>({...r,alpha:r.alpha-P.blobDecay*.05})).filter(r=>r.alpha>0);
+  if(!blobRects.length) return;
 
   const [r,g,b]=hexRGB(blobColor);
+  const [lr,lg,lb]=hexRGB(blobLineColor);
   const bp=beatPulse;
   const stk=P.blobStroke||2;
   const fnt=P.blobFontSize||9;
+  const drawBoxes = blobDrawMode==='both'||blobDrawMode==='boxes';
+  const drawLines = blobDrawMode==='both'||blobDrawMode==='lines';
 
-  blobRects.forEach((rect,bi)=>{
-    const a=Math.min(rect.alpha,.95);
-    if(a<=0) return;
-    const gAmt=bp*7;
+  // ── MASK MODE: black overlay with blob rects cut out ─────────────
+  if(blobMaskOn){
+    const maskAlpha=(document.getElementById('r-bmask')
+      ? parseInt(document.getElementById('r-bmask').value)/100 : 0.8);
     ctx2.save();
+    ctx2.globalCompositeOperation='source-over';
+    ctx2.fillStyle=`rgba(0,0,0,${maskAlpha})`;
+    ctx2.fillRect(0,0,ovCanvas.width,ovCanvas.height);
+    ctx2.globalCompositeOperation='destination-out';
+    blobRects.forEach(rect=>{
+      const a=Math.min(rect.alpha,.95);
+      if(a<=0) return;
+      ctx2.globalAlpha=a;
+      ctx2.fillStyle='rgba(0,0,0,1)';
+      ctx2.fillRect(rect.x,rect.y,rect.w,rect.h);
+    });
+    ctx2.restore();
+  }
 
-    if(P.blobMode==='fill'){
-      ctx2.globalAlpha=a*.9;
-      ctx2.fillStyle=`rgba(${r},${g},${b},.5)`;
-      ctx2.beginPath();
-      const gx1=rect.x+(Math.random()-.5)*gAmt, gy1=rect.y+(Math.random()-.5)*gAmt;
-      const gx2=rect.x+rect.w+(Math.random()-.5)*gAmt, gy2=rect.y+rect.h+(Math.random()-.5)*gAmt;
-      ctx2.moveTo(gx1,gy1);ctx2.lineTo(gx2,gy1);ctx2.lineTo(gx2,gy2);ctx2.lineTo(gx1,gy2);
-      ctx2.closePath(); ctx2.fill();
-      ctx2.strokeStyle=`rgba(${r},${g},${b},${a})`;
-      ctx2.lineWidth=stk;
-      ctx2.stroke();
+  // ── LINES: connect blob centers sequentially ──────────────────────
+  if(drawLines && blobRects.length>1){
+    ctx2.save();
+    ctx2.globalCompositeOperation='source-over';
+    const avgA=blobRects.reduce((s,r)=>s+Math.min(r.alpha,.95),0)/blobRects.length;
+    ctx2.globalAlpha=avgA;
+    ctx2.strokeStyle=`rgb(${lr},${lg},${lb})`;
+    ctx2.lineWidth=stk*1.2;
+    ctx2.beginPath();
+    ctx2.moveTo(blobRects[0].cx, blobRects[0].cy);
+    for(let i=1;i<blobRects.length;i++){
+      ctx2.lineTo(blobRects[i].cx, blobRects[i].cy);
     }
-    if(P.blobMode==='outline'){
+    ctx2.stroke();
+    ctx2.restore();
+  }
+
+  // ── BOXES: draw each blob rectangle ──────────────────────────────
+  if(drawBoxes){
+    blobRects.forEach((rect,bi)=>{
+      const a=Math.min(rect.alpha,.95);
+      if(a<=0) return;
+      const gAmt=bp*7;
+      ctx2.save();
+      ctx2.globalCompositeOperation='source-over';
+
+      if(P.blobMode==='fill'){
+        ctx2.globalAlpha=a*.9;
+        ctx2.fillStyle=`rgba(${r},${g},${b},.5)`;
+        ctx2.beginPath();
+        const gx1=rect.x+(Math.random()-.5)*gAmt, gy1=rect.y+(Math.random()-.5)*gAmt;
+        const gx2=rect.x+rect.w+(Math.random()-.5)*gAmt, gy2=rect.y+rect.h+(Math.random()-.5)*gAmt;
+        ctx2.moveTo(gx1,gy1);ctx2.lineTo(gx2,gy1);ctx2.lineTo(gx2,gy2);ctx2.lineTo(gx1,gy2);
+        ctx2.closePath(); ctx2.fill();
+        ctx2.strokeStyle=`rgba(${r},${g},${b},${a})`;
+        ctx2.lineWidth=stk;
+        ctx2.stroke();
+      }
+      if(P.blobMode==='outline'){
+        ctx2.globalAlpha=a;
+        ctx2.strokeStyle=`rgba(${r},${g},${b},${a})`;
+        ctx2.lineWidth=stk;
+        const ox=(Math.random()-.5)*gAmt*.4,oy=(Math.random()-.5)*gAmt*.4;
+        ctx2.strokeRect(rect.x+ox,rect.y+oy,rect.w,rect.h);
+      }
+
+      // Corner marks
       ctx2.globalAlpha=a;
       ctx2.strokeStyle=`rgba(${r},${g},${b},${a})`;
       ctx2.lineWidth=stk;
-      const ox=(Math.random()-.5)*gAmt*.4,oy=(Math.random()-.5)*gAmt*.4;
-      ctx2.strokeRect(rect.x+ox,rect.y+oy,rect.w,rect.h);
-    }
+      const cs=8+stk*2;
+      [[rect.x,rect.y,1,1],[rect.x+rect.w,rect.y,-1,1],
+       [rect.x+rect.w,rect.y+rect.h,-1,-1],[rect.x,rect.y+rect.h,1,-1]].forEach(([cx,cy,dx,dy])=>{
+        ctx2.beginPath();
+        ctx2.moveTo(cx,cy+dy*cs); ctx2.lineTo(cx,cy); ctx2.lineTo(cx+dx*cs,cy);
+        ctx2.stroke();
+      });
 
-    // Corner marks
-    ctx2.globalAlpha=a;
-    ctx2.strokeStyle=`rgba(${r},${g},${b},${a})`;
-    ctx2.lineWidth=stk;
-    const cs=8+stk*2;
-    [[rect.x,rect.y,1,1],[rect.x+rect.w,rect.y,-1,1],
-     [rect.x+rect.w,rect.y+rect.h,-1,-1],[rect.x,rect.y+rect.h,1,-1]].forEach(([cx,cy,dx,dy])=>{
-      ctx2.beginPath();
-      ctx2.moveTo(cx,cy+dy*cs); ctx2.lineTo(cx,cy); ctx2.lineTo(cx+dx*cs,cy);
-      ctx2.stroke();
-    });
-
-    // Label
-    if(P.blobCoords){
-      let labelTxt='';
-      const _ct=(document.getElementById('blob-custom-text')||{}).value||'';
-          if(_ct.trim()){labelTxt=_ct.trim();}
-          else if(P.blobCustomLabels.length>0){const idx=(bi+P.blobLabelIdx)%P.blobCustomLabels.length;labelTxt=P.blobCustomLabels[idx];} else {
-        const lx=Math.round(rect.cx),ly=Math.round(H-rect.cy);
-        const lpct_x=Math.round(rect.cx/W*100),lpct_y=Math.round((H-rect.cy)/H*100);
-        if(P.blobCoordType==='xy')   labelTxt=`x:${lx}  y:${ly}`;
-        else if(P.blobCoordType==='px') labelTxt=`${lx}px  ${ly}px`;
-        else if(P.blobCoordType==='pct') labelTxt=`${lpct_x}%  ${lpct_y}%`;
-        else labelTxt=`x:${lx}  y:${ly}`;
+      // Label
+      if(P.blobCoords){
+        let labelTxt='';
+        const _ct=(document.getElementById('blob-custom-text')||{}).value||'';
+        if(_ct.trim()){labelTxt=_ct.trim();}
+        else if(P.blobCustomLabels.length>0){const idx=(bi+P.blobLabelIdx)%P.blobCustomLabels.length;labelTxt=P.blobCustomLabels[idx];}
+        else {
+          const lx=Math.round(rect.cx),ly=Math.round(H-rect.cy);
+          const lpct_x=Math.round(rect.cx/W*100),lpct_y=Math.round((H-rect.cy)/H*100);
+          if(P.blobCoordType==='xy')   labelTxt=`x:${lx}  y:${ly}`;
+          else if(P.blobCoordType==='px') labelTxt=`${lx}px  ${ly}px`;
+          else if(P.blobCoordType==='pct') labelTxt=`${lpct_x}%  ${lpct_y}%`;
+          else labelTxt=`x:${lx}  y:${ly}`;
+        }
+        ctx2.font=`500 ${fnt}px "Martian Mono",monospace`;
+        ctx2.fillStyle=`rgba(${r},${g},${b},${a*.88})`;
+        ctx2.fillText(labelTxt,rect.x+4,rect.y-5);
       }
-      ctx2.font=`500 ${fnt}px "Martian Mono",monospace`;
-      ctx2.fillStyle=`rgba(${r},${g},${b},${a*.88})`;
-      ctx2.fillText(labelTxt,rect.x+4,rect.y-5);
-    }
 
-    ctx2.restore();
-  });
+      ctx2.restore();
+    });
+  }
 }
 
 // ── SOURCE LOADING ──────────────────────────────────────────────────
@@ -1440,6 +1453,16 @@ document.querySelectorAll('[data-dm]').forEach(b=>{
     b.classList.add('on');
   });
 });
+(()=>{
+  const sl=document.getElementById('r-dsp'),vl=document.getElementById('v-dsp');
+  if(sl){
+    sl.addEventListener('input',()=>{
+      P.dsa=+sl.value/100;
+      if(vl) vl.textContent=sl.value;
+    });
+    P.dsa=+sl.value/100; // init from default
+  }
+})();
 
 // Blob mode
 document.getElementById('bm-fill').addEventListener('click',()=>{P.blobMode='fill';document.getElementById('bm-fill').classList.add('on');document.getElementById('bm-out').classList.remove('on');});
@@ -1447,6 +1470,32 @@ document.getElementById('bm-out').addEventListener('click',()=>{P.blobMode='outl
 
 // Blob color
 document.getElementById('blob-color').addEventListener('input',function(){blobColor=this.value;});
+document.getElementById('blob-line-color').addEventListener('input',function(){blobLineColor=this.value;});
+
+// Render mode buttons
+['bdr-both','bdr-boxes','bdr-lines'].forEach(id=>{
+  document.getElementById(id).addEventListener('click',function(){
+    blobDrawMode=id.replace('bdr-','');
+    document.querySelectorAll('#bdr-both,#bdr-boxes,#bdr-lines').forEach(b=>b.classList.remove('on'));
+    this.classList.add('on');
+  });
+});
+
+// Mask toggle
+(()=>{
+  const tg=document.getElementById('tg-blob-mask');
+  if(!tg) return;
+  tg.addEventListener('click',()=>{
+    blobMaskOn=!blobMaskOn;
+    tg.classList.toggle('on',blobMaskOn);
+  });
+})();
+
+// Mask opacity display
+(()=>{
+  const sl=document.getElementById('r-bmask'),vl=document.getElementById('v-bmask');
+  if(sl&&vl) sl.addEventListener('input',()=>{vl.textContent=sl.value+'%';});
+})();
 
 // Export resolution
 document.querySelectorAll('#res-sel .mb').forEach(b=>{
@@ -1557,10 +1606,10 @@ function drawWatermark(){
     wmCtx.save();
     wmCtx.globalAlpha=0.50;
     wmCtx.fillStyle='#ffffff';
-    wmCtx.font='400 8px "Martian Mono",monospace';
+    wmCtx.font='400 14px "Martian Mono",monospace';
     wmCtx.textAlign='right';
     wmCtx.textBaseline='bottom';
-    wmCtx.fillText('gyulyia.com/tools/glitchkit.html',wmCanvas.width-12,wmCanvas.height-10);
+    wmCtx.fillText('GYULYIA.COM/GLITCH-KIT',wmCanvas.width-12,wmCanvas.height-10);
     wmCtx.restore();
   }
   if(isRecording)wmAF=requestAnimationFrame(drawWatermark);
@@ -1655,7 +1704,7 @@ function render(ts){
   gl.uniform1f(UM.t,T);          gl.uniform1f(UM.seed,seed);
   gl.uniform1f(UM.int,P.int);    gl.uniform1f(UM.spd,P.spd);    gl.uniform1f(UM.con,P.con);
   gl.uniform1f(UM.bw,P.bw);gl.uniform1f(UM.mir,P.mir?1.:0.);
-  gl.uniform1f(UM.dsp,P.dsp);
+  gl.uniform1f(UM.dsp,P.dsp);  gl.uniform1f(UM.dsa,P.dsa||0);
   gl.uniform1f(UM.blk,P.blk);   gl.uniform1f(UM.slc,P.slc);    gl.uniform1f(UM.chr,P.chr);
   gl.uniform1f(UM.pxs,P.pxs);   gl.uniform1f(UM.pxr,P.pxr);    gl.uniform1f(UM.pxd,P.pxd);
   gl.uniform1f(UM.dtm,P.dtm);
@@ -1705,4 +1754,4 @@ gl.clear(gl.COLOR_BUFFER_BIT);
 requestAnimationFrame(render);
 </script>
 </body>
-</html>
+</html>                                                                                                                                                                                                                                                                              
