@@ -1557,10 +1557,10 @@ function drawWatermark(){
     wmCtx.save();
     wmCtx.globalAlpha=0.50;
     wmCtx.fillStyle='#ffffff';
-    wmCtx.font='400 14px "Martian Mono",monospace';
+    wmCtx.font='400 8px "Martian Mono",monospace';
     wmCtx.textAlign='right';
     wmCtx.textBaseline='bottom';
-    wmCtx.fillText('GYULYIA.COM/GLITCH-KIT',wmCanvas.width-12,wmCanvas.height-10);
+    wmCtx.fillText('gyulyia.com/tools/glitchkit.html',wmCanvas.width-12,wmCanvas.height-10);
     wmCtx.restore();
   }
   if(isRecording)wmAF=requestAnimationFrame(drawWatermark);
