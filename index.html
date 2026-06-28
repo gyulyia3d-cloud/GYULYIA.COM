@@ -628,7 +628,15 @@ footer{background:var(--white);position:relative;z-index:2}
       <button class="popup-close" onclick="closePopup()" data-i18n="popup-close">✕ close</button>
     </div>
     <div class="popup-form-title" data-i18n="popup-heading">CONTATO</div>
-    <form id="contactForm" onsubmit="submitForm(event)">
+   <form
+  id="contactForm"
+  action="https://formsubmit.co/c239c1e307cdddea88c834294a316a9c"
+  method="POST"
+>
+  <input type="hidden" name="_subject" value="Novo contato do site gyulyia.com">
+  <input type="hidden" name="_captcha" value="false">
+  <input type="hidden" name="_template" value="table">
+  <input type="hidden" name="_next" value="https://gyulyia.com/?sent=1">
       <div class="popup-fields">
         <div class="popup-field">
           <label data-i18n="field-name">Nome</label>
@@ -1185,39 +1193,6 @@ function handleOverlayClick(e){
 }
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closePopup();});
 
-function submitForm(e){
-  e.preventDefault();
-  const form=document.getElementById('contactForm');
-  const btn=form.querySelector('[type=submit]');
-  const origSpan=btn.querySelector('span');
-  const origText=origSpan.textContent;
-  origSpan.textContent='ENVIANDO...';btn.disabled=true;
-
-  fetch('https://efjupouazqieacludooz.supabase.co/rest/v1/contact_submissions',{
-    method:'POST',
-    headers:{
-      'Content-Type':'application/json',
-      'apikey':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVmanVwb3VhenFpZWFjbHVkb296Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIzNDE0NzMsImV4cCI6MjA5NzkxNzQ3M30.FgxQZ1x0Z4GwDGQPLC4KMBcshYD1pDCep19KNzoYQFs',
-      'Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVmanVwb3VhenFpZWFjbHVkb296Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIzNDE0NzMsImV4cCI6MjA5NzkxNzQ3M30.FgxQZ1x0Z4GwDGQPLC4KMBcshYD1pDCep19KNzoYQFs',
-      'Prefer':'return=minimal'
-    },
-    body:JSON.stringify({
-      name:form.name.value,
-      email:form.email.value,
-      phone:form.phone?form.phone.value:'',
-      message:form.message.value
-    })
-  })
-  .then(r=>{
-    if(r.status===201||r.ok){
-      const box=document.querySelector('.popup-box');
-      const orig=box.innerHTML;
-      box.innerHTML=`<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:200px;gap:24px;padding:40px"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg><span style="font-family:var(--mono);font-size:14px;letter-spacing:-.5px;text-transform:uppercase;color:var(--white)">E-MAIL ENVIADO</span></div>`;
-      setTimeout(()=>{closePopup();setTimeout(()=>{box.innerHTML=orig;form.reset();},400);},2500);
-    }else{origSpan.textContent=origText;btn.disabled=false;}
-  })
-  .catch(()=>{origSpan.textContent=origText;btn.disabled=false;});
-}
 
 // ── I18N ─────────────────────────────────────────────
 const i18n={
