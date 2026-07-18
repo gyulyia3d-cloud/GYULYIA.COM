@@ -14,6 +14,28 @@
 
 ---
 
+## ADENDO — Recalibração pelo perfil técnico real (atualização)
+
+**Skill real declarada:** After Effects **básico**; Unreal **apenas cinemático** (Sequencer/timeline + Movie Render Queue); **não modela**, **não texturiza**; IA generativa (Kling/Nano Banana/Runway); Resolume básico.
+
+Isso reposiciona o cargo central. "Unreal cinemático (Sequencer + MRQ) sem modelagem/texturização" **não é Unreal fraco — é uma função própria e vendável:** o *diretor de fotografia / operador de câmera virtual dentro do Unreal*. O profissional **não cria assets — monta cena com assets prontos** (Megascans grátis, Fab/marketplace, Kitbash), ilumina com Lumen, posiciona e anima câmera no Sequencer, renderiza no MRQ. É exatamente o que **arch-viz, trailer, film de produto, previz e virtual production** consomem.
+
+**Insight-chave:** a lacuna (modelar/texturizar) é justamente o que **Megascans + IA generativa preenchem**. Não modela → gera ou compra. Não texturiza → Megascans/IA. Você **assembla, ilumina, filma, renderiza** (Unreal) e **finaliza/compõe** (AE básico já basta). Motion + Unreal cinemático + IA viram uma pilha única.
+
+**Efeitos nas notas (substituem as das seções originais quando divergirem):**
+- **04 · Unreal (Arch-Viz cinemático)** ⬆️ vira a aposta nº1 de médio/longo. No arch-viz o **arquiteto entrega o modelo pronto** (BIM/CAD) — você importa, veste com Megascans, ilumina, câmera, MRQ: **zero modelagem sua**. Notas: curto **5** / médio **8** / longo **9**.
+- **03 · Virtual Production** ⬆️ ligeiramente — Sequencer+MRQ é diretamente aproveitável como "Unreal cinematographer/previz", mesmo sem operar o volume LED. Notas: curto **4** / médio **7** / longo **7**.
+- **01 · Motion Design Publicidade** ⬇️ no curto prazo: com AE básico não é caixa rápido. Você chega mais rápido a renda por **Unreal cinemático + IA** do que por AE avançado. Notas: curto **5** (era 8) / médio **6** / longo **4**. AE fica como ferramenta de **finalização**, não como carreira-motor.
+- **05 · Technical Artist** ⬇️ **fora** — exige shader/scripting/lógica de programação que o perfil não tem e não quer. Notas: curto **1** / médio **2** / longo **3**.
+- **06 · Environment Artist** ⬇️ **fora** — exige modelagem/texturização/world-building manual. Notas: curto **1** / médio **3** / longo **3**.
+- **07 · Creative Technologist** mantém-se no topo de longo prazo, mas o **caminho de entrada** é via Unreal cinemático + Resolume + IA (visuais real-time), não via código/sensores no início.
+
+**Novo ranking-síntese (perfil recalibrado):**
+1º Unreal Arch-Viz cinemático · 2º Creative Technologist · 3º Virtual Production (como fornecedor de conteúdo/previz) · 4º Projection Mapping · 5º DOOH · 6º Mercado Internacional Remoto (multiplicador) · 7º Motion cinemático/publicidade com IA · 8º VJ · 9º SaaS de nicho · 10º Joias (serviço de conteúdo 3D/IA).
+Technical Artist, Environment Artist, Dev Web IA e Cybersecurity saem da rota recomendada.
+
+---
+
 ## Sumário executivo (leia isto primeiro)
 
 O perfil já carrega ativos raros e difíceis de replicar: motion + real-time (Unreal) + IA generativa + VJ/live visuals — uma combinação horizontal que poucos profissionais brasileiros têm simultaneamente. A pesquisa aponta 3 achados centrais:
@@ -464,14 +486,17 @@ Cada carreira responde às 39 perguntas do briefing em formato compacto. Legenda
 
 ## Estratégia 2 — Balanceada (equilíbrio renda + crescimento + patrimônio) — **recomendada**
 
-**Lógica:** usa a Estratégia Conservadora como motor de caixa nos primeiros 12-18 meses, mas investe deliberadamente em **Creative Technologist + Unreal Engine (AEC/Digital Twins)** como motor de crescimento, e ativa **Mercado Internacional Remoto** a partir do ano 2. IA generativa é usada como multiplicador de produtividade em todas as frentes, nunca vendida como "produto" isolado.
+> **Espinha dorsal recalibrada ao perfil real:** o motor não é AE avançado — é **Unreal cinemático (Sequencer + MRQ) aplicado a arch-viz**, com **Megascans + IA generativa cobrindo a lacuna de modelagem/texturização**. O arquiteto entrega o modelo; você dirige câmera, ilumina, renderiza e finaliza no AE básico. Esse é o caminho de menor curva e maior sinergia com o que você já sabe.
+
+**Lógica:** nos primeiros 6-12 meses, caixa via **Unreal cinemático + IA** (arch-viz walkthrough, film de produto, previz) e projetos pontuais de motion/VJ com o portfólio atual. Em paralelo, investe deliberadamente em **arch-viz Unreal + Creative Technologist** como motor de crescimento, e ativa **Mercado Internacional Remoto** a partir do ano 2. IA generativa é multiplicador de produtividade em todas as frentes (inclusive gerando assets/texturas que você não modela), nunca vendida como "produto" isolado.
 **Por que faz sentido:** é a única combinação que respeita simultaneamente (a) velocidade de caixa curto prazo, (b) o segmento de maior crescimento estrutural do relatório (Digital Twins/AEC, CAGR 24-42%), (c) o maior gap de fit encontrado (Creative Technologist, nota 9 de longo prazo), e (d) o maior multiplicador de renda comprovado (internacional, gap de 5-7x).
 **Riscos:** exige disciplina de aprender Unreal a nível de arquitetura/twinmotion (12-24 meses de curva) enquanto ainda se sustenta com motion/DOOH; mercado de Creative Technologist no Brasil tem dado salarial fraco, exige precificar por benchmark internacional em vez de referência local.
 **Sinal de que é hora de mudar:** se em 24 meses nenhum projeto de Unreal/AEC ou creative tech tiver saído do papel (mesmo pequeno), reavaliar entre dobrar a aposta em DOOH+Projection Mapping (Estratégia Conservadora ajustada) ou acelerar internacionalização pura via motion.
 **Roadmap:**
-- **Ano 3:** motion+DOOH sustentando R$8-10k/mês; 1-2 projetos de creative tech/Unreal-AEC entregues (mesmo pequenos, ex.: twinmotion para um escritório de arquitetura); primeiro cliente internacional via Upwork/Contra.
-- **Ano 5:** renda mista — R$8-10k de motion doméstico + R$8-12k equivalente de creative tech/Unreal (nacional+internacional) = R$18-22k/mês combinados; posicionamento público como "creative technologist" consolidado (site, portfólio, 2-3 cases institucionais/museu ou marca).
-- **Ano 10:** estúdio pequeno (2-4 pessoas) especializado em experiências reais-time (creative tech + Unreal AEC + IA generativa como ferramenta interna), R$30-45k/mês de receita do estúdio, mix 40% BR / 60% internacional, possibilidade de abrir CNPJ com sócio técnico se demanda de escala exigir.
+- **Ano 1 (0-12m):** dominar pipeline arch-viz cinemático (importar modelo do arquiteto → Megascans → Lumen → Sequencer → MRQ → finish no AE); 3-5 renders de portfólio (mesmo de modelos gratuitos/próprios projetos-teste); primeiros 1-2 clientes de arch-viz/film de produto; caixa R$4-8k/mês.
+- **Ano 3:** Unreal cinemático + motion pontual sustentando R$8-12k/mês; 2-3 projetos de arch-viz para escritórios/incorporadoras entregues; primeiro cliente internacional via Upwork/Contra/Behance; começar a agregar camada de creative tech (Resolume + IA para ativações).
+- **Ano 5:** renda mista — arch-viz Unreal (nacional+internacional em dólar) + camada de creative tech = R$18-22k/mês combinados; posicionamento público consolidado como "Unreal cinematographer / creative technologist" (site, portfólio, 2-3 cases).
+- **Ano 10:** estúdio pequeno (2-4 pessoas) de arch-viz/experiências real-time (Unreal cinemático + creative tech + IA generativa como ferramenta interna de assets), R$30-45k/mês de receita, mix 40% BR / 60% internacional, CNPJ estruturado.
 
 ## Estratégia 3 — Ambiciosa (mais risco, maior potencial em 10 anos)
 

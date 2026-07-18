@@ -58,7 +58,7 @@ footer{margin-top:40px;color:var(--gray-dim);font-size:10px;letter-spacing:.02em
   <header>
     <div class="eyebrow">Gyulyia · Relatório Estratégico de Carreira · 2026–2035</div>
     <h1>Mapa de decisão<br>16 carreiras</h1>
-    <p class="sub">Cada bolha é uma carreira. Eixo X = crescimento médio de mercado (CAGR). Eixo Y = nota de fit de longo prazo para este perfil. Tamanho = velocidade de caixa no curto prazo. Tom = risco de automação por IA (mais claro = mais resistente). Passe o mouse / toque para detalhes.</p>
+    <p class="sub">Notas recalibradas ao perfil real: After Effects básico, Unreal só cinemático (Sequencer + MRQ), sem modelagem/texturização. Cada bolha é uma carreira. Eixo X = crescimento de mercado (CAGR). Eixo Y = fit de longo prazo. Tamanho = velocidade de caixa no curto prazo. Tom = risco de automação por IA (mais claro = mais resistente). Passe o mouse / toque para detalhes.</p>
   </header>
 
   <section class="panel">
@@ -90,18 +90,20 @@ footer{margin-top:40px;color:var(--gray-dim);font-size:10px;letter-spacing:.02em
 </main>
 
 <script>
+// Notas recalibradas ao perfil real: AE básico, Unreal só cinemático (Sequencer/MRQ),
+// não modela, não texturiza. Career 4 = arch-viz cinemático (sobe), 5/6 fora, 1 cai no curto.
 const DATA = [
-  {n:1,name:"Motion Design Publicidade",cagr:11.15,curto:8,medio:6,longo:4,risco:"Alto"},
+  {n:1,name:"Motion Design Publicidade",cagr:11.15,curto:5,medio:6,longo:4,risco:"Alto"},
   {n:2,name:"DOOH",cagr:12.0,curto:5,medio:6,longo:6,risco:"Médio (sem dado)"},
-  {n:3,name:"Virtual Production",cagr:24.5,curto:3,medio:6,longo:7,risco:"Baixo"},
-  {n:4,name:"Unreal Engine (Digital Twins/AEC)",cagr:33.0,curto:4,medio:7,longo:8,risco:"Baixo"},
-  {n:5,name:"Technical Artist",cagr:9.65,curto:2,medio:4,longo:5,risco:"Médio-Alto"},
-  {n:6,name:"Environment Artist",cagr:9.65,curto:3,medio:5,longo:5,risco:"Médio"},
+  {n:3,name:"Virtual Production (previz/conteúdo)",cagr:24.5,curto:4,medio:7,longo:7,risco:"Baixo"},
+  {n:4,name:"Unreal Arch-Viz Cinemático",cagr:33.0,curto:5,medio:8,longo:9,risco:"Baixo"},
+  {n:5,name:"Technical Artist",cagr:9.65,curto:1,medio:2,longo:3,risco:"Médio-Alto"},
+  {n:6,name:"Environment Artist",cagr:9.65,curto:1,medio:3,longo:3,risco:"Médio"},
   {n:7,name:"Creative Technologist",cagr:27.4,curto:5,medio:8,longo:9,risco:"Baixo-Médio"},
   {n:8,name:"Audiovisual IA (isolada)",cagr:24.5,curto:4,medio:3,longo:3,risco:"É a disrupção"},
   {n:9,name:"VJ",cagr:12.4,curto:6,medio:4,longo:3,risco:"Baixo (sem dado forte)"},
   {n:10,name:"Projection Mapping",cagr:16.95,curto:5,medio:6,longo:6,risco:"Não encontrado"},
-  {n:11,name:"Motion para Agências",cagr:10.25,curto:7,medio:5,longo:4,risco:"Alto"},
+  {n:11,name:"Motion para Agências",cagr:10.25,curto:6,medio:5,longo:4,risco:"Alto"},
   {n:12,name:"Dev Web IA",cagr:30.25,curto:3,medio:3,longo:3,risco:"Muito Alto"},
   {n:13,name:"SaaS",cagr:21.0,curto:2,medio:5,longo:7,risco:"Médio"},
   {n:14,name:"Cybersecurity",cagr:9.35,curto:1,medio:3,longo:4,risco:"Alto (Tier 1)"},

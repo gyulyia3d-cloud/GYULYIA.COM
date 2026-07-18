@@ -24,16 +24,18 @@ plt.rcParams.update({
 
 careers = [
     "01 Motion Design Publicidade", "02 DOOH", "03 Virtual Production",
-    "04 Unreal Engine (Digital Twins/AEC)", "05 Technical Artist", "06 Environment Artist",
+    "04 Unreal Arch-Viz Cinematico", "05 Technical Artist", "06 Environment Artist",
     "07 Creative Technologist", "08 Audiovisual IA (isolada)", "09 VJ",
     "10 Projection Mapping", "11 Motion p/ Agencias", "12 Dev Web IA",
     "13 SaaS", "14 Cybersecurity", "15 Joias (marca propria)", "16 Mercado Intl Remoto*",
 ]
 cagr_min = [9.8, 4.2, 15.9, 24, 6.6, 6.6, 23.4, 12.8, 5.9, 10.9, 8, 22.5, 11.1, 5.8, 1.8, None]
 cagr_max = [12.5, 19.8, 33.1, 42, 12.7, 12.7, 31.4, 36.2, 18.9, 23, 12.5, 38, 30.9, 12.9, 10, None]
-curto  = [8,5,3,4,2,3,5,4,6,5,7,3,2,1,1,4]
-medio  = [6,6,6,7,4,5,8,3,4,6,5,3,5,3,4,7]
-longo  = [4,6,7,8,5,5,9,3,3,6,4,3,7,4,6,9]
+# Notas recalibradas ao perfil real: AE basico, Unreal so cinematico (Sequencer/MRQ),
+# nao modela, nao texturiza. Career 4 = arch-viz cinematico (sobe), 5/6 fora, 1 cai no curto.
+curto  = [5,5,4,5,1,1,5,4,6,5,6,3,2,1,1,4]
+medio  = [6,6,7,8,2,3,8,3,4,6,5,3,5,3,4,7]
+longo  = [4,6,7,9,3,3,9,3,3,6,4,3,7,4,6,9]
 
 # ---------- Chart 1: CAGR range ----------
 idx = [i for i in range(16) if cagr_min[i] is not None]
