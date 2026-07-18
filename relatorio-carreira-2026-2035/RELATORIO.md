@@ -14,25 +14,42 @@
 
 ---
 
-## ADENDO — Recalibração pelo perfil técnico real (atualização)
+## ADENDO v2 — Recalibração final pelo contexto real (SUPERSEDE tudo acima)
 
-**Skill real declarada:** After Effects **básico**; Unreal **apenas cinemático** (Sequencer/timeline + Movie Render Queue); **não modela**, **não texturiza**; IA generativa (Kling/Nano Banana/Runway); Resolume básico.
+> Esta seção substitui as recomendações anteriores. As seções originais (Partes 1-3) permanecem como pesquisa de referência, mas **o plano válido é este**.
 
-Isso reposiciona o cargo central. "Unreal cinemático (Sequencer + MRQ) sem modelagem/texturização" **não é Unreal fraco — é uma função própria e vendável:** o *diretor de fotografia / operador de câmera virtual dentro do Unreal*. O profissional **não cria assets — monta cena com assets prontos** (Megascans grátis, Fab/marketplace, Kitbash), ilumina com Lumen, posiciona e anima câmera no Sequencer, renderiza no MRQ. É exatamente o que **arch-viz, trailer, film de produto, previz e virtual production** consomem.
+**Contexto real declarado pelo profissional:**
+- **Skill:** After Effects **básico**; Unreal **apenas cinemático** (Sequencer + MRQ); **não modela, não texturiza**; IA generativa (Kling/Nano Banana/Runway); Resolume. Já entrega **stage visuals ao vivo** e **animação corporativa**.
+- **Local:** São Paulo.
+- **Financeiro:** reserva de 3-6 meses.
+- **Tempo:** meio período (15-25h/semana).
+- **Renda atual:** **já fatura R$4-12k por freela**, às vezes 2 simultâneos (stage visual + animação corporativa) — **mas passa 3-4 meses/ano sem nada.**
+- **Direção do cliente:** focar 100% no Brasil (internacional fora de escopo); planejamento realista, sem fantasia de "estúdio no ano 10".
 
-**Insight-chave:** a lacuna (modelar/texturizar) é justamente o que **Megascans + IA generativa preenchem**. Não modela → gera ou compra. Não texturiza → Megascans/IA. Você **assembla, ilumina, filma, renderiza** (Unreal) e **finaliza/compõe** (AE básico já basta). Motion + Unreal cinemático + IA viram uma pilha única.
+### O diagnóstico correto
+O problema **não** é teto de renda, nem skill, nem "qual carreira aprender". É **inconsistência**. Ganhar R$4-12k num pico e R$0 por 3-4 meses resulta numa média real de ~R$3-6k/mês. **A alavanca não é ganhar mais no pico — é eliminar os vales.** Portanto a métrica-alvo do plano deixa de ser "quanto no pico" e passa a ser:
+- **meses/ano sem renda → meta: zero**
+- **% de renda recorrente (não depende de caçar projeto) → meta: 30-50%**
 
-**Efeitos nas notas (substituem as das seções originais quando divergirem):**
-- **04 · Unreal (Arch-Viz cinemático)** ⬆️ vira a aposta nº1 de médio/longo. No arch-viz o **arquiteto entrega o modelo pronto** (BIM/CAD) — você importa, veste com Megascans, ilumina, câmera, MRQ: **zero modelagem sua**. Notas: curto **5** / médio **8** / longo **9**.
-- **03 · Virtual Production** ⬆️ ligeiramente — Sequencer+MRQ é diretamente aproveitável como "Unreal cinematographer/previz", mesmo sem operar o volume LED. Notas: curto **4** / médio **7** / longo **7**.
-- **01 · Motion Design Publicidade** ⬇️ no curto prazo: com AE básico não é caixa rápido. Você chega mais rápido a renda por **Unreal cinemático + IA** do que por AE avançado. Notas: curto **5** (era 8) / médio **6** / longo **4**. AE fica como ferramenta de **finalização**, não como carreira-motor.
-- **05 · Technical Artist** ⬇️ **fora** — exige shader/scripting/lógica de programação que o perfil não tem e não quer. Notas: curto **1** / médio **2** / longo **3**.
-- **06 · Environment Artist** ⬇️ **fora** — exige modelagem/texturização/world-building manual. Notas: curto **1** / médio **3** / longo **3**.
-- **07 · Creative Technologist** mantém-se no topo de longo prazo, mas o **caminho de entrada** é via Unreal cinemático + Resolume + IA (visuais real-time), não via código/sensores no início.
+### Correção crítica: archviz Unreal NÃO é a aposta nº1 (dado brasileiro)
+A v1 extrapolou o CAGR global de "Digital Twins/AEC" (24-42%) sobre o freelancer brasileiro. **Errado.** Dado real do Brasil:
+- Render/maquete eletrônica freelance: **R$200-1.500 por imagem** [PixelBlend, 2025; Chahoud Cursos, 2025].
+- Generalista 3D de arquitetura CLT: **média ~R$3.796-4.250/mês** (faixa R$1.617-6.511) [Glassdoor BR, 2025/26].
+- O mercado BR de archviz é dominado por **Lumion, V-Ray, Enscape, D5 Render** — mais baratos e fáceis que Unreal. O setor classifica o Unreal como "nicho para estúdios/grandes escritórios pela dificuldade de aprendizado" [cursosdearquitetura.com.br, 2025; shotarch.com, 2026]. **Aprender Unreal para archviz aqui não dá prêmio de preço** e coloca você contra quem entrega mais rápido/barato em D5. O único recorte defensável para o seu Unreal *cinemático* (vídeo, não imagem parada) é **film de lançamento imobiliário/vídeo arquitetônico animado** — ticket alto, mas volume baixo: complemento oportunista, **não base**.
 
-**Novo ranking-síntese (perfil recalibrado):**
-1º Unreal Arch-Viz cinemático · 2º Creative Technologist · 3º Virtual Production (como fornecedor de conteúdo/previz) · 4º Projection Mapping · 5º DOOH · 6º Mercado Internacional Remoto (multiplicador) · 7º Motion cinemático/publicidade com IA · 8º VJ · 9º SaaS de nicho · 10º Joias (serviço de conteúdo 3D/IA).
-Technical Artist, Environment Artist, Dev Web IA e Cybersecurity saem da rota recomendada.
+### O que realmente sustenta o plano (SP, meio período, já ativo)
+Não é aprender nada novo. É **profissionalizar e dar recorrência ao que você já vende**, aproveitando que São Paulo concentra produtoras de evento, agências, casas de corporate video, fornecedores de LED/DOOH (Eletromidia) e a cena de stage visuals. **Motor duplo, em pé de igualdade:** stage visuals/VJ ao vivo **+** animação/motion corporativo — uma cobre o vale da outra.
+
+**Efeitos nas notas (perfil SP recalibrado, substituem as anteriores):**
+- **Stage visuals / VJ ao vivo (SP)** — de "caixa + rede" a **motor principal**. Você já vende. Notas: curto **8** / médio **7** / longo **6** (teto limitado por ser presencial/hora, resolvido com recorrência e produtos).
+- **Animação / motion corporativo** — **motor principal co-igual**, o lado remoto/home office que segura o vale quando evento esfria. Notas: curto **7** / médio **7** / longo **6**.
+- **Creative Technologist (instalações/experiências SP)** — continua o **crescimento de médio/longo**, entrada via Unreal cinemático + Resolume + IA. Notas: curto **4** / médio **7** / longo **8**.
+- **Unreal Arch-Viz** ⬇️ rebaixado — só como **film imobiliário oportunista**, não base. Notas: curto **2** / médio **4** / longo **4**.
+- **Mercado Internacional** — **removido do plano** por sua escolha (segue no relatório só como dado de referência; é onde estaria o teto de 5-7x, custo consciente da decisão de focar no Brasil).
+- Technical Artist, Environment Artist, Dev Web IA, Cybersecurity, SaaS, Joias: fora da rota.
+
+**Ranking-síntese (plano SP, focado no Brasil):**
+1º Stage visuals/VJ ao vivo · 2º Animação/motion corporativo · 3º Creative Technologist (instalações/experiências) · 4º Projection Mapping/DOOH (conteúdo espacial) · 5º Film imobiliário Unreal (oportunista) · 6º Produto/packs para pares (renda passiva anti-vale).
 
 ---
 
@@ -472,42 +489,40 @@ Cada carreira responde às 39 perguntas do briefing em formato compacto. Legenda
 
 ---
 
-# PARTE 3 — Três Estratégias
+# PARTE 3 — Plano realista (SP · foco Brasil · anti-fome)
 
-## Estratégia 1 — Conservadora (estabilidade + renda previsível)
+> Reescrito ao contexto real (ADENDO v2). Horizonte de **5 anos** (não 10 — você reclamou com razão da fantasia de longo prazo). Sem mercado internacional. Meta que importa: **zerar os meses parados** e **criar recorrência**, não maximizar o pico. Números são metas ilustrativas ancoradas no que você já fatura (R$4-12k/freela).
 
-**Lógica:** maximizar velocidade até R$8k/mês usando 100% de skills já dominadas, minimizar aposta em mercados sem dado consolidado. Foco: **Motion Design + Motion para Agências + DOOH**, com PJ desde o início.
-**Riscos:** teto de renda doméstico baixo (R$12-20k/mês é difícil de superar sem internacionalizar); exposição alta a automação por IA no médio-longo prazo (WEF classifica design gráfico como risco alto).
-**Sinal de que é hora de mudar:** se após 18-24 meses a receita estagnar abaixo de R$10k/mês, ou se >30% dos briefings recorrentes começarem a ser resolvidos in-house pelo cliente via IA generativa sem te acionar.
-**Roadmap:**
-- **Ano 3:** PJ estabelecido, 3-5 clientes recorrentes (agências + DOOH), R$8-12k/mês, portfólio público consolidado.
-- **Ano 5:** especialização em DOOH/anamórfico como diferenciação de nicho, R$15-18k/mês, 1-2 clientes internacionais via Upwork/Toptal complementando.
-- **Ano 10:** estúdio pequeno (2-3 pessoas) ou permanência solo com ticket alto, R$20-25k/mês, renda majoritariamente doméstica com camada internacional de 20-30%.
+## As três estratégias agora são três NÍVEIS de ambição do mesmo plano
 
-## Estratégia 2 — Balanceada (equilíbrio renda + crescimento + patrimônio) — **recomendada**
+O motor é sempre o mesmo — **stage visuals/VJ + animação corporativa, uma cobrindo o vale da outra**. O que muda entre os níveis é quanto de recorrência e produto você adiciona por cima.
 
-> **Espinha dorsal recalibrada ao perfil real:** o motor não é AE avançado — é **Unreal cinemático (Sequencer + MRQ) aplicado a arch-viz**, com **Megascans + IA generativa cobrindo a lacuna de modelagem/texturização**. O arquiteto entrega o modelo; você dirige câmera, ilumina, renderiza e finaliza no AE básico. Esse é o caminho de menor curva e maior sinergia com o que você já sabe.
+### Nível 1 — Estabilizar (conservador): matar a fome
+**Objetivo único:** nunca mais 3-4 meses zerado. Piso previsível.
+**Como:** construir um **pipeline de 4-6 fontes recorrentes em SP** — 2-3 produtoras de evento que te acionem como VJ/stage visual, 1-2 agências/casas de corporate video para motion, 1 contato de conteúdo LED/DOOH. Sair do modo "espero o telefone tocar" para o modo "tenho lista de clientes que me chamam de novo". Padronizar orçamento, prazo e processo (pré-venda em 1 dia, não 1 semana).
+**Métrica-alvo:** ≥1 projeto pago **todo mês**; piso R$5-6k/mês; meses zerados = 0.
+**Risco:** teto continua baixo se ficar só nisso (você troca tempo por dinheiro). **Sinal de virar a chave:** piso estável por 3 meses seguidos → subir para o Nível 2.
 
-**Lógica:** nos primeiros 6-12 meses, caixa via **Unreal cinemático + IA** (arch-viz walkthrough, film de produto, previz) e projetos pontuais de motion/VJ com o portfólio atual. Em paralelo, investe deliberadamente em **arch-viz Unreal + Creative Technologist** como motor de crescimento, e ativa **Mercado Internacional Remoto** a partir do ano 2. IA generativa é multiplicador de produtividade em todas as frentes (inclusive gerando assets/texturas que você não modela), nunca vendida como "produto" isolado.
-**Por que faz sentido:** é a única combinação que respeita simultaneamente (a) velocidade de caixa curto prazo, (b) o segmento de maior crescimento estrutural do relatório (Digital Twins/AEC, CAGR 24-42%), (c) o maior gap de fit encontrado (Creative Technologist, nota 9 de longo prazo), e (d) o maior multiplicador de renda comprovado (internacional, gap de 5-7x).
-**Riscos:** exige disciplina de aprender Unreal a nível de arquitetura/twinmotion (12-24 meses de curva) enquanto ainda se sustenta com motion/DOOH; mercado de Creative Technologist no Brasil tem dado salarial fraco, exige precificar por benchmark internacional em vez de referência local.
-**Sinal de que é hora de mudar:** se em 24 meses nenhum projeto de Unreal/AEC ou creative tech tiver saído do papel (mesmo pequeno), reavaliar entre dobrar a aposta em DOOH+Projection Mapping (Estratégia Conservadora ajustada) ou acelerar internacionalização pura via motion.
-**Roadmap:**
-- **Ano 1 (0-12m):** dominar pipeline arch-viz cinemático (importar modelo do arquiteto → Megascans → Lumen → Sequencer → MRQ → finish no AE); 3-5 renders de portfólio (mesmo de modelos gratuitos/próprios projetos-teste); primeiros 1-2 clientes de arch-viz/film de produto; caixa R$4-8k/mês.
-- **Ano 3:** Unreal cinemático + motion pontual sustentando R$8-12k/mês; 2-3 projetos de arch-viz para escritórios/incorporadoras entregues; primeiro cliente internacional via Upwork/Contra/Behance; começar a agregar camada de creative tech (Resolume + IA para ativações).
-- **Ano 5:** renda mista — arch-viz Unreal (nacional+internacional em dólar) + camada de creative tech = R$18-22k/mês combinados; posicionamento público consolidado como "Unreal cinematographer / creative technologist" (site, portfólio, 2-3 cases).
-- **Ano 10:** estúdio pequeno (2-4 pessoas) de arch-viz/experiências real-time (Unreal cinemático + creative tech + IA generativa como ferramenta interna de assets), R$30-45k/mês de receita, mix 40% BR / 60% internacional, CNPJ estruturado.
+### Nível 2 — Recorrência (balanceado): **recomendado**
+**Objetivo:** transformar renda de projeto em renda que chega sem caçar.
+**Como:** (a) converter 1-2 clientes em **retainer mensal** — pacote fixo de motion/social para uma marca, ou VJ residente/parceria fixa com uma produtora ou casa de shows; (b) lançar **1 produto** de baixo esforço usando o que já está no seu HD: packs de Resolume, presets, loops de stage visual, templates de motion corporativo, vendidos para outros VJs/produtoras/social medias. Isso vira **renda passiva que preenche o vale**.
+**Métrica-alvo:** R$8-12k/mês com **R$3-4k já recorrente** (30-40% do total não depende de projeto novo).
+**Por que faz sentido para você:** meio período (15-25h) rende mais em recorrência do que em caça constante de projeto; reserva de 3-6 meses cobre a transição; SP tem os clientes-âncora. **Sinal de mudar:** recorrência estável e ainda sobra demanda que você recusa por falta de mão → Nível 3.
 
-## Estratégia 3 — Ambiciosa (mais risco, maior potencial em 10 anos)
+### Nível 3 — Escalar sem virar chefe (ambicioso): solo premium
+**Objetivo:** subir de R$12k para R$15-20k/mês **sem** montar estrutura pesada.
+**Como:** (a) **subcontratar pontualmente** outro freelancer quando dois jobs colidem (já acontece com você) — sem CLT, sem sala, sem sócio obrigatório; (b) subir ticket e selecionar clientes melhores; (c) engrossar a linha de produtos. Estúdio formal (equipe/CNPJ com funcionários) fica como **opção**, não meta — só se um dia você **quiser** gerir gente.
+**Métrica-alvo:** R$12-20k/mês, com pico ocasional acima disso; recorrência + produto ≥40% da renda.
+**Risco:** subcontratação mal gerida come margem/qualidade. **Sinal:** se gerir gente te dá mais dor que retorno, volte ao solo premium — é um destino legítimo, não um fracasso.
 
-**Lógica:** usa Estratégia Balanceada como base de caixa até ano 3-4, depois aloca parte do tempo/capital em **SaaS de nicho para o mercado criativo** (ex.: ferramenta/template/automação para motion designers, VJs ou creative technologists — vendendo para os próprios pares) + aprofunda internacionalização agressiva (Toptal elite, clientes diretos em dólar).
-**Por que faz sentido:** é a única trilha do relatório com potencial de renda **desacoplada de horas trabalhadas** (SaaS, ranking financeiro #1) combinada com a maior alavancagem cambial (internacional, +5-7x). Aproveita o próprio nicho como primeiro mercado do produto — reduz o risco de "não saber vender para estranhos".
-**Riscos:** 70% dos micro SaaS ficam abaixo de US$1.000 MRR — risco real de meses/anos sem retorno nessa frente; exige desviar tempo da fonte de caixa principal (creative tech/motion) sem garantia; risco técnico de segurança se escalar sem dev (45% do código IA tem vulnerabilidade OWASP).
-**Sinal de que é hora de mudar (voltar para Estratégia Balanceada):** se em 18 meses o SaaS não atingir ao menos US$1.000 MRR consistente, ou se consumir mais de 30% do tempo produtivo sem contrapartida de receita — cortar peso e focar 100% em creative tech + internacional.
-**Roadmap:**
-- **Ano 3:** base da Estratégia Balanceada consolidada (R$18-22k/mês combinados); primeiro MVP de SaaS de nicho lançado para a própria comunidade (motion/VJ/creative tech), meta de validação: 20-50 usuários pagantes.
-- **Ano 5:** SaaS com MRR relevante (meta US$3-5k/mês = R$15-25k/mês) rodando em paralelo ao estúdio de creative tech (que sozinho já entrega R$20k+/mês); renda combinada R$35-45k/mês; primeira contratação (dev júnior ou parceiro técnico) para reduzir risco de segurança do SaaS.
-- **Ano 10:** dois ativos maduros — (1) estúdio de creative technology com contratos internacionais recorrentes, (2) SaaS de nicho com receita recorrente estabelecida e possivelmente uma equipe pequena dedicada; renda combinada potencial R$50-80k+/mês; abertura formal de holding/CNPJ estruturado com sócios, possibilidade de aporte externo se o SaaS mostrar tração de escala.
+## Roadmap consolidado (5 anos, metas mensuráveis)
+- **Trimestre 1 (0-3 meses):** mapear e contatar 15-20 potenciais clientes-âncora em SP (produtoras de evento, agências, casas de corporate video); fechar as 3-4 primeiras relações recorrentes; padronizar orçamento/portfólio por frente. **Meta: nenhum mês zerado a partir daqui.**
+- **Ano 1:** piso R$6-8k/mês estável; primeiro retainer mensal assinado; primeiro produto (1 pack/preset) publicado. Recorrência começa em ~R$2k/mês.
+- **Ano 2:** R$9-12k/mês; 2 retainers ativos; catálogo de 3-5 produtos; recorrência ~R$3-4k/mês (30-40%).
+- **Ano 3:** R$12-15k/mês; subcontratação pontual funcionando; camada de creative tech (instalação/experiência) entregando 1-2 projetos de ticket alto/ano.
+- **Ano 5:** R$15-20k/mês como solo premium (ou micro-estúdio informal, **se você quiser**); recorrência + produto ≥40%; posicionamento público consolidado (site, portfólio, 3-5 cases) como referência de stage visuals + motion + experiências em SP.
+
+**O que explicitamente saiu deste plano:** aprender archviz do zero, mercado internacional, SaaS técnico, e "estúdio grande no ano 10". Tudo isso permanece no relatório como pesquisa de referência (Partes 1-2), mas fora da rota recomendada para o seu contexto.
 
 ---
 
