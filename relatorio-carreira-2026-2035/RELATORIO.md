@@ -14,9 +14,60 @@
 
 ---
 
-## ADENDO v2 — Recalibração final pelo contexto real (SUPERSEDE tudo acima)
+## ADENDO v3 — Arquitetura final (SP · Brasil · 3 pesquisas de campo + joalheria)
 
-> Esta seção substitui as recomendações anteriores. As seções originais (Partes 1-3) permanecem como pesquisa de referência, mas **o plano válido é este**.
+> Versão final e autoritativa. Integra pesquisa de campo sobre DOOH anamórfico, Virtual Production e CGI automotivo no Brasil; pesquisa de editais de fomento; e o pilar de patrimônio via a joalheria da mãe. As Partes 1-2 e o ADENDO v2 (abaixo) ficam como pesquisa de referência.
+
+### Diagnóstico (confirmado)
+Seu gargalo não é skill nem nicho — é **distribuição**. Você já fatura R$4-12k/freela mas passa 3-4 meses/ano zerado, sem cliente direto, trabalhando por indicação de outros VJs. Métrica-alvo: **zerar meses parados + criar recorrência e patrimônio.**
+
+### O que a pesquisa de campo mudou (dados BR reais)
+- **Virtual Production — o achado mais acionável:** produtoras de VP em SP **já contratam "operador de Unreal" como função terceirizada**, separada de modelagem e da operação do volume LED. Nomeadas: **Crialed** (lista "operador de Unreal" explícito), **TECLEG** (externaliza operadores), **On+AV, Quanta** (100+ projetos, já com publicidade), **555 Studios/O2** (Cotia). É o canal que resolve seu gargalo: subir da subcontratação de VJs para a de **produtoras com pipeline e demanda repetida** [sites institucionais, 2025/26]. Gap honesto: **não há preço público** de diária/ticket de Unreal-VP no Brasil — validar direto com as produtoras.
+- **DOOH anamórfico:** mercado crescendo (IAB Brasil: DOOH R$4,4bi em 2025; 71% vão aumentar investimento [IAB/M&M, 2026]), mas o conteúdo é **contratado por agência**, não pela operadora (Eletromidia/JCDecaux operam a tela; a agência encomenda a peça). Ticket estimado ~R$20k/peça [LedCollor, 2025 — fonte fraca]. Entrada = portfólio + agência.
+- **Automotivo/produto — nuance crítica de IA:** o comercial do **GWM Haval H6 (jan/2026) foi 100% IA generativa (Veo 3)** — montadora já cortou CGI inteiro [O Tempo/Clube de Criação, 2026]. MAS a IA ainda **não entrega fidelidade de produto** (cor/reflexo/detalhe exatos); 3D tradicional segue para isso [Propmark, 2025]. **ÍCON CGI** (SP, desde 2005) já usa Unreal para automotivo/produto. **Seu diferencial defensável é fidelidade de produto em movimento, não filme-conceito narrativo (onde a IA já ganha no preço).**
+- **Editais (de-risca o creative tech que você achava instável):** o **ProAC tem edital específico de Realidades Estendidas (VR/AR/XR)** e linhas de XR/games de **R$100-200k**, aceitando **PF e coletivo sem CNPJ** — você qualifica (mora em SP há +2 anos). Some PNAB (permanente, R$3bi/ano), SESC/SESI "Ocupação Arte Digital", residência Red Bull Station. Aprovação ~14-41%; não é renda única, mas **paga o R&D e o portfólio** de creative tech, que vira prestígio e puxa trabalho comercial. Case: Coletivo Coletores (video mapping + ProAC) [Cultura.sp.gov.br, 2025; Gov.br/PNAB, 2022-26].
+
+### As 5 camadas do plano (cada uma ataca uma fraqueza diferente)
+1. **Motor de caixa (mata a fome):** virar **operador de Unreal real-time** para as produtoras de VP/CGI de SP (Crialed, TECLEG, On+AV, Quanta, 555/O2, ÍCON) + seus clientes de motion/corporativo e stage visuals, agora buscando relação **direta e recorrente**. Resolve distribuição com mínimo esforço de venda (você já vive de subcontratação — só sobe o nível do contratante).
+2. **Ponta de lança (gera cliente):** 1-2 peças spec/ano gritando **fidelidade de produto** (automotivo/produto/joia em render fotorreal) + 1 peça de **DOOH anamórfico** — iscas de lead para agências e produtoras, não o negócio em si.
+3. **Piso anti-vale (passivo):** produtizar para sua rede de VJs (packs de Resolume/Notch, loops, templates de motion).
+4. **Fomento/prestígio (R&D pago pelo Estado — camada TARDIA e incerta):** editais são **concorridos (~25% de aprovação) e exigem projeto maduro, pesquisa prévia e normalmente obra/portfólio já em andamento**. Ou seja: **não é caixa dos anos 1-2** e não é conta certa. É um acelerador que só faz sentido **depois** que a ponta de lança (Camada 2) e os primeiros experimentos de creative tech já tiverem gerado portfólio. Trate como bônus contingente, não como receita planejada.
+5. **Patrimônio/equity (a joalheria da mãe):** entrar como sócio(a) fazendo **marca + conteúdo + render + digital** — sua skill (render de fidelidade de produto, resistente à IA) é exatamente a lacuna dela. Modelo **sob encomenda** (sem estoque, sem trava de capital). Não é caixa de ano 1; é **ativo que valoriza** — o patrimônio que o freelance nunca constrói. Ver seção dedicada em PARTE 4.
+
+### Notas finais (perfil SP + pesquisa de campo)
+- **Operador de Unreal p/ VP (produtoras SP):** curto 6 / médio 8 / longo 8 — **motor principal**, resolve distribuição.
+- **Motion/corporativo + stage visuals (cliente direto):** curto 7 / médio 6 / longo 5 — caixa que você já tem, agora sem depender de indicação.
+- **Render de fidelidade de produto (automotivo/produto/joia):** curto 5 / médio 7 / longo 7 — nicho defensável contra IA.
+- **DOOH anamórfico:** curto 4 / médio 6 / longo 6 — vitrine + via agência.
+- **Creative tech via editais:** curto 3 / médio 6 / longo 7 — de-riscado por fomento; não mais "instável".
+- **Joalheria (equity, sob encomenda):** curto 3 / médio 7 / longo 9 — patrimônio + resistência a IA + empreender.
+- Fora: archviz do zero, mercado internacional, Technical/Environment Artist, Dev Web IA, Cybersecurity, SaaS técnico.
+
+**Ranking-síntese v3:** 1º Operador de Unreal p/ VP · 2º Motion/stage visuals com cliente direto · 3º Joalheria (equity) · 4º Render de produto/automotivo · 5º Creative tech via editais · 6º DOOH anamórfico (vitrine) · 7º Produtos para pares.
+
+---
+
+## ADENDO v4 — Portfólio real + estratégia de MENOR SORTE (final, autoritativa)
+
+**Portfólio (site + `works/`) revela a natureza real do trabalho:** visuais de show/palco e projeção mapeada para o TOPO da música BR e grandes festivais — Racionais MC's, Ivete Sangalo, Matuê, Pabllo Vittar, Pedro Sampaio, Liniker, Gloria Groove, Mochakk, Rock in Rio, Burning Man; mapping (SSA Mapping, Festa da Luz, "Maré de Mudanças"); exposições ("Os Mundos de Leonardo da Vinci"); Arcane — Riot Games; SP-Arte + BRIFW; estúdio Bijari; workshop **"Unreal para Filmmakers"** (Creative Monsters School — você já ensina). Cases: ivete-sangalo, mare-morta, pedro-sampaio, racionais-mcs.
+
+**Implicação:** você não é iniciante sem rede. Tem **portfólio de elite em live visuals/mapping**, hoje subutilizado (subcontratado por VJs). Seu maior ativo é esse acervo + a autoridade de quem já assinou visual de artista grande. Estratégia de menor sorte = **monetizar direto o que você já é**, não apostar em nicho novo nem em júri.
+
+**Reponderação por DEPENDÊNCIA DE SORTE/FORÇA EXTERNA (a pedido):**
+- **Editais → REBAIXADO a último recurso, fora do plano.** Poucas vagas, muitos concorrentes (~25% ou menos), exige **produtor cultural** para escrever o projeto, **MEI regular há +2 anos** (o seu está atrasado e sem 2 anos) e track record de aprovação que você não tem. Máxima dependência externa. Só reconsiderar DEPOIS de MEI regularizado + portfólio de creative tech + parceria com produtor. Nunca como receita planejada.
+- **Menor sorte (você controla):** produtos/packs → ensino (você já dá workshop) → live visuals/mapping DIRETO para turnês/festivais (portfólio comprova) → operador Unreal p/ produtoras VP.
+- **Patrimônio:** joalheria — você controla o motor de conteúdo; não depende de gatekeeper criativo.
+
+**Ranking de MENOR SORTE (mais estável → mais dependente de fatores externos):**
+1. **Produtos/packs** (100% você; vende para pares) · 2. **Ensino/mentoria Unreal-VJ** (você já faz; baixo gatekeeper; recorrente) · 3. **Live visuals/mapping direto para turnês/festivais** (portfólio de elite comprova; gatekeeper = diretor criativo do artista) · 4. **Operador Unreal p/ produtoras VP** (depende de as produtoras contratarem) · 5. **Joalheria/equity** (depende de família + mercado, mas você controla o conteúdo) · 6. Render automotivo/produto (agências + concorrência IA) · 7. DOOH anamórfico (gatekept por agência) · 8. **Editais** (júri + produtor + MEI + track record = máxima sorte).
+
+**Núcleo de estabilidade financeira (recorrente + baixo gatekeeper):** ensino (turmas recorrentes) + produtos (passivo) + contratos de temporada com turnês/festivais/produtoras + equity joalheria. Tudo depende de VOCÊ e do seu portfólio, não de sorte externa.
+
+---
+
+## ADENDO v2 — Recalibração pelo contexto SP (SUPERSEDIDO pelo v3 acima — mantido como histórico)
+
+> ⚠️ Substituído pelo ADENDO v3. Mantido só para rastrear o raciocínio.
 
 **Contexto real declarado pelo profissional:**
 - **Skill:** After Effects **básico**; Unreal **apenas cinemático** (Sequencer + MRQ); **não modela, não texturiza**; IA generativa (Kling/Nano Banana/Runway); Resolume. Já entrega **stage visuals ao vivo** e **animação corporativa**.
@@ -489,9 +540,32 @@ Cada carreira responde às 39 perguntas do briefing em formato compacto. Legenda
 
 ---
 
-# PARTE 3 — Plano realista (SP · foco Brasil · anti-fome)
+# PARTE 3 — Plano realista (SP · foco Brasil · 5 camadas)
 
-> Reescrito ao contexto real (ADENDO v2). Horizonte de **5 anos** (não 10 — você reclamou com razão da fantasia de longo prazo). Sem mercado internacional. Meta que importa: **zerar os meses parados** e **criar recorrência**, não maximizar o pico. Números são metas ilustrativas ancoradas no que você já fatura (R$4-12k/freela).
+> **Versão final (v3).** Horizonte de **5 anos**. Sem mercado internacional. Meta: **zerar meses parados + recorrência + patrimônio.** As 5 camadas do ADENDO v3, agora com roadmap e métricas. Números são metas ilustrativas ancoradas no que você já fatura (R$4-12k/freela).
+
+## Como as camadas somam (visão de caixa + patrimônio)
+As camadas 1-4 geram **caixa**; a camada 5 (joalheria) gera **patrimônio/equity** (não é caixa mensal no ano 1 — é valor de marca acumulando). Trate-as como um portfólio: quando o motor (VP/motion) esfria, o editais e o produto seguram; o patrimônio cresce em paralelo, no fundo.
+
+- **Camada 1 — Motor de caixa (operador de Unreal p/ produtoras VP + motion/stage direto):** o grosso da renda, o que mata a fome.
+- **Camada 2 — Ponta de lança (spec de fidelidade de produto + DOOH anamórfico):** não é receita direta; é a máquina de marketing que alimenta a Camada 1.
+- **Camada 3 — Produto (packs/loops/templates para a rede de VJs):** renda passiva que preenche vale.
+- **Camada 4 — Editais (ProAC/PNAB/SESC, creative tech):** injeções de R$100-200k quando aprovado, **mas concorrido (~25%) e exige projeto maduro + pesquisa prévia + obra/portfólio em andamento**. Só aparece no caixa a partir do ano 3, depois de portfólio construído. Bônus contingente, nunca conta certa.
+- **Camada 5 — Joalheria (equity):** patrimônio de longo prazo, sob encomenda, capital leve.
+
+## Roadmap consolidado (5 anos, metas mensuráveis)
+- **Trimestre 1 (0-3m):** mapear e contatar as produtoras de VP de SP (Crialed, TECLEG, On+AV, Quanta, 555/O2, ÍCON) oferecendo-se como **operador de Unreal freelance**; mapear 10-15 agências (via diretório ABAP) para motion/DOOH; padronizar orçamento e reel. Ir ao **Pixel Show** (SP, março). **Meta: nenhum mês zerado a partir daqui.**
+- **Ano 1:** piso R$6-8k/mês com a Camada 1 (VP + motion + stage); 1ª peça spec de fidelidade de produto publicada (Camada 2); 1º pack de produto no ar (Camada 3); **começar a acumular portfólio de creative tech** (experimentos próprios) — ainda SEM contar com edital; **conversa formal de sociedade com a mãe** e 1º ensaio de render para a joalheria (Camada 5).
+- **Ano 2:** R$9-12k/mês; 2-3 produtoras de VP te acionando de forma recorrente; catálogo de 3-5 produtos; **1ª inscrição em edital** só agora, com projeto maduro apoiado no portfólio do ano 1 (e sem contar com o dinheiro — aprovação é ~25%); marca da joalheria no ar (identidade + e-commerce + render das peças-herói) sob encomenda.
+- **Ano 3:** R$12-15k/mês de caixa; render de fidelidade de produto (automotivo/produto) virando ticket alto pontual; **se** um edital for aprovado, ele financia um projeto de creative tech que vira prestígio/portfólio; joalheria com primeiras vendas recorrentes da carteira da mãe.
+- **Ano 5:** R$15-20k/mês de caixa (solo premium ou micro-estúdio informal, **se você quiser**); recorrência + produto ≥40%; 1-2 editais no currículo; **joalheria como ativo com valor de marca** (equity que você detém), possivelmente já contribuindo caixa relevante. Posicionamento público consolidado como "operador de Unreal / real-time + creative tech" de SP.
+
+**O que saiu do plano:** archviz do zero, internacional, SaaS técnico, Technical/Environment Artist, Cybersecurity, e "estúdio grande no ano 10". Seguem no relatório como referência (Partes 1-2).
+
+## Sinais de que é hora de corrigir a rota
+- Se em 6 meses nenhuma produtora de VP te acionou → o problema é prospecção/reel, não o mercado; refaça a abordagem (portfólio específico de Unreal cinemático + contato direto no LinkedIn).
+- Se a Camada 1 estabiliza mas a joalheria não sai do papel em 12 meses → decidir se a sociedade é real ou vira só "serviço de conteúdo pago" para a marca da mãe (também válido, sem equity).
+- Se editais reprovarem 3x seguidas → não é sinal de parar; a taxa é ~25%. Persistir com projeto mais maduro, ou tratar a Camada 4 como bônus, não como conta certa.
 
 ## As três estratégias agora são três NÍVEIS de ambição do mesmo plano
 
@@ -523,6 +597,36 @@ O motor é sempre o mesmo — **stage visuals/VJ + animação corporativa, uma c
 - **Ano 5:** R$15-20k/mês como solo premium (ou micro-estúdio informal, **se você quiser**); recorrência + produto ≥40%; posicionamento público consolidado (site, portfólio, 3-5 cases) como referência de stage visuals + motion + experiências em SP.
 
 **O que explicitamente saiu deste plano:** aprender archviz do zero, mercado internacional, SaaS técnico, e "estúdio grande no ano 10". Tudo isso permanece no relatório como pesquisa de referência (Partes 1-2), mas fora da rota recomendada para o seu contexto.
+
+---
+
+# PARTE 4 — Pilar de patrimônio: a joalheria (sociedade com a mãe)
+
+**Por que é o encaixe de maior retorno ajustado a risco de todo o relatório:** numa joalheria, o difícil de construir é domínio técnico, fornecedores, ourives, modeladores 3D e — o mais caro — **carteira de clientes que compra peça de R$50-200K**. A mãe **já tem tudo isso** (décadas de luxo, R$20K/mês de renda rodando). O que falta (marketing, design, identidade, conteúdo, e-commerce) é **exatamente o portfólio do profissional**: render 3D de produto, motion, IA generativa, direção visual. E render fotorreal de joia de alto valor é o **caso extremo do nicho resistente à IA** (a IA alucina detalhe/cravação/reflexo; o cliente de luxo não perdoa).
+
+**Dados de mercado [pesquisa da PARTE 1, carreira 15]:** luxo no Brasil cresce ~12%/ano vs 3% global — o país lidera o mundo [Bain & Company, 2023/25]; e-commerce de joias +48%/ano no ecossistema Nuvemshop [Nuvemshop, 2025]; margem 55-80% [Nuvemshop, 2025]; IA já reduz custo de conteúdo/simulação 3D de joia [JoiasLab, 2025].
+
+**O único risco grande — capital de estoque — é neutralizado pelo modelo sob encomenda** (que a mãe já pratica): a peça só é produzida depois de vendida/encomendada. Luxo valoriza espera e exclusividade. Então: **não** entre com dinheiro em estoque; entre com **tempo + skill** (seu capital de maior alavancagem); se puser dinheiro, ponha pouco e em **teste de marketing** (e-commerce, tráfego pago, 2-3 peças-herói só para conteúdo), nunca em coleção.
+
+## Divisão de papéis (sem sobreposição)
+- **Mãe:** produto, design das peças, sourcing, ourives/modeladores, precificação, venda/relacionamento, carteira de clientes.
+- **Você:** marca e identidade visual, render/foto/vídeo das peças, conteúdo e social, e-commerce, tráfego/aquisição, CRM/fidelização, modernização digital da operação.
+- Ela **não** mexe no seu marketing; você **não** vira joalheiro. Cada um manda no seu.
+
+## Estrutura de sociedade (referência para a conversa — ajustar com contador/advogado)
+Seu aporte é majoritariamente **trabalho e skill** (sweat equity), não dinheiro. Faixas de referência de participação, conforme quanto você entrega e por quanto tempo:
+- **Prestador de serviço (0% equity):** você cobra pela marca/conteúdo como cliente. Sem risco, sem upside. Válido se não quiser sócia.
+- **Sócio minoritário (10-25%):** você entrega toda a frente digital/marca continuamente + talvez aporte pequeno de caixa para marketing. Equity com **vesting** (ex.: liberado ao longo de 2-3 anos de entrega efetiva, para proteger os dois se um sair).
+- **Sócio 50/50:** só se o crescimento do negócio depender tanto da sua máquina de demanda quanto do produto dela — e se ambos toparem risco e decisão compartilhados. Cuidado: 50/50 trava decisão em impasse; se for por aí, defina quem tem o voto de minerva em cada área.
+
+**Condições inegociáveis antes de entrar:**
+1. **Contrato social no papel** (cotas, papéis, aporte de cada um em dinheiro E trabalho, regras de saída, o que acontece se um quiser sair). Família + dinheiro sem contrato destrói os dois.
+2. **Vesting do seu trabalho** — equity liberada conforme entrega, não tudo de uma vez.
+3. **Trate como patrimônio, não salário** — não alivia sua fome de caixa no ano 1; o retorno é equity numa marca que valoriza.
+4. **Time-box** — cabe nas suas 15-25h porque usa skill que você já tem (alavancagem, não segunda profissão).
+5. **Valide com a carteira dela primeiro** — sirva melhor os clientes de R$50-200K que ela já tem (marca, catálogo digital premium, atendimento, indicação) antes de mirar público novo. Validação mais barata que existe.
+
+**Nota para este arranjo (perfil recalibrado):** curto **3** / médio **7** / longo **9**. Curto baixo (não paga rápido); longo altíssimo (é a única linha que te dá **ativo**, não só honorário). Pontua alto em empreender, resistência à IA e patrimônio — as três coisas que faltavam no resto do plano.
 
 ---
 

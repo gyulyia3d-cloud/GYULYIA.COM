@@ -10,24 +10,26 @@ plt.rcParams.update({
     "figure.facecolor":BLACK,"axes.facecolor":BLACK,"savefig.facecolor":BLACK,
 })
 
-# ---------- Roadmap: renda R$/mes por estrategia ----------
-years=[1,3,5,10]
-conserv=[6,10,16,22]
-balanc =[6,10,20,38]
-ambic  =[6,11,40,65]
-fig,ax=plt.subplots(figsize=(11,6.2))
-ax.plot(years,conserv,"-o",color=GRAY_DIM,lw=2.5,ms=7,label="CONSERVADORA")
-ax.plot(years,balanc,"-o",color=GRAY,lw=2.5,ms=7,label="BALANCEADA (recomendada)")
-ax.plot(years,ambic,"-o",color=WHITE,lw=2.5,ms=8,label="AMBICIOSA")
-for x,y in zip(years,ambic): ax.annotate(f"R${y}k",(x,y),textcoords="offset points",xytext=(0,10),fontsize=8,color=WHITE,ha="center")
-for x,y in zip(years,balanc): ax.annotate(f"R${y}k",(x,y),textcoords="offset points",xytext=(0,-16),fontsize=8,color=GRAY,ha="center")
-ax.axhline(8,color=GRAY_DIM,lw=0.8,ls="--")
-ax.annotate("META INICIAL R$8k",(1,8),textcoords="offset points",xytext=(6,6),fontsize=8,color=GRAY_DIM)
+# ---------- Roadmap: caixa por camada (empilhado) + patrimonio a parte ----------
+years=[1,2,3,5]
+motor  =[6.0, 9.5, 12.5, 16.0]   # operador Unreal VP + motion/stage direto
+produto=[0.5, 1.5, 2.5, 3.0]     # packs/loops/templates (passivo)
+editais=[0.0, 0.0, 1.5, 2.5]     # ProAC/PNAB: so a partir do ano 3, apos portfolio (concorrido ~25%, exige projeto maduro/obra em andamento)
+tot=[m+p+e for m,p,e in zip(motor,produto,editais)]
+fig,ax=plt.subplots(figsize=(11,6.4))
+ax.stackplot(years,motor,produto,editais,
+             labels=["MOTOR (Unreal VP + motion/stage)","PRODUTO (packs, passivo)","EDITAIS (ProAC/PNAB, amortiz.)"],
+             colors=[WHITE,GRAY,GRAY_DIM],edgecolor=BLACK,linewidth=1.2)
+for x,y in zip(years,tot): ax.annotate(f"R${y:.0f}k",(x,y),textcoords="offset points",xytext=(0,8),fontsize=9,color=WHITE,ha="center")
+ax.axhline(8,color="#888",lw=0.9,ls="--")
+ax.annotate("META INICIAL R$8k/mes",(1,8),textcoords="offset points",xytext=(6,6),fontsize=8,color="#888")
 ax.set_xticks(years); ax.set_xticklabels([f"ANO {y}" for y in years],fontsize=9)
-ax.set_ylabel("RENDA ALVO (R$ mil/mes)")
-ax.set_title("TRAJETORIA DE RENDA POR ESTRATEGIA — metas ilustrativas",fontsize=11,loc="left")
+ax.set_ylabel("CAIXA (R$ mil/mes)")
+ax.set_title("RENDA POR CAMADA — caixa empilhado (metas ilustrativas)",fontsize=11,loc="left")
 ax.legend(frameon=False,labelcolor=WHITE,fontsize=8,loc="upper left")
-ax.grid(color=GRAY_DIM,lw=0.4,alpha=0.35)
+ax.grid(axis="y",color=GRAY_DIM,lw=0.4,alpha=0.35)
+ax.annotate("+ CAMADA 5: JOALHERIA = PATRIMONIO/EQUITY\n(nao entra no caixa mensal — ativo que valoriza no fundo)",
+            (5,1.2),fontsize=8,color=GRAY,ha="right",style="italic")
 for s in ax.spines.values(): s.set_visible(False)
 plt.tight_layout(); plt.savefig("roadmap_renda.png",dpi=170); plt.close()
 
