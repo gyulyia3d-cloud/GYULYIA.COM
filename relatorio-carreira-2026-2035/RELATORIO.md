@@ -49,19 +49,19 @@ Seu gargalo não é skill nem nicho — é **distribuição**. Você já fatura 
 
 ## ADENDO v4 — Portfólio real + estratégia de MENOR SORTE (final, autoritativa)
 
-**Portfólio (site + `works/`) revela a natureza real do trabalho:** visuais de show/palco e projeção mapeada para o TOPO da música BR e grandes festivais — Racionais MC's, Ivete Sangalo, Matuê, Pabllo Vittar, Pedro Sampaio, Liniker, Gloria Groove, Mochakk, Rock in Rio, Burning Man; mapping (SSA Mapping, Festa da Luz, "Maré de Mudanças"); exposições ("Os Mundos de Leonardo da Vinci"); Arcane — Riot Games; SP-Arte + BRIFW; estúdio Bijari; workshop **"Unreal para Filmmakers"** (Creative Monsters School — você já ensina). Cases: ivete-sangalo, mare-morta, pedro-sampaio, racionais-mcs.
+**Portfólio (site + `works/`) revela a natureza real do trabalho:** visuais de show/palco e projeção mapeada para o TOPO da música BR e grandes festivais — Racionais MC's, Ivete Sangalo, Matuê, Pabllo Vittar, Pedro Sampaio, Liniker, Gloria Groove, Mochakk, Rock in Rio, Burning Man; mapping (SSA Mapping, Festa da Luz, "Maré de Mudanças"); exposições ("Os Mundos de Leonardo da Vinci"); Arcane — Riot Games; SP-Arte + BRIFW; estúdio Bijari. Cases: ivete-sangalo, mare-morta, pedro-sampaio, racionais-mcs.
 
 **Implicação:** você não é iniciante sem rede. Tem **portfólio de elite em live visuals/mapping**, hoje subutilizado (subcontratado por VJs). Seu maior ativo é esse acervo + a autoridade de quem já assinou visual de artista grande. Estratégia de menor sorte = **monetizar direto o que você já é**, não apostar em nicho novo nem em júri.
 
 **Reponderação por DEPENDÊNCIA DE SORTE/FORÇA EXTERNA (a pedido):**
 - **Editais → REBAIXADO a último recurso, fora do plano.** Poucas vagas, muitos concorrentes (~25% ou menos), exige **produtor cultural** para escrever o projeto, **MEI regular há +2 anos** (o seu está atrasado e sem 2 anos) e track record de aprovação que você não tem. Máxima dependência externa. Só reconsiderar DEPOIS de MEI regularizado + portfólio de creative tech + parceria com produtor. Nunca como receita planejada.
-- **Menor sorte (você controla):** produtos/packs → ensino (você já dá workshop) → live visuals/mapping DIRETO para turnês/festivais (portfólio comprova) → operador Unreal p/ produtoras VP.
+- **Menor sorte (você controla):** produtos/packs → live visuals/mapping DIRETO para turnês/festivais (portfólio comprova) → operador Unreal p/ produtoras VP → render automotivo/produto.
 - **Patrimônio:** joalheria — você controla o motor de conteúdo; não depende de gatekeeper criativo.
 
 **Ranking de MENOR SORTE (mais estável → mais dependente de fatores externos):**
-1. **Produtos/packs** (100% você; vende para pares) · 2. **Ensino/mentoria Unreal-VJ** (você já faz; baixo gatekeeper; recorrente) · 3. **Live visuals/mapping direto para turnês/festivais** (portfólio de elite comprova; gatekeeper = diretor criativo do artista) · 4. **Operador Unreal p/ produtoras VP** (depende de as produtoras contratarem) · 5. **Joalheria/equity** (depende de família + mercado, mas você controla o conteúdo) · 6. Render automotivo/produto (agências + concorrência IA) · 7. DOOH anamórfico (gatekept por agência) · 8. **Editais** (júri + produtor + MEI + track record = máxima sorte).
+1. **Produtos/packs** (100% você; vende para pares, demanda contínua) · 2. **Live visuals/mapping direto para turnês/festivais** (portfólio de elite comprova; gatekeeper = diretor criativo do artista; convites e retornos) · 3. **Operador Unreal p/ produtoras VP** (depende de as produtoras contratarem, mas mercado já existe e contrata) · 4. **Render automotivo/produto** (agências e marcas como gatekeepers; menos concorrência IA que motion puro) · 5. **Joalheria/equity** (depende de família + mercado, mas você controla conteúdo/render) · 6. DOOH anamórfico (gatekept por agência; ticket menor) · 7. **Editais** (júri + produtor + MEI + track record = máxima sorte).
 
-**Núcleo de estabilidade financeira (recorrente + baixo gatekeeper):** ensino (turmas recorrentes) + produtos (passivo) + contratos de temporada com turnês/festivais/produtoras + equity joalheria. Tudo depende de VOCÊ e do seu portfólio, não de sorte externa.
+**Núcleo de estabilidade financeira (recorrente + baixo gatekeeper):** produtos (passivo) + contratos de temporada com turnês/festivais/produtoras + operador VP recorrente + equity joalheria. Tudo depende de VOCÊ, seu portfólio e sua rede, não de sorte externa ou dinâmicas de júri.
 
 ---
 
@@ -627,6 +627,144 @@ Seu aporte é majoritariamente **trabalho e skill** (sweat equity), não dinheir
 5. **Valide com a carteira dela primeiro** — sirva melhor os clientes de R$50-200K que ela já tem (marca, catálogo digital premium, atendimento, indicação) antes de mirar público novo. Validação mais barata que existe.
 
 **Nota para este arranjo (perfil recalibrado):** curto **3** / médio **7** / longo **9**. Curto baixo (não paga rápido); longo altíssimo (é a única linha que te dá **ativo**, não só honorário). Pontua alto em empreender, resistência à IA e patrimônio — as três coisas que faltavam no resto do plano.
+
+---
+
+# ESTRATÉGIA DE MARKETING E CAPTAÇÃO DE CLIENTES — Pilares operacionais
+
+O plano de 5 camadas de renda só funciona se você conseguir clientes de forma **previsível e escalável**. Diferente de esperar por indicação (que é o que hoje drena seus "meses parados"), uma estratégia de marketing ativa resolve o gargalo de distribuição. Aqui estão os pilares operacionais, com foco em **canais que você controla** e que alavancam seu portfólio de elite já existente.
+
+## 1. LinkedIn como motor de posicionamento e prospecção ativa
+
+**Por que começa por aqui:** Produtoras de VP, agências, marcas e festivais recrutam talentos especializados via LinkedIn mais do que qualquer outra plataforma B2B brasileira. Sua vantagem é que você **já tem portfolio de topo** (Racionais, Rock in Rio, Burning Man) — o LinkedIn só torna isso visível.
+
+**Ações concretas (sem custo direto):**
+
+1. **Perfil otimizado para discovery:**
+   - Foto profissional (qualidade de estúdio, fundo neutro preto/cinza).
+   - Headline: não "Motion Designer"; sim "**Operador Unreal + Live Visuals para VP/Festivais | Rock in Rio · Burning Man · Racionais MC's**" — específico, demonstra credibilidade via nomes.
+   - Resumo (250 chars): "Especializado em conteúdo Unreal real-time e motion para virtual production, événementiel e live visuals. Estou ajudando produtoras de SP a escalar VP com pipeline ágil. Aberto a projetos recurringtes e parcerias diretas." (em português claramente).
+   - Skills + endorsements: pinçar Unreal Engine, Real-Time Motion, After Effects, Resolume, Virtual Production, Live Visuals, Motion Design — priorizar o topo.
+   - Certifications: adicionar certificado Epic Games Training Partner (se houver; caso contrário, add "Unreal for Filmmakers Workshop Facilitator" validado no portfólio).
+
+2. **Conteúdo de thought leadership (1 post/semana, min. 2 meses):**
+   - **Semana 1:** "Por trás de [projeto elite do seu portfólio]: como uma timeline de Unreal + MRQ resolve o problema de [desafio técnico específico, ex: sincronização de câmera LED volume]" — 3-4 parágrafos + carrossel de imagens/vídeos do projeto.
+   - **Semana 2:** "O mercado de virtual production no Brasil está crescendo 30%+/ano — onde estão os gargalos?" — análise de 2-3 pontos: demanda de operadores, gap de expertise, oportunidades para freelancers/pequenos estúdios.
+   - **Semana 3:** "Unreal cinemático vs. motion design: qual vai para seu próximo projeto?" — comparação prática, cases de uso onde você já aplicou cada um.
+   - Padrão: sempre fechar com call-to-action suave ("Se está escaneando o mercado de VP, bora conversar").
+   - Métrica: comentário/reação = responda rápido e com valor (não só "obrigado").
+
+3. **Pesquisa e conexão intencional (2-3h/semana):**
+   - Listar 20 produtoras-alvo no Brasil (Crialed, TECLEG, On+AV, Quanta, 555 Studios, O2 Filmes, ÍCON CGI, + 13 outras por pesquisa): copiar nomes de fundadores/CTO/diretores técnicos de cada uma do LinkedIn.
+   - Enviar conexão (não request genérico; mensagem personalizada): "Vi o trabalho incrível de VP que vocês fizeram em [projeto], especialmente [detalhe técnico]. Venho trabalhando com Unreal tempo real e produção VP — seria legal trocar uma ideia sobre como você resolve [desafio técnico específico da produtora]."
+   - Revisar essas conexões em 5-7 dias; se não respondeu, não reaproxime. Se respondeu (nem que brevemente), marque 1:1 de 30min tipo "café online" — não venda, só conheça como trabalham, qual é o gargalo de hoje, quem contratam (nome/email).
+
+## 2. Case studies descritivos e portfólio público
+
+**Expansão detalhada de cada projeto de elite do seu portfólio.**
+
+Seu portfólio hoje (site + works/) mostra imagens/vídeos, mas **não explica o "como"** — e é aí que a venda realmente acontece. Produtoras e marcas querem saber: quanto tempo levou? Qual foi o desafio? Que tool resolveu? Qual foi o resultado (aprox. público, feedback)?
+
+**Para cada caso de topo (pick 5 primeiro):**
+1. **Título descritivo:** não "Rock in Rio" — sim "**Live Visuals em Tempo Real para 70K+ espectadores: Rock in Rio 2024 | Unreal + Resolume + Motion Mapping**"
+2. **Contexto (100-150 palavras):**
+   - Quem: banda/artista/evento/marca.
+   - Desafio: "A produção precisava de visuais que sincronizassem com movimento ao vivo do palco, sem delay, rodando em 4K a 60fps em setup de LED de 50m×10m."
+   - Restrições: orçamento, tempo de produção, especificações técnicas (res, frame rate, latência máxima aceitável).
+3. **Solução (200-250 palavras):**
+   - Stack técnico: "Utilizei Unreal Engine (nDisplay para sincronização + MRQ para renderização em tempo real) integrado com Resolume para mixer de vídeo ao vivo."
+   - Processo: pré-produção (quantas semanas de R&D), testes (onde?), go-live (quantas horas de setup no dia do evento?).
+   - Detalhe de inovação: "O grande diferencial foi a pipeline de sincronização — acoplei o Resolume via OSC (Open Sound Control) ao Unreal, permitindo mix em tempo real sem drops."
+4. **Resultado (100 palavras):**
+   - Métrica de sucesso: "Entregou com 0 drops de frame, sincronização sub-frame com áudio ao vivo, feedback da produção: 'foi exatamente o que pedimos'".
+   - Feedback qualitativo (se tiver quote de diretor criativo, da banda, ou produtor): adicionar.
+   - Alcance: "Visto por ~70K pessoas no evento + 2M views de clips postados pela banda nas redes".
+5. **Tech specs** (para produtoras/clientes técnicos):
+   - Resolution, frame rate, latência, equipamento (LED specs, mixer).
+   - "Disponível para produtoras que replicarem o setup ou adaptarem a pipeline a seus volumes."
+
+**Onde publicar:**
+- Seu site (case study tab).
+- LinkedIn (1 case/mês, formato long-form: carrossel ou artigo; sempre linkar pro site completo).
+- Behance (portfólio visual; case study em descrição longa).
+- Medium (só se quiser, menos crítico).
+
+## 3. Networking direto + reuniões exploratory com produtoras
+
+**Execução do contato via LinkedIn em reunião concreta.**
+
+Depois que você conectou com CTO/diretor técnico e tiveram troca mínima, agende 30min de call/café (online ou SP presencial):
+- **Roteiro (não script):** "Vocês estão escalando VP? Que é o maior gargalo hoje — hardware, expertise de operador, asset creation, ou post-production? E qual é o ideal para vocês nos próximos 12 meses?"
+  - Escute e tome nota.
+  - Se disserem "procuramos operador Unreal freelance 2-3x/mês", bingo — você encontrou cliente recorrente.
+  - Se disserem "não temos pipeline de conteúdo", você encontrou oportunidade de asset creation.
+  - Se ficarem genéricos, termina a call e volta em 6 meses.
+
+- **Encerre sempre com:** "Se abrir uma oportunidade que faz sentido, eu topo? E qual é a melhor forma de ficar no seu radar — email? LinkedIn? Whatsapp com seu time técnico?"
+  - Obtenha caminho concreto de contato (não genérico "LinkedIn").
+
+- **Follow-up:** após 2 semanas, se não teve retorno (reunião não saiu), nem reaproxime por agora.
+
+**Escala:** 1-2 reuniões/semana com produtoras diferentes. Em 3-4 meses, você tem conversado com 12-15 players. Desses, 2-3 viram leads quentes.
+
+## 4. Portfolio website otimizado + SEO básico
+
+Seu site atual é visual. Precisa também ser **searchable** e **informativo**.
+
+**On-page SEO (sem custo):**
+- Meta descriptions em cada case study (160 chars): "Live visuals Unreal + Resolume para [evento]. Sincronização tempo real, X fps, Y resolução, Z pessoas alcançadas."
+- Headings H2/H3 naturais dentro de case studies (Google lê títulos).
+- Alt text em imagens (descrever o que é, incluir keywords como "Unreal", "VP", "Rock in Rio").
+- Velocidade de site: verificar com PageSpeed Insights; se >3s, comprimir imagens (TinyPNG, WebP).
+- Mobile responsivo: garantir que case studies/galeria rodão bem em mobile (produtoras acessam de celular).
+
+**Off-page:**
+- Backlinks: tentar entrar em **guias públicos de prestadores de serviço** (ex.: associações de audiovisual, diretório de produtoras SP). Nada de site fake; apenas associações legítimas.
+- Citações: quando mencionar projeto em artigo de imprensa (revista especializada de eventos, audiovisual) ou em post do LinkedIn de outras pessoas, assegurar que linkam pro seu site.
+
+## 5. Conteúdo de short-form (YouTube Shorts, Instagram Reels, TikTok) como validação técnica
+
+**Diferente de "ficar famoso", aqui é demonstração de skill.**
+
+Objetivo: produtoras e agências que pesquisam "Unreal real-time" ou "VP pipeline" achem você em pesquisa do YouTube/Google.
+
+**1 vídeo curto/semana (60-120 seg):**
+- **Semana 1:** "Renderizando 4K real-time em Unreal: como sincronizar câmera + LED volume + áudio em <5ms latência" — screen recording de Unreal/nDisplay + voiceover técnico + result side-by-side.
+- **Semana 2:** "O maior erro que vi em setup de VP com Unreal: [erro comum que você vê em produtoras amadoras]" — educativo, posiciona você como expert.
+- **Semana 3:** "Speed run: asset de mapeamento de fachada do 3D para animação em Unreal | 15 min from scratch" — mostra velocidade e técnica.
+
+**Plataforma + linguagem:**
+- YouTube Shorts (primoridade): título + tags ("Unreal", "Virtual Production", "Real-time", seu nome).
+- Repost em Reels/TikTok (bot fácil: vídeo render → baixar → upload).
+- Descrição: sempre linkar seu portfólio completo no site.
+
+**Métrica:** não é view count. É que produtoras achem você quando buscam "Unreal VP", vejam expertise, cliquem site, e enviem email.
+
+## 6. Email nurture com histórico de projeto
+
+Quando alguém (potencial cliente, produtor, CTO) preencher formulário no seu site ou responder seu mensagem LinkedIn, comece sequência de email (não spam — valor):
+
+- **Email 0 (immediate):** "Ótimo conversar. Deixo aqui o case de [projeto relevante para essa pessoa] onde enfrentei desafio técnico similar ao seu — leia e me retorna qualquer dúvida."
+- **Email 1 (3 dias depois):** "Você viu o case? Bora uma call de 20min para eu entender melhor o que vocês buscam?"
+- **Email 2 (1 semana depois, se silêncio):** Histórico de projeto diferente, completamente novo ângulo. "Aqui é um outro projeto que talvez seja relevante pro seu momento."
+- **Email 3 (2 semanas depois, se ainda silêncio):** Sem email novo; saia da sequência por 3 meses. Recoloque em lista de "follow up 2026" se faz sentido (ex.: produtor que vai crescer).
+
+## 7. Preço transparente + proposta ágil
+
+Quando vira lead quente (produtor te perguntou "quanto custa?"):
+
+- **Não:** "Depende do projeto" (mata a conversa).
+- **Sim:** "Operador Unreal p/ VP no Brasil: R$800–1.500/dia (~8h) conforme complexidade do setup e se é primeira vez ou recorrente. Projetos de conteúdo (asset creation, mapeamento) a partir de R$5k. Posso detalhar conforme vocês descrevem o escopo."
+  - Seja específico. Produtoras detestam vagueza — elas querem orçamento para fechar mês.
+  - Ofereça **30min de brainstorm grátis** antes de orçamento formal ("assim a gente alinha escopo exato").
+
+## 8. Monitoramento e iteração (mensal)
+
+- **Métrica 1:** "Quantos leads qualificados vieram via cada canal?" (LinkedIn, SEO, referral, network direto). Qual foi o mais barato/faster?
+- **Métrica 2:** "Taxa de conversão: de X leads, quantos viraram projeto?" Objetivo: >10% em 6 meses (5-10 prospects = 1 projeto).
+- **Métrica 3:** "Tempo do first contact até assinatura." Ideal: <4 semanas.
+
+A cada mês, dobrar o que funciona, cortar o que não roda.
 
 ---
 
