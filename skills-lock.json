@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "instagram-research": {
+      "source": "bradautomates/head-of-content",
+      "sourceType": "github",
+      "skillPath": ".claude/skills/instagram-research/SKILL.md",
+      "computedHash": "80568f3c60115b5d96a99ba777220501cebfbe6a72e8c72c1429ff8942baec59"
+    }
+  }
+}
