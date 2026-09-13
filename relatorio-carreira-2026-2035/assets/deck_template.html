@@ -1,0 +1,354 @@
+<title>GYULYIA · DECK ESTRATÉGICO 2026–2035 · v3</title>
+<style>
+:root{
+  --black:#000;--white:#fff;--gray:#aeaca8;--gray-dim:#4a4a48;
+  --border:rgba(255,255,255,.12);--border-dim:rgba(255,255,255,.06);
+  --mono:ui-monospace,'SFMono-Regular',Menlo,Consolas,monospace;
+  --sans:-apple-system,'Segoe UI',Roboto,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--black);color:var(--white);font-family:var(--mono);overflow:hidden}
+#deck{height:100vh;width:100vw;position:relative}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;padding:clamp(28px,5vh,64px) clamp(24px,6vw,96px) clamp(64px,9vh,96px);opacity:0;transition:opacity .4s}
+.slide.active{display:flex;opacity:1}
+.kicker{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--gray);margin-bottom:18px;display:flex;gap:10px;align-items:center}
+.kicker::before{content:'';width:22px;height:1px;background:var(--white)}
+h1{font-family:var(--sans);font-weight:300;font-size:clamp(30px,6vw,74px);line-height:.94;letter-spacing:-.03em;text-transform:uppercase;text-wrap:balance;margin-bottom:20px}
+h2{font-family:var(--sans);font-weight:400;font-size:clamp(20px,3.4vw,38px);line-height:1;letter-spacing:-.02em;text-transform:uppercase;margin-bottom:26px}
+p,li{font-size:clamp(12px,1.35vw,15px);line-height:1.6;color:var(--gray);max-width:66ch}
+.lead{color:var(--white);font-size:clamp(14px,1.7vw,19px);max-width:62ch}
+strong{color:var(--white);font-weight:500}
+ul{list-style:none;display:flex;flex-direction:column;gap:12px;margin-top:8px}
+li{padding-left:22px;position:relative}
+li::before{content:'—';position:absolute;left:0;color:var(--white)}
+.fill{flex:1;display:flex;align-items:center;justify-content:center;min-height:0;margin-top:12px}
+.fill img{max-width:100%;max-height:100%;object-fit:contain;filter:contrast(1.02)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,4vw,56px);flex:1;align-items:center;min-height:0}
+.stat-row{display:flex;gap:clamp(24px,5vw,72px);flex-wrap:wrap;margin-top:10px}
+.stat{display:flex;flex-direction:column;gap:6px}
+.stat .num{font-family:var(--sans);font-weight:300;font-size:clamp(30px,4.6vw,56px);letter-spacing:-.03em;line-height:1}
+.stat .lbl{font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--gray);max-width:22ch}
+.rank{display:grid;grid-template-columns:repeat(2,1fr);gap:8px 40px;margin-top:14px;max-width:940px}
+.rank-item{display:flex;gap:14px;align-items:baseline;padding:9px 0;border-bottom:1px solid var(--border-dim);font-size:13px}
+.rank-item .r{font-variant-numeric:tabular-nums;color:var(--white);width:24px;font-family:var(--sans);font-size:16px}
+.rank-item .nm{color:var(--gray);text-transform:uppercase;letter-spacing:.01em;font-size:11px}
+.rank-item.top .nm{color:var(--white)}
+.rank-item .tag{margin-left:auto;font-size:9px;color:var(--gray-dim);text-transform:uppercase}
+.layers{display:flex;flex-direction:column;gap:9px;margin-top:14px;max-width:940px}
+.layer{display:flex;gap:16px;align-items:baseline;border:1px solid var(--border-dim);padding:13px 16px}
+.layer .ln{font-family:var(--sans);font-size:20px;color:var(--white);width:28px;flex-shrink:0}
+.layer .lt{font-family:var(--sans);text-transform:uppercase;font-size:13px;letter-spacing:-.01em;width:190px;flex-shrink:0}
+.layer .ld{font-size:11px;color:var(--gray);line-height:1.5}
+.layer.equity{border-color:var(--border)}
+.layer.equity .lt,.layer.equity .ln{color:var(--white)}
+#three-slide .fill{position:relative}
+#three-canvas{width:100%;height:100%;display:block;cursor:grab}
+#three-canvas:active{cursor:grabbing}
+.three-hint{position:absolute;bottom:8px;left:0;font-size:10px;color:var(--gray-dim);letter-spacing:.05em;text-transform:uppercase}
+.three-legend{position:absolute;top:8px;right:0;font-size:10px;color:var(--gray);text-align:right;line-height:1.7}
+.three-legend b{color:var(--white);font-weight:400}
+.src{font-size:9.5px;color:var(--gray-dim);margin-top:14px;letter-spacing:.02em;max-width:90ch}
+footer{position:fixed;bottom:18px;left:clamp(24px,6vw,96px);right:clamp(24px,6vw,96px);display:flex;justify-content:space-between;align-items:center;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--gray-dim);z-index:20;pointer-events:none}
+.progress{display:flex;gap:5px;flex-wrap:wrap;max-width:40vw;justify-content:center}
+.dot{width:6px;height:6px;border:1px solid var(--gray-dim);border-radius:50%}
+.dot.on{background:var(--white);border-color:var(--white)}
+.nav{position:fixed;bottom:12px;right:clamp(24px,6vw,96px);display:flex;gap:6px;z-index:30}
+.nav button{background:transparent;border:1px solid var(--border);color:var(--gray);font-family:var(--mono);font-size:14px;width:34px;height:30px;cursor:pointer;transition:.15s}
+.nav button:hover{background:var(--white);color:var(--black);border-color:var(--white)}
+.nav button:focus-visible{outline:2px solid var(--white);outline-offset:2px}
+@media (max-width:720px){.two,.rank{grid-template-columns:1fr}.layer{flex-wrap:wrap}.layer .lt{width:auto}}
+@media (prefers-reduced-motion:reduce){.slide{transition:none}}
+</style>
+
+<canvas id="bg-canvas" aria-hidden="true" style="position:fixed;inset:0;z-index:0;opacity:.5;pointer-events:none"></canvas>
+
+<div id="deck">
+
+  <!-- 1 CAPA -->
+  <section class="slide active">
+    <div class="kicker">Gyulyia · Relatório Estratégico de Carreira · v3</div>
+    <h1>Mapa de decisão<br>2026 — 2035</h1>
+    <p class="lead">Versão final, São Paulo, foco Brasil. Recalibrada ao perfil real — <strong>Unreal cinemático (Sequencer + MRQ), sem modelagem, já faturando por freela mas com meses parados</strong> — e às 3 pesquisas de campo (VP, DOOH anamórfico, CGI automotivo) + o pilar da joalheria.</p>
+    <div class="stat-row" style="margin-top:auto">
+      <div class="stat"><span class="num">5</span><span class="lbl">camadas de renda + patrimônio</span></div>
+      <div class="stat"><span class="num">R$4–12k</span><span class="lbl">o que você já fatura por freela</span></div>
+      <div class="stat"><span class="num">0</span><span class="lbl">meses parados — a meta central</span></div>
+    </div>
+  </section>
+
+  <!-- 2 DIAGNÓSTICO -->
+  <section class="slide">
+    <div class="kicker">O diagnóstico</div>
+    <h1>Seu problema é<br>distribuição</h1>
+    <p class="lead">Não é skill, nem nicho, nem teto de renda. Você já fatura R$4-12k por freela — às vezes dois ao mesmo tempo. <strong>O que te derruba são os 3-4 meses/ano zerado.</strong></p>
+    <ul style="margin-top:22px">
+      <li>Sem cliente direto: você trabalha <strong>por indicação para outros VJs</strong> — subcontratado, fornecedor de último recurso.</li>
+      <li>A alavanca não é ganhar mais no pico. É <strong>eliminar os vales</strong> e criar recorrência.</li>
+      <li>Métrica que importa muda de "quanto no pico" para <strong>meses parados = 0</strong> e <strong>% de renda recorrente = 30-50%</strong>.</li>
+    </ul>
+    <p class="src">Você está em São Paulo — o único lugar do Brasil onde produtoras, agências, casas de corporate video e a cena de eventos estão todas concentradas. Isso joga a favor.</p>
+  </section>
+
+  <!-- 3 AS 5 CAMADAS -->
+  <section class="slide">
+    <div class="kicker">A arquitetura</div>
+    <h2>Cinco camadas, cada uma ataca uma fraqueza</h2>
+    <div class="layers">
+      <div class="layer"><span class="ln">1</span><span class="lt">Motor de caixa</span><span class="ld">Operador de Unreal real-time para produtoras de VP de SP + motion/stage com cliente direto. Mata a fome.</span></div>
+      <div class="layer"><span class="ln">2</span><span class="lt">Ponta de lança</span><span class="ld">1-2 peças spec/ano de fidelidade de produto (automotivo/produto/joia) + DOOH anamórfico. Isca de lead, não o negócio.</span></div>
+      <div class="layer"><span class="ln">3</span><span class="lt">Piso anti-vale</span><span class="ld">Packs de Resolume/Notch, loops, templates — vendidos para a sua rede de VJs. Renda passiva no vale.</span></div>
+      <div class="layer"><span class="ln">4</span><span class="lt">Fomento / prestígio</span><span class="ld">1 edital ProAC/PNAB/SESC por ano de creative tech. O Estado paga o seu R&D e portfólio.</span></div>
+      <div class="layer equity"><span class="ln">5</span><span class="lt">Patrimônio / equity</span><span class="ld">Joalheria da mãe: sua marca/render/digital em troca de equity. Ativo que valoriza — não caixa de ano 1.</span></div>
+    </div>
+    <p class="src">Camadas 1-4 = caixa. Camada 5 = patrimônio. Quando uma esfria, as outras seguram.</p>
+  </section>
+
+  <!-- 4 MOTOR: SUBIR NA CADEIA -->
+  <section class="slide">
+    <div class="kicker">Camada 1 · o achado mais acionável</div>
+    <h1>Suba na cadeia:<br>de VJ para produtora</h1>
+    <p class="lead">A pesquisa de campo confirmou com nomes: as produtoras de Virtual Production de SP <strong>já contratam "operador de Unreal" como função terceirizada</strong> — separada de modelagem e da operação do volume LED. É exatamente o que você faz.</p>
+    <div class="stat-row" style="margin-top:26px">
+      <div class="stat"><span class="num" style="font-size:26px">Crialed · TECLEG</span><span class="lbl">listam / externalizam "operador de Unreal"</span></div>
+      <div class="stat"><span class="num" style="font-size:26px">On+AV · Quanta</span><span class="lbl">100+ projetos, já com publicidade</span></div>
+      <div class="stat"><span class="num" style="font-size:26px">555 / O2 · ÍCON</span><span class="lbl">VP em Cotia · CGI com Unreal em SP</span></div>
+    </div>
+    <p class="src">Você já vive de subcontratação — só sobe o nível do contratante: de VJs (pagam pouco, instáveis) para produtoras com pipeline e demanda repetida. Resolve distribuição com quase zero venda direta. Gap honesto: preço de diária Unreal-VP não é público no BR — validar direto com elas [sites institucionais, 2025/26].</p>
+  </section>
+
+  <!-- 5 QUADRANTE (img) -->
+  <section class="slide">
+    <div class="kicker">Panorama de referência · 16 carreiras</div>
+    <h2>O mapa amplo da pesquisa</h2>
+    <div class="fill"><img src="__QUADRANTE__" alt="Quadrante crescimento de mercado versus fit de longo prazo"></div>
+    <p class="src">Landscape completo da pesquisa (notas pré-recalibração do perfil). O plano final v3 destila isto nas 5 camadas. Fontes: Grand View Research, Fortune Business Insights, Mordor Intelligence, Glassdoor, WEF 2025.</p>
+  </section>
+
+  <!-- 6 THREE.JS 3D -->
+  <section class="slide" id="three-slide">
+    <div class="kicker">Diagrama 3D · interativo</div>
+    <h2>Crescimento × fit × caixa</h2>
+    <div class="fill">
+      <canvas id="three-canvas"></canvas>
+      <div class="three-legend"><b>X</b> CAGR mercado<br><b>Y</b> fit longo prazo<br><b>Z</b> caixa curto prazo<br><b>mais clara</b> = resistente à IA</div>
+      <div class="three-hint">arraste para girar · rotação automática</div>
+    </div>
+    <p class="src">Visão de referência das 16 carreiras pesquisadas. As mais altas e claras combinam crescimento, fit e resistência à IA.</p>
+  </section>
+
+  <!-- 7 RESISTENCIA IA (img) -->
+  <section class="slide">
+    <div class="kicker">Risco de automação · a nuance que importa</div>
+    <h2>Fidelidade de produto é seu escudo</h2>
+    <div class="two">
+      <div class="fill" style="margin:0"><img src="__RESISTENCIA__" alt="Ranking de resistência à automação por IA"></div>
+      <div>
+        <p class="lead">Jan/2026: o comercial do <strong>GWM Haval H6 foi 100% IA generativa (Veo 3)</strong> — a montadora cortou o CGI inteiro.</p>
+        <ul style="margin-top:18px">
+          <li>A IA já ganha em <strong>filme-conceito narrativo</strong> (mais barato, mais rápido).</li>
+          <li>A IA ainda <strong>alucina fidelidade de produto</strong> — cor, reflexo, cravação, badge exatos.</li>
+          <li>Sua vitrine tem que gritar <strong>"entrego o produto perfeito em movimento"</strong>, não "que história bonita".</li>
+        </ul>
+      </div>
+    </div>
+    <p class="src">Por isso joia e automotivo (produto de alta fidelidade) são o nicho defensável [O Tempo/Clube de Criação; Propmark, 2025/26].</p>
+  </section>
+
+  <!-- 8 EDITAIS -->
+  <section class="slide">
+    <div class="kicker">Camada 4 · acelerador tardio (não conte com ele cedo)</div>
+    <h1>Editais: bônus,<br>não conta certa</h1>
+    <p class="lead">O ProAC tem edital de Realidades Estendidas (XR) com módulos de R$100-200k que aceitam <strong>PF sem CNPJ</strong> — você qualifica (SP há +2 anos). <strong>Mas editais são concorridos e exigem lição de casa.</strong></p>
+    <div class="stat-row" style="margin-top:22px">
+      <div class="stat"><span class="num">~25%</span><span class="lbl">taxa de aprovação — 3 em 4 são reprovados</span></div>
+      <div class="stat"><span class="num">projeto maduro</span><span class="lbl">exige pesquisa prévia + obra/portfólio em andamento</span></div>
+      <div class="stat"><span class="num">ano 3+</span><span class="lbl">só depois de já ter portfólio de creative tech</span></div>
+    </div>
+    <p class="src">Por isso NÃO entra no caixa dos anos 1-2. Primeiro a Camada 2 (spec) e experimentos próprios constroem o portfólio; só então o edital vira viável — e mesmo assim, tratado como bônus contingente. + PNAB, SESC/SESI "Ocupação Arte Digital", Red Bull Station. Case: Coletivo Coletores [Cultura.sp.gov.br; Gov.br/PNAB, 2025/26].</p>
+  </section>
+
+  <!-- 9 JOALHERIA -->
+  <section class="slide">
+    <div class="kicker">Camada 5 · o pilar de patrimônio</div>
+    <h1>A joalheria<br>da sua mãe</h1>
+    <div class="two">
+      <div>
+        <p class="lead">O melhor encaixe ajustado a risco de todo o relatório — porque o negócio já existe e o que falta é você.</p>
+        <ul style="margin-top:16px">
+          <li><strong>Ela tem</strong> décadas de luxo, clientes de R$50-200K, ourives, modeladores, R$20k/mês rodando.</li>
+          <li><strong>Falta</strong> marca, design, conteúdo, render, digital — o seu portfólio inteiro.</li>
+          <li><strong>Render de joia de luxo</strong> é o caso extremo do que a IA não copia (fidelidade).</li>
+          <li><strong>Modelo sob encomenda</strong> mata o risco de estoque — entre com skill, não com capital.</li>
+        </ul>
+      </div>
+      <div class="stat-row" style="flex-direction:column;gap:24px">
+        <div class="stat"><span class="num">+12%/ano</span><span class="lbl">luxo no Brasil vs 3% global — o país lidera [Bain, 2023/25]</span></div>
+        <div class="stat"><span class="num">55–80%</span><span class="lbl">margem em joia [Nuvemshop, 2025]</span></div>
+        <div class="stat"><span class="num">equity</span><span class="lbl">o ativo que o freelance nunca constrói — com contrato + vesting</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 ROADMAP (img) -->
+  <section class="slide">
+    <div class="kicker">Roadmap · caixa por camada</div>
+    <h2>Do R$6k ao R$22k em 5 anos</h2>
+    <div class="fill"><img src="__ROADMAP__" alt="Renda por camada empilhada ao longo de 5 anos"></div>
+    <p class="src">Metas ilustrativas. Motor (Unreal VP + motion/stage) sustenta; produto e editais preenchem o vale; a joalheria acumula patrimônio em paralelo, fora do caixa mensal.</p>
+  </section>
+
+  <!-- 11 ESTRATÉGIA DE MARKETING -->
+  <section class="slide">
+    <div class="kicker">Captação · proativo, não esperar indicação</div>
+    <h1>Transformar portfólio<br>em pipeline</h1>
+    <p class="lead"><strong>Seu gargalo não é skill — é distribuição.</strong> Você já fatura, mas por indicação de outros VJs. Estratégia = <strong>sair da passividade</strong> sem virar um vendedor tradicional.</p>
+    <ul style="margin-top:20px">
+      <li><strong>LinkedIn + posicionamento:</strong> "Operador Unreal + Live Visuals para VP/Festivais" — nomes de projetos de topo (Rock in Rio, Racionais). Contatar 20 produtoras-alvo direto.</li>
+      <li><strong>Case studies descritivos:</strong> publicar 5 casos sua com foco no "como" (desafio, ferramenta, resultado métrico). Produtoras querem saber timing, latência, FPS.</li>
+      <li><strong>Reuniões exploratory:</strong> 1-2/semana com produtoras: "Qual é o gargalo de vocês em VP? Como posso ajudar?" Sem venda — só validação.</li>
+      <li><strong>Conteúdo técnico curto:</strong> 1 vídeo/semana (YouTube Shorts, 60seg): dica de Unreal, erro que vejo em setups de VP, speed-run de asset. Produtoras acham você na busca.</li>
+      <li><strong>Preço transparente:</strong> "Operador Unreal VP: R$800–1.500/dia. Conteúdo: a partir de R$5k. Ofereço 30min de brainstorm grátis antes de orçamento." Clareza mata objeção.</li>
+    </ul>
+    <p class="src">Detalhe completo na PARTE "Estratégia de Marketing e Captação de Clientes" do relatório: pilares 1–8 (LinkedIn, case studies, reuniões, conteúdo, preço, website, email, métricas).</p>
+  </section>
+
+  <!-- 12 FECHAMENTO -->
+  <section class="slide">
+    <div class="kicker">Síntese</div>
+    <h1>O próximo<br>movimento</h1>
+    <p class="lead">Não uma carreira — uma pilha. <strong>Operador de Unreal para produtoras</strong> resolve a fome; <strong>spec de fidelidade de produto</strong> gera cliente; <strong>editais</strong> pagam o creative tech; a <strong>joalheria</strong> constrói patrimônio.</p>
+    <ul style="margin-top:20px">
+      <li><strong>Trimestre 1:</strong> linkedin otimizado + contatar as 20 produtoras de VP de SP + primeira reunião exploratory + publicar 1 case study.</li>
+      <li><strong>Trimestre 2-3:</strong> 1 vídeo técnico/semana + negociar primeiro contrato recorrente com produtora (meta: ~2 dias/mês para matar o zero).</li>
+      <li><strong>Paralelo:</strong> Formalize a sociedade da joalheria (cotas + vesting). Skill pesada, dinheiro leve, sob encomenda.</li>
+    </ul>
+    <p class="src">Relatório completo com todas as citações: RELATORIO.md (8 pilares de marketing detalhados) · mapa interativo. Fontes: IBGE, Sebrae, PwC, Gartner, Grand View Research, IAB Brasil, Cultura.sp.gov.br (ProAC), Bain, Nuvemshop, Meio & Mensagem, WEF 2025, Epic Games, Glassdoor.</p>
+  </section>
+
+</div>
+
+<footer>
+  <span>Gyulyia · Deck Estratégico v4</span>
+  <div class="progress" id="progress"></div>
+  <span id="counter">01 / 12</span>
+</footer>
+<div class="nav">
+  <button id="prev" aria-label="Slide anterior">‹</button>
+  <button id="next" aria-label="Próximo slide">›</button>
+</div>
+
+<script>__THREEJS__</script>
+<script>
+const slides=[...document.querySelectorAll('.slide')];
+let cur=0;
+const progress=document.getElementById('progress');
+slides.forEach((_,i)=>{const d=document.createElement('span');d.className='dot'+(i===0?' on':'');progress.appendChild(d);});
+const dots=[...progress.children];
+const counter=document.getElementById('counter');
+function pad(n){return String(n).padStart(2,'0');}
+function go(n){
+  cur=(n+slides.length)%slides.length;
+  slides.forEach((s,i)=>s.classList.toggle('active',i===cur));
+  dots.forEach((d,i)=>d.classList.toggle('on',i===cur));
+  counter.textContent=pad(cur+1)+' / '+pad(slides.length);
+  if(slides[cur].id==='three-slide') startThree();
+}
+document.getElementById('next').onclick=()=>go(cur+1);
+document.getElementById('prev').onclick=()=>go(cur-1);
+addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){e.preventDefault();go(cur+1);}
+  else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();go(cur-1);}
+  else if(e.key==='Home')go(0); else if(e.key==='End')go(slides.length-1);
+});
+let tsx=null;
+addEventListener('touchstart',e=>tsx=e.touches[0].clientX,{passive:true});
+addEventListener('touchend',e=>{if(tsx===null)return;const dx=e.changedTouches[0].clientX-tsx;if(Math.abs(dx)>50)go(cur+(dx<0?1:-1));tsx=null;},{passive:true});
+
+let threeStarted=false;
+function startThree(){
+  if(threeStarted||typeof THREE==='undefined')return;
+  threeStarted=true;
+  const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const canvas=document.getElementById('three-canvas');
+  const wrap=canvas.parentElement;
+  const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
+  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(42,1,0.1,100);
+  const D=[
+    [1,"Motion",11,4,5,.30],[2,"DOOH",12,6,5,.70],[3,"Virtual Prod.",24,7,4,.85],
+    [4,"Unreal VP/ArchViz",33,8,5,.85],[5,"Technical Artist",10,3,1,.45],[6,"Environment Artist",10,3,1,.50],
+    [7,"Creative Tech.",27,8,5,.80],[8,"Audiovisual IA",24,3,4,.25],[9,"VJ/Stage",12,5,6,.65],
+    [10,"Projection Map.",17,6,5,.75],[11,"Motion Agências",10,4,6,.35],[12,"Dev Web IA",30,3,3,.15],
+    [13,"SaaS",21,7,2,.50],[14,"Cybersecurity",9,4,1,.40],[15,"Joalheria",6,9,3,.90],
+  ];
+  const SX=0.28, SZ=0.55, base=-2.2;
+  const group=new THREE.Group();
+  const grid=new THREE.GridHelper(14,14,0x333333,0x1a1a1a);
+  grid.position.y=base; group.add(grid);
+  function makeLabel(txt,light){
+    const c=document.createElement('canvas');c.width=256;c.height=64;
+    const x=c.getContext('2d');x.fillStyle=light?'#fff':'#aeaca8';
+    x.font='600 40px monospace';x.textAlign='center';x.textBaseline='middle';
+    x.fillText(txt,128,32);
+    const t=new THREE.CanvasTexture(c);t.anisotropy=4;
+    const s=new THREE.Sprite(new THREE.SpriteMaterial({map:t,transparent:true}));
+    s.scale.set(1.1,0.28,1);return s;
+  }
+  D.forEach(d=>{
+    const [n,name,cagr,longo,curto,risk]=d;
+    const h=Math.max(0.3,longo*0.42);
+    const geo=new THREE.BoxGeometry(0.42,h,0.42);
+    const shade=0.28+risk*0.7;
+    const mat=new THREE.MeshStandardMaterial({color:new THREE.Color(shade,shade,shade*0.985),roughness:.55,metalness:.05});
+    const bar=new THREE.Mesh(geo,mat);
+    const px=(cagr-18)*SX, pz=(curto-4)*SZ;
+    bar.position.set(px, base+h/2, pz); group.add(bar);
+    const edges=new THREE.LineSegments(new THREE.EdgesGeometry(geo),new THREE.LineBasicMaterial({color:0x000000,transparent:true,opacity:.35}));
+    edges.position.copy(bar.position); group.add(edges);
+    const lab=makeLabel(String(n).padStart(2,'0'), risk>=.75||n===7||n===4||n===15);
+    lab.position.set(px, base+h+0.5, pz); group.add(lab);
+  });
+  scene.add(group);
+  scene.add(new THREE.AmbientLight(0xffffff,.65));
+  const key=new THREE.DirectionalLight(0xffffff,.9);key.position.set(5,9,6);scene.add(key);
+  const rim=new THREE.DirectionalLight(0xffffff,.3);rim.position.set(-6,4,-4);scene.add(rim);
+  function resize(){const w=wrap.clientWidth,h=wrap.clientHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();}
+  resize();addEventListener('resize',resize);
+  let rot=0.5, tilt=0.35, autoR=reduced?0:0.0022, dragging=false,lastX,lastY,vel=0;
+  canvas.addEventListener('pointerdown',e=>{dragging=true;lastX=e.clientX;lastY=e.clientY;canvas.setPointerCapture(e.pointerId);});
+  canvas.addEventListener('pointermove',e=>{if(!dragging)return;const dx=e.clientX-lastX;const dy=e.clientY-lastY;rot+=dx*0.006;tilt=Math.max(0.05,Math.min(1.1,tilt+dy*0.004));vel=dx*0.006;lastX=e.clientX;lastY=e.clientY;});
+  canvas.addEventListener('pointerup',()=>dragging=false);
+  canvas.addEventListener('pointerleave',()=>dragging=false);
+  const R=9;
+  function loop(){
+    if(!dragging){rot+=autoR+vel;vel*=0.94;}
+    camera.position.set(Math.sin(rot)*R*Math.cos(tilt), Math.sin(tilt)*R+1.5, Math.cos(rot)*R*Math.cos(tilt));
+    camera.lookAt(0,-0.4,0);
+    renderer.render(scene,camera);
+    requestAnimationFrame(loop);
+  }
+  loop();
+}
+// ambient bg grid
+(function(){
+  const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const canvas=document.getElementById('bg-canvas');if(!canvas)return;
+  function resize(){canvas.width=innerWidth;canvas.height=innerHeight;}
+  resize();addEventListener('resize',resize);
+  const ctx=canvas.getContext('2d');const cols=28,rows=16;let t=0;
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    const cw=canvas.width/cols,ch=canvas.height/rows;
+    ctx.strokeStyle='rgba(255,255,255,0.035)';
+    for(let i=0;i<=cols;i++){ctx.beginPath();ctx.moveTo(i*cw,0);ctx.lineTo(i*cw,canvas.height);ctx.stroke();}
+    for(let j=0;j<=rows;j++){ctx.beginPath();ctx.moveTo(0,j*ch);ctx.lineTo(canvas.width,j*ch);ctx.stroke();}
+    for(let i=0;i<=cols;i+=2)for(let j=0;j<=rows;j+=2){
+      const w=reduced?0:Math.sin(t*0.0006+i*0.5+j*0.3)*2;
+      ctx.fillStyle='rgba(255,255,255,0.12)';ctx.beginPath();ctx.arc(i*cw,j*ch+w,1.1,0,Math.PI*2);ctx.fill();
+    }
+  }
+  draw();
+  if(!reduced){function l(now){t=now;draw();requestAnimationFrame(l);}requestAnimationFrame(l);}
+})();
+</script>
