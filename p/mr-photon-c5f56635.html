@@ -5,7 +5,7 @@
 <meta name="robots" content="noindex, nofollow, noarchive">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mr. Photon — GYULYIA®</title>
-<link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@400;500;700&family=Manrope:wght@300;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@300;400;500;600;700&family=Manrope:wght@300;500;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -92,6 +92,36 @@ footer{background:#fff;position:relative;z-index:2}
 .lang-opt:hover{color:var(--white)}
 .lang-sep{width:1px;height:20px;background:rgba(255,255,255,.15);flex-shrink:0}
 
+
+/* ── DECK VIEWER ── */
+.sec-deck{background:var(--black);padding:0 0 2px}
+.deck-head{display:flex;justify-content:space-between;align-items:center;padding:20px}
+.deck-title{font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:var(--gray)}
+.mode-btns{display:flex;gap:0;border:1px solid rgba(255,255,255,.2)}
+.mode-btn{font-family:var(--mono);font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:rgba(255,255,255,.45);background:none;border:none;padding:7px 14px;cursor:pointer}
+.mode-btn.active{color:#fff;background:rgba(255,255,255,.1)}
+.viewer{position:relative;width:100%;background:#000}
+.sw{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;background:#000}
+.viewer.single .sw{position:absolute;inset:0;opacity:0;pointer-events:none}
+.viewer.single .sw.active{opacity:1;pointer-events:auto;transition:opacity .35s ease}
+.viewer.single{aspect-ratio:16/9}
+.viewer.list .sw{margin-bottom:2px}
+.deck-slide{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0;cursor:default}
+.deck-slide section{position:relative;width:1920px;height:1080px;box-sizing:border-box;overflow:hidden;margin:0;outline:none}
+.deck-slide p,.deck-slide h1,.deck-slide h2,.deck-slide ul,.deck-slide table,.deck-slide div{margin:0}
+.deck-slide ul{padding-left:1.1em}
+.deck-slide img{object-fit:cover;display:block}
+.deck-slide table{border-collapse:collapse}
+.deck-slide td,.deck-slide th{vertical-align:top}
+.deck-slide video{display:block}
+.prog{position:absolute;left:0;bottom:0;height:3px;background:#fff;width:0;z-index:5;opacity:.7}
+.ctrl{display:flex;align-items:center;justify-content:center;gap:10px;padding:16px 20px;border-top:1px solid var(--border-w)}
+.ctl-btn{font-family:var(--mono);font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:#fff;background:none;border:1px solid rgba(255,255,255,.25);padding:9px 16px;cursor:pointer;min-width:44px;transition:background .2s}
+.ctl-btn:hover{background:rgba(255,255,255,.12)}
+.ctr{font-size:11px;letter-spacing:-.5px;color:var(--gray);min-width:90px;text-align:center}
+.viewer.list ~ .ctrl .single-only{display:none}
+@media(max-width:809px){.ctl-btn{padding:9px 12px}}
+
 </style>
 </head>
 <body>
@@ -130,7 +160,7 @@ footer{background:#fff;position:relative;z-index:2}
 </div>
 
 <section class="hero">
-  <video class="hero-media" autoplay muted loop playsinline poster="../media/mr-photon/mr-photon-deep.jpg" src="../media/mr-photon/mr-photon-deep.mp4"></video>
+  <video class="hero-media" autoplay muted loop playsinline poster="../media/mr-photon/slides/31d85a2904e8105fa46990640a7a2f29.jpg" src="../media/mr-photon/slides/c201a02ba6f1a1558e0c280d1df8f0f7.mp4"></video>
   <div class="hero-overlay"></div>
   <div class="corner c-tl"><svg viewBox="0 0 8 8" overflow="visible"><path d="M 0 8 L 0 0 L 8 0" fill="none" stroke="white" stroke-width="1.3"/></svg></div>
   <div class="corner c-bl"><svg viewBox="0 0 8 8" overflow="visible"><path d="M 0 8 L 0 0 L 8 0" fill="none" stroke="white" stroke-width="1.3"/></svg></div>
@@ -153,24 +183,1120 @@ footer{background:#fff;position:relative;z-index:2}
     <div class="meta-block"><div class="meta-label">Pipeline</div><div class="meta-val">MetaHuman Animator</div><div class="meta-val">Markerless · Rokoko · Live Link Face</div></div>
     <div class="meta-block"><div class="meta-label">Status</div><div class="meta-val">Technical proposal</div><div class="meta-val">2026</div></div>
   </div>
-  <div class="desc-grid reveal">
-    <div>
-      <div class="desc-label">About the Project</div>
-      <div class="desc-text">Mr. Photon is an underwater MetaHuman-style presenter for an educational series about marine fauna, plankton and corals. The actor's voice and performance drive a digital character inside 3D underwater scenes mixed with real aquarium footage. This page presents the technical proposal and the underwater work that sets the visual ground for it.</div>
+  </section>
+<section class="sec-deck" id="deck">
+  <div class="deck-head">
+    <div class="deck-title">Technical proposal — <span id="deckCount">25</span> slides</div>
+    <div class="mode-btns"><button class="mode-btn active" id="mSingle" type="button">One by one</button><button class="mode-btn" id="mList" type="button">All slides</button></div>
+  </div>
+  <div class="viewer single" id="viewer">
+<div class="sw" data-i="1" id="s-cover"><div class="deck-slide"><section tabindex="-1" id="cover" data-transition="fade" style="background:#000000">
+  <div style="position:absolute; top:88px; left:112px; width:1696px; display:flex; flex-direction:row; justify-content:space-between">
+    <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#8e8e88">PROPOSTA — 2026 — DOC. 02</p>
+    <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#8e8e88">01 / GYULYIA®</p>
+  </div>
+  <h1 style="position:absolute; top:340px; left:112px; width:1696px; font-family:'Martian Mono', 'Courier New', monospace; font-size:245px; font-weight:500; line-height:1; letter-spacing:-6px; text-transform:uppercase; color:#f2f0ea">MR. PHOTON</h1>
+  <p style="position:absolute; top:640px; left:50%; width:1696px; font-family:'Martian Mono', 'Courier New', monospace; font-size:25px; line-height:1.6; letter-spacing:4px; color:#8e8e88; transform:translateX(-50%)">PIPELINE METAHUMAN NO UNREAL 5.8 · MARKERLESS · ROKOKO · RIG · PRIMEIRA ETAPA</p>
+  <p style="position:absolute; bottom:56px; left:112px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:1px; color:#8e8e88">GYULYIA.COM · 2026 · SÃO PAULO / REMOTO</p>
+  <p style="position:absolute; right:112px; bottom:56px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:1px; color:#8e8e88">GYULYIA3D@GMAIL.COM</p>
+  <p style="position:absolute; top:938px; left:112px; width:1696px; font-family:'Helvetica Neue', Arial, sans-serif; font-size:17px; line-height:1.35; color:#8e8e88">GLOSSÁRIO — <i>MetaHuman</i>: humano digital da Epic, com rig e rosto prontos · <i>Rig</i>: esqueleto e controles que movem o personagem · <i>Markerless</i>: captura de movimento sem marcadores nem traje</p>
+  <div style="position:absolute; right:112px; bottom:100px; left:112px; height:1px; display:flex; flex-direction:column; background:#3a3a37">
+  </div>
+  <div style="position:absolute; top:56px; left:56px; width:32px; height:32px; display:flex; flex-direction:column; border-top:1px solid #f2f0ea; border-left:1px solid #f2f0ea">
+  </div>
+  <div style="position:absolute; top:56px; right:56px; width:32px; height:32px; display:flex; flex-direction:column; border-top:1px solid #f2f0ea; border-right:1px solid #f2f0ea">
+  </div>
+  <div style="position:absolute; bottom:56px; left:56px; width:32px; height:32px; display:flex; flex-direction:column; border-bottom:1px solid #f2f0ea; border-left:1px solid #f2f0ea">
+  </div>
+  <div style="position:absolute; right:56px; bottom:56px; width:32px; height:32px; display:flex; flex-direction:column; border-right:1px solid #f2f0ea; border-bottom:1px solid #f2f0ea">
+  </div>
+  
+</section>
+</div></div>
+<div class="sw" data-i="2" id="s-indice"><div class="deck-slide"><section tabindex="-1" id="indice" data-transition="fade" style="background:#f2f0ea">
+  <div style="position:absolute; top:88px; left:112px; width:1696px; display:flex; flex-direction:row; justify-content:space-between">
+    <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#55554f">ÍNDICE</p>
+    <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#55554f">02 / GYULYIA®</p>
+  </div>
+  <h2 style="position:absolute; top:240px; left:112px; width:720px; font-family:'Helvetica Neue', Arial, sans-serif; font-size:76px; font-weight:400; line-height:1.08; text-transform:uppercase; color:#000000">Proposta técnica para o Mr. Photon.</h2>
+  <p style="position:absolute; top:560px; left:112px; width:720px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; line-height:1.5; letter-spacing:2px; text-transform:uppercase; color:#3a3a37">Pipeline MetaHuman no Unreal 5.8, captura markerless ou Rokoko, rig, Sequencer e render. Cada etapa tem uma porta de qualidade antes de seguir.</p>
+  <div style="position:absolute; top:187.34px; left:886px; width:922.01px; height:760px; display:flex; flex-direction:column; border-top:1px solid #000000">
+    <div style="display:flex; flex-direction:row; gap:48px; padding:3px 0; border-bottom:1px solid #bdbab0">
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; color:#55554f">03</p>
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#000000">A PROPOSTA</p>
     </div>
-    <div>
-      <div class="desc-label">Pipeline &amp; Method</div>
-      <div class="desc-text">Mono video take → Capture Manager → MetaHuman Performance solve → Animation Sequence on the character skeleton → Level Sequence with Cine Camera, volumetric fog and lookdev → Movie Render Queue (EXR / ProRes) → Premiere. Each stage has a quality gate; capture methods (UE 5.8 markerless, Rokoko, Live Link Face) are validated by a controlled test before production.</div>
+    <div style="display:flex; flex-direction:row; gap:48px; padding:3px 0; border-bottom:1px solid #bdbab0">
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; color:#55554f">04</p>
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#000000">QUEM EXECUTA</p>
+    </div>
+    <div style="display:flex; flex-direction:row; gap:48px; padding:3px 0; border-bottom:1px solid #bdbab0">
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; color:#55554f">05</p>
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#000000">AGRADA GREGOS</p>
+    </div>
+    <div style="display:flex; flex-direction:row; gap:48px; padding:3px 0; border-bottom:1px solid #bdbab0">
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; color:#55554f">07</p>
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#000000">MARÉ MORTA</p>
+    </div>
+    <div style="display:flex; flex-direction:row; gap:48px; padding:3px 0; border-bottom:1px solid #bdbab0">
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; color:#55554f">09</p>
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#000000">O DESAFIO</p>
+    </div>
+    <div style="display:flex; flex-direction:row; gap:48px; padding:3px 0; border-bottom:1px solid #bdbab0">
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; color:#55554f">10</p>
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#000000">PIPELINE E GATES</p>
+    </div>
+    <div style="display:flex; flex-direction:row; gap:48px; padding:3px 0; border-bottom:1px solid #bdbab0">
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; color:#55554f">11</p>
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#000000">SET DE GRAVAÇÃO</p>
+    </div>
+    <div style="display:flex; flex-direction:row; gap:48px; padding:3px 0; border-bottom:1px solid #bdbab0">
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; color:#55554f">12</p>
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#000000">MARKERLESS 5.8</p>
+    </div>
+    <div style="display:flex; flex-direction:row; gap:48px; padding:3px 0; border-bottom:1px solid #bdbab0">
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; color:#55554f">13</p>
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#000000">ROKOKO VISION 3.0</p>
+    </div>
+    <div style="display:flex; flex-direction:row; gap:48px; padding:3px 0; border-bottom:1px solid #bdbab0">
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; color:#55554f">14</p>
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#000000">COMPARAÇÃO DE TECNOLOGIAS</p>
+    </div>
+    <div style="display:flex; flex-direction:row; gap:48px; padding:3px 0; border-bottom:1px solid #bdbab0">
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; color:#55554f">15</p>
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#000000">ETAPAS DO PROJETO</p>
+    </div>
+    <div style="display:flex; flex-direction:row; gap:48px; padding:3px 0; border-bottom:1px solid #bdbab0">
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; color:#55554f">16</p>
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#000000">TECHNICAL ARTIST</p>
+    </div>
+    <div style="display:flex; flex-direction:row; gap:48px; padding:3px 0; border-bottom:1px solid #bdbab0">
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; color:#55554f">17</p>
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#000000">RESPONSABILIDADES</p>
+    </div>
+    <div style="display:flex; flex-direction:row; gap:48px; padding:3px 0; border-bottom:1px solid #bdbab0">
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; color:#55554f">18</p>
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#000000">AUDITORIA E TESTE</p>
+    </div>
+    <div style="display:flex; flex-direction:row; gap:48px; padding:3px 0; border-bottom:1px solid #bdbab0">
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; color:#55554f">19</p>
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#000000">PROTOCOLO DE TESTE</p>
+    </div>
+    <div style="display:flex; flex-direction:row; gap:48px; padding:3px 0; border-bottom:1px solid #bdbab0">
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; color:#55554f">20</p>
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#000000">COMO DECIDIMOS</p>
+    </div>
+    <div style="display:flex; flex-direction:row; gap:48px; padding:3px 0; border-bottom:1px solid #bdbab0">
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; color:#55554f">21</p>
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#000000">RISCOS E SOLUÇÕES</p>
+    </div>
+    <div style="display:flex; flex-direction:row; gap:48px; padding:3px 0; border-bottom:1px solid #bdbab0">
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; color:#55554f">22</p>
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#000000">COMO EU VOU ATUAR</p>
+    </div>
+    <div style="display:flex; flex-direction:row; gap:48px; padding:3px 0; border-bottom:1px solid #bdbab0">
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; color:#55554f">23</p>
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#000000">LOOKDEV SUBMARINO</p>
+    </div>
+    <div style="display:flex; flex-direction:row; gap:48px; padding:3px 0; border-bottom:1px solid #bdbab0">
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; color:#55554f">24</p>
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#000000">ESCALA E NOVOS PERSONAGENS</p>
+    </div>
+    <div style="display:flex; flex-direction:row; gap:48px; padding:3px 0; border-bottom:1px solid #bdbab0">
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; color:#55554f">25</p>
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#000000">PRÓXIMOS PASSOS</p>
     </div>
   </div>
+  <p style="position:absolute; bottom:56px; left:112px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:1px; color:#55554f">GYULYIA.COM · 2026 · SÃO PAULO / REMOTO</p>
+  <p style="position:absolute; right:112px; bottom:56px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:1px; color:#55554f">GYULYIA3D@GMAIL.COM</p>
+  <div id="e7-spwtpx" style="position:absolute; right:112px; bottom:100px; left:112px; height:1px; display:flex; flex-direction:column; background:#bdbab0">
+  </div>
+  <div id="e8-spwtpx" style="position:absolute; top:56px; left:56px; width:32px; height:32px; display:flex; flex-direction:column; border-top:1px solid #000000; border-left:1px solid #000000">
+  </div>
+  <div id="e9-spwtpx" style="position:absolute; top:56px; right:56px; width:32px; height:32px; display:flex; flex-direction:column; border-top:1px solid #000000; border-right:1px solid #000000">
+  </div>
+  <div id="e10-spwtpx" style="position:absolute; bottom:56px; left:56px; width:32px; height:32px; display:flex; flex-direction:column; border-bottom:1px solid #000000; border-left:1px solid #000000">
+  </div>
+  <div id="e11-spwtpx" style="position:absolute; right:56px; bottom:56px; width:32px; height:32px; display:flex; flex-direction:column; border-right:1px solid #000000; border-bottom:1px solid #000000">
+  </div>
+  
 </section>
-<section class="sec-gallery">
-  <div class="gal-head"><div class="gal-title">Underwater work in Unreal Engine — press play</div></div>
-  <div class="gal-grid">
-  <div class="gal-item gal-v"><video controls preload="metadata" playsinline poster="../media/mr-photon/mr-photon-deep.jpg" src="../media/mr-photon/mr-photon-deep.mp4"></video><div class="gal-cap">Agrada Gregos — ruins</div></div>
-  <div class="gal-item gal-v"><video controls preload="metadata" playsinline poster="../media/mr-photon/mr-photon-temple.jpg" src="../media/mr-photon/mr-photon-temple.mp4"></video><div class="gal-cap">Agrada Gregos — temple</div></div>
-  <div class="gal-item gal-v"><video controls preload="metadata" playsinline poster="../media/mr-photon/mr-photon-manta.jpg" src="../media/mr-photon/mr-photon-manta.mp4"></video><div class="gal-cap">Agrada Gregos — cave</div></div>
-  <div class="gal-item gal-v"><video controls preload="metadata" playsinline poster="../media/mr-photon/mr-photon-whale.jpg" src="../media/mr-photon/mr-photon-whale.mp4"></video><div class="gal-cap">Maré Morta — humpback whale</div></div>
+</div></div>
+<div class="sw" data-i="3" id="s-ideia"><div class="deck-slide"><section tabindex="-1" id="ideia" data-transition="fade" style="display:flex; flex-direction:column; gap:36px; padding:88px 112px 160px; background:#f2f0ea">
+  <div style="display:flex; flex-direction:row; justify-content:space-between">
+    <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#55554f">A PROPOSTA</p>
+    <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#55554f">03 / GYULYIA®</p>
+  </div>
+  <div style="display:flex; flex-direction:row; gap:80px">
+    <div style="width:900px; display:flex; flex-direction:column; gap:32px">
+      <h2 style="font-family:'Martian Mono', 'Courier New', monospace; font-size:60px; font-weight:500; line-height:1.2; letter-spacing:4px; color:#000000">DO TAKE DO EDUARDO AO MR. PHOTON</h2>
+      <p style="width:858px; font-family:'Helvetica Neue', sans-serif; font-size:25px; line-height:1.47; color:#000000">O Mr. Photon é um apresentador submarino com voz e atuação do Eduardo, em cenários 3D mesclados com imagens reais de aquário. A proposta usa o pipeline MetaHuman Animator no Unreal Engine 5.8 e valida cada etapa antes de produzir.</p>
+    </div>
+    <div style="width:716px; display:flex; flex-direction:column; border-top:1px solid #000000">
+      <div style="display:flex; flex-direction:row; gap:24px; padding:16px 0; border-bottom:1px solid #bdbab0">
+        <p style="width:60px; flex:0 0 auto; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; color:#55554f">01</p>
+        <p style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:25px; line-height:1.3; color:#000000"><b>Take</b><br>Vídeo do Eduardo em H.264 a 60 fps com áudio de voz.</p>
+      </div>
+      <div style="display:flex; flex-direction:row; gap:24px; padding:16px 0; border-bottom:1px solid #bdbab0">
+        <p style="width:60px; flex:0 0 auto; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; color:#55554f">02</p>
+        <p style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:25px; line-height:1.3; color:#000000"><b>Capture Manager + MetaHuman Performance</b><br>Solve do rosto e corpo</p>
+      </div>
+      <div style="display:flex; flex-direction:row; gap:24px; padding:16px 0; border-bottom:1px solid #bdbab0">
+        <p style="width:60px; flex:0 0 auto; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; color:#55554f">03</p>
+        <p style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:25px; line-height:1.3; color:#000000"><b>Animation Sequence</b><br>Curvas faciais e rotações de ossos no skeleton do Mr. Photon.</p>
+      </div>
+      <div style="display:flex; flex-direction:row; gap:24px; padding:16px 0; border-bottom:1px solid #bdbab0">
+        <p style="width:60px; flex:0 0 auto; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; color:#007a3d">04</p>
+        <p style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:25px; line-height:1.3; color:#000000"><b>Level Sequence + Movie Render Queue</b><br>Câmera, luz, cenário e render.</p>
+      </div>
+    </div>
+  </div>
+  <p style="position:absolute; bottom:56px; left:112px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:1px; color:#55554f">GYULYIA.COM · 2026 · SÃO PAULO / REMOTO</p>
+  <p style="position:absolute; right:112px; bottom:56px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:1px; color:#55554f">GYULYIA3D@GMAIL.COM</p>
+  <p style="position:absolute; top:938px; left:112px; width:1696px; font-family:'Helvetica Neue', Arial, sans-serif; font-size:17px; line-height:1.35; color:#55554f">GLOSSÁRIO — <i>Take</i>: uma gravação da cena · <i>Solve</i>: cálculo que converte vídeo em animação · <i>Animation Sequence</i>: arquivo de animação do Unreal · <i>Level Sequence</i>: linha do tempo do Unreal</p>
+  <div style="position:absolute; right:112px; bottom:100px; left:112px; height:1px; display:flex; flex-direction:column; background:#bdbab0">
+  </div>
+  <div style="position:absolute; top:56px; left:56px; width:32px; height:32px; display:flex; flex-direction:column; border-top:1px solid #000000; border-left:1px solid #000000">
+  </div>
+  <div style="position:absolute; top:56px; right:56px; width:32px; height:32px; display:flex; flex-direction:column; border-top:1px solid #000000; border-right:1px solid #000000">
+  </div>
+  <div style="position:absolute; bottom:56px; left:56px; width:32px; height:32px; display:flex; flex-direction:column; border-bottom:1px solid #000000; border-left:1px solid #000000">
+  </div>
+  <div style="position:absolute; right:56px; bottom:56px; width:32px; height:32px; display:flex; flex-direction:column; border-right:1px solid #000000; border-bottom:1px solid #000000">
+  </div>
+  
+</section>
+</div></div>
+<div class="sw" data-i="4" id="s-bio"><div class="deck-slide"><section tabindex="-1" id="bio" data-transition="fade" style="background:#f2f0ea">
+  <div style="position:absolute; top:88px; left:50%; width:1696px; display:flex; flex-direction:row; justify-content:space-between; transform:translateX(-50%)">
+    <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#55554f">QUEM EXECUTA</p>
+    <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#55554f">04 / GYULYIA®</p>
+  </div>
+  <div id="f5a778fd" data-group style="position:absolute; top:227px; left:111px; width:1706px; height:599px; display:flex; flex-direction:column">
+    <img src="../media/mr-photon/slides/ce7403245b13da61639a73658b298a09.jpg" alt="Silhueta de Gyulyia trabalhando num notebook" style="position:absolute; top:10.67px; left:1px; width:520px; height:410px">
+    <img src="../media/mr-photon/slides/9842dcf39308b94055e36c5b038d87ab.jpg" alt="Mãos digitando num teclado" style="position:absolute; top:450.67px; left:1px; width:520px; height:140px">
+    <h2 style="position:absolute; top:0.33px; left:576.99px; width:1112px; font-family:'Martian Mono', sans-serif; font-size:160px; font-weight:700; line-height:1; letter-spacing:-5px; text-transform:uppercase; color:#000000">Gyulyia</h2>
+    <p style="position:absolute; top:176.32px; left:593px; width:1112px; font-family:'Martian Mono', 'Courier New', monospace; font-size:20px; line-height:1.4; letter-spacing:1px; color:#55554f">UNREAL ENGINE — 3D — MOTION — DIREÇÃO DE ARTE - VJ<br></p>
+    <p style="position:absolute; top:487.61px; left:585px; width:1112px; height:111.07px; font-family:'Helvetica Neue', Arial, sans-serif; font-size:28px; line-height:1.35; color:#000000"><span style="color:#3a3a37">No Mr. Photon assumo a imagem: Cinematics e Level Sequence no Unreal Engine 5, lookdev submarino (luz, fog volumétrico, caustics, Niagara), limpeza de curvas no Sequencer e render no Movie Render Queue.</span></p>
+    <p data-fit="grow" style="position:absolute; top:251px; left:593.01px; width:1112px; height:140px; font-family:'Helvetica Neue', Arial, sans-serif; font-size:28px; line-height:1.35; color:#3a3a37">Perfil híbrido entre direção criativa e domínio técnico de grandes formatos: telas de LED, projeção mapeada, cinema e espaços expositivos.&nbsp;<br><br>Atua desde 2019, com Racionais MC’s, Ivete Sangalo, Gloria Groove, Liniker, Mochakk, Forbes e Nike. Instrutora de Unreal 5 com selo da Epic Games.</p>
+  </div>
+  <p id="e9-pgvzo1" style="position:absolute; bottom:56px; left:112px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:1px; color:#55554f">GYULYIA.COM · 2026 · SÃO PAULO / REMOTO</p>
+  <p id="e10-pgvzo1" style="position:absolute; right:112px; bottom:56px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:1px; color:#55554f">GYULYIA3D@GMAIL.COM</p>
+  <p id="e11-pgvzo1" style="position:absolute; top:938px; left:112px; width:1696px; font-family:'Helvetica Neue', Arial, sans-serif; font-size:17px; line-height:1.35; color:#55554f">GLOSSÁRIO — <i>Cinematics</i>: cenas animadas com câmera · <i>Lookdev</i>: definição do visual: luz e materiais · <i>Niagara</i>: sistema de partículas · <i>MRQ</i>: Movie Render Queue, render da sequência</p>
+  <div id="e12-pgvzo1" style="position:absolute; right:112px; bottom:100px; left:112px; height:1px; display:flex; flex-direction:column; background:#bdbab0">
+  </div>
+  <div id="e13-pgvzo1" style="position:absolute; top:56px; left:56px; width:32px; height:32px; display:flex; flex-direction:column; border-top:1px solid #000000; border-left:1px solid #000000">
+  </div>
+  <div id="e14-pgvzo1" style="position:absolute; top:56px; right:56px; width:32px; height:32px; display:flex; flex-direction:column; border-top:1px solid #000000; border-right:1px solid #000000">
+  </div>
+  <div id="e15-pgvzo1" style="position:absolute; bottom:56px; left:56px; width:32px; height:32px; display:flex; flex-direction:column; border-bottom:1px solid #000000; border-left:1px solid #000000">
+  </div>
+  <div id="e16-pgvzo1" style="position:absolute; right:56px; bottom:56px; width:32px; height:32px; display:flex; flex-direction:column; border-right:1px solid #000000; border-bottom:1px solid #000000">
+  </div>
+  
+</section>
+</div></div>
+<div class="sw" data-i="5" id="s-agrada1"><div class="deck-slide"><section tabindex="-1" id="agrada1" data-transition="fade" style="background:#f2f0ea">
+  <p id="e1-d3lfca" style="position:absolute; bottom:56px; left:112px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:1px; color:#55554f">GYULYIA.COM · 2026 · SÃO PAULO / REMOTO</p>
+  <p id="e2-d3lfca" style="position:absolute; right:112px; bottom:56px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:1px; color:#55554f">GYULYIA3D@GMAIL.COM</p>
+  <div id="e4-d3lfca" style="position:absolute; right:112px; bottom:100px; left:112px; height:1px; display:flex; flex-direction:column; background:#bdbab0">
+  </div>
+  <div id="e5-d3lfca" style="position:absolute; top:56px; left:56px; width:32px; height:32px; display:flex; flex-direction:column; border-top:1px solid #000000; border-left:1px solid #000000">
+  </div>
+  <div id="e6-d3lfca" style="position:absolute; top:56px; right:56px; width:32px; height:32px; display:flex; flex-direction:column; border-top:1px solid #000000; border-right:1px solid #000000">
+  </div>
+  <div id="e7-d3lfca" style="position:absolute; bottom:56px; left:56px; width:32px; height:32px; display:flex; flex-direction:column; border-bottom:1px solid #000000; border-left:1px solid #000000">
+  </div>
+  <div id="e8-d3lfca" style="position:absolute; right:56px; bottom:56px; width:32px; height:32px; display:flex; flex-direction:column; border-right:1px solid #000000; border-bottom:1px solid #000000">
+  </div>
+  <p id="e9-d3lfca" style="position:absolute; top:176px; right:112px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#007a3d">▶ CLIQUE PARA TOCAR</p>
+  <div id="p6d544ab61cdar0-a507affa" style="position:absolute; top:88px; left:112px; width:1696px; height:34px; display:flex; flex-direction:row; justify-content:space-between">
+    <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#55554f">TRABALHOS SUBMARINOS: AGRADA GREGOS</p>
+    <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#55554f">05 / GYULYIA®</p>
+  </div>
+  <h2 id="p6d544ab61cdar1-a507affa" style="position:absolute; top:152px; left:112px; width:1696px; font-family:'Martian Mono', 'Courier New', monospace; font-size:60px; font-weight:500; line-height:1.2; letter-spacing:4px; color:#000000">FESTIVAL AGRADA GREGOS</h2>
+  <div id="p6d544ab61cdar2-a507affa" style="position:absolute; top:254px; left:112px; width:1696px; height:400px; display:flex; flex-direction:row; gap:56px">
+    <video controls preload="none" playsinline poster="../media/mr-photon/slides/31d85a2904e8105fa46990640a7a2f29.jpg" src="../media/mr-photon/slides/c201a02ba6f1a1558e0c280d1df8f0f7.mp4" aria-label="Ruínas gregas submersas com cardume" style="width:820px; height:400px;object-fit:cover;background:#000"></video>
+    <video controls preload="none" playsinline poster="../media/mr-photon/slides/dd009f13dde8bdf997b2463d4befd09b.jpg" src="../media/mr-photon/slides/ed3d20bd4e7f1c4d7bad01ffc825a5fa.mp4" aria-label="Templo grego submerso com estátuas iluminadas" style="width:820px; height:400px;object-fit:cover;background:#000"></video>
+  </div>
+  <div id="p6d544ab61cdar3-a507affa" style="position:absolute; top:682.51px; left:50%; width:1696px; height:195px; display:flex; flex-direction:row; gap:56px; transform:translateX(-50%)">
+    <p style="width:820px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; line-height:1.35; color:#3a3a37">Uma cidade inspirada em Atlântida no fundo do mar: reflexos cáusticos, sistema Niagara de cardumes, colunas, recifes e estátuas escaneada e corais animados.</p>
+    <div style="width:820px; display:flex; flex-direction:column">
+      <p style="width:78px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; font-weight:700; letter-spacing:1px; color:#000000">ANO</p>
+      <p style="width:82px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; line-height:1.3; color:#3a3a37">2025</p>
+      <p style="width:212px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; font-weight:700; letter-spacing:1px; color:#000000">FERRAMENTAS</p>
+      <p style="width:327px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; line-height:1.3; color:#3a3a37">100% UNREAL ENGINE</p>
+    </div>
+  </div>
+  
+</section>
+</div></div>
+<div class="sw" data-i="6" id="s-agrada2"><div class="deck-slide"><section tabindex="-1" id="agrada2" data-transition="fade" style="background:#000000">
+  <p id="e1-ctltnb" style="position:absolute; bottom:56px; left:112px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:1px; color:#8e8e88">GYULYIA.COM · 2026 · SÃO PAULO / REMOTO</p>
+  <p id="e2-ctltnb" style="position:absolute; right:112px; bottom:56px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:1px; color:#8e8e88">GYULYIA3D@GMAIL.COM</p>
+  <div id="p96ba4d365accr0-c5e79c73" style="position:absolute; top:88px; left:112px; width:1696px; height:53px; display:flex; flex-direction:row; justify-content:space-between">
+    <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#8e8e88">TRABALHOS SUBMARINOS: AGRADA GREGOS</p>
+    <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#8e8e88">06 / GYULYIA®</p>
+  </div>
+  <h2 id="p96ba4d365accr1-c5e79c73" style="position:absolute; top:166px; left:112px; width:1696px; font-family:'Martian Mono', 'Courier New', monospace; font-size:60px; font-weight:500; line-height:1.2; letter-spacing:4px; color:#f2f0ea">RENDERS SUBAQUÁTICOS</h2>
+  <video controls preload="none" playsinline poster="../media/mr-photon/slides/f536afbd328a0ba5647f2955c4e378d7.jpg" src="../media/mr-photon/slides/f1ff233aa2486b9ad53f72bf23880bed.mp4" aria-label="Criatura brilhante nadando em caverna submarina azul" style="position:absolute; top:262px; left:112px; width:780px; height:400px;object-fit:cover;background:#000"></video>
+  <video id="16ee778b" controls preload="none" playsinline poster="../media/mr-photon/slides/664cc5ccaaf48a8330181ec084cf332d.jpg" src="../media/mr-photon/slides/e6cda4f76ce68882388fcc7c59831629.mp4" aria-label="Cena submarina de Agrada Gregos, parte 2" style="position:absolute; top:262px; left:1028px; width:780px; height:400px;object-fit:cover;background:#000"></video>
+  <p style="position:absolute; top:686px; left:112px; width:780px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; font-weight:300; line-height:1.3; text-align:justify; color:#f2f0ea"><span style="color:#8e8e88">Duas atmosferas convivem no mesmo projeto: uma caverna escura, marcada pela fotoluminescência inspirada em estudos de fenômenos reais, e a integração de ativos escaneados criam a sensação de um portal subaquático para o universo imaginário de Atlântida.</span></p>
+  <p style="position:absolute; top:686px; left:1028px; width:780px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; font-weight:300; line-height:1.3; text-align:justify; color:#f2f0ea"><span style="color:#8e8e88">Os caustics, os godrays e os ativos de corais animados, desenvolvidos com fotogrametria, somados às animações realistas de animais e aos sistemas Niagara de cardumes e plânctons, criam a imersão necessária para cenários subaquáticos.</span></p>
+  <p style="position:absolute; top:938px; left:112px; width:1696px; font-family:'Helvetica Neue', Arial, sans-serif; font-size:17px; line-height:1.35; color:#8e8e88">GLOSSÁRIO — <i>Caustics</i>: padrões de luz refratada na água · <i>God rays</i>: feixes de luz volumétrica · <i>Niagara</i>: partículas de cardumes e plâncton · <i>Fotoluminescência</i>: brilho próprio</p>
+  <div style="position:absolute; right:112px; bottom:100px; left:112px; height:1px; display:flex; flex-direction:column; background:#3a3a37">
+  </div>
+  <div style="position:absolute; top:56px; left:56px; width:32px; height:32px; display:flex; flex-direction:column; border-top:1px solid #f2f0ea; border-left:1px solid #f2f0ea">
+  </div>
+  <div style="position:absolute; top:56px; right:56px; width:32px; height:32px; display:flex; flex-direction:column; border-top:1px solid #f2f0ea; border-right:1px solid #f2f0ea">
+  </div>
+  <div style="position:absolute; bottom:56px; left:56px; width:32px; height:32px; display:flex; flex-direction:column; border-bottom:1px solid #f2f0ea; border-left:1px solid #f2f0ea">
+  </div>
+  <div style="position:absolute; right:56px; bottom:56px; width:32px; height:32px; display:flex; flex-direction:column; border-right:1px solid #f2f0ea; border-bottom:1px solid #f2f0ea">
+  </div>
+  <p style="position:absolute; top:176px; right:112px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#39ff88">▶ CLIQUE PARA TOCAR</p>
+  
+</section>
+</div></div>
+<div class="sw" data-i="7" id="s-mare3"><div class="deck-slide"><section tabindex="-1" id="mare3" data-transition="fade" style="background:#f2f0ea">
+  <p id="e1-1b21l23" style="position:absolute; bottom:56px; left:112px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:1px; color:#55554f">GYULYIA.COM · 2026 · SÃO PAULO / REMOTO</p>
+  <p id="e2-1b21l23" style="position:absolute; right:112px; bottom:56px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:1px; color:#55554f">GYULYIA3D@GMAIL.COM</p>
+  <div id="p19664065d658r0-71377971" style="position:absolute; top:88px; left:112px; width:1696px; height:53px; display:flex; flex-direction:row; justify-content:space-between">
+    <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#55554f">TRABALHOS SUBMARINOS: MARÉ MORTA</p>
+    <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#55554f">07 / GYULYIA®</p>
+  </div>
+  <h2 id="p19664065d658r1-71377971" style="position:absolute; top:170px; left:112px; width:1696px; height:69.01px; font-family:'Martian Mono', 'Courier New', monospace; font-size:60px; font-weight:500; line-height:1.2; letter-spacing:4px; color:#000000">MARÉ MORTA</h2>
+  <video id="pfb3d97e1497bc0-ed5996d4" controls preload="none" playsinline poster="../media/mr-photon/slides/fc26fb14aeca43928e070f468f22831a.jpg" src="../media/mr-photon/slides/51bbb0cb4b2694d0643c13956cb20915.mp4" aria-label="Baleia-jubarte nadando sob a superfície iluminada" style="position:absolute; top:312px; left:112px; width:820px; height:461px;object-fit:cover;background:#000"></video>
+  <video id="pfb3d97e1497bc1-ed5996d4" controls preload="none" playsinline poster="../media/mr-photon/slides/db68d323c105482886c4d8c46ee72968.jpg" src="../media/mr-photon/slides/04b50d71016b260c22ff402298a49b0a.mp4" aria-label="3D_FINAL_com_trilha_tartaruga.mp4" style="position:absolute; top:309.8px; left:984.08px; width:823.47px; height:463.2px;object-fit:cover;background:#000"></video>
+  <p id="fcb092a1" style="position:absolute; bottom:208px; left:112.5px; width:1695px; font-family:'Martian Mono', sans-serif; font-size:28px; font-weight:300; line-height:1.35; text-align:justify; color:#3a3a37">Animais marinhos em extinção: Jubarte, Tartaruga de Pente e Raia Manta são renderizadas em animações contemplativas, feitas inteiramente com Unreal Engine.</p>
+  <div id="e8-1b21l23" style="position:absolute; right:112px; bottom:100px; left:112px; height:1px; display:flex; flex-direction:column; background:#bdbab0">
+  </div>
+  <div id="e9-1b21l23" style="position:absolute; top:56px; left:56px; width:32px; height:32px; display:flex; flex-direction:column; border-top:1px solid #000000; border-left:1px solid #000000">
+  </div>
+  <div id="e10-1b21l23" style="position:absolute; top:56px; right:56px; width:32px; height:32px; display:flex; flex-direction:column; border-top:1px solid #000000; border-right:1px solid #000000">
+  </div>
+  <div id="e11-1b21l23" style="position:absolute; bottom:56px; left:56px; width:32px; height:32px; display:flex; flex-direction:column; border-bottom:1px solid #000000; border-left:1px solid #000000">
+  </div>
+  <div id="e12-1b21l23" style="position:absolute; right:56px; bottom:56px; width:32px; height:32px; display:flex; flex-direction:column; border-right:1px solid #000000; border-bottom:1px solid #000000">
+  </div>
+  <p id="e13-1b21l23" style="position:absolute; top:176px; right:112px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#007a3d">▶ CLIQUE PARA TOCAR (COM SOM)</p>
+  
+</section>
+</div></div>
+<div class="sw" data-i="8" id="s-mare1"><div class="deck-slide"><section tabindex="-1" id="mare1" data-transition="fade" style="background:#f2f0ea">
+  <p id="e1-1bm0sg1" style="position:absolute; bottom:56px; left:112px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:1px; color:#55554f">GYULYIA.COM · 2026 · SÃO PAULO / REMOTO</p>
+  <p id="e2-1bm0sg1" style="position:absolute; right:112px; bottom:56px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:1px; color:#55554f">GYULYIA3D@GMAIL.COM</p>
+  <div id="p7ff88abe87far0-3a00b10c" style="position:absolute; top:88px; left:112px; width:1696px; height:53px; display:flex; flex-direction:row; justify-content:space-between">
+    <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#55554f">TRABALHOS SUBMARINOS: MARÉ MORTA</p>
+    <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#55554f">08 / GYULYIA®</p>
+  </div>
+  <h2 id="p7ff88abe87far1-3a00b10c" style="position:absolute; top:166px; left:112px; width:1696px; font-family:'Martian Mono', 'Courier New', monospace; font-size:60px; font-weight:500; line-height:1.2; letter-spacing:4px; color:#000000">MARÉ MORTA, OBRA EM CIRCULAÇÃO</h2>
+  <img src="../media/mr-photon/slides/e1cdc1b327a56bdf5dc837410c482003.jpg" alt="Quatro telas de LED em sala escura exibindo cenas submarinas" style="position:absolute; top:262px; left:112px; width:780px; height:340px">
+  <img src="../media/mr-photon/slides/5365b9078f8a942e7eac0bb2ffff4f40.jpg" alt="Tela de LED ao ar livre com baleia e imagens em preto e branco" style="position:absolute; top:262px; left:1028px; width:780px; height:340px">
+  <p style="position:absolute; top:622px; left:112px; width:780px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; line-height:1.3; color:#3a3a37">Videoarte que explora a relação entre humanidade, tecnologia e a crise ambiental de animais marinhos em extinção. Transitando entre paisagens imersivas e dados generativos. Revelando os sinais do colapso ecológico.&nbsp;</p>
+  <div id="e9-1bm0sg1" style="position:absolute; right:112px; bottom:100px; left:112px; height:1px; display:flex; flex-direction:column; background:#bdbab0">
+  </div>
+  <div id="e10-1bm0sg1" style="position:absolute; top:56px; left:56px; width:32px; height:32px; display:flex; flex-direction:column; border-top:1px solid #000000; border-left:1px solid #000000">
+  </div>
+  <div id="e11-1bm0sg1" style="position:absolute; top:56px; right:56px; width:32px; height:32px; display:flex; flex-direction:column; border-top:1px solid #000000; border-right:1px solid #000000">
+  </div>
+  <div id="e12-1bm0sg1" style="position:absolute; bottom:56px; left:56px; width:32px; height:32px; display:flex; flex-direction:column; border-bottom:1px solid #000000; border-left:1px solid #000000">
+  </div>
+  <div id="e13-1bm0sg1" style="position:absolute; right:56px; bottom:56px; width:32px; height:32px; display:flex; flex-direction:column; border-right:1px solid #000000; border-bottom:1px solid #000000">
+  </div>
+  <p id="7e485938" style="position:absolute; top:622px; left:1028px; width:780px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; line-height:1.3; color:#3a3a37">Museu Oceanográfico — Rio Grande, RS<br>Museu Ciência e Vida — Duque de Caxias, RJ<br>Parque Jardim Botânico da Serra — Serra, ES<br>Plano Studio Galeria — São Paulo, SP<br>Horto Florestal — São Paulo, SP</p>
+  
+</section>
+</div></div>
+<div class="sw" data-i="9" id="s-desafio"><div class="deck-slide"><section tabindex="-1" id="desafio" data-transition="fade" style="background:#000000">
+  <p id="e1-1lpewb0" style="position:absolute; bottom:56px; left:112px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:1px; color:#8e8e88">GYULYIA.COM · 2026 · SÃO PAULO / REMOTO</p>
+  <p id="e2-1lpewb0" style="position:absolute; right:112px; bottom:56px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:1px; color:#8e8e88">GYULYIA3D@GMAIL.COM</p>
+  <p id="e3-1lpewb0" style="position:absolute; top:938px; left:112px; width:1696px; font-family:'Helvetica Neue', Arial, sans-serif; font-size:17px; line-height:1.35; color:#8e8e88">GLOSSÁRIO — <i>Skeletal Mesh</i>: malha 3D com esqueleto · <i>DNA</i>: arquivo do rig MetaHuman · <i>Morph targets</i>: formas faciais · <i>RigLogic</i>: converte curvas faciais em deformação · <i>Retargeting</i>: passar animação a outro esqueleto</p>
+  <div id="e4-1lpewb0" style="position:absolute; right:112px; bottom:100px; left:112px; height:1px; display:flex; flex-direction:column; background:#3a3a37">
+  </div>
+  <div id="e5-1lpewb0" style="position:absolute; top:56px; left:56px; width:32px; height:32px; display:flex; flex-direction:column; border-top:1px solid #f2f0ea; border-left:1px solid #f2f0ea">
+  </div>
+  <div id="e6-1lpewb0" style="position:absolute; top:56px; right:56px; width:32px; height:32px; display:flex; flex-direction:column; border-top:1px solid #f2f0ea; border-right:1px solid #f2f0ea">
+  </div>
+  <div id="e7-1lpewb0" style="position:absolute; bottom:56px; left:56px; width:32px; height:32px; display:flex; flex-direction:column; border-bottom:1px solid #f2f0ea; border-left:1px solid #f2f0ea">
+  </div>
+  <div id="e8-1lpewb0" style="position:absolute; right:56px; bottom:56px; width:32px; height:32px; display:flex; flex-direction:column; border-right:1px solid #f2f0ea; border-bottom:1px solid #f2f0ea">
+  </div>
+  <div id="pb150fabd2dc0r0-c7135334" style="position:absolute; top:88px; left:112px; width:1696px; height:34px; display:flex; flex-direction:row; justify-content:space-between">
+    <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#8e8e88">O DESAFIO</p>
+    <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#8e8e88">09 / GYULYIA®</p>
+  </div>
+  <h2 id="pb150fabd2dc0r1-c7135334" style="position:absolute; top:202px; left:50%; width:1696px; font-family:'Martian Mono', 'Courier New', monospace; font-size:60px; font-weight:500; line-height:1.2; letter-spacing:4px; color:#f2f0ea; transform:translateX(-50%)">TRÊS PEÇAS QUE PRECISAM SE ENCAIXAR</h2>
+  <div id="pb150fabd2dc0r2-c7135334" style="position:absolute; top:346px; left:112px; width:1696px; height:245px; display:flex; flex-direction:row; border-top:1px solid #f2f0ea">
+    <div style="display:flex; flex-direction:column; gap:16px; flex:1; min-width:551px; min-height:244px; padding:32px 40px 0 0">
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#8e8e88">PERSONAGEM</p>
+      <p style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:30px; line-height:1.35; text-align:justify; color:#f2f0ea">Mr. Photon: Skeletal Mesh com DNA, morph targets e materiais. Modelado e rigado. A verificar.</p>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:16px; flex:1; padding:32px 40px 0; border-left:1px solid #3a3a37">
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#8e8e88">RIG</p>
+      <p style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:30px; line-height:1.35; text-align:justify; color:#f2f0ea">Skeleton e curvas faciais do MetaHuman (RigLogic).&nbsp;<br>Se for padrão, o movimento entra sem retargeting.</p>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:16px; flex:1; padding:32px 0 0 40px; border-left:1px solid #3a3a37">
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#39ff88">CAPTURA</p>
+      <p style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:30px; line-height:1.35; text-align:justify; color:#f2f0ea">Eduardo em vídeo mono: rosto (MetaHuman Animator ou Live Link Face) e corpo (markerless ou Rokoko).</p>
+    </div>
+  </div>
+  <p id="pb150fabd2dc0r3-c7135334" style="position:absolute; top:630px; left:112px; width:1696px; font-family:'Helvetica Neue', Arial, sans-serif; font-size:30px; line-height:1.4; color:#f2f0ea">O desafio é ligar captura, rig e personagem sem perder a atuação. Por isso medimos antes de produzir.</p>
+  
+</section>
+</div></div>
+<div class="sw" data-i="10" id="s-pipeline"><div class="deck-slide"><section tabindex="-1" id="pipeline" data-transition="fade" style="display:flex; flex-direction:column; gap:30px; padding:88px 112px 160px; background:#000000">
+  <div style="display:flex; flex-direction:row; justify-content:space-between">
+    <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#8e8e88">PIPELINE EM 7 ETAPAS</p>
+    <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#8e8e88">10 / GYULYIA®</p>
+  </div>
+  <h2 style="font-family:'Martian Mono', 'Courier New', monospace; font-size:60px; font-weight:500; line-height:1.2; letter-spacing:4px; color:#f2f0ea">PIPELINE (GATES)</h2>
+  <div style="display:grid; grid-template-columns:1fr 1fr 1fr 1fr; border-top:1px solid #f2f0ea">
+    <div style="display:flex; flex-direction:column; gap:8px; padding:20px 24px 20px 0; border-bottom:1px solid #3a3a37">
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#8e8e88">E1</p>
+      <p style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:39px; font-weight:700; color:#f2f0ea">Pré-produção</p>
+      <p style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:31px; line-height:1.3; color:#f2f0ea">Roteiro, lista de takes, inspeção do rig.</p>
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; color:#39ff88">G1: rig aprovado</p>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:8px; padding:20px 24px; border-bottom:1px solid #3a3a37; border-left:1px solid #3a3a37">
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#8e8e88">E2</p>
+      <p style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:39px; font-weight:700; color:#f2f0ea">Captura</p>
+      <p style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:31px; line-height:1.3; color:#f2f0ea">Vídeo mono H.264, 60 fps, claquete e backup.</p>
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; color:#39ff88">G2: FPS e enquadramento</p>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:8px; padding:20px 24px; border-bottom:1px solid #3a3a37; border-left:1px solid #3a3a37">
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#8e8e88">E3</p>
+      <p style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:39px; font-weight:700; color:#f2f0ea">Ingest e solve</p>
+      <p style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:31px; line-height:1.3; color:#f2f0ea">Capture Manager, capture data asset, MetaHuman Performance.</p>
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; color:#39ff88">G3: sem perda de rastreio</p>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:8px; padding:20px 0 20px 24px; border-bottom:1px solid #3a3a37; border-left:1px solid #3a3a37">
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#8e8e88">E4</p>
+      <p style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:39px; font-weight:700; color:#f2f0ea">Aplicação</p>
+      <p style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:31px; line-height:1.3; color:#f2f0ea">Export Animation; IK Retargeter se o rig for custom.</p>
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; color:#39ff88">G4: sem colapso de malha</p>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:8px; padding:20px 24px 20px 0">
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#8e8e88">E5</p>
+      <p style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:39px; font-weight:700; color:#f2f0ea">Limpeza</p>
+      <p style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:31px; line-height:1.3; color:#f2f0ea">Level Sequence, Control Rig em camadas, Curve Editor.</p>
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; color:#39ff88">G5: aprovação da direção</p>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:8px; padding:20px 24px; border-left:1px solid #3a3a37">
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#8e8e88">E6</p>
+      <p style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:39px; font-weight:700; color:#f2f0ea">Render</p>
+      <p style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:31px; line-height:1.3; color:#f2f0ea">Cine Camera, lookdev, Movie Render Queue em EXR ou ProRes.</p>
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; color:#39ff88">G6: quadro de referência</p>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:8px; padding:20px 24px; border-left:1px solid #3a3a37">
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#8e8e88">E7</p>
+      <p style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:39px; font-weight:700; color:#f2f0ea">Entrega</p>
+      <p style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:31px; line-height:1.3; color:#f2f0ea">Premiere: ficha de entrega, fps, cor e WAV.</p>
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; color:#39ff88">G7: editor confirma</p>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:8px; padding:20px 0 20px 24px; border-left:1px solid #3a3a37">
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#8e8e88">GATE</p>
+      <p style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:34px; line-height:1.3; color:#8e8e88">Aprovação por escrito antes de passar à etapa seguinte.</p>
+    </div>
+  </div>
+  <p style="position:absolute; bottom:56px; left:112px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:1px; color:#8e8e88">GYULYIA.COM · 2026 · SÃO PAULO / REMOTO</p>
+  <p style="position:absolute; right:112px; bottom:56px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:1px; color:#8e8e88">GYULYIA3D@GMAIL.COM</p>
+  <p style="position:absolute; top:938px; left:112px; width:1696px; font-family:'Helvetica Neue', Arial, sans-serif; font-size:17px; line-height:1.35; color:#8e8e88">GLOSSÁRIO — <i>Gate</i>: portão de aprovação · <i>Capture data asset</i>: take ingerido · <i>Control Rig</i>: rig de animação do Unreal · <i>Curve Editor</i>: edita curvas de animação · <i>EXR, ProRes</i>: formatos de render</p>
+  <div style="position:absolute; right:112px; bottom:100px; left:112px; height:1px; display:flex; flex-direction:column; background:#3a3a37">
+  </div>
+  <div style="position:absolute; top:56px; left:56px; width:32px; height:32px; display:flex; flex-direction:column; border-top:1px solid #f2f0ea; border-left:1px solid #f2f0ea">
+  </div>
+  <div style="position:absolute; top:56px; right:56px; width:32px; height:32px; display:flex; flex-direction:column; border-top:1px solid #f2f0ea; border-right:1px solid #f2f0ea">
+  </div>
+  <div style="position:absolute; bottom:56px; left:56px; width:32px; height:32px; display:flex; flex-direction:column; border-bottom:1px solid #f2f0ea; border-left:1px solid #f2f0ea">
+  </div>
+  <div style="position:absolute; right:56px; bottom:56px; width:32px; height:32px; display:flex; flex-direction:column; border-right:1px solid #f2f0ea; border-bottom:1px solid #f2f0ea">
+  </div>
+  
+</section>
+</div></div>
+<div class="sw" data-i="11" id="s-set"><div class="deck-slide"><section tabindex="-1" id="set" data-transition="fade" style="background:#000000">
+  <p id="e1-1izafb7" style="position:absolute; bottom:56px; left:112px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:1px; color:#8e8e88">FONTE: EPIC, VIDEO CAPTURE GUIDELINES.</p>
+  <p id="e2-1izafb7" style="position:absolute; right:112px; bottom:56px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:1px; color:#8e8e88">GYULYIA3D@GMAIL.COM</p>
+  <p id="e3-1izafb7" style="position:absolute; top:938px; left:112px; width:1696px; font-family:'Helvetica Neue', Arial, sans-serif; font-size:17px; line-height:1.35; color:#8e8e88">GLOSSÁRIO — <i>H.264, CRF 18</i>: compressão de vídeo de alta qualidade · <i>fps</i>: quadros por segundo · &nbsp;<i>Luz difusa</i>: suave, sem sombra dura</p>
+  <div id="e4-1izafb7" style="position:absolute; right:112px; bottom:100px; left:112px; height:1px; display:flex; flex-direction:column; background:#3a3a37">
+  </div>
+  <div id="e5-1izafb7" style="position:absolute; top:56px; left:56px; width:32px; height:32px; display:flex; flex-direction:column; border-top:1px solid #f2f0ea; border-left:1px solid #f2f0ea">
+  </div>
+  <div id="e6-1izafb7" style="position:absolute; top:56px; right:56px; width:32px; height:32px; display:flex; flex-direction:column; border-top:1px solid #f2f0ea; border-right:1px solid #f2f0ea">
+  </div>
+  <div id="e7-1izafb7" style="position:absolute; bottom:56px; left:56px; width:32px; height:32px; display:flex; flex-direction:column; border-bottom:1px solid #f2f0ea; border-left:1px solid #f2f0ea">
+  </div>
+  <div id="e8-1izafb7" style="position:absolute; right:56px; bottom:56px; width:32px; height:32px; display:flex; flex-direction:column; border-right:1px solid #f2f0ea; border-bottom:1px solid #f2f0ea">
+  </div>
+  <div id="pb54d1f1970c6r0-214dda5a" style="position:absolute; top:88px; left:112px; width:1696px; height:34px; display:flex; flex-direction:row; justify-content:space-between">
+    <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#8e8e88">SET DE GRAVAÇÃO</p>
+    <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#8e8e88">11 / GYULYIA®</p>
+  </div>
+  <div id="pe41d44312acfc0-5ccc165f" style="position:absolute; top:154px; left:112px; width:760px; height:642px; display:flex; flex-direction:column; gap:22px">
+    <h2 style="font-family:'Martian Mono', 'Courier New', monospace; font-size:60px; font-weight:500; line-height:1.2; letter-spacing:4px; color:#f2f0ea">GUIA DE CAPTURA</h2>
+    <ul style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:34px; line-height:1.4; color:#f2f0ea">
+      <li>Câmera em tripé, fixa o take inteiro.</li>
+      <li>H.264, CRF 18, cerca de 25 Mbps em HD, 60 fps.</li>
+      <li>Corpo inteiro visível, câmera de frente em altura neutra.</li>
+      <li>Rosto com pelo menos 1/30 da largura e da altura; abaixo de 40 × 80 px a detecção falha.</li>
+      <li>Luz difusa e uniforme, sem contraluz.</li>
+      <li>Roupa justa, contrastando com fundo e chão; um só performer.</li>
+    </ul>
+  </div>
+  <img src="../media/mr-photon/slides/aef28775f33614e060772e0736ebda02.jpg" alt="Planta de estúdio vista de cima com câmera, luzes e ator" id="pe41d44312acfc1-5ccc165f" style="position:absolute; top:154px; left:906.35px; width:901.65px; height:661.65px; background:#000000; object-fit:contain">
+  
+</section>
+</div></div>
+<div class="sw" data-i="12" id="s-markerless"><div class="deck-slide"><section tabindex="-1" id="markerless" data-transition="fade" style="background:#000000">
+  <p id="e1-1czr64a" style="position:absolute; bottom:56px; left:112px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:1px; color:#8e8e88">FONTE: DOCUMENTAÇÃO DA EPIC, METAHUMAN 5.8</p>
+  <p id="e2-1czr64a" style="position:absolute; right:112px; bottom:56px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:1px; color:#8e8e88">GYULYIA3D@GMAIL.COM</p>
+  <div id="p0397a3eacb84r0-640a2c21" style="position:absolute; top:88px; left:112px; width:1696px; height:53px; display:flex; flex-direction:row; justify-content:space-between">
+    <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#8e8e88">CAPTURA POR VÍDEO</p>
+    <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#8e8e88">12 / GYULYIA®</p>
+  </div>
+  <div id="pffde446c5190c0-1a9fa480" style="position:absolute; top:172px; left:112px; width:760px; height:611px; display:flex; flex-direction:column; gap:28px">
+    <h2 style="font-family:'Martian Mono', 'Courier New', monospace; font-size:60px; font-weight:500; line-height:1.2; letter-spacing:4px; color:#f2f0ea">MARKERLESS</h2>
+    <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#8e8e88">PLUGIN EXPERIMENTAL — METAHUMAN ANIMATOR MARKERLESS MOTION CAPTURE — UE 5.8</p>
+    <p style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:30px; line-height:1.4; color:#f2f0ea">Uma câmera mono filma Eduardo. O solve no MetaHuman Performance estima o movimento do corpo e gera um Animation Sequence, sem traje, marcadores ou capacete HMC.</p>
+  </div>
+  <img src="../media/mr-photon/slides/12f55c35e9d3393c1ed41b589c47b166.jpg" alt="Esquema: pessoa em frente a uma câmera em tripé com esqueleto verde sobreposto" id="pffde446c5190c1-1a9fa480" style="position:absolute; top:172px; left:892.69px; width:915.31px; height:606px">
+  <ul id="pffde446c5190c0_3-1a9fa480" style="position:absolute; top:575px; left:112px; width:760px; font-family:'Helvetica Neue', Arial, sans-serif; font-size:28px; line-height:1.45; color:#f2f0ea">
+    <li>Body Tracking sozinho, ou com Facial Tracking no mesmo vídeo, ou Live Link Face separado</li>
+    <li><b>Experimental</b>: a Epic avisa que pode mudar.</li>
+    <li>Só Windows; exige Live Link Hub e Capture Manager.</li>
+    <li>A validar: dedos e cauda.</li>
+  </ul>
+  <p style="position:absolute; top:938px; left:112px; width:1696px; font-family:'Helvetica Neue', Arial, sans-serif; font-size:17px; line-height:1.35; color:#8e8e88">GLOSSÁRIO — <i>Body, Facial Tracking</i>: rastreio de corpo e rosto · <i>Live Link Hub</i>: ponte de dados em tempo real · <i>HMC</i>: capacete com câmera facial</p>
+  <div style="position:absolute; right:112px; bottom:100px; left:112px; height:1px; display:flex; flex-direction:column; background:#3a3a37">
+  </div>
+  <div style="position:absolute; top:56px; left:56px; width:32px; height:32px; display:flex; flex-direction:column; border-top:1px solid #f2f0ea; border-left:1px solid #f2f0ea">
+  </div>
+  <div style="position:absolute; top:56px; right:56px; width:32px; height:32px; display:flex; flex-direction:column; border-top:1px solid #f2f0ea; border-right:1px solid #f2f0ea">
+  </div>
+  <div style="position:absolute; bottom:56px; left:56px; width:32px; height:32px; display:flex; flex-direction:column; border-bottom:1px solid #f2f0ea; border-left:1px solid #f2f0ea">
+  </div>
+  <div style="position:absolute; right:56px; bottom:56px; width:32px; height:32px; display:flex; flex-direction:column; border-right:1px solid #f2f0ea; border-bottom:1px solid #f2f0ea">
+  </div>
+  
+</section>
+</div></div>
+<div class="sw" data-i="13" id="s-vision"><div class="deck-slide"><section tabindex="-1" id="vision" data-transition="fade" style="display:flex; flex-direction:column; gap:32px; padding:88px 112px 160px; background:#000000">
+  <div style="display:flex; flex-direction:row; justify-content:space-between">
+    <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#8e8e88">ROKOKO VISION 3.0</p>
+    <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#8e8e88">13 / GYULYIA®</p>
+  </div>
+  <div style="display:flex; flex-direction:row; gap:80px">
+    <div style="width:860px; display:flex; flex-direction:column; gap:26px">
+      <h2 style="font-family:'Martian Mono', 'Courier New', monospace; font-size:60px; font-weight:500; line-height:1.2; letter-spacing:4px; color:#f2f0ea">ROKOKO VISION</h2>
+      <p style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:36px; line-height:1.4; color:#f2f0ea">Motion capture sem vestimenta: sem traje nem sensores, só um vídeo enviado no navegador, com minutagem gratuita por mês. A animação de corpo sai em FBX ou BVH (esqueleto UE5 Manny ou HIK) e entra no Unreal por import e IK Retargeter.</p>
+      <ul style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:34px; line-height:1.45; color:#f2f0ea">
+        <li>Single cam, um performer por gravação.</li>
+        <li>Sem dedos no lançamento (Smartgloves II para isso).</li>
+        <li>Sem Live Link: é pós-processamento.</li>
+        <li>Rosto é outro produto da Rokoko: na proposta fica com MetaHuman Animator ou Live Link Face.</li>
+      </ul>
+    </div>
+    <div style="width:676px; display:flex; flex-direction:column; gap:18px; padding:32px; background:#0d0d0c; border:1px solid #3a3a37">
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#8e8e88">MINUTAGEM MENSAL</p>
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:1px; color:#f2f0ea">STARTER (GRATUITO)</p>
+      <div style="display:flex; flex-direction:row; gap:16px; align-items:center">
+        <div style="width:34px; height:34px; display:flex; flex-direction:column; background:#f2f0ea">
+        </div>
+        <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:28px; font-weight:600; color:#f2f0ea">30 s</p>
+      </div>
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:1px; color:#f2f0ea">BASIC</p>
+      <div style="display:flex; flex-direction:row; gap:16px; align-items:center">
+        <div style="width:560px; height:34px; display:flex; flex-direction:column; background:#39ff88">
+        </div>
+      </div>
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:28px; font-weight:600; color:#f2f0ea">600 s (10 min) USD$10</p>
+      <p style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:31px; line-height:1.35; color:#8e8e88">Cota por mês, não limite por clipe. O “15 s” da equipe vem de versões antigas do plano grátis; “1 min” não tem origem confirmada.</p>
+    </div>
+  </div>
+  <p style="position:absolute; bottom:56px; left:112px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:1px; color:#8e8e88">FONTE: ROKOKO.COM/PRODUCTS/VIDEO, 2026-10-15</p>
+  <p style="position:absolute; right:112px; bottom:56px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:1px; color:#8e8e88">GYULYIA3D@GMAIL.COM</p>
+  <p style="position:absolute; top:938px; left:112px; width:1696px; font-family:'Helvetica Neue', Arial, sans-serif; font-size:17px; line-height:1.35; color:#8e8e88">GLOSSÁRIO — <i>FBX, BVH</i>: formatos de animação · <i>Manny</i>: esqueleto padrão do UE5 · <i>HIK</i>: HumanIK, esqueleto padrão · <i>Smartgloves</i>: luvas que capturam dedos</p>
+  <div style="position:absolute; right:112px; bottom:100px; left:112px; height:1px; display:flex; flex-direction:column; background:#3a3a37">
+  </div>
+  <div style="position:absolute; top:56px; left:56px; width:32px; height:32px; display:flex; flex-direction:column; border-top:1px solid #f2f0ea; border-left:1px solid #f2f0ea">
+  </div>
+  <div style="position:absolute; top:56px; right:56px; width:32px; height:32px; display:flex; flex-direction:column; border-top:1px solid #f2f0ea; border-right:1px solid #f2f0ea">
+  </div>
+  <div style="position:absolute; bottom:56px; left:56px; width:32px; height:32px; display:flex; flex-direction:column; border-bottom:1px solid #f2f0ea; border-left:1px solid #f2f0ea">
+  </div>
+  <div style="position:absolute; right:56px; bottom:56px; width:32px; height:32px; display:flex; flex-direction:column; border-right:1px solid #f2f0ea; border-bottom:1px solid #f2f0ea">
+  </div>
+  
+</section>
+</div></div>
+<div class="sw" data-i="14" id="s-comparativo"><div class="deck-slide"><section tabindex="-1" id="comparativo" data-transition="fade" style="display:flex; flex-direction:column; gap:28px; padding:88px 112px 160px; background:#f2f0ea">
+  <div style="display:flex; flex-direction:row; justify-content:space-between">
+    <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#55554f">COMPARAÇÃO DE TECNOLOGIAS</p>
+    <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#55554f">14 / GYULYIA®</p>
+  </div>
+  <h2 style="font-family:'Martian Mono', 'Courier New', monospace; font-size:52px; font-weight:500; line-height:1.2; letter-spacing:4px; color:#000000">MARKERLESS × ROKOKO × LIVE LINK FACE</h2>
+  <table style="width:1696px; font-family:'Helvetica Neue', Arial, sans-serif; font-size:27px; line-height:1.25; color:#000000; border:1px dotted #f2f0ea; opacity:1">
+    <tr><th style="padding:10px 16px; width:15%; color:#55554f"></th><th style="padding:10px 16px; width:21%; color:#55554f">Markerless 5.8</th><th style="padding:10px 16px; width:21%; color:#55554f">Rokoko Vision 3.0</th><th style="padding:10px 16px; width:21%; color:#55554f">Rokoko Studio (traje)</th><th style="padding:10px 16px; width:22%; color:#55554f">Live Link Face</th></tr>
+    <tr><td style="padding:10px 16px">O que resolve</td><td style="padding:10px 16px">Corpo e rosto a partir de vídeo, no MetaHuman Performance</td><td style="padding:10px 16px">Corpo a partir de vídeo, sem traje</td><td style="padding:10px 16px">Corpo por traje, com luvas opcionais</td><td style="padding:10px 16px">Rosto por app no iPhone</td></tr>
+    <tr><td style="padding:10px 16px">Rosto</td><td style="padding:10px 16px">Sim (Facial Tracking)</td><td style="padding:10px 16px">À parte (headcam ou celular)</td><td style="padding:10px 16px">À parte (headcam ou celular)</td><td style="padding:10px 16px">Sim, ao vivo ou gravado</td></tr>
+    <tr><td style="padding:10px 16px">Dedos</td><td style="padding:10px 16px">Não documentado: testar</td><td style="padding:10px 16px">Só com Smartgloves</td><td style="padding:10px 16px">Só com Smartgloves</td><td style="padding:10px 16px">Não se aplica</td></tr>
+    <tr><td style="padding:10px 16px">Tempo real</td><td style="padding:10px 16px">Não, é offline</td><td style="padding:10px 16px">Não, é pós-processamento</td><td style="padding:10px 16px">Sim (plano Plus ou Pro)</td><td style="padding:10px 16px">Sim, via Live Link</td></tr>
+    <tr><td style="padding:10px 16px">Requisitos</td><td style="padding:10px 16px">Plugin na Fab, Windows, UE 5.8, Live Link Hub</td><td style="padding:10px 16px">Navegador; minutagem gratuita mensal</td><td style="padding:10px 16px">Traje, assinatura e Studio</td><td style="padding:10px 16px">iPhone compatível: confirmar modelo</td></tr>
+    <tr><td style="padding:10px 16px">Papel no projeto</td><td style="padding:10px 16px">Corpo e rosto num vídeo, a testar</td><td style="padding:10px 16px">Plano B de corpo</td><td style="padding:10px 16px">Testado pela equipe: confirmar produto e plano</td><td style="padding:10px 16px">Rosto do Eduardo</td></tr>
+  </table>
+  <p style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:26px; line-height:1.35; color:#007a3d">Rosto em captura separada é possível: corpo e rosto têm solves independentes e se juntam no Level Sequence (documentação da Epic).</p>
+  <p style="position:absolute; top:938px; left:112px; width:1696px; font-family:'Helvetica Neue', Arial, sans-serif; font-size:17px; line-height:1.35; color:#55554f">GLOSSÁRIO — <i>Solve</i>: cálculo que converte vídeo em animação · <i>Live Link</i>: transmissão de dados ao vivo para o Unreal · <i>Headcam</i>: câmera presa à cabeça · <i>Smartgloves</i>: luvas de captura de dedos</p>
+  <p style="position:absolute; bottom:56px; left:112px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:1px; color:#55554f">FONTES: EPIC; ROKOKO.COM. STUDIO E PLANOS: A CONFIRMAR</p>
+  <p style="position:absolute; right:112px; bottom:56px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:1px; color:#55554f">GYULYIA3D@GMAIL.COM</p>
+  <div style="position:absolute; right:112px; bottom:100px; left:112px; height:1px; display:flex; flex-direction:column; background:#bdbab0">
+  </div>
+  <div style="position:absolute; top:56px; left:56px; width:32px; height:32px; display:flex; flex-direction:column; border-top:1px solid #000000; border-left:1px solid #000000">
+  </div>
+  <div style="position:absolute; top:56px; right:56px; width:32px; height:32px; display:flex; flex-direction:column; border-top:1px solid #000000; border-right:1px solid #000000">
+  </div>
+  <div style="position:absolute; bottom:56px; left:56px; width:32px; height:32px; display:flex; flex-direction:column; border-bottom:1px solid #000000; border-left:1px solid #000000">
+  </div>
+  <div style="position:absolute; right:56px; bottom:56px; width:32px; height:32px; display:flex; flex-direction:column; border-right:1px solid #000000; border-bottom:1px solid #000000">
+  </div>
+  
+</section>
+</div></div>
+<div class="sw" data-i="15" id="s-etapas"><div class="deck-slide"><section tabindex="-1" id="etapas" data-transition="fade" style="display:flex; flex-direction:column; gap:36px; padding:88px 112px 160px; background:#000000">
+  <div style="display:flex; flex-direction:row; justify-content:space-between">
+    <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#8e8e88">AS ETAPAS DO PROJETO</p>
+    <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#8e8e88">15 / GYULYIA®</p>
+  </div>
+  <h2 style="font-family:'Martian Mono', 'Courier New', monospace; font-size:60px; font-weight:500; line-height:1.2; letter-spacing:4px; color:#f2f0ea">CINCO ETAPAS, UMA POR VEZ</h2>
+  <div style="display:flex; flex-direction:row; border-top:1px solid #f2f0ea">
+    <div style="display:flex; flex-direction:column; gap:14px; flex:1; padding:28px 20px 0; border-top:6px solid #39ff88">
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#39ff88">ETAPA 1</p>
+      <p style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:52px; font-weight:700; color:#f2f0ea">Auditoria do rig</p>
+      <p style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:30px; line-height:1.35; color:#f2f0ea">Skeleton, DNA, morph targets, LODs e versão do UE.</p>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:14px; flex:1; padding:28px 20px 0; border-top:6px solid #39ff88">
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#39ff88">ETAPA 2</p>
+      <p style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:52px; font-weight:700; color:#f2f0ea">Teste de captura</p>
+      <p style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:30px; line-height:1.35; color:#f2f0ea">10 clipes, 3 fluxos, métricas e relatório.</p>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:14px; flex:1; padding:28px 20px 0; border-top:6px solid #3a3a37">
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#8e8e88">ETAPA 3</p>
+      <p style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:52px; font-weight:700; color:#f2f0ea">Pipeline escrita</p>
+      <p style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:30px; line-height:1.35; color:#f2f0ea">Presets de MetaHuman Performance, IK Retargeter, MRQ.</p>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:14px; flex:1; padding:28px 20px 0; border-top:6px solid #3a3a37">
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#8e8e88">ETAPA 4</p>
+      <p style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:52px; font-weight:700; color:#f2f0ea">Episódio piloto</p>
+      <p style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:30px; line-height:1.35; color:#f2f0ea">Do take ao Premiere, com os gates E1 a E7.</p>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:14px; flex:1; padding:28px 20px 0; border-top:6px solid #3a3a37">
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#8e8e88">ETAPA 5</p>
+      <p style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:52px; font-weight:700; color:#f2f0ea">Série</p>
+      <p style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:30px; line-height:1.35; color:#f2f0ea">Produção em ritmo contínuo.</p>
+    </div>
+  </div>
+  <p style="width:1500px; font-family:'Helvetica Neue', Arial, sans-serif; font-size:30px; line-height:1.4; color:#f2f0ea">Cada etapa só começa com a aprovação da anterior. Prazos e valores entram depois que as etapas 1 e 2 medirem o trabalho real.</p>
+  <p style="position:absolute; bottom:56px; left:112px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:1px; color:#8e8e88">GYULYIA.COM · 2026 · SÃO PAULO / REMOTO</p>
+  <p style="position:absolute; right:112px; bottom:56px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:1px; color:#8e8e88">GYULYIA3D@GMAIL.COM</p>
+  <p style="position:absolute; top:938px; left:112px; width:1696px; font-family:'Helvetica Neue', Arial, sans-serif; font-size:17px; line-height:1.35; color:#8e8e88">GLOSSÁRIO — <i>Auditoria</i>: revisão do rig · <i>Teste de captura</i>: 10 clipes, 3 fluxos · <i>Pipeline</i>: sequência de etapas · <i>Gate</i>: aprovação por escrito</p>
+  <div style="position:absolute; right:112px; bottom:100px; left:112px; height:1px; display:flex; flex-direction:column; background:#3a3a37">
+  </div>
+  <div style="position:absolute; top:56px; left:56px; width:32px; height:32px; display:flex; flex-direction:column; border-top:1px solid #f2f0ea; border-left:1px solid #f2f0ea">
+  </div>
+  <div style="position:absolute; top:56px; right:56px; width:32px; height:32px; display:flex; flex-direction:column; border-top:1px solid #f2f0ea; border-right:1px solid #f2f0ea">
+  </div>
+  <div style="position:absolute; bottom:56px; left:56px; width:32px; height:32px; display:flex; flex-direction:column; border-bottom:1px solid #f2f0ea; border-left:1px solid #f2f0ea">
+  </div>
+  <div style="position:absolute; right:56px; bottom:56px; width:32px; height:32px; display:flex; flex-direction:column; border-right:1px solid #f2f0ea; border-bottom:1px solid #f2f0ea">
+  </div>
+  
+</section>
+</div></div>
+<div class="sw" data-i="16" id="s-tecnico"><div class="deck-slide"><section tabindex="-1" id="tecnico" data-transition="fade" style="background:#000000">
+  <p id="e1-1uykr3w" style="position:absolute; bottom:56px; left:112px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:1px; color:#8e8e88">HORAS E VALOR DO ESPECIALISTA: A DEFINIR</p>
+  <p id="e2-1uykr3w" style="position:absolute; right:112px; bottom:56px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:1px; color:#8e8e88">GYULYIA3D@GMAIL.COM</p>
+  <p id="e3-1uykr3w" style="position:absolute; top:938px; left:112px; width:1696px; font-family:'Helvetica Neue', Arial, sans-serif; font-size:17px; line-height:1.35; color:#8e8e88">GLOSSÁRIO — <i>Technical Artist</i>: ponte entre arte e engine · <i>IK Rig</i>: cadeias do esqueleto para retarget · <i>Poses de mãos</i>: dedos feitos à mão · <i>Animation Sequence</i>: arquivo de animação</p>
+  <div id="e4-1uykr3w" style="position:absolute; right:112px; bottom:100px; left:112px; height:1px; display:flex; flex-direction:column; background:#3a3a37">
+  </div>
+  <div id="e5-1uykr3w" style="position:absolute; top:56px; left:56px; width:32px; height:32px; display:flex; flex-direction:column; border-top:1px solid #f2f0ea; border-left:1px solid #f2f0ea">
+  </div>
+  <div id="e6-1uykr3w" style="position:absolute; top:56px; right:56px; width:32px; height:32px; display:flex; flex-direction:column; border-top:1px solid #f2f0ea; border-right:1px solid #f2f0ea">
+  </div>
+  <div id="e7-1uykr3w" style="position:absolute; bottom:56px; left:56px; width:32px; height:32px; display:flex; flex-direction:column; border-bottom:1px solid #f2f0ea; border-left:1px solid #f2f0ea">
+  </div>
+  <div id="e8-1uykr3w" style="position:absolute; right:56px; bottom:56px; width:32px; height:32px; display:flex; flex-direction:column; border-right:1px solid #f2f0ea; border-bottom:1px solid #f2f0ea">
+  </div>
+  <div id="pc00711268490r0-39345ceb" style="position:absolute; top:88px; left:112px; width:1696px; height:34px; display:flex; flex-direction:row; justify-content:space-between">
+    <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#8e8e88">QUEM ENTRA NA EQUIPE</p>
+    <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#8e8e88">16 / GYULYIA®</p>
+  </div>
+  <h2 id="pc00711268490r1-39345ceb" style="position:absolute; top:150px; left:112px; width:1696px; font-family:'Martian Mono', 'Courier New', monospace; font-size:60px; font-weight:500; line-height:1.2; letter-spacing:4px; color:#f2f0ea">TECHNICAL ARTIST EM METAHUMAN</h2>
+  <p id="pc00711268490r2-39345ceb" style="position:absolute; top:250px; left:112px; width:1690px; font-family:'Helvetica Neue', Arial, sans-serif; font-size:30px; line-height:1.4; color:#f2f0ea">Proponho contratar um MetaHuman Technical Artist especisalizado em Metahuman para auxiliar na auditoria, testes e pipelines que exigem conhecimento técnico AAA.</p>
+  <div id="pc00711268490r3-39345ceb" style="position:absolute; top:392px; left:112px; width:1696px; height:510px; display:flex; flex-direction:row; gap:56px">
+    <div style="display:flex; flex-direction:column; gap:14px; flex:1; padding:24px 0 0; border-top:1px solid #39ff88">
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#39ff88">TECHNICAL ARTIST</p>
+      <ul style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:30px; line-height:1.4; color:#f2f0ea">
+        <li>Inspeciona Skeleton, DNA, morph targets e LODs do Mr. Photon.</li>
+        <li>Mapeia as curvas faciais ao rig e configura o MetaHuman Performance.</li>
+        <li>Valida o IK Rig e o IK Retargeter</li>
+        <li>Resolve poses de mãos.</li>
+      </ul>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:14px; flex:1; padding:24px 0 0; border-top:1px solid #f2f0ea">
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#8e8e88">GYULYIA</p>
+      <ul style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:30px; line-height:1.4; color:#f2f0ea">
+        <li>Recebe o Animation Sequence no Level Sequence.</li>
+        <li>Camera Cuts, luz, fog volumétrico e cenário.</li>
+        <li>Limpeza de curvas e Control Rig em camadas.</li>
+        <li>Movie Render Queue em EXR ou ProRes.</li>
+        <li>Entrega ao editor do Premiere.</li>
+      </ul>
+    </div>
+  </div>
+  
+</section>
+</div></div>
+<div class="sw" data-i="17" id="s-responsab"><div class="deck-slide"><section tabindex="-1" id="responsab" data-transition="fade" style="background:#000000">
+  <p id="e1-ihl5qw" style="position:absolute; top:938px; left:112px; width:1696px; font-family:'Helvetica Neue', Arial, sans-serif; font-size:17px; line-height:1.35; color:#8e8e88">GLOSSÁRIO — <i>Gate</i>: aprovação antes de seguir · <i>Animation Sequence</i>: arquivo de animação do Unreal · <i>Skeleton, DNA</i>: estrutura do rig · <i>Level Sequence</i>: linha do tempo do Unreal</p>
+  <p id="e2-ihl5qw" style="position:absolute; bottom:56px; left:112px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:1px; color:#8e8e88">ORÇAMENTO, PRAZO E LIMITES: A DEFINIR COM O PRODUTOR</p>
+  <p id="e3-ihl5qw" style="position:absolute; right:112px; bottom:56px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:1px; color:#8e8e88">GYULYIA3D@GMAIL.COM</p>
+  <div id="e4-ihl5qw" style="position:absolute; right:112px; bottom:100px; left:112px; height:1px; display:flex; flex-direction:column; background:#3a3a37">
+  </div>
+  <div id="e5-ihl5qw" style="position:absolute; top:56px; left:56px; width:32px; height:32px; display:flex; flex-direction:column; border-top:1px solid #f2f0ea; border-left:1px solid #f2f0ea">
+  </div>
+  <div id="e6-ihl5qw" style="position:absolute; top:56px; right:56px; width:32px; height:32px; display:flex; flex-direction:column; border-top:1px solid #f2f0ea; border-right:1px solid #f2f0ea">
+  </div>
+  <div id="e7-ihl5qw" style="position:absolute; bottom:56px; left:56px; width:32px; height:32px; display:flex; flex-direction:column; border-bottom:1px solid #f2f0ea; border-left:1px solid #f2f0ea">
+  </div>
+  <div id="e8-ihl5qw" style="position:absolute; right:56px; bottom:56px; width:32px; height:32px; display:flex; flex-direction:column; border-right:1px solid #f2f0ea; border-bottom:1px solid #f2f0ea">
+  </div>
+  <div id="p38b126453b48r0-2659e5e3" style="position:absolute; top:88px; left:112px; width:1696px; height:34px; display:flex; flex-direction:row; justify-content:space-between">
+    <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#8e8e88">QUEM FAZ O QUÊ</p>
+    <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#8e8e88">17 / GYULYIA®</p>
+  </div>
+  <h2 id="p38b126453b48r1-2659e5e3" style="position:absolute; top:150px; left:112px; width:1696px; font-family:'Martian Mono', 'Courier New', monospace; font-size:56px; font-weight:500; line-height:1.2; letter-spacing:4px; color:#f2f0ea">RESPONSABILIDADES E PERGUNTAS</h2>
+  <div id="p38b126453b48r2-2659e5e3" style="position:absolute; top:245px; left:112px; width:1696px; height:588px; display:flex; flex-direction:row; gap:76px">
+    <table style="width:920px; font-family:'Helvetica Neue', Arial, sans-serif; font-size:29px; line-height:1.25; color:#f2f0ea">
+      <tr><th style="padding:10px 16px; width:34%; color:#8e8e88">Quem</th><th style="padding:10px 16px; width:66%; color:#8e8e88">Responsabilidade</th></tr>
+      <tr><td style="padding:10px 16px">Produtor e cliente</td><td style="padding:10px 16px">Roteiro, aprovação por gate, entrega do projeto e do rig</td></tr>
+      <tr><td style="padding:10px 16px">Eduardo</td><td style="padding:10px 16px">Voz e atuação nos takes do padrão combinado</td></tr>
+      <tr><td style="padding:10px 16px">Technical Artist</td><td style="padding:10px 16px">Skeleton, DNA, captura, retarget e limpeza</td></tr>
+      <tr><td style="padding:10px 16px">Gyulyia</td><td style="padding:10px 16px">Direção Técnica e Lookdev, Animation Sequence, Level Sequence, Câmera, Luz, e Render</td></tr>
+      <tr><td style="padding:10px 16px">Editor (Premiere)</td><td style="padding:10px 16px">Montagem, cor e áudio</td></tr>
+    </table>
+    <div style="width:700px; display:flex; flex-direction:column; min-height:588px; padding:24px 0 0; border-top:1px solid #39ff88">
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#39ff88">PERGUNTAS AO CLIENTE</p>
+    </div>
+  </div>
+  <ul id="p38b126453b48r2_1_1-2659e5e3" style="position:absolute; top:317.59px; left:1108px; width:700px; height:309.41px; font-family:'Helvetica Neue', Arial, sans-serif; font-size:30px; line-height:1.35; color:#f2f0ea">
+    <li>Prazo do piloto e episódios por mês.</li>
+    <li>Roteiro e duração por episódio.</li>
+    <li>Análise do projeto Metahuman</li>
+  </ul>
+  
+</section>
+</div></div>
+<div class="sw" data-i="18" id="s-oferta"><div class="deck-slide"><section tabindex="-1" id="oferta" data-transition="fade" style="display:flex; flex-direction:column; gap:26px; padding:88px 112px 160px; background:#f2f0ea">
+  <div style="display:flex; flex-direction:row; justify-content:space-between">
+    <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#55554f">A PROPOSTA DE INÍCIO</p>
+    <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#55554f">18 / GYULYIA®</p>
+  </div>
+  <h2 style="font-family:'Martian Mono', 'Courier New', monospace; font-size:60px; font-weight:500; line-height:1.2; letter-spacing:4px; color:#000000">AUDITORIA GRATUITA E TESTE PAGO</h2>
+  <div style="display:flex; flex-direction:row; gap:72px">
+    <div style="display:flex; flex-direction:column; gap:8px; flex:1; padding:22px 0 0; border-top:3px solid #007a3d">
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#007a3d">AUDITORIA — SEM CUSTO</p>
+      <p style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:32px; font-weight:700; color:#000000">Revisão do projeto em cópia</p>
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#007a3d">ENTRA</p>
+      <ul style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:25px; line-height:1.3; color:#000000">
+        <li>Cópia do projeto, versão do UE, arquivos do teste Rokoko.</li>
+      </ul>
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#007a3d">VERIFICA</p>
+      <ul style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:25px; line-height:1.3; color:#000000">
+        <li>Skeleton: padrão MetaHuman ou custom; ossos extras (cauda, guelras).</li>
+        <li>Versão do DNA e necessidade de ConvertLegacyDNAAssets (-DryRun).</li>
+        <li>Curvas faciais, morph targets, RigLogic, LODs e groom.</li>
+      </ul>
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#007a3d">ENTREGA</p>
+      <ul style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:25px; line-height:1.3; color:#000000">
+        <li>Relatório de compatibilidade e gate G1: rig aprovado ou lista de correções.</li>
+      </ul>
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#007a3d">FORA</p>
+      <ul style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:25px; line-height:1.3; color:#000000">
+        <li>Alterar o original; produzir animação.</li>
+      </ul>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:8px; flex:1; padding:22px 0 0; border-top:3px solid #000000">
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#000000">TESTE DE CAPTURA — PAGO</p>
+      <p style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:32px; font-weight:700; color:#000000">Os três fluxos com o Mr. Photon</p>
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#000000">ENTRA</p>
+      <ul style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:25px; line-height:1.3; color:#000000">
+        <li>8 clipes de 10 a 20 s do Eduardo, 3 repetições por fluxo.</li>
+      </ul>
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#000000">FAZ</p>
+      <ul style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:25px; line-height:1.3; color:#000000">
+        <li>A: Rokoko Create + Live Link Face. B: Markerless 5.8 no MetaHuman Performance. C: rosto separado, mãos a parte</li>
+        <li>Export Animation, IK Retargeter se custom, limpeza no Sequencer, render no Movie Render Queue.</li>
+      </ul>
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#000000">ENTREGA</p>
+      <ul style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:25px; line-height:1.3; color:#000000">
+        <li>Animation Sequence por fluxo, vídeo renderizado, relatório (minutos de limpeza por segundo, jitter, foot sliding, dedos) e recomendação.</li>
+      </ul>
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#000000">FORA</p>
+      <ul style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:25px; line-height:1.3; color:#000000">
+        <li>Episódio completo, novos assets, rigging.</li>
+      </ul>
+    </div>
+  </div>
+  <p style="position:absolute; bottom:56px; left:112px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:1px; color:#55554f">HORAS, PRAZO E VALOR DO TESTE: A DEFINIR APÓS A AUDITORIA</p>
+  <p style="position:absolute; right:112px; bottom:56px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:1px; color:#55554f">GYULYIA3D@GMAIL.COM</p>
+  <p style="position:absolute; top:938px; left:112px; width:1696px; font-family:'Helvetica Neue', Arial, sans-serif; font-size:17px; line-height:1.35; color:#55554f">GLOSSÁRIO — <i>ConvertLegacyDNAAssets</i>: atualiza DNA antigo · <i>-DryRun</i>: simula sem alterar · <i>LODs</i>: níveis de detalhe da malha · <i>Groom</i>: cabelo e pelo</p>
+  <div style="position:absolute; right:112px; bottom:100px; left:112px; height:1px; display:flex; flex-direction:column; background:#bdbab0">
+  </div>
+  <div style="position:absolute; top:56px; left:56px; width:32px; height:32px; display:flex; flex-direction:column; border-top:1px solid #000000; border-left:1px solid #000000">
+  </div>
+  <div style="position:absolute; top:56px; right:56px; width:32px; height:32px; display:flex; flex-direction:column; border-top:1px solid #000000; border-right:1px solid #000000">
+  </div>
+  <div style="position:absolute; bottom:56px; left:56px; width:32px; height:32px; display:flex; flex-direction:column; border-bottom:1px solid #000000; border-left:1px solid #000000">
+  </div>
+  <div style="position:absolute; right:56px; bottom:56px; width:32px; height:32px; display:flex; flex-direction:column; border-right:1px solid #000000; border-bottom:1px solid #000000">
+  </div>
+  
+</section>
+</div></div>
+<div class="sw" data-i="19" id="s-protocolo"><div class="deck-slide"><section tabindex="-1" id="protocolo" data-transition="fade" style="display:flex; flex-direction:column; gap:26px; padding:88px 112px 160px; background:#f2f0ea">
+  <div style="display:flex; flex-direction:row; justify-content:space-between">
+    <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#55554f">PROTOCOLO DE TESTE</p>
+    <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#55554f">19 / GYULYIA®</p>
+  </div>
+  <h2 style="font-family:'Martian Mono', 'Courier New', monospace; font-size:60px; font-weight:500; line-height:1.2; letter-spacing:4px; color:#000000">8 CLIPES, UMA DECISÃO</h2>
+  <div style="display:flex; flex-direction:row; gap:56px">
+    <table style="width:1040px; font-family:'Helvetica Neue', Arial, sans-serif; font-size:30px; line-height:1.25; color:#000000">
+      <tr><th style="padding:5px 16px; width:8%; color:#55554f">#</th><th style="padding:5px 16px; width:52%; color:#55554f">Clipe de 20 a 30 s</th><th style="padding:5px 16px; width:40%; color:#55554f">O que revela</th></tr>
+      <tr><td style="padding:5px 16px">01</td><td style="padding:5px 16px">Em pé, fala neutra</td><td style="padding:5px 16px">Linha de base e ruído</td></tr>
+      <tr><td style="padding:5px 16px">02</td><td style="padding:5px 16px">Fala caricata, gestos largos</td><td style="padding:5px 16px">Amplitude de braços</td></tr>
+      <tr><td style="padding:5px 16px">03</td><td style="padding:5px 16px">Mãos em primeiro plano, contar de 1 a 5</td><td style="padding:5px 16px">Dedos: existe ou não</td></tr>
+      <tr><td style="padding:5px 16px">04</td><td style="padding:5px 16px">Mãos cruzadas, apontar, segurar objeto</td><td style="padding:5px 16px">Oclusão de mãos</td></tr>
+      <tr><td style="padding:5px 16px">05</td><td style="padding:5px 16px">Girar 180 graus e voltar</td><td style="padding:5px 16px">Tronco em oclusão</td></tr>
+      <tr><td style="padding:5px 16px">06</td><td style="padding:5px 16px">Caminhar no lugar, dois passos</td><td style="padding:5px 16px">Foot sliding, root motion</td></tr>
+      <tr><td style="padding:5px 16px">07</td><td style="padding:5px 16px">Agachar e levantar</td><td style="padding:5px 16px">Pelve e joelhos</td></tr>
+      <tr><td style="padding:5px 16px">08</td><td style="padding:5px 16px">Corpo+rosto, rosto pequeno no quadro</td><td style="padding:5px 16px">Small Face Detector e Solver</td></tr>
+    </table>
+    <div style="width:600px; display:flex; flex-direction:column; gap:16px; padding:18px 0 0; border-top:1px solid #000000">
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#007a3d">MEDIR</p>
+      <p style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:30px; line-height:1.35; color:#000000">Tempo de solve por minuto de vídeo, RAM e VRAM de pico, jitter, foot sliding em cm, dedos corretos de 0 a 5, sincronia com o áudio.</p>
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#007a3d">DECIDIR</p>
+      <p style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:30px; line-height:1.35; color:#000000">Mãos falham: luvas ou poses. Corpo falha: Rokoko. Tudo passa: markerless com Rokoko de reserva.</p>
+    </div>
+  </div>
+  <p style="position:absolute; bottom:56px; left:112px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:1px; color:#55554f">LIMIARES DE ACEITE: A DEFINIR COM O PRODUTOR</p>
+  <p style="position:absolute; right:112px; bottom:56px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:1px; color:#55554f">GYULYIA3D@GMAIL.COM</p>
+  <p style="position:absolute; top:938px; left:112px; width:1696px; font-family:'Helvetica Neue', Arial, sans-serif; font-size:17px; line-height:1.35; color:#55554f">GLOSSÁRIO — <i>Foot sliding</i>: pé deslizando no chão · <i>Jitter</i>: tremor na animação · <i>Oclusão</i>: parte do corpo escondida · <i>Root motion</i>: deslocamento do corpo · <i>VRAM</i>: memória da placa de vídeo</p>
+  <div style="position:absolute; right:112px; bottom:100px; left:112px; height:1px; display:flex; flex-direction:column; background:#bdbab0">
+  </div>
+  <div style="position:absolute; top:56px; left:56px; width:32px; height:32px; display:flex; flex-direction:column; border-top:1px solid #000000; border-left:1px solid #000000">
+  </div>
+  <div style="position:absolute; top:56px; right:56px; width:32px; height:32px; display:flex; flex-direction:column; border-top:1px solid #000000; border-right:1px solid #000000">
+  </div>
+  <div style="position:absolute; bottom:56px; left:56px; width:32px; height:32px; display:flex; flex-direction:column; border-bottom:1px solid #000000; border-left:1px solid #000000">
+  </div>
+  <div style="position:absolute; right:56px; bottom:56px; width:32px; height:32px; display:flex; flex-direction:column; border-right:1px solid #000000; border-bottom:1px solid #000000">
+  </div>
+  
+</section>
+</div></div>
+<div class="sw" data-i="20" id="s-decisao"><div class="deck-slide"><section tabindex="-1" id="decisao" data-transition="fade" style="display:flex; flex-direction:column; gap:28px; padding:88px 112px 160px; background:#f2f0ea">
+  <div style="display:flex; flex-direction:row; justify-content:space-between">
+    <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#55554f">COMO DECIDIMOS</p>
+    <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#55554f">20 / GYULYIA®</p>
+  </div>
+  <h2 style="font-family:'Martian Mono', 'Courier New', monospace; font-size:60px; font-weight:500; line-height:1.2; letter-spacing:4px; color:#000000">O QUE PESA NA ESCOLHA</h2>
+  <div style="display:flex; flex-direction:column; gap:20px">
+    <div style="display:flex; flex-direction:row; gap:24px; align-items:center">
+      <p style="width:900px; font-family:'Martian Mono', 'Courier New', monospace; font-size:32px; color:#000000">Qualidade facial (curvas, boca, olhos)</p>
+      <div style="width:600px; height:42px; display:flex; flex-direction:column; background:#000000">
+      </div>
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:32px; font-weight:600; color:#000000">20</p>
+    </div>
+    <div style="display:flex; flex-direction:row; gap:24px; align-items:center">
+      <p style="width:900px; font-family:'Martian Mono', 'Courier New', monospace; font-size:32px; color:#000000">Qualidade corporal (Body Tracking, root)</p>
+      <div style="width:600px; height:42px; display:flex; flex-direction:column; background:#000000">
+      </div>
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:32px; font-weight:600; color:#000000">20</p>
+    </div>
+    <div style="display:flex; flex-direction:row; gap:24px; align-items:center">
+      <p style="width:900px; font-family:'Martian Mono', 'Courier New', monospace; font-size:32px; color:#000000">Compatibilidade Skeleton e DNA</p>
+      <div style="width:600px; height:42px; display:flex; flex-direction:column; background:#007a3d">
+      </div>
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:32px; font-weight:600; color:#000000">20</p>
+    </div>
+    <div style="display:flex; flex-direction:row; gap:24px; align-items:center">
+      <p style="width:900px; font-family:'Martian Mono', 'Courier New', monospace; font-size:32px; color:#000000">Mãos (dedos, poses)</p>
+      <div style="width:300px; height:42px; display:flex; flex-direction:column; background:#000000">
+      </div>
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:32px; font-weight:600; color:#000000">10</p>
+    </div>
+    <div style="display:flex; flex-direction:row; gap:24px; align-items:center">
+      <p style="width:900px; font-family:'Martian Mono', 'Courier New', monospace; font-size:32px; color:#000000">Repetibilidade entre takes</p>
+      <div style="width:300px; height:42px; display:flex; flex-direction:column; background:#000000">
+      </div>
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:32px; font-weight:600; color:#000000">10</p>
+    </div>
+    <div style="display:flex; flex-direction:row; gap:24px; align-items:center">
+      <p style="width:900px; font-family:'Martian Mono', 'Courier New', monospace; font-size:32px; color:#000000">Minutos de limpeza por segundo</p>
+      <div style="width:300px; height:42px; display:flex; flex-direction:column; background:#000000">
+      </div>
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:32px; font-weight:600; color:#000000">10</p>
+    </div>
+    <div style="display:flex; flex-direction:row; gap:24px; align-items:center">
+      <p style="width:900px; font-family:'Martian Mono', 'Courier New', monospace; font-size:32px; color:#000000">Custo e requisitos de hardware</p>
+      <div style="width:150px; height:42px; display:flex; flex-direction:column; background:#000000">
+      </div>
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:32px; font-weight:600; color:#000000">5</p>
+    </div>
+    <div style="display:flex; flex-direction:row; gap:24px; align-items:center">
+      <p style="width:900px; font-family:'Martian Mono', 'Courier New', monospace; font-size:32px; color:#000000">Escala para muitos episódios</p>
+      <div style="width:150px; height:42px; display:flex; flex-direction:column; background:#000000">
+      </div>
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:32px; font-weight:600; color:#000000">5</p>
+    </div>
+  </div>
+  <p style="width:1500px; font-family:'Helvetica Neue', Arial, sans-serif; font-size:30px; line-height:1.4; color:#55554f">Pesos iniciais, somam 100, cada fluxo recebe nota de 0 a 5 em cada critério depois do teste.</p>
+  <p style="position:absolute; bottom:56px; left:112px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:1px; color:#55554f">PESOS: PROPOSTA INICIAL, NÃO DADO MEDIDO</p>
+  <p style="position:absolute; right:112px; bottom:56px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:1px; color:#55554f">GYULYIA3D@GMAIL.COM</p>
+  <p style="position:absolute; top:938px; left:112px; width:1696px; font-family:'Helvetica Neue', Arial, sans-serif; font-size:17px; line-height:1.35; color:#55554f">GLOSSÁRIO — <i>Repetibilidade</i>: resultado estável · <i>Skeleton, DNA</i>: estrutura do rig · <i>Limpeza</i>: correção manual de curvas · <i>Peso</i>: importância do critério</p>
+  <div style="position:absolute; right:112px; bottom:100px; left:112px; height:1px; display:flex; flex-direction:column; background:#bdbab0">
+  </div>
+  <div style="position:absolute; top:56px; left:56px; width:32px; height:32px; display:flex; flex-direction:column; border-top:1px solid #000000; border-left:1px solid #000000">
+  </div>
+  <div style="position:absolute; top:56px; right:56px; width:32px; height:32px; display:flex; flex-direction:column; border-top:1px solid #000000; border-right:1px solid #000000">
+  </div>
+  <div style="position:absolute; bottom:56px; left:56px; width:32px; height:32px; display:flex; flex-direction:column; border-bottom:1px solid #000000; border-left:1px solid #000000">
+  </div>
+  <div style="position:absolute; right:56px; bottom:56px; width:32px; height:32px; display:flex; flex-direction:column; border-right:1px solid #000000; border-bottom:1px solid #000000">
+  </div>
+  
+</section>
+</div></div>
+<div class="sw" data-i="21" id="s-riscos"><div class="deck-slide"><section tabindex="-1" id="riscos" data-transition="fade" style="display:flex; flex-direction:column; gap:28px; padding:88px 112px 160px; background:#000000">
+  <div style="display:flex; flex-direction:row; justify-content:space-between">
+    <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#8e8e88">RISCOS E SOLUÇÕES</p>
+    <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#8e8e88">21 / GYULYIA®</p>
+  </div>
+  <h2 style="font-family:'Martian Mono', 'Courier New', monospace; font-size:56px; font-weight:500; line-height:1.2; letter-spacing:4px; color:#f2f0ea">O QUE PODE FALHAR</h2>
+  <table style="width:1696px; font-family:'Helvetica Neue', Arial, sans-serif; font-size:29px; line-height:1.25; color:#f2f0ea">
+    <tr><th style="padding:12px 16px; width:20%; color:#8e8e88">Risco</th><th style="padding:12px 16px; width:37%; color:#8e8e88">Causa</th><th style="padding:12px 16px; width:43%; color:#8e8e88">Solução</th></tr>
+    <tr><td style="padding:12px 16px">Dedos</td><td style="padding:12px 16px">A documentação do markerless não cobre mãos</td><td style="padding:12px 16px">Clipe 03 do protocolo; Smartgloves; poses no Control Rig</td></tr>
+    <tr><td style="padding:12px 16px">Cauda (se houver)</td><td style="padding:12px 16px">Captura humana não tem chain Tail</td><td style="padding:12px 16px">IK Goal e física, ou keyframes no Sequencer</td></tr>
+    <tr><td style="padding:12px 16px">Pés flutuando</td><td style="padding:12px 16px">Vídeo mono sem contato com o chão</td><td style="padding:12px 16px">IK de pé na camada do Control Rig</td></tr>
+    <tr><td style="padding:12px 16px">Rig fora do padrão</td><td style="padding:12px 16px">Skeleton ou DNA diferentes do MetaHuman</td><td style="padding:12px 16px">Auditoria em cópia; IK Retargeter; Technical Artist</td></tr>
+    <tr><td style="padding:12px 16px">DNA antigo</td><td style="padding:12px 16px">Personagem montado antes do 5.8</td><td style="padding:12px 16px">ConvertLegacyDNAAssets (-DryRun), re-cook, em cópia</td></tr>
+    <tr><td style="padding:12px 16px">Recurso experimental</td><td style="padding:12px 16px">O markerless pode mudar ou sair</td><td style="padding:12px 16px">Congelar a versão do UE; Rokoko como plano B</td></tr>
+    <tr><td style="padding:12px 16px">Limpeza sem teto</td><td style="padding:12px 16px">Animação com ruído exige muito ajuste manual</td><td style="padding:12px 16px">Medir minutos por segundo aprovado; limite de revisões</td></tr>
+  </table>
+  <p style="position:absolute; top:938px; left:112px; width:1696px; font-family:'Helvetica Neue', Arial, sans-serif; font-size:17px; line-height:1.35; color:#8e8e88">GLOSSÁRIO — <i>Chain Tail</i>: cadeia de ossos da cauda no IK Rig · <i>IK Goal</i>: alvo que guia a posição de um membro · <i>Control Rig</i>: rig de animação do Unreal · <i>Re-cook</i>: empacotar de novo os assets do projeto</p>
+  <p style="position:absolute; bottom:56px; left:112px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:1px; color:#8e8e88">GYULYIA.COM · 2026 · SÃO PAULO / REMOTO</p>
+  <p style="position:absolute; right:112px; bottom:56px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:1px; color:#8e8e88">GYULYIA3D@GMAIL.COM</p>
+  <div style="position:absolute; right:112px; bottom:100px; left:112px; height:1px; display:flex; flex-direction:column; background:#3a3a37">
+  </div>
+  <div style="position:absolute; top:56px; left:56px; width:32px; height:32px; display:flex; flex-direction:column; border-top:1px solid #f2f0ea; border-left:1px solid #f2f0ea">
+  </div>
+  <div style="position:absolute; top:56px; right:56px; width:32px; height:32px; display:flex; flex-direction:column; border-top:1px solid #f2f0ea; border-right:1px solid #f2f0ea">
+  </div>
+  <div style="position:absolute; bottom:56px; left:56px; width:32px; height:32px; display:flex; flex-direction:column; border-bottom:1px solid #f2f0ea; border-left:1px solid #f2f0ea">
+  </div>
+  <div style="position:absolute; right:56px; bottom:56px; width:32px; height:32px; display:flex; flex-direction:column; border-right:1px solid #f2f0ea; border-bottom:1px solid #f2f0ea">
+  </div>
+  
+</section>
+</div></div>
+<div class="sw" data-i="22" id="s-atuacao"><div class="deck-slide"><section tabindex="-1" id="atuacao" data-transition="fade" style="display:flex; flex-direction:column; gap:32px; padding:88px 112px 160px; background:#f2f0ea">
+  <div style="display:flex; flex-direction:row; justify-content:space-between">
+    <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#55554f">COMO EU VOU ATUAR</p>
+    <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#55554f">22 / GYULYIA®</p>
+  </div>
+  <h2 style="font-family:'Martian Mono', 'Courier New', monospace; font-size:60px; font-weight:500; line-height:1.2; letter-spacing:4px; color:#000000">CENA, LUZ E ENTREGA</h2>
+  <div style="display:flex; flex-direction:row; border-top:1px solid #000000">
+    <div style="display:flex; flex-direction:column; gap:16px; flex:1; padding:32px 40px 0 0">
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#007a3d">CINEMATICS</p>
+      <p style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:30px; line-height:1.4; color:#000000">Cine Camera Actors, lentes, enquadramento e movimento de câmera por tomada, com Camera Cuts no Level Sequence.</p>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:16px; flex:1; padding:32px 40px 0; border-left:1px solid #bdbab0">
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#007a3d">SEQUENCER</p>
+      <p style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:30px; line-height:1.4; color:#000000">Level Sequence reúne animação, áudio e câmeras. Limpeza de curvas no Curve Editor e correções no Control Rig em camadas.</p>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:16px; flex:1; padding:32px 0 0 40px; border-left:1px solid #bdbab0">
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#007a3d">LOOKDEV</p>
+      <p style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:30px; line-height:1.4; color:#000000">Post Process Volume, fog volumétrico, Lumen, caustics por light function e Niagara. A identidade visual da série.</p>
+    </div>
+  </div>
+  <p style="width:1709px; font-family:'Helvetica Neue', Arial, sans-serif; font-size:30px; line-height:1.4; text-align:justify; color:#000000">Render final no Movie Render Queue, em EXR ou ProRes, na ficha de entrega combinada com o editor do Premiere.</p>
+  <p style="position:absolute; bottom:56px; left:112px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:1px; color:#55554f">GYULYIA.COM · 2026 · SÃO PAULO / REMOTO</p>
+  <p style="position:absolute; right:112px; bottom:56px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:1px; color:#55554f">GYULYIA3D@GMAIL.COM</p>
+  <p style="position:absolute; top:938px; left:112px; width:1696px; font-family:'Helvetica Neue', Arial, sans-serif; font-size:17px; line-height:1.35; color:#55554f">GLOSSÁRIO — <i>Camera Cuts</i>: trilha de cortes entre câmeras · <i>Curve Editor</i>: editor de curvas · <i>Control Rig em camadas</i>: corrige sem apagar o original · <i>MRQ</i>: render por fila</p>
+  <div style="position:absolute; right:112px; bottom:100px; left:112px; height:1px; display:flex; flex-direction:column; background:#bdbab0">
+  </div>
+  <div style="position:absolute; top:56px; left:56px; width:32px; height:32px; display:flex; flex-direction:column; border-top:1px solid #000000; border-left:1px solid #000000">
+  </div>
+  <div style="position:absolute; top:56px; right:56px; width:32px; height:32px; display:flex; flex-direction:column; border-top:1px solid #000000; border-right:1px solid #000000">
+  </div>
+  <div style="position:absolute; bottom:56px; left:56px; width:32px; height:32px; display:flex; flex-direction:column; border-bottom:1px solid #000000; border-left:1px solid #000000">
+  </div>
+  <div style="position:absolute; right:56px; bottom:56px; width:32px; height:32px; display:flex; flex-direction:column; border-right:1px solid #000000; border-bottom:1px solid #000000">
+  </div>
+  
+</section>
+</div></div>
+<div class="sw" data-i="23" id="s-lookdev"><div class="deck-slide"><section tabindex="-1" id="lookdev" data-transition="fade" style="display:flex; flex-direction:column; gap:28px; padding:88px 112px 160px; background:#000000">
+  <div style="display:flex; flex-direction:row; justify-content:space-between">
+    <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#8e8e88">LOOKDEV SUBMARINO</p>
+    <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#8e8e88">23 / GYULYIA®</p>
+  </div>
+  <h2 style="font-family:'Martian Mono', 'Courier New', monospace; font-size:60px; font-weight:500; line-height:1.2; letter-spacing:4px; color:#f2f0ea">RENDERS SUBMERSOS</h2>
+  <div style="display:flex; flex-direction:row; gap:56px">
+    <table style="width:960px; font-family:'Helvetica Neue', Arial, sans-serif; font-size:31px; line-height:1.3; color:#f2f0ea">
+      <tr><th style="padding:12px 16px; width:34%; color:#8e8e88">Efeito</th><th style="padding:12px 16px; width:66%; color:#8e8e88">Ferramenta</th></tr>
+      <tr><td style="padding:12px 16px">Cor de profundidade</td><td style="padding:12px 16px">Post Process Volume: color grading e contraste</td></tr>
+      <tr><td style="padding:12px 16px">Atmosfera</td><td style="padding:12px 16px">Exponential Height Fog e fog volumétrico (god rays)</td></tr>
+      <tr><td style="padding:12px 16px">Caustics</td><td style="padding:12px 16px">Light function projetando padrão animado</td></tr>
+      <tr><td style="padding:12px 16px">Iluminação global</td><td style="padding:12px 16px">Lumen</td></tr>
+      <tr><td style="padding:12px 16px">Cardumes e plâncton</td><td style="padding:12px 16px">Niagara</td></tr>
+      <tr><td style="padding:12px 16px">Pele reptiliana</td><td style="padding:12px 16px">Normal map, rugosidade e texturas não-bakeadas (MetaHuman 5.8)</td></tr>
+    </table>
+    <div style="width:680px; display:flex; flex-direction:column; gap:14px">
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#8e8e88">ZONAS DE PROFUNDIDADE (CONVENÇÃO DA SÉRIE)</p>
+      <div style="height:84px; display:flex; flex-direction:row">
+        <div style="display:flex; flex-direction:column; flex:1; background:#7fd6c8">
+        </div>
+        <div style="display:flex; flex-direction:column; flex:1; background:#2e9c9a">
+        </div>
+        <div style="display:flex; flex-direction:column; flex:1; background:#1b5e86">
+        </div>
+        <div style="display:flex; flex-direction:column; flex:1; background:#0e2442; border:1px solid #3a3a37">
+        </div>
+      </div>
+      <div style="display:flex; flex-direction:row">
+        <p style="flex:1; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; color:#f2f0ea">A</p>
+        <p style="flex:1; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; color:#f2f0ea">B</p>
+        <p style="flex:1; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; color:#f2f0ea">C</p>
+        <p style="flex:1; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; color:#f2f0ea">D</p>
+      </div>
+      <p style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:31px; line-height:1.35; color:#8e8e88">A superfície turquesa, B recife, C mar aberto, D fundo. Quanto mais fundo, menos vermelho.</p>
+    </div>
+  </div>
+  <p style="position:absolute; bottom:56px; left:112px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:1px; color:#8e8e88">NOMES DE FERRAMENTAS: UNREAL ENGINE; CORES SÃO PONTO DE PARTIDA</p>
+  <p style="position:absolute; right:112px; bottom:56px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:1px; color:#8e8e88">GYULYIA3D@GMAIL.COM</p>
+  <p style="position:absolute; top:938px; left:112px; width:1696px; font-family:'Helvetica Neue', Arial, sans-serif; font-size:17px; line-height:1.35; color:#8e8e88">GLOSSÁRIO — <i>Post Process Volume</i>: efeitos de imagem · <i>Exponential Height Fog</i>: névoa por altura · <i>Light function</i>: máscara animada de luz · <i>Lumen</i>: iluminação global · <i>Normal map</i>: relevo simulado</p>
+  <div style="position:absolute; right:112px; bottom:100px; left:112px; height:1px; display:flex; flex-direction:column; background:#3a3a37">
+  </div>
+  <div style="position:absolute; top:56px; left:56px; width:32px; height:32px; display:flex; flex-direction:column; border-top:1px solid #f2f0ea; border-left:1px solid #f2f0ea">
+  </div>
+  <div style="position:absolute; top:56px; right:56px; width:32px; height:32px; display:flex; flex-direction:column; border-top:1px solid #f2f0ea; border-right:1px solid #f2f0ea">
+  </div>
+  <div style="position:absolute; bottom:56px; left:56px; width:32px; height:32px; display:flex; flex-direction:column; border-bottom:1px solid #f2f0ea; border-left:1px solid #f2f0ea">
+  </div>
+  <div style="position:absolute; right:56px; bottom:56px; width:32px; height:32px; display:flex; flex-direction:column; border-right:1px solid #f2f0ea; border-bottom:1px solid #f2f0ea">
+  </div>
+  
+</section>
+</div></div>
+<div class="sw" data-i="24" id="s-escala"><div class="deck-slide"><section tabindex="-1" id="escala" data-transition="fade" style="display:flex; flex-direction:column; gap:28px; padding:88px 112px 160px; background:#f2f0ea">
+  <div style="display:flex; flex-direction:row; justify-content:space-between">
+    <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#55554f">ESCALA E NOVOS PERSONAGENS</p>
+    <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#55554f">24 / GYULYIA®</p>
+  </div>
+  <h2 style="font-family:'Martian Mono', 'Courier New', monospace; font-size:52px; font-weight:500; line-height:1.2; letter-spacing:4px; color:#000000">ESCALAR: AMBIENTES, MATERIAIS, CÂMERAS</h2>
+  <div style="display:flex; flex-direction:row; gap:28px; border-top:1px solid #000000">
+    <div style="display:flex; flex-direction:column; gap:14px; flex:1; padding:24px 0 0">
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#007a3d">REUTILIZAR</p>
+      <ul style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:31px; line-height:1.35; text-align:justify; color:#000000">
+        <li>Ambientes modulares por zona de profundidade.</li>
+        <li>Material Instances a partir de um material mestre.</li>
+        <li>Câmeras e Level Sequence modelo.</li>
+        <li>Presets de Post Process e de render.</li>
+      </ul>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:14px; flex:1; padding:24px 0 0 28px; border-left:1px solid #bdbab0">
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#007a3d">NOVOS PERSONAGENS</p>
+      <ul style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:31px; line-height:1.35; text-align:justify; color:#000000">
+        <li>MetaHuman novo reaproveita skeleton e pipeline.</li>
+        <li>Rig custom: auditoria e IK Retargeter.</li>
+        <li>Fauna: Biblioteca de assets AAA ou modelagem/texturização/rigging/animação sob demanda</li>
+      </ul>
+    </div>
+  </div>
+  <p style="position:absolute; top:938px; left:112px; width:1696px; font-family:'Helvetica Neue', Arial, sans-serif; font-size:17px; line-height:1.35; color:#55554f">GLOSSÁRIO — <i>Material Instance</i>: variação de um material mestre · <i>Level Sequence</i>: linha do tempo do Unreal · <i>Alfa</i>: canal de transparência · <i>OCIO</i>: gestão de cor padronizada</p>
+  <p style="position:absolute; bottom:56px; left:112px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:1px; color:#55554f">GYULYIA.COM · 2026 · SÃO PAULO / REMOTO</p>
+  <p style="position:absolute; right:112px; bottom:56px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:1px; color:#55554f">GYULYIA3D@GMAIL.COM</p>
+  <div style="position:absolute; right:112px; bottom:100px; left:112px; height:1px; display:flex; flex-direction:column; background:#bdbab0">
+  </div>
+  <div style="position:absolute; top:56px; left:56px; width:32px; height:32px; display:flex; flex-direction:column; border-top:1px solid #000000; border-left:1px solid #000000">
+  </div>
+  <div style="position:absolute; top:56px; right:56px; width:32px; height:32px; display:flex; flex-direction:column; border-top:1px solid #000000; border-right:1px solid #000000">
+  </div>
+  <div style="position:absolute; bottom:56px; left:56px; width:32px; height:32px; display:flex; flex-direction:column; border-bottom:1px solid #000000; border-left:1px solid #000000">
+  </div>
+  <div style="position:absolute; right:56px; bottom:56px; width:32px; height:32px; display:flex; flex-direction:column; border-right:1px solid #000000; border-bottom:1px solid #000000">
+  </div>
+  
+</section>
+</div></div>
+<div class="sw" data-i="25" id="s-proximos"><div class="deck-slide"><section tabindex="-1" id="proximos" data-transition="fade" style="background:#000000">
+  <p id="e1-11mz2po" style="position:absolute; bottom:56px; left:112px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:1px; color:#8e8e88">END OF LOG. OBRIGADA.</p>
+  <p id="e2-11mz2po" style="position:absolute; right:112px; bottom:56px; font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:1px; color:#8e8e88">GYULYIA3D@GMAIL.COM</p>
+  <p id="e3-11mz2po" style="position:absolute; top:938px; left:112px; width:1696px; font-family:'Helvetica Neue', Arial, sans-serif; font-size:17px; line-height:1.35; color:#8e8e88">GLOSSÁRIO — <i>ProRes</i>: vídeo de alta qualidade para edição · <i>EXR</i>: imagem HDR por quadro · <i>fps</i>: quadros por segundo · <i>UE, DNA</i>: versão do motor e do rig</p>
+  <div id="e4-11mz2po" style="position:absolute; right:112px; bottom:100px; left:112px; height:1px; display:flex; flex-direction:column; background:#3a3a37">
+  </div>
+  <div id="e5-11mz2po" style="position:absolute; top:56px; left:56px; width:32px; height:32px; display:flex; flex-direction:column; border-top:1px solid #f2f0ea; border-left:1px solid #f2f0ea">
+  </div>
+  <div id="e6-11mz2po" style="position:absolute; top:56px; right:56px; width:32px; height:32px; display:flex; flex-direction:column; border-top:1px solid #f2f0ea; border-right:1px solid #f2f0ea">
+  </div>
+  <div id="e7-11mz2po" style="position:absolute; bottom:56px; left:56px; width:32px; height:32px; display:flex; flex-direction:column; border-bottom:1px solid #f2f0ea; border-left:1px solid #f2f0ea">
+  </div>
+  <div id="e8-11mz2po" style="position:absolute; right:56px; bottom:56px; width:32px; height:32px; display:flex; flex-direction:column; border-right:1px solid #f2f0ea; border-bottom:1px solid #f2f0ea">
+  </div>
+  <div id="p60836c4caab0r0-c80dc5c6" style="position:absolute; top:88px; left:112px; width:1696px; height:34px; display:flex; flex-direction:row; justify-content:space-between">
+    <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#8e8e88">PRÓXIMOS PASSOS</p>
+    <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#8e8e88">25 / GYULYIA®</p>
+  </div>
+  <h2 id="p60836c4caab0r1-c80dc5c6" style="position:absolute; top:158px; left:112px; width:1696px; font-family:'Martian Mono', 'Courier New', monospace; font-size:60px; font-weight:500; line-height:1.2; letter-spacing:4px; color:#f2f0ea">PARA COMEÇAR</h2>
+  <div id="p60836c4caab0r2-c80dc5c6" style="position:absolute; top:266px; left:112px; width:1696px; height:247px; display:flex; flex-direction:row; gap:48px; border-top:1px solid #f2f0ea">
+    <div style="display:flex; flex-direction:column; gap:16px; flex:1; padding:28px 0 0">
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#8e8e88">NECESSÁRIO</p>
+      <ul style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:30px; line-height:1.4; color:#f2f0ea">
+        <li>Cópia do projeto do Mr. Photon.</li>
+        <li>Versão do UE e do DNA em uso.</li>
+        <li>Arquivos e plano do teste com a Rokoko.</li>
+      </ul>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:16px; flex:1; padding:28px 0 0 48px; border-left:1px solid #3a3a37">
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#8e8e88">A DEFINIR JUNTOS</p>
+      <ul style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:30px; line-height:1.4; color:#f2f0ea">
+        <li>Duração dos vídeos do Eduardo.</li>
+        <li>Episódios por mês.</li>
+        <li>Formato de entrega: ProRes ou EXR, fps.</li>
+      </ul>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:16px; flex:1; padding:28px 0 0 48px; border-left:1px solid #3a3a37">
+      <p style="font-family:'Martian Mono', 'Courier New', monospace; font-size:24px; letter-spacing:2px; color:#39ff88">EM SEGUIDA</p>
+      <ul style="font-family:'Helvetica Neue', Arial, sans-serif; font-size:30px; line-height:1.4; color:#f2f0ea">
+        <li>Proposta escrita da etapa 1.</li>
+        <li>Critérios de aceite do gate G1.</li>
+        <li>Calendário da etapa 2.</li>
+      </ul>
+    </div>
+  </div>
+  <h2 id="p60836c4caab0r3-c80dc5c6" style="position:absolute; top:693.1px; left:128px; width:1696px; font-family:'Martian Mono', 'Courier New', monospace; font-size:110px; font-weight:500; line-height:1.1; letter-spacing:4px; color:#f2f0ea">VAMOS CRIAR.</h2>
+  <p id="p60836c4caab0r4-c80dc5c6" style="position:absolute; top:814.1px; left:136.01px; width:1696px; font-family:'Martian Mono', 'Courier New', monospace; font-size:28px; letter-spacing:2px; color:#39ff88">@GYULYIA · GYULYIA.COM · GYULYIA3D@GMAIL.COM</p>
+  
+</section>
+</div></div>
+    <div class="prog" id="prog"></div>
+  </div>
+  <div class="ctrl">
+    <button class="ctl-btn single-only" id="bPrev" type="button" aria-label="Previous slide">&larr; Prev</button>
+    <button class="ctl-btn single-only" id="bPlay" type="button" aria-label="Pause slideshow">Pause</button>
+    <button class="ctl-btn single-only" id="bNext" type="button" aria-label="Next slide">Next &rarr;</button>
+    <span class="ctr single-only" id="ctr">01 / 25</span>
+    <button class="ctl-btn" id="bFs" type="button" aria-label="Full screen">Full screen</button>
   </div>
 </section>
 <footer>
@@ -241,6 +1367,56 @@ function setLang(lang){
 }
 // restore
 (function(){const l=localStorage.getItem('lang')||'en';if(l==='pt'){setLang('pt');}})();
+
+
+(function(){
+  const viewer=document.getElementById('viewer'), sws=[...viewer.querySelectorAll('.sw')], N=sws.length;
+  const ctr=document.getElementById('ctr'), prog=document.getElementById('prog'), bPlay=document.getElementById('bPlay');
+  const DUR=10000; let cur=0, playing=true, t0=performance.now(), visible=false, vidPlaying=false, list=false;
+  function scale(){sws.forEach(sw=>{const w=sw.clientWidth;const d=sw.firstElementChild;if(w)d.style.transform='scale('+(w/1920)+')';});}
+  function show(i){
+    cur=(i+N)%N; sws.forEach((s,k)=>s.classList.toggle('active',k===cur));
+    ctr.textContent=String(cur+1).padStart(2,'0')+' / '+String(N).padStart(2,'0');
+    viewer.querySelectorAll('video').forEach(v=>{if(!v.closest('.sw.active')){v.pause();}});
+    t0=performance.now();
+  }
+  function setPlaying(p){playing=p;bPlay.textContent=p?'Pause':'Play';bPlay.setAttribute('aria-label',p?'Pause slideshow':'Play slideshow');t0=performance.now();}
+  document.getElementById('bPrev').onclick=()=>show(cur-1);
+  document.getElementById('bNext').onclick=()=>show(cur+1);
+  bPlay.onclick=()=>setPlaying(!playing);
+  document.getElementById('bFs').onclick=()=>{const el=viewer; if(document.fullscreenElement){document.exitFullscreen();} else if(el.requestFullscreen){el.requestFullscreen();}};
+  function mode(l){
+    list=l; viewer.classList.toggle('list',l); viewer.classList.toggle('single',!l);
+    document.getElementById('mList').classList.toggle('active',l); document.getElementById('mSingle').classList.toggle('active',!l);
+    document.querySelectorAll('.single-only').forEach(e=>e.style.display=l?'none':'');
+    if(!l){show(cur);} else {sws.forEach(s=>s.classList.add('active'));}
+    prog.style.display=l?'none':''; requestAnimationFrame(scale);
+  }
+  document.getElementById('mSingle').onclick=()=>mode(false);
+  document.getElementById('mList').onclick=()=>mode(true);
+  document.addEventListener('keydown',e=>{
+    if(list) return;
+    if(e.key==='ArrowRight'){show(cur+1);} else if(e.key==='ArrowLeft'){show(cur-1);}
+    else if(e.key===' ' && visible && e.target.tagName!=='VIDEO' && e.target.tagName!=='BUTTON'){e.preventDefault();setPlaying(!playing);}
+  });
+  viewer.addEventListener('play',e=>{if(e.target.tagName==='VIDEO'){vidPlaying=true;}},true);
+  viewer.addEventListener('pause',e=>{if(e.target.tagName==='VIDEO'){vidPlaying=[...viewer.querySelectorAll('video')].some(v=>!v.paused&&!v.ended);}},true);
+  viewer.addEventListener('ended',e=>{vidPlaying=false;},true);
+  new IntersectionObserver(es=>{visible=es[0].isIntersecting;},{threshold:.4}).observe(viewer);
+  let sx=0; viewer.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;},{passive:true});
+  viewer.addEventListener('touchend',e=>{if(list)return;const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>60){show(cur+(dx<0?1:-1));}},{passive:true});
+  function tick(now){
+    if(!list){
+      if(playing&&visible&&!vidPlaying&&!document.hidden){
+        const p=(now-t0)/DUR; prog.style.width=Math.min(p,1)*100+'%';
+        if(p>=1){show(cur+1);}
+      } else { t0=now-(parseFloat(prog.style.width||'0')/100)*DUR; }
+    }
+    requestAnimationFrame(tick);
+  }
+  window.addEventListener('resize',scale); document.addEventListener('fullscreenchange',()=>setTimeout(scale,50));
+  show(0); scale(); requestAnimationFrame(tick);
+})();
 
 </script>
 </body>
