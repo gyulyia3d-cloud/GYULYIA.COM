@@ -4,27 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>VIDEO MAPPING 101 — GYULYIA®</title>
-<meta name="description" content="Enciclopédia teórica e prática de video mapping: fundamentos, direção de arte, técnicas, ferramentas, cases internacionais e brasileiros, carreira e mercado.">
+<meta name="description" content="E-book gratuito: direção de arte e produção profissional para projection mapping, dos fundamentos ópticos da imagem projetada ao show no Resolume Arena. Calculadoras, estudo de caso, calibration pack e checklist.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@300;400;600;800&family=Manrope:wght@200;300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@300;400;700&family=Manrope:wght@200;300;400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--black:#0a0a0a;--white:#f5f5f0;--gray:#8a8a85;--gray2:#3a3a37;--border:rgba(255,255,255,.12);--neon:#39ff14;--mono:'Martian Mono',monospace;--sans:'Manrope',sans-serif}
-html{scroll-behavior:smooth}
-html,body{min-height:100%;background:var(--black);color:var(--white);overflow-x:hidden}
-body{font-family:var(--sans);font-weight:300}
+:root{--black:#0a0a0a;--white:#f5f5f0;--gray:#888;--border:rgba(0,0,0,.1);--mono:'Martian Mono',monospace;--sans:'Manrope',sans-serif}
+html,body{height:100%;background:var(--black);color:var(--white)}
 a{text-decoration:none;color:inherit}
-::selection{background:var(--white);color:var(--black)}
-.container{max-width:1240px;margin:0 auto;padding:0 24px}
-
-/* NAV — matches site convention */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;display:grid;grid-template-columns:1fr auto 1fr auto;padding:14px 20px;gap:12px;mix-blend-mode:difference}
 .nav-col{display:flex;flex-direction:column;gap:4px}
 .nav-col.c{align-items:center}
 .nav-col.r{align-items:flex-end}
 .nav-logo{font-family:var(--mono);font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:var(--white)}
 .nav-links-row{display:flex;gap:0;align-items:center}
-.nav-links-row a,.nav-links-row span{font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:var(--white);opacity:.7;transition:opacity .2s}
+.nav-links-row a,.nav-links-row span{font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:var(--white);text-decoration:none;opacity:.7;transition:opacity .2s}
 .nav-links-row a:hover{opacity:1}
 .nav-links-row .sep{opacity:.4;margin:0 1px}
 .nav-cell{font-family:var(--mono);font-size:10px;letter-spacing:-.5px;text-transform:uppercase;color:var(--white);opacity:.6}
@@ -32,105 +26,62 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:grid;grid-template-c
 .hl::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .3s}
 .hl:hover::after{transform:scaleX(1);transform-origin:left}
 
-/* HERO w/ three.js canvas */
-.hero{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding:120px 20px 64px;border-bottom:1px solid var(--border);overflow:hidden}
-#heroCanvas{position:absolute;inset:0;z-index:0}
-.hero-scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,10,.15) 0%,rgba(10,10,10,.55) 60%,rgba(10,10,10,.92) 100%);z-index:1}
-.hero-content{position:relative;z-index:2}
-.hero-tag{font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--gray);margin-bottom:22px}
-.hero-title{font-family:var(--mono);font-weight:800;font-size:clamp(44px,9vw,128px);letter-spacing:-.03em;text-transform:uppercase;line-height:.88;margin-bottom:26px}
-.hero-title .thin{font-weight:300;color:var(--gray)}
-.hero-desc{font-family:var(--sans);font-weight:200;font-size:clamp(14px,1.6vw,19px);color:rgba(245,245,240,.75);max-width:640px;line-height:1.6}
-.scroll-cue{position:absolute;bottom:24px;left:24px;z-index:2;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);display:flex;align-items:center;gap:8px}
-.scroll-cue span{display:inline-block;width:1px;height:20px;background:var(--gray);animation:scrollpulse 1.6s ease-in-out infinite}
-@keyframes scrollpulse{0%,100%{opacity:.3}50%{opacity:1}}
+.tool-hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:100px 20px 48px;position:relative;border-bottom:1px solid rgba(255,255,255,.1);overflow:hidden}
+.tool-hero-placeholder{position:absolute;inset:0;background:radial-gradient(circle at 30% 20%,#151515 0%,#0a0a0a 70%);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.08);letter-spacing:-.5px;text-transform:uppercase}
+.tool-hero-content{position:relative;z-index:2}
+.tool-tag{font-family:var(--mono);font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:20px}
+.tool-title{font-family:var(--mono);font-size:clamp(36px,7vw,88px);letter-spacing:-.05em;text-transform:uppercase;color:var(--white);line-height:.95em;margin-bottom:32px}
+.tool-desc{font-family:var(--sans);font-size:clamp(14px,1.6vw,20px);font-weight:200;color:rgba(255,255,255,.7);max-width:640px;line-height:1.6em;text-transform:uppercase}
+.tool-hero-cta{margin-top:40px;display:flex;gap:16px;flex-wrap:wrap}
+.btn-download{font-family:var(--mono);font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:var(--black);background:var(--white);padding:16px 32px;border:1px solid var(--white);cursor:pointer;transition:background .25s,color .25s;font-weight:700}
+.btn-download:hover{background:transparent;color:var(--white)}
 
-/* SECTIONS */
-section.enc{padding:88px 0;border-bottom:1px solid var(--border)}
-.eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-bottom:16px}
-.eyebrow b{color:var(--white)}
-h2.h{font-family:var(--mono);font-weight:800;font-size:clamp(26px,4vw,46px);letter-spacing:-.02em;text-transform:uppercase;line-height:1;margin-bottom:26px}
-h3.h3{font-family:var(--mono);font-weight:600;font-size:15px;text-transform:uppercase;letter-spacing:.02em;margin:38px 0 14px}
-h4.h4{font-family:var(--mono);font-weight:600;font-size:12.5px;text-transform:uppercase;letter-spacing:.02em;margin:24px 0 10px;color:rgba(245,245,240,.85)}
-p{font-family:var(--sans);font-weight:200;font-size:15px;line-height:1.7;color:rgba(245,245,240,.78);max-width:74ch;margin-bottom:14px}
-p.lede{font-size:18px;font-weight:300;color:var(--white);max-width:78ch}
-.tag{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.07em;text-transform:uppercase;padding:2px 7px;margin:0 6px 6px 0;border:1px solid var(--gray2);color:var(--gray)}
-.tag.fact{background:var(--white);color:var(--black);border-color:var(--white);font-weight:600}
-.tag.best{border-color:var(--white);color:var(--white)}
-.tag.hyp{border-style:dotted}
-hr.hr{border:none;border-top:1px solid var(--border);margin:32px 0}
+.tool-info{padding:72px 20px;border-bottom:1px solid rgba(255,255,255,.1);background:var(--black)}
+.info-eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:24px}
+.chapters-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0;border-top:1px solid rgba(255,255,255,.1)}
+@media(max-width:700px){.chapters-grid{grid-template-columns:1fr}}
+.chapter-row{padding:18px 0;border-bottom:1px solid rgba(255,255,255,.1);display:flex;gap:16px;align-items:baseline}
+.chapter-row:nth-child(odd){padding-right:24px}
+.chapter-num{font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.3);flex-shrink:0}
+.chapter-name{font-family:var(--sans);font-size:14px;font-weight:300;text-transform:uppercase;color:rgba(255,255,255,.85);line-height:1.4em}
 
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);margin:24px 0}
-.grid2 .c{background:var(--black);padding:20px}
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin:24px 0}
-.grid3 .c{background:var(--black);padding:18px}
-.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin:24px 0}
-.grid4 .c{background:var(--black);padding:16px}
-@media(max-width:820px){.grid2,.grid3,.grid4{grid-template-columns:1fr 1fr}}
-@media(max-width:560px){.grid2,.grid3,.grid4{grid-template-columns:1fr}}
-.clabel{font-family:var(--mono);font-size:9.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--gray);margin-bottom:6px}
-.cval{font-family:var(--sans);font-size:13px;color:rgba(245,245,240,.85)}
+.tool-cta{padding:96px 20px;text-align:center;background:var(--black)}
+.tool-cta-title{font-family:var(--mono);font-size:clamp(22px,3vw,34px);letter-spacing:-.03em;text-transform:uppercase;color:var(--white);margin-bottom:16px}
+.tool-cta-sub{font-family:var(--sans);font-size:13px;font-weight:200;color:rgba(255,255,255,.5);text-transform:uppercase;margin-bottom:32px}
+.tool-cta-link{font-family:var(--mono);font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:var(--black);background:var(--white);border:1px solid var(--white);padding:16px 40px;display:inline-block;transition:background .25s,color .25s;cursor:pointer;font-weight:700}
+.tool-cta-link:hover{background:transparent;color:var(--white)}
 
-table{border-collapse:collapse;width:100%;font-size:12.5px;margin:20px 0}
-th,td{border-bottom:1px solid var(--border);padding:10px 12px;text-align:left;vertical-align:top;font-family:var(--sans);font-weight:200;color:rgba(245,245,240,.8)}
-th{font-family:var(--mono);color:var(--gray);font-weight:600;text-transform:uppercase;font-size:10px;letter-spacing:.05em}
-td b{font-weight:600;color:var(--white)}
-.oflow{overflow-x:auto}
+footer{padding:24px 20px;border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;background:var(--black)}
+footer span,footer a{font-family:var(--mono);font-size:10px;letter-spacing:-.5px;text-transform:uppercase;color:rgba(255,255,255,.3)}
 
-/* pipeline node row */
-.pipe{display:flex;flex-wrap:wrap;border:1px solid var(--border);margin:22px 0}
-.pipe .n{flex:1;min-width:120px;padding:14px 14px;border-right:1px solid var(--border);text-align:center}
-.pipe .n:last-child{border-right:none}
-.pipe .n b{display:block;font-family:var(--mono);font-weight:700;font-size:11.5px;text-transform:uppercase;letter-spacing:.02em}
-.pipe .n small{display:block;font-family:var(--sans);font-size:9.5px;color:var(--gray);margin-top:3px}
+.lang-btn{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:500;display:flex;align-items:center;background:var(--black);border:1px solid rgba(255,255,255,.2);border-radius:2px;overflow:hidden;font-family:var(--mono);}
+.lang-opt{font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:rgba(255,255,255,.4);padding:7px 14px;cursor:pointer;transition:color .2s,background .2s;user-select:none;border:none;background:none;font-family:var(--mono);}
+.lang-opt.active{color:var(--white);background:rgba(255,255,255,.08)}
+.lang-opt:hover{color:var(--white)}
+.lang-sep{width:1px;height:20px;background:rgba(255,255,255,.15);flex-shrink:0}
 
-/* widget (calculators) */
-.widget{border:1px solid var(--border);padding:22px;margin:24px 0}
-.wrow{display:grid;grid-template-columns:150px 1fr 90px;align-items:center;gap:14px;margin-bottom:14px}
-.wrow label{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--gray)}
-.wrow input[type=range]{-webkit-appearance:none;width:100%;height:1px;background:var(--border)}
-.wrow input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;height:12px;background:var(--white);border-radius:0}
-.wrow .out{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right;font-size:12px}
-
-/* technique cards */
-.tcard{border:1px solid var(--border);padding:20px 22px;margin-bottom:1px}
-.tcard h4{margin:0 0 8px}
-.tdef{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-top:12px}
-.tdef div{background:var(--black);padding:10px 12px;font-size:12px}
-@media(max-width:700px){.tdef{grid-template-columns:1fr}}
-
-/* case cards */
-.case{border:1px solid var(--border);padding:22px;margin-bottom:1px}
-.case .city{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--gray)}
-.case h4{font-family:var(--mono);font-size:16px;text-transform:uppercase;font-weight:800;margin:4px 0 12px}
-
-/* market stat blocks */
-.stat{border:1px solid var(--border);padding:22px}
-.stat .num{font-family:var(--mono);font-weight:800;font-size:clamp(26px,3.4vw,40px);letter-spacing:-.01em}
-.stat .lab{font-family:var(--sans);font-size:11.5px;color:var(--gray);margin-top:6px;line-height:1.4}
-.stat .src{font-family:var(--mono);font-size:9px;color:var(--gray2);margin-top:10px;text-transform:uppercase}
-
-/* flist */
-ul.flist{list-style:none;border-top:1px solid var(--border)}
-ul.flist li{border-bottom:1px solid var(--border);padding:12px 0}
-ul.flist b{font-family:var(--mono);font-size:12px;text-transform:uppercase}
-ul.flist p{margin:4px 0 0;font-size:12.5px}
-
-ol.rules{columns:2;column-gap:40px;list-style:none;counter-reset:rule;margin-top:10px}
-ol.rules li{counter-increment:rule;break-inside:avoid;padding:8px 0;border-bottom:1px solid var(--border);font-size:12.5px;font-weight:200}
-ol.rules li::before{content:counter(rule,decimal-leading-zero)' — ';font-family:var(--mono);color:var(--gray);font-weight:600}
-@media(max-width:780px){ol.rules{columns:1}}
-
-/* footer */
-footer{padding:56px 20px 40px;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px;background:var(--black)}
-.foot-col{display:flex;flex-direction:column;gap:6px}
-footer .flabel{font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--gray2);margin-bottom:4px}
-footer a,footer span{font-family:var(--mono);font-size:11px;letter-spacing:-.3px;text-transform:uppercase;color:rgba(245,245,240,.55)}
-footer a:hover{color:var(--white)}
-.foot-word{font-family:var(--mono);font-weight:800;font-size:13px;letter-spacing:.02em;color:var(--white)}
-
-.reveal{opacity:0;transform:translateY(16px)}
+/* ── EMAIL GATE POPUP ── */
+.popup-overlay{position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.85);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s ease}
+.popup-overlay.open{opacity:1;pointer-events:all}
+.popup-box{width:min(480px,92vw);background:var(--black);border:1px solid rgba(255,255,255,.12);position:relative;transform:translateY(20px);transition:transform .35s ease}
+.popup-overlay.open .popup-box{transform:translateY(0)}
+.popup-header{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;border-bottom:1px solid rgba(255,255,255,.08)}
+.popup-title{font-family:var(--mono);font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:var(--white)}
+.popup-close{background:none;border:none;cursor:pointer;font-family:var(--mono);font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:rgba(255,255,255,.5);transition:color .2s;padding:0}
+.popup-close:hover{color:var(--white)}
+.popup-form-title{font-family:var(--sans);font-size:clamp(26px,5vw,40px);font-weight:300;letter-spacing:-.03em;line-height:1.1em;text-transform:uppercase;color:var(--white);padding:24px 24px 8px}
+.popup-form-sub{font-family:var(--sans);font-size:12px;font-weight:300;color:rgba(255,255,255,.5);text-transform:uppercase;padding:0 24px 20px;line-height:1.5em}
+.popup-fields{display:flex;flex-direction:column;border-top:1px solid rgba(255,255,255,.08)}
+.popup-field{padding:14px 24px;border-bottom:1px solid rgba(255,255,255,.08)}
+.popup-field label{display:block;font-family:var(--mono);font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:8px;font-weight:700}
+.popup-field input{width:100%;background:none;border:none;outline:none;font-family:var(--mono);font-size:13px;letter-spacing:-.5px;text-transform:uppercase;color:var(--white);caret-color:var(--white)}
+.popup-field input::placeholder{color:rgba(255,255,255,.2)}
+.popup-btn-send{display:flex;align-items:center;justify-content:center;gap:12px;padding:18px 24px;font-family:var(--mono);font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:var(--black);background:var(--white);border:none;width:100%;cursor:pointer;transition:background .25s;font-weight:700}
+.popup-btn-send:hover{background:rgba(255,255,255,.88)}
+.popup-note{font-family:var(--mono);font-size:9px;letter-spacing:-.3px;color:rgba(255,255,255,.3);text-align:center;padding:14px 24px;text-transform:uppercase}
+.gate-done{display:none;padding:32px 24px 28px;text-align:center}.gate-done.show{display:block}.gate-done .gd-t{font-family:var(--mono);font-size:13px;letter-spacing:-.5px;text-transform:uppercase;margin:16px 0 8px}.gate-done .gd-s{font-family:var(--sans);font-size:12px;font-weight:300;color:rgba(255,255,255,.55);text-transform:uppercase;line-height:1.6em;margin-bottom:24px}.gate-done .gd-s b{color:var(--white);font-weight:500;word-break:break-all}.gate-done a.btn-open{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:var(--black);background:var(--white);padding:14px 28px;font-weight:700;border:1px solid var(--white)}.gate-done a.btn-open:hover{background:transparent;color:var(--white)}
 </style>
+<link rel="stylesheet" href="cover.css">
 </head>
 <body>
 
@@ -139,16 +90,18 @@ footer a:hover{color:var(--white)}
     <a href="../index.html" class="nav-logo hl">gyulyia®</a>
     <div class="nav-links-row">
       <a href="../index.html" class="hl">home</a><span class="sep">/</span>
+      <a href="../index.html#latest" class="hl">work</a><span class="sep">/</span>
       <a href="../index.html#tools" class="hl">tools</a><span class="sep">/</span>
       <a href="../index.html#about" class="hl">info</a><span class="sep">/</span>
       <a href="mailto:gyulyia3d@gmail.com" class="hl">contact</a>
     </div>
   </div>
   <div class="nav-col c">
-    <span class="nav-cell">Encyclopedia</span>
-    <span class="nav-cell">Video Mapping</span>
+    <span class="nav-cell">Creative Technologist</span>
+    <span class="nav-cell">Multimedia Artist</span>
   </div>
   <div class="nav-col c">
+    <a href="mailto:gyulyia3d@gmail.com" class="nav-cell hl">gyulyia3d@gmail.com</a>
     <a href="https://instagram.com/gyulyia" target="_blank" class="nav-cell hl">instagram</a>
     <a href="https://wa.me/5511981120017" target="_blank" class="nav-cell hl">whatsapp</a>
   </div>
@@ -158,478 +111,145 @@ footer a:hover{color:var(--white)}
   </div>
 </nav>
 
-<div class="hero">
-  <canvas id="heroCanvas"></canvas>
-  <div class="hero-scrim"></div>
-  <div class="hero-content">
-    <div class="hero-tag">enciclopédia teórica e prática · edição 101</div>
-    <h1 class="hero-title">VIDEO<br>MAPPING<br><span class="thin">101</span></h1>
-    <p class="hero-desc">Fundamentos, direção de arte, ferramentas e mercado da projeção mapeada — da física da luz refletida à cena brasileira de festivais, cases e carreira.</p>
+<div class="tool-hero">
+  <div class="tool-hero-placeholder">video mapping 101</div>
+  <div id="vm" class="vjc" aria-hidden="true"></div>
+  <div class="tool-hero-content">
+    <div class="tool-tag">e-book gratuito · manual profissional · 2026</div>
+    <h1 class="tool-title">VIDEO MAPPING<br>101</h1>
+    <p class="tool-desc">Direção de arte e produção profissional para projection mapping, dos fundamentos ópticos da imagem projetada até a organização de um show no Resolume Arena. Com calculadoras de lumens e throw ratio, estudo de caso de fachada, calibration pack, checklist e 50 regras de ouro.</p>
+    <div class="tool-hero-cta">
+      <button class="btn-download" onclick="openGate()">receber e-book grátis</button>
+    </div>
   </div>
-  <div class="scroll-cue"><span></span>scroll</div>
 </div>
 
-<main>
-
-<section class="enc" id="oque">
-  <div class="container">
-    <div class="eyebrow"><b>01</b> / O QUE É VIDEO MAPPING</div>
-    <h2 class="h">Desenhar com luz sobre matéria real</h2>
-    <p class="lede">Video mapping (projection mapping, ou projeção mapeada) é a técnica de alinhar imagem projetada com precisão à geometria de uma superfície física tridimensional — em vez de projetar sobre uma tela retangular neutra, a imagem é desenhada para casar com janelas, colunas, arcos e volumes reais de uma arquitetura, escultura ou objeto específico.</p>
-    <h3 class="h3">Luz refletida × luz emitida</h3>
-    <p>Um monitor ou painel de LED emite luz diretamente ao olho do espectador — o "preto" é o pixel apagado. Um projetor envia luz a uma superfície física e o espectador vê a <b>reflexão difusa</b> dessa luz — a imagem final depende da cor, textura e refletividade real do material de destino. <span class="tag fact">FATO TÉCNICO</span></p>
-    <p>Essa diferença física é a razão de quase toda decisão de direção de arte específica para projeção divergir do que funciona numa tela emissiva — cor, contraste, detalhe e composição precisam ser repensados para a superfície real, não apenas para o monitor de edição.</p>
+<div class="tool-info">
+  <div class="info-eyebrow">o que tem dentro</div>
+  <div class="chapters-grid">
+    <div class="chapter-row"><span class="chapter-num">01</span><span class="chapter-name">A pergunta central: não é bonito, é luz.</span></div>
+    <div class="chapter-row"><span class="chapter-num">02</span><span class="chapter-name">Fundamentos da imagem: a física antes da estética.</span></div>
+    <div class="chapter-row"><span class="chapter-num">03</span><span class="chapter-name">Direção de arte: bonito no monitor não é eficiente na projeção.</span></div>
+    <div class="chapter-row"><span class="chapter-num">04</span><span class="chapter-name">Cor: saturado não é regra, é ferramenta.</span></div>
+    <div class="chapter-row"><span class="chapter-num">05</span><span class="chapter-name">Brilho e contraste: histograma, clipping, crushing.</span></div>
+    <div class="chapter-row"><span class="chapter-num">06</span><span class="chapter-name">Frequência espacial: o detalhe que desaparece.</span></div>
+    <div class="chapter-row"><span class="chapter-num">07</span><span class="chapter-name">Arquitetura como linguagem: a fachada não é um monitor.</span></div>
+    <div class="chapter-row"><span class="chapter-num">08</span><span class="chapter-name">Storytelling: narrativa sem diálogo, à distância, monumental.</span></div>
+    <div class="chapter-row"><span class="chapter-num">09</span><span class="chapter-name">Música e sincronia: literal versus interpretativo.</span></div>
+    <div class="chapter-row"><span class="chapter-num">10</span><span class="chapter-name">Pipeline por ferramenta: o que cada uma controla.</span></div>
+    <div class="chapter-row"><span class="chapter-num">11</span><span class="chapter-name">Catálogo de técnicas: o que é, como se produz, como falha.</span></div>
+    <div class="chapter-row"><span class="chapter-num">12</span><span class="chapter-name">Pipeline completa: do briefing ao show.</span></div>
+    <div class="chapter-row"><span class="chapter-num">13</span><span class="chapter-name">Calibration pack: GYULYIA Projection Test Kit.</span></div>
+    <div class="chapter-row"><span class="chapter-num">14</span><span class="chapter-name">Case studies: cinco referências internacionais.</span></div>
+    <div class="chapter-row"><span class="chapter-num">15</span><span class="chapter-name">Video Mapping Score: 0–100, com peso e critério.</span></div>
+    <div class="chapter-row"><span class="chapter-num">16</span><span class="chapter-name">Checklist: do conceito ao show.</span></div>
+    <div class="chapter-row"><span class="chapter-num">17</span><span class="chapter-name">50 regras de ouro para projeção monumental.</span></div>
+    <div class="chapter-row"><span class="chapter-num">18</span><span class="chapter-name">Bibliografia e fontes.</span></div>
   </div>
-</section>
+</div>
 
-<section class="enc" id="fundamentos">
-  <div class="container">
-    <div class="eyebrow"><b>02</b> / FUNDAMENTOS TÉCNICOS DA IMAGEM PROJETADA</div>
-    <h2 class="h">A física antes da estética</h2>
-
-    <h3 class="h3">ANSI lumens, lux e dimensionamento</h3>
-    <p>ANSI lumens mede o fluxo luminoso total emitido por um projetor; lux mede quanta luz incide sobre uma superfície por unidade de área. Uma heurística de dimensionamento amplamente usada na indústria (para estimativa de ordem de grandeza, não uma equação normativa):</p>
-    <div class="widget">
-      <div class="wrow"><label>Área da superfície (m²)</label><input type="range" id="rArea" min="20" max="2000" value="300"><span class="out" id="oArea">300 m²</span></div>
-      <div class="wrow"><label>Luz ambiente (lux)</label><input type="range" id="rLux" min="1" max="200" value="20"><span class="out" id="oLux">20 lux</span></div>
-      <div class="wrow"><label>Refletividade</label><input type="range" id="rAlb" min="10" max="95" value="60"><span class="out" id="oAlb">0.60</span></div>
-      <hr class="hr" style="margin:14px 0">
-      <div class="wrow"><label>Lumens estimados</label><div></div><span class="out" id="oRes" style="font-weight:700">—</span></div>
-    </div>
-
-    <h3 class="h3">Throw ratio e distância</h3>
-    <div class="widget">
-      <div class="wrow"><label>Distância (m)</label><input type="range" id="rDist" min="3" max="60" value="20"><span class="out" id="oDist">20 m</span></div>
-      <div class="wrow"><label>Largura da imagem (m)</label><input type="range" id="rWidth" min="2" max="40" value="10"><span class="out" id="oWidth">10 m</span></div>
-      <hr class="hr" style="margin:14px 0">
-      <div class="wrow"><label>Throw Ratio</label><div></div><span class="out" id="oTR" style="font-weight:700">—</span></div>
-      <div class="wrow"><label>Classe de lente</label><div></div><span class="out" id="oTRc">—</span></div>
-    </div>
-    <p class="lede" style="font-size:13px;color:var(--gray)">TR &lt; 1 = ultra-curta · 1–2 = curta/padrão · &gt; 2 = longa. <span class="tag best">BOA PRÁTICA</span></p>
-
-    <h3 class="h3">Black level e o efeito Bartleson-Breneman</h3>
-    <p>Um projetor não projeta escuridão — deixa de emitir luz naquela região. O "preto" real é a soma da luz residual do projetor com a luz ambiente e a cor da superfície. O <b>Efeito Bartleson-Breneman</b> mostra que o contraste percebido aumenta quando uma área brilhante está cercada de escuridão real — permitindo dobrar o brilho percebido sem aumentar a potência do equipamento. <span class="tag fact">FATO TÉCNICO</span></p>
-
-    <h3 class="h3">Warping e edge blending</h3>
-    <p><b>Warping perspectivo</b> (quatro cantos) corrige ângulo de lente preservando a linearidade do movimento; <b>warping bezier</b> deve ficar restrito a curvatura física real — usá-lo para keystone acelera/desacelera o movimento nas bordas de forma perceptível. Em setups com múltiplos projetores, <b>edge blending</b> soma o brilho das zonas de sobreposição, corrigido por <b>black level uplift</b> para uniformizar o piso de preto entre zonas. <span class="tag fact">FATO TÉCNICO</span></p>
-
-    <h3 class="h3">Gamma, dynamic range, color gamut, resolução</h3>
-    <table class="oflow"><tr><th>Conceito</th><th>O que muda na sua mídia</th></tr>
-      <tr><td>Gamma</td><td>meios-tons podem "morrer" sob a curva real do projetor, diferente do monitor</td></tr>
-      <tr><td>Dynamic range</td><td>muito menor que monitor HDR — não desenhe dependendo de sombra sutil</td></tr>
-      <tr><td>Color gamut</td><td>saturações extremas podem clipar/achatar fisicamente</td></tr>
-      <tr><td>Resolução</td><td>detalhe abaixo da densidade real de pixels por metro simplesmente não existe na saída</td></tr>
-    </table>
-  </div>
-</section>
-
-<section class="enc" id="direcao">
-  <div class="container">
-    <div class="eyebrow"><b>03</b> / DIREÇÃO DE ARTE PARA PROJEÇÃO</div>
-    <h2 class="h">Bonito no monitor ≠ eficiente na projeção</h2>
-    <p class="lede">O erro mais recorrente ao migrar de motion design/cinema para mapping: assumir que o que funciona numa tela de 40cm vista de perto se transfere automaticamente para uma fachada de 30 metros vista a 50 metros de distância, sob luz ambiente não controlada.</p>
-    <table class="oflow"><tr><th>Recurso</th><th>No monitor</th><th>Na projeção</th></tr>
-      <tr><td>Sombra/preto</td><td>profundo, rico em detalhe</td><td>vira mancha sem informação</td></tr>
-      <tr><td>Microdetalhe</td><td>legível de perto</td><td>desaparece na distância real (frequência espacial)</td></tr>
-      <tr><td>Contraste local sutil</td><td>perceptível</td><td>lavado pela luz ambiente</td></tr>
-      <tr><td>Câmera handheld</td><td>cinematográfico</td><td>quebra percepção de massa/escala real</td></tr>
-      <tr><td>Tipografia fina</td><td>elegante</td><td>desaparece — precisa espessura mínima legível</td></tr>
-    </table>
-    <h3 class="h3">Macro, meso, micro</h3>
-    <p><b>Macro</b> — o que se lê à distância: silhueta, massa. <b>Meso</b> — o que se descobre olhando melhor: módulos, transições. <b>Micro</b> — o que enriquece de perto: grão, partícula, textura fina. A obra precisa funcionar em macro antes de meso e micro — nunca a ordem inversa. <span class="tag best">BOA PRÁTICA</span></p>
-    <h3 class="h3">Visual Dynamic Range</h3>
-    <p>Amplitude entre <b>silêncio</b> e <b>espetáculo</b> — construída por brilho, escala, saturação, contraste, velocidade e densidade ao longo do tempo. Se tudo estiver em intensidade máxima o tempo todo, o clímax deixa de existir como evento perceptível.</p>
-  </div>
-</section>
-
-<section class="enc" id="cor">
-  <div class="container">
-    <div class="eyebrow"><b>04</b> / COR</div>
-    <h2 class="h">Saturado não é regra — é ferramenta</h2>
-    <p class="lede">"Use cores fortes e saturadas" é <b>boa prática contextual, não regra universal</b>: ajuda a sobreviver à dispersão de luz e à luz ambiente, mas aplicada o tempo todo elimina hierarquia e apaga o clímax. <span class="tag best">BOA PRÁTICA — dependente de contexto</span></p>
-    <div class="widget">
-      <div class="wrow"><label>Saturação</label><input type="range" id="rSat" min="0" max="100" value="60"><span class="out" id="oSat">60%</span></div>
-      <div id="satSwatch" style="height:56px;border:1px solid var(--border);margin-top:8px"></div>
-    </div>
-    <p>A cor da superfície funciona como filtro subtrativo — tijolo vermelho absorve azul/verde; ciano sobre vermelho resulta em marrom sem saturação. Tons quentes (âmbar, dourado) são percebidos como "avançando"; tons frios (azul, ciano) como "recuando" — usado para estender profundidade artificial de uma superfície plana. <span class="tag fact">FATO TÉCNICO</span></p>
-  </div>
-</section>
-
-<section class="enc" id="frequencia">
-  <div class="container">
-    <div class="eyebrow"><b>05</b> / FREQUÊNCIA ESPACIAL</div>
-    <h2 class="h">O detalhe que desaparece</h2>
-    <p class="lede">Frequência espacial é a taxa de mudança de detalhe por unidade de espaço visual. A sensibilidade ao contraste do olho humano decai abruptamente em alta frequência à distância — por isso microdetalhes que existem no arquivo simplesmente não chegam ao espectador. <span class="tag fact">FATO TÉCNICO</span></p>
-    <p>Implicação direta para pipelines de CGI, shaders e IA generativa (que naturalmente convidam à complexidade fina): o desafio de direção de arte não é gerar complexidade, é transformar complexidade em forma perceptualmente organizada — priorizar baixa frequência (massas, silhuetas) para a narrativa principal.</p>
-  </div>
-</section>
-
-<section class="enc" id="arquitetura">
-  <div class="container">
-    <div class="eyebrow"><b>06</b> / ARQUITETURA COMO LINGUAGEM</div>
-    <h2 class="h">A fachada não é tela — é instrumento</h2>
-    <p class="lede">Tratar a superfície como um monitor grande e irregular é o erro conceitual mais custoso. A prática consolidada trata a arquitetura como linguagem: cada elemento real (coluna, janela, arco, cornija) carrega significado estrutural que a obra pode usar, subverter ou honrar.</p>
-    <h3 class="h3">Catálogo de técnicas</h3>
-    <div id="techCatalog"></div>
-  </div>
-</section>
-
-<section class="enc" id="storytelling">
-  <div class="container">
-    <div class="eyebrow"><b>07</b> / STORYTELLING E CRESCENDO VISUAL</div>
-    <h2 class="h">Narrativa sem palavras, à distância, monumental</h2>
-    <p class="lede">Vídeo mapping é tipicamente uma mídia sem diálogo, vista à distância, de duração limitada, onde a "tela" é um objeto físico que o público já conhece. A história se conta por transformação da matéria, não por texto.</p>
-    <h3 class="h3">Estrutura recorrente</h3>
-    <p>Revelação (estabelecer a arquitetura real) → desenvolvimento (explorar módulos) → transformação (desafiar a solidez) → tensão (fragmentação/dissonância) → clímax (saturação sensorial máxima) → resolução (retorno ao estado físico). <span class="tag best">BOA PRÁTICA</span></p>
-    <h3 class="h3">Visual crescendo</h3>
-    <svg id="crescendoSvg" viewBox="0 0 400 140" style="width:100%;border:1px solid var(--border)"></svg>
-    <p style="margin-top:10px">Progressão nunca linear — picos e vales antes do clímax real preservam a capacidade do sistema perceptual de detectar mudança.</p>
-  </div>
-</section>
-
-<section class="enc" id="musica">
-  <div class="container">
-    <div class="eyebrow"><b>08</b> / MÚSICA E SINCRONIZAÇÃO</div>
-    <h2 class="h">Literal versus interpretativo</h2>
-    <p class="lede">Sincronização literal (tudo pisca no beat) é simples mas cansa rápido; sincronização interpretativa usa frase musical, timbre e intenção emocional. Graves modulam massa/estrutura; agudos modulam microdetalhe/cintilação, via análise de frequência (FFT) em tempo real. O silêncio é elemento estrutural — antecipa o clímax e reseta a percepção de brilho. <span class="tag best">BOA PRÁTICA</span></p>
-  </div>
-</section>
-
-<section class="enc" id="ferramentas">
-  <div class="container">
-    <div class="eyebrow"><b>09</b> / FERRAMENTAS DO MERCADO</div>
-    <h2 class="h">O ecossistema técnico</h2>
-    <div class="grid2">
-      <div class="c"><div class="clabel">SOFTWARE DE PLAYBACK E MAPPING</div><p class="cval">Ferramentas como Resolume Arena e MadMapper são o padrão de execução ao vivo: organizam camadas de conteúdo, aplicam warping geométrico e edge blending, e disparam o show em sincronia com áudio via análise de frequência.</p></div>
-      <div class="c"><div class="clabel">COMPOSIÇÃO E MOTION DESIGN</div><p class="cval">After Effects é usado para máscaras, tipografia, compositing final e color grading específico de projeção antes da exportação para o software de mapping.</p></div>
-      <div class="c"><div class="clabel">CGI E TEMPO REAL</div><p class="cval">Motores como Unreal Engine geram cenas 3D, câmeras calibradas (camera matching), iluminação virtual e sistemas de partículas para conteúdo cinematográfico e simulações arquitetônicas.</p></div>
-      <div class="c"><div class="clabel">CREATIVE CODING E IA</div><p class="cval">Shaders (GLSL) e ferramentas de creative coding geram padrões procedurais e sistemas áudio-reativos; geradores de imagem/vídeo por IA aceleram concept art, texturas e transições — sempre ancorados em geometria real via técnicas de controle estrutural.</p></div>
-    </div>
-    <p style="margin-top:8px" class="lede" style="font-size:13px">Cada ferramenta tem um papel distinto — nenhuma substitui as outras; a produção profissional combina todas de forma consciente.</p>
-  </div>
-</section>
-
-<section class="enc" id="pipeline">
-  <div class="container">
-    <div class="eyebrow"><b>10</b> / PIPELINE PROFISSIONAL</div>
-    <h2 class="h">Do briefing ao show</h2>
-    <div class="pipe">
-      <div class="n"><b>Briefing</b><small>conceito</small></div>
-      <div class="n"><b>Pesquisa</b><small>referências</small></div>
-      <div class="n"><b>Levantamento</b><small>da superfície</small></div>
-      <div class="n"><b>Storyboard</b><small>e styleframes</small></div>
-      <div class="n"><b>Produção</b><small>CGI/IA/motion</small></div>
-      <div class="n"><b>Composição</b><small>e grading</small></div>
-      <div class="n"><b>Export</b><small>codec/alpha</small></div>
-      <div class="n"><b>Mapping</b><small>warp/blend</small></div>
-      <div class="n"><b>Calibração</b><small>e ensaio</small></div>
-      <div class="n"><b>Show</b><small>ao vivo</small></div>
-    </div>
-    <p>Cada etapa tem critério de aprovação próprio — a etapa de styleframe, por exemplo, só deve avançar quando o frame sobrevive a um teste de leitura na distância real de projeção, não apenas no monitor de edição.</p>
-    <h3 class="h3">Calibração antes do ensaio</h3>
-    <p>Um kit de calibração — grids, escala de cinza, barras de cor, gradiente, teste de foco, teste de blend, safe areas e teste de tipografia — deve ser projetado fisicamente no local antes de qualquer ensaio geral, validando cada aspecto técnico isoladamente. <span class="tag best">BOA PRÁTICA</span></p>
-  </div>
-</section>
-
-<section class="enc" id="cases-intl">
-  <div class="container">
-    <div class="eyebrow"><b>11</b> / CASE STUDIES INTERNACIONAIS</div>
-    <h2 class="h">Cinco referências de festival</h2>
-    <div id="casesIntl"></div>
-  </div>
-</section>
-
-<section class="enc" id="cases-br">
-  <div class="container">
-    <div class="eyebrow"><b>12</b> / VIDEO MAPPING NO BRASIL</div>
-    <h2 class="h">Cenas, festivais e marcos nacionais</h2>
-    <p class="lede">O Brasil tem uma cena de projeção mapeada ativa e crescente, com marcos institucionais, festivais dedicados e uso publicitário de grande escala.</p>
-    <div id="casesBR"></div>
-  </div>
-</section>
-
-<section class="enc" id="mercado">
-  <div class="container">
-    <div class="eyebrow"><b>13</b> / CARREIRA E MERCADO NO BRASIL</div>
-    <h2 class="h">O que os dados realmente mostram</h2>
-    <p class="lede">Não existe, até a publicação desta página, um censo público dedicado especificamente a "VJs" ou "artistas de projeção mapeada" no Brasil — a atividade está distribuída entre categorias maiores (audiovisual, eventos, economia criativa). Os números abaixo são o contexto real e verificável mais próximo disponível, não uma contagem direta da profissão. <span class="tag hyp">LACUNA DE DADOS — sem censo específico</span></p>
-    <div class="grid4" id="statGrid" style="margin-top:24px"></div>
-    <h3 class="h3">Caminhos de carreira reais no setor</h3>
-    <table class="oflow"><tr><th>Caminho</th><th>Atuação típica</th></tr>
-      <tr><td>VJ / artista de performance ao vivo</td><td>visuais em tempo real para shows, festas e eventos</td></tr>
-      <tr><td>Artista/estúdio de projection mapping</td><td>projetos de fachada, instalações e ativações de marca</td></tr>
-      <tr><td>Diretor técnico / operador de Resolume</td><td>execução ao vivo, calibração e operação de show</td></tr>
-      <tr><td>Motion designer especializado em projeção</td><td>composição, grading e preparação de assets</td></tr>
-      <tr><td>Artista CGI / 3D para visualização arquitetônica</td><td>modelagem, câmera e simulação para conteúdo de projeção</td></tr>
-      <tr><td>Creative coder</td><td>sistemas generativos e áudio-reativos sob demanda</td></tr>
-      <tr><td>Empresas de produção especializadas</td><td>serviço de projeção mapeada para eventos corporativos e culturais</td></tr>
-    </table>
-    <p class="small" style="font-size:11.5px;color:var(--gray)">Existem hoje diversas empresas brasileiras oferecendo projeção mapeada como serviço comercial para eventos — evidência direta de mercado ativo, mesmo sem estatística agregada específica do segmento. <span class="tag fact">FATO — mercado de serviço observável</span></p>
-  </div>
-</section>
-
-<section class="enc" id="glossario">
-  <div class="container">
-    <div class="eyebrow"><b>14</b> / GLOSSÁRIO RÁPIDO</div>
-    <h2 class="h">Termos essenciais</h2>
-    <ul class="flist" id="glossList"></ul>
-  </div>
-</section>
-
-<section class="enc" id="biblio">
-  <div class="container">
-    <div class="eyebrow"><b>15</b> / BIBLIOGRAFIA</div>
-    <h2 class="h">Fontes</h2>
-    <ul class="flist" id="biblioList"></ul>
-  </div>
-</section>
-
-</main>
+<div class="tool-cta">
+  <div class="tool-cta-title">Pronto para projetar com intenção?</div>
+  <div class="tool-cta-sub">Cadastre seu e-mail: enviamos o link do e-book completo para você.</div>
+  <button class="tool-cta-link" onclick="openGate()">receber e-book grátis</button>
+</div>
 
 <footer>
-  <div class="foot-col">
-    <div class="foot-word">GYULYIA®</div>
-    <span>Creative Technologist · Multimedia Artist</span>
-    <span>São Paulo, Brasil</span>
-  </div>
-  <div class="foot-col">
-    <div class="flabel">Contato</div>
-    <a href="mailto:gyulyia3d@gmail.com" class="hl">gyulyia3d@gmail.com</a>
-    <a href="https://instagram.com/gyulyia" target="_blank" class="hl">instagram.com/gyulyia</a>
-    <a href="https://wa.me/5511981120017" target="_blank" class="hl">whatsapp</a>
-    <a href="../index.html" class="hl">gyulyia.com</a>
-  </div>
-  <div class="foot-col">
-    <div class="flabel">Página</div>
-    <span>Video Mapping 101 — Enciclopédia</span>
-    <a href="../index.html#tools" class="hl">← voltar para tools</a>
-  </div>
+  <span>gyulyia® · video mapping 101</span>
+  <a href="../index.html#tools" class="hl">← back to tools</a>
 </footer>
 
-<script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<!-- EMAIL GATE POPUP -->
+<div class="popup-overlay" id="gateOverlay" onclick="handleOverlayClick(event)">
+  <div class="popup-box">
+    <div class="popup-header">
+      <span class="popup-title">e-book</span>
+      <button class="popup-close" onclick="closeGate()">✕ fechar</button>
+    </div>
+    <div class="popup-form-title">Receba o<br>Video Mapping</div>
+    <div class="popup-form-sub">Preencha para receber o link do e-book por e-mail.</div>
+    <form id="gateForm" onsubmit="submitGate(event)">
+      <input type="hidden" name="_subject" value="Novo lead — Video Mapping 101">
+      <input type="hidden" name="_autoresponse" value="Olá! Aqui está o seu e-book Video Mapping 101 (A Bíblia): https://www.gyulyia.com/tools/e/video-mapping-biblia-33041aa6b4b7.html — Guarde este e-mail. Qualquer dúvida, é só responder. GYULYIA®">
+      <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
+      <div class="popup-fields">
+        <div class="popup-field">
+          <label>Nome</label>
+          <input type="text" name="name" placeholder="Seu nome" required autocomplete="off">
+        </div>
+        <div class="popup-field">
+          <label>E-mail</label>
+          <input type="email" name="email" placeholder="seuemail@exemplo.com" required autocomplete="off">
+        </div>
+      </div>
+      <button type="submit" class="popup-btn-send">
+        <span>receber por e-mail</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+      </button>
+    </form>
+    <div class="gate-done" id="gateDone">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg>
+      <div class="gd-t">e-mail enviado</div>
+      <div class="gd-s">Enviamos o link para <b id="gdEmail"></b>.<br>Confira também a caixa de spam.</div>
+      <a class="btn-open" id="gdOpen" href="e/video-mapping-biblia-33041aa6b4b7.html" target="_blank" rel="noopener">abrir e-book agora</a>
+    </div>
+    <div class="popup-note" id="gateNote">seu e-mail é usado apenas para envio de conteúdo da gyulyia® — sem spam</div>
+  </div>
+</div>
+
 <script>
 function updateTime(){
   const d=new Date();
-  document.getElementById('navTime').textContent=d.toLocaleTimeString('pt-BR',{timeZone:'America/Sao_Paulo',hour:'2-digit',minute:'2-digit'});
+  const s=d.toLocaleTimeString('pt-BR',{timeZone:'America/Sao_Paulo',hour:'2-digit',minute:'2-digit'});
+  document.getElementById('navTime').textContent=s;
 }
 updateTime();setInterval(updateTime,1000);
+// ── EMAIL GATE ──
+function openGate(){
+  document.getElementById('gateOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeGate(){
+  document.getElementById('gateOverlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+function handleOverlayClick(e){
+  if(e.target===document.getElementById('gateOverlay')) closeGate();
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeGate();});
 
-/* ---------- three.js hero: abstract architecture module grid ---------- */
-(function(){
-  const canvas=document.getElementById('heroCanvas');
-  const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
-  const scene=new THREE.Scene();
-  const camera=new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 0.1, 100);
-  camera.position.set(6,4,9);
-  camera.lookAt(0,1,0);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
-  function resize(){
-    const w=canvas.parentElement.clientWidth,h=canvas.parentElement.clientHeight;
-    renderer.setSize(w,h);camera.aspect=w/h;camera.updateProjectionMatrix();
-  }
-  window.addEventListener('resize',resize);
-
-  const group=new THREE.Group();
-  const cols=7,rows=5;
-  for(let i=0;i<cols;i++){
-    for(let j=0;j<rows;j++){
-      const height=1+Math.abs(Math.sin(i*0.9+j*0.5))*3.2;
-      const geo=new THREE.BoxGeometry(0.7,height,0.7);
-      const edges=new THREE.EdgesGeometry(geo);
-      const mat=new THREE.LineBasicMaterial({color:0xf5f5f0,transparent:true,opacity:0.35});
-      const mesh=new THREE.LineSegments(edges,mat);
-      mesh.position.set((i-cols/2)*1.1,height/2,(j-rows/2)*1.1);
-      group.add(mesh);
-    }
-  }
-  scene.add(group);
-
-  const gridHelper=new THREE.GridHelper(14,14,0x39ff14,0x222222);
-  gridHelper.position.y=0;
-  scene.add(gridHelper);
-
-  let raf;
-  function animate(){
-    raf=requestAnimationFrame(animate);
-    group.rotation.y+=0.0018;
-    renderer.render(scene,camera);
-  }
-  resize();
-  animate();
-
-  if(window.gsap && window.ScrollTrigger){
-    gsap.registerPlugin(ScrollTrigger);
-    gsap.to(camera.position,{
-      z:5, y:2.2,
-      scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}
+async function submitGate(e){
+  e.preventDefault();
+  const form=document.getElementById('gateForm');
+  const btn=form.querySelector('[type="submit"]');
+  const span=btn.querySelector('span');
+  const oldText=span.textContent;
+  span.textContent='ENVIANDO...';
+  btn.disabled=true;
+  try{
+    const response=await fetch('https://formsubmit.co/ajax/c239c1e307cdddea88c834294a316a9c',{
+      method:'POST',
+      body:new FormData(form),
+      headers:{'Accept':'application/json'}
     });
+    if(response.ok){
+      document.getElementById('gdEmail').textContent=form.elements['email'].value;
+      form.style.display='none';
+      document.getElementById('gateNote').style.display='none';
+      document.getElementById('gateDone').classList.add('show');
+      form.reset();
+    }else{throw new Error('http '+response.status);}
+  }catch(err){
+    span.textContent='ERRO — TENTE NOVAMENTE';
+    btn.disabled=false;
+    setTimeout(()=>{span.textContent=oldText;},2200);
   }
-})();
-
-/* ---------- GSAP scroll reveals ---------- */
-window.addEventListener('load',()=>{
-  if(window.gsap && window.ScrollTrigger){
-    gsap.registerPlugin(ScrollTrigger);
-    gsap.utils.toArray('.enc').forEach(sec=>{
-      gsap.fromTo(sec, {opacity:0,y:24}, {
-        opacity:1,y:0,duration:.7,ease:'power2.out',
-        scrollTrigger:{trigger:sec,start:'top 82%'}
-      });
-    });
-  }
-});
-
-/* ---------- lumens / throw ratio calculators ---------- */
-function upLumens(){
-  const area=+document.getElementById('rArea').value;
-  const lux=+document.getElementById('rLux').value;
-  const alb=+document.getElementById('rAlb').value/100;
-  document.getElementById('oArea').textContent=area+' m²';
-  document.getElementById('oLux').textContent=lux+' lux';
-  document.getElementById('oAlb').textContent=alb.toFixed(2);
-  document.getElementById('oRes').textContent=Math.round(area*lux*alb).toLocaleString('pt-BR')+' lm (estimativa)';
 }
-['rArea','rLux','rAlb'].forEach(id=>document.getElementById(id).addEventListener('input',upLumens));
-upLumens();
-
-function upTR(){
-  const d=+document.getElementById('rDist').value, w=+document.getElementById('rWidth').value;
-  document.getElementById('oDist').textContent=d+' m';
-  document.getElementById('oWidth').textContent=w+' m';
-  const tr=d/w;
-  document.getElementById('oTR').textContent=tr.toFixed(2);
-  document.getElementById('oTRc').textContent = tr<1?'ULTRA-CURTA':tr<=2?'CURTA/PADRÃO':'LONGA';
-}
-['rDist','rWidth'].forEach(id=>document.getElementById(id).addEventListener('input',upTR));
-upTR();
-
-function upSat(){
-  const s=+document.getElementById('rSat').value;
-  document.getElementById('oSat').textContent=s+'%';
-  document.getElementById('satSwatch').style.background='linear-gradient(90deg,hsl(20,'+s+'%,45%),hsl(180,'+s+'%,45%),hsl(280,'+s+'%,45%))';
-}
-document.getElementById('rSat').addEventListener('input',upSat);upSat();
-
-/* crescendo graph */
-(function(){
-  const svg=document.getElementById('crescendoSvg');
-  const vals=[10,25,40,30,55,75,60,90,100,15];
-  const w=400,h=140,step=w/(vals.length-1);
-  let d='M0,'+(h-vals[0]*1.2)+' ';
-  vals.forEach((v,i)=>{d+='L'+(i*step)+','+(h-v*1.2)+' ';});
-  let grid='';
-  for(let i=1;i<4;i++){grid+='<line x1="0" y1="'+(h*i/4)+'" x2="'+w+'" y2="'+(h*i/4)+'" stroke="rgba(255,255,255,.12)"/>';}
-  svg.innerHTML=grid+'<path d="'+d+'" fill="none" stroke="#f5f5f0" stroke-width="1.5"/>';
-})();
-
-/* technique catalog */
-const TECHS=[
- {t:'Trompe-l’œil',def:'ilusão de profundidade/volume pintada com luz e sombra virtuais sobre superfície plana.',impact:'quebra a bidimensionalidade percebida.',how:'sombras virtuais consistentes com uma fonte de luz única + oclusão de ambiente.',err:'sombra inconsistente com a iluminação real do local quebra a ilusão instantaneamente.'},
- {t:'Anamorfose',def:'distorção calculada para parecer correta e tridimensional só de um ponto de vista específico (sweet spot).',impact:'quebra total da percepção de tela plana.',how:'câmera virtual posicionada exatamente na coordenada do sweet spot real do público.',err:'sweet spot mal escolhido, em local de difícil acesso.'},
- {t:'Extrusão',def:'simular que um elemento plano ganha volume e se projeta para fora.',impact:'sensação de matéria física se transformando.',how:'displacement map + sombra de contato na base do elemento.',err:'sem sombra de contato, o elemento parece flutuar, não crescer.'},
- {t:'Parallax / falsa profundidade',def:'camadas se movendo em velocidades diferentes para sugerir distância.',impact:'sensação de espaço interno atrás de superfície sólida.',how:'múltiplas camadas 2.5D ou cena 3D renderizada com câmera fixa.',err:'velocidades de camada incoerentes com a perspectiva real.'},
- {t:'Fragmentação / reconstrução',def:'a superfície aparenta se quebrar em placas ou partículas e depois se remontar.',impact:'clímax narrativo forte, desafia a solidez do objeto.',how:'fratura procedural baseada na geometria real de juntas e módulos.',err:'fratura genérica que ignora as juntas reais destrói a percepção de volume.'},
- {t:'Iluminação virtual / sombra falsa',def:'simular fontes de luz que não existem fisicamente, mas parecem iluminar a superfície real.',impact:'elemento mais crítico para qualquer ilusão de volume.',how:'luz virtual a ~45°, oclusão de ambiente, penumbra suave.',err:'ignorar a cor real da superfície ao calcular a sombra.'},
- {t:'Interior revelado',def:'a superfície parece se tornar transparente, revelando espaço virtual complexo.',impact:'quebra radical de bidimensionalidade.',how:'máscara de canal alfa rígida na área + cena 3D interna.',err:'vazamento de luz na borda da máscara quebra a ilusão.'},
- {t:'Alteração de escala',def:'sugerir que o objeto é maior/menor ou se estende além dos seus limites físicos.',impact:'surpresa perceptual, usado com moderação.',how:'elementos que continuam além da silhueta real, respeitando safe areas.',err:''},
- {t:'Morphing',def:'um elemento se transforma visualmente em outro material ou forma.',impact:'transição narrativa entre atos.',how:'lookdev por IA com controle estrutural sobre geometria real + limpeza temporal.',err:'flickering / inconsistência temporal não tratada em pós.'},
- {t:'Generative visuals',def:'padrões procedurais gerados por código (noise, reaction-diffusion, feedback).',impact:'organicidade impossível de animar manualmente.',how:'a arquitetura semeia o sistema — emitters e máscaras derivados da geometria real.',err:'generative art aplicado "por cima" sem relação com a geometria do objeto.'},
- {t:'Áudio-reatividade',def:'parâmetros visuais controlados por análise de frequência (FFT) do áudio em tempo real.',impact:'sincronia interpretativa, não mecânica.',how:'graves→massa/estrutura, agudos→cintilação/detalhe.',err:'sincronizar tudo ao beat sem variar a resposta por faixa de frequência.'},
- {t:'Typography mapping',def:'tipografia como elemento arquitetônico projetado, não overlay genérico.',impact:'comunicação direta sem quebrar a linguagem visual.',how:'espessura mínima de traço, alto contraste, alinhamento aos eixos reais da superfície.',err:'tipografia fina demais desaparece na distância real de visualização.'}
-];
-const catEl=document.getElementById('techCatalog');
-TECHS.forEach(t=>{
-  const div=document.createElement('div');div.className='tcard';
-  div.innerHTML='<h4 class="h4">'+t.t+'</h4><p style="margin-bottom:0">'+t.def+'</p>'+
-   '<div class="tdef"><div><div class="clabel">Impacto</div>'+t.impact+'</div><div><div class="clabel">Como produzir</div>'+t.how+'</div>'+
-   (t.err?'<div style="grid-column:1/-1"><div class="clabel">Erro frequente</div>'+t.err+'</div>':'')+'</div>';
-  catEl.appendChild(div);
-});
-
-/* international case studies */
-const CASES_INTL=[
- {n:'Signal Festival',city:'Praga, República Tcheca',fact:'Origem em 2010 com projeção no relógio astronômico de Praga (600º aniversário) pelo grupo The Macula e o produtor Martin Pošta; festival anual desde 2013, mais de 5 milhões de visitantes em 13 edições.',src:'en.wikipedia.org/wiki/Signal_Festival'},
- {n:'Festival of Lights',city:'Berlim, Alemanha',fact:'Anual desde 2005; projeções em marcos como Portão de Brandemburgo e Torre de TV (368m, projetores em modo retrato); relógio de luz de 60m no Marx-Engels-Forum entrou para o Guinness.',src:'en.wikipedia.org/wiki/Festival_of_Lights_(Berlin)'},
- {n:'Fête des Lumières',city:'Lyon, França',fact:'Tradição desde 1852; evento municipal de iluminação desde 1989; video mapping documentado desde 2008; edição 2025 com 23 instalações em 20 locais, +2 milhões de visitantes.',src:'lightzoomlumiere.fr'},
- {n:'Mapping Festival',city:'Genebra, Suíça',fact:'Fundado em 2005, dedicado a live visuals, instalação e VJing; formato de 10 dias em maio.',src:'en.wikipedia.org/wiki/Mapping_Festival'},
- {n:'MUTEK',city:'Montréal (+ edições internacionais)',fact:'Festival de música eletrônica e artes digitais; 26ª edição com mais de 120 artistas de 26 países; programação recente inclui obras em XR.',src:'montreal.mutek.org'}
-];
-const ciEl=document.getElementById('casesIntl');
-CASES_INTL.forEach(c=>{
-  const div=document.createElement('div');div.className='case';
-  div.innerHTML='<div class="city">'+c.city+'</div><h4>'+c.n+'</h4><p style="margin-bottom:6px"><span class="tag fact">FATO</span>'+c.fact+'</p><p style="font-size:10.5px;color:var(--gray2)">Fonte: '+c.src+'</p>';
-  ciEl.appendChild(div);
-});
-
-/* Brazilian case studies */
-const CASES_BR=[
- {n:'Abertura das Olimpíadas Rio 2016',city:'Maracanã, Rio de Janeiro',fact:'Projeção mapeada em grande escala no campo do estádio do Maracanã, vista por milhões de espectadores ao redor do mundo na cerimônia de abertura dos Jogos Olímpicos de 2016.',src:'atarde.com.br'},
- {n:'Disney — "Procurando Dory"',city:'Shopping JK Iguatemi, São Paulo',fact:'Primeiro uso de video mapping da Disney no Brasil, em 2016, cobrindo inteiramente a fachada do shopping com projeções do filme.',src:'movicriativo.com.br'},
- {n:'Ação de conscientização no Cristo Redentor',city:'Rio de Janeiro',fact:'Em 2010, uma ação de marketing utilizou o monumento do Cristo Redentor, um dos mais famosos do país, em campanha contra abuso e exploração infantil.',src:'movicriativo.com.br'},
- {n:'Reabertura do Farol Santander',city:'São Paulo',fact:'Projeto de video mapping para a reabertura do antigo Edifício Banespa: 9 projetores, 20 mil lumens, cobrindo 825m² da fachada histórica.',src:'vimeo.com/295231634'},
- {n:'Virada Cultural',city:'São Paulo',fact:'Na edição de 2023, o Centro Histórico foi iluminado à noite com video mapping nas fachadas do Shopping Light e do Palácio dos Correios, e projeção no piso criando um corredor de 40 metros na Praça Pedro Lessa — projeto do Ateliê Digital Analógico com imagens de Daniel Frias.',src:'onprojecoes.com.br'},
- {n:'Salvador Mapping',city:'Salvador, Bahia',fact:'Festival dedicado à arte de video mapping, realizado desde 2017, reunindo artistas em monumentos e edifícios icônicos da cidade — um dos festivais brasileiros do gênero idealizados por mulheres.',src:'vita.art.br'},
- {n:'Amazônia Mapping',city:'Região amazônica',fact:'Festival brasileiro de video mapping idealizado por mulheres, ao lado do Salvador Mapping, ampliando a presença da técnica fora do eixo Rio-São Paulo.',src:'vita.art.br'},
- {n:'FIV — Festival Internacional de Video Mapping',city:'Curitiba, Paraná',fact:'Primeira edição em 2022, celebrando produção audiovisual de artistas do mundo todo dedicados a projeções mapeadas.',src:'vita.art.br'},
- {n:'Cerrado Mapping Festival',city:'Uberlândia, Minas Gerais',fact:'Festival de video mapping realizado anualmente, com edições recentes projetando sobre marcos arquitetônicos da cidade e chamadas públicas de projetos para artistas.',src:'uberlandia.mg.gov.br'}
-];
-const cbEl=document.getElementById('casesBR');
-CASES_BR.forEach(c=>{
-  const div=document.createElement('div');div.className='case';
-  div.innerHTML='<div class="city">'+c.city+'</div><h4>'+c.n+'</h4><p style="margin-bottom:6px"><span class="tag fact">FATO</span>'+c.fact+'</p><p style="font-size:10.5px;color:var(--gray2)">Fonte: '+c.src+'</p>';
-  cbEl.appendChild(div);
-});
-
-/* market stats */
-const STATS=[
- {num:'608.970',lab:'postos de trabalho no setor audiovisual brasileiro (2024)',src:'Agência Brasil / estudo setorial'},
- {num:'3,11%',lab:'participação da economia criativa no PIB brasileiro — 7,4 milhões de trabalhadores, projeção de 8,4 milhões até 2030',src:'BNDES'},
- {num:'R$ 6.800',lab:'remuneração média mensal no setor audiovisual — 84% acima da média salarial nacional',src:'Agência Brasil'},
- {num:'R$ 813,5 bi',lab:'faturamento do setor de eventos no Brasil em 2024 (4,6% do PIB), ~300 mil empresas, +355,9% desde 2001/2002',src:'Sebrae · ABEOC · FIEC'},
- {num:'R$ 14 bi',lab:'faturamento do setor de eventos apenas em São Paulo em 2025, com 1.511 grandes eventos (+22% vs. ano anterior)',src:'ABEOC'},
- {num:'R$ 70 bi/ano',lab:'faturamento de plataformas de streaming no Brasil — mercado adjacente que também emprega motion designers e editores de vídeo',src:'estudo setorial audiovisual'}
-];
-const sgEl=document.getElementById('statGrid');
-STATS.forEach(s=>{
-  const div=document.createElement('div');div.className='c stat';
-  div.innerHTML='<div class="num">'+s.num+'</div><div class="lab">'+s.lab+'</div><div class="src">'+s.src+'</div>';
-  sgEl.appendChild(div);
-});
-
-/* glossary */
-const GLOSS=[
- ['Throw ratio','razão entre distância do projetor e largura da imagem projetada — define a categoria de lente necessária.'],
- ['Black level','nível mínimo de luminância que a superfície ainda reflete quando o conteúdo deveria estar em preto absoluto.'],
- ['Edge blending','técnica de atenuação gradual do brilho nas zonas de sobreposição entre múltiplos projetores.'],
- ['Warping','correção geométrica da imagem projetada para se alinhar à superfície física real.'],
- ['ANSI lumens','unidade padronizada de medição do fluxo luminoso total emitido por um projetor.'],
- ['Frequência espacial','taxa de mudança de detalhe por unidade de espaço visual — determina o que sobrevive à distância.'],
- ['Sweet spot','ponto de vista único a partir do qual uma anamorfose parece corretamente tridimensional.'],
- ['Slice','unidade de captura e transformação de conteúdo dentro do software de mapping, geralmente ligada a um módulo físico real.'],
- ['FFT (Fast Fourier Transform)','técnica de análise de frequência usada para sincronizar visuais a faixas específicas do espectro sonoro.'],
- ['ControlNet','técnica de controle estrutural usada com modelos de geração de imagem por IA para preservar geometria de referência.']
-];
-const glEl=document.getElementById('glossList');
-GLOSS.forEach(g=>{const li=document.createElement('li');li.innerHTML='<b>'+g[0]+'</b><p>'+g[1]+'</p>';glEl.appendChild(li);});
-
-/* bibliography */
-const BIBLIO=[
- ['Signal Festival','en.wikipedia.org/wiki/Signal_Festival'],
- ['Festival of Lights (Berlin)','en.wikipedia.org/wiki/Festival_of_Lights_(Berlin)'],
- ['Fête des Lumières','lightzoomlumiere.fr/article/fete-des-lumieres-lyon-france-europe-historique'],
- ['Mapping Festival','en.wikipedia.org/wiki/Mapping_Festival'],
- ['MUTEK','montreal.mutek.org'],
- ['Projeções mapeadas no Brasil','vita.art.br/post/proje%C3%A7%C3%B5es-mapeada-realizadas-em-todo-o-brasil'],
- ['Farol Santander — projeto de mapping','vimeo.com/295231634'],
- ['Virada Cultural 2023 — mapping no Centro Histórico','onprojecoes.com.br/Virada-Cultural-1'],
- ['Setor audiovisual — postos de trabalho e economia criativa','agenciabrasil.ebc.com.br/geral/noticia/2024-01/setor-audiovisual-carece-de-profissionais-especializados-diz-estudo'],
- ['Economia criativa e mercado audiovisual','blogdodesenvolvimento.bndes.gov.br'],
- ['III Dimensionamento do Setor de Eventos no Brasil (Sebrae/ABEOC/FIEC)','abeoc.org.br'],
-];
-const bEl=document.getElementById('biblioList');
-BIBLIO.forEach(b=>{const li=document.createElement('li');li.innerHTML='<b>'+b[0]+'</b><p>'+b[1]+'</p>';bEl.appendChild(li);});
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha384-CI3ELBVUz9XQO+97x6nwMDPosPR5XvsxW2ua7N1Xeygeh1IxtgqtCkGfQY9WWdHu" crossorigin="anonymous"></script>
+<script src="cover-core.js"></script>
+<script src="cover-vm.js"></script>
 </body>
 </html>

@@ -1,0 +1,19 @@
+/* Capas animadas three.js (hero da página e thumbnails da home). Host: <div class="vjc"> */
+.vjc{position:absolute;inset:0;overflow:hidden;background:#000}
+.vjc canvas{display:block;width:100%;height:100%;transition:transform .6s}
+.vjc .lbl{position:absolute;left:0;top:0;font-family:'Martian Mono',monospace;font-size:10px;line-height:1.4;letter-spacing:-.5px;text-transform:uppercase;white-space:nowrap;pointer-events:none;color:#fff;opacity:.28;transition:opacity .5s;will-change:transform}
+.vjc .lbl b{display:block;font-weight:700;font-size:11px}
+.vjc .lbl.on{opacity:1}
+.vjc.only .lbl{opacity:0}
+.vjc.only .lbl.on{opacity:1}
+.vjc .hud{position:absolute;right:20px;bottom:20px;z-index:3;display:flex;flex-direction:column;gap:12px;font-family:'Martian Mono',monospace;font-size:10px;letter-spacing:-.5px;text-transform:uppercase;pointer-events:none;text-align:right;color:#fff}
+.vjc .hud div{opacity:.28;transition:opacity .4s}
+.vjc .hud div.on{opacity:1}
+.vjc .hud i{display:block;height:1px;background:#fff;width:0;margin:5px 0 0 auto}
+.vjc .cm,.vjc .tag{display:none}
+/* hero: degradê à esquerda para o título ficar legível */
+.tool-hero .vjc::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.8) 0,rgba(0,0,0,.35) 40%,rgba(0,0,0,0) 65%);pointer-events:none}
+@media(max-width:700px){.tool-hero .vjc .hud,.tool-hero .vjc .lbl{display:none}}
+/* thumbnails da home: sem HUD nem rótulos, zoom no hover */
+.tool-thumb-wrap .vjc .hud,.tool-thumb-wrap .vjc .lbl{display:none}
+.tool-item:hover .tool-thumb-wrap .vjc canvas{transform:scale(1.04)}
