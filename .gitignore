@@ -1,0 +1,4 @@
+# Local-only (never deploy): public/ makes Vercel serve only that folder; others are previews and internal notes
+public/
+_covers/
+RELATORIO-REVISAO.md
