@@ -121,7 +121,6 @@ footer span,footer a{font-family:var(--mono);font-size:10px;letter-spacing:-.5px
     <p class="tool-desc">Motor gráfico que roda no navegador: você monta camadas, áudio e superfície, vê o preview e exporta a animação em PNG sequence ou MP4. O potencial real está em conectá-lo ao Claude: com o comando /vj, o Claude conduz o briefing e gera a animação a partir de bibliotecas de código visual (GLSL, ISF, efeitos) e princípios da animação (mola, easing, loop fechado). Ele lê pixel maps, fachadas e diferentes tipos de canvas para a animação respeitar a superfície real.</p>
     <div class="tool-hero-cta">
       <button class="btn-download" onclick="gate('motor')">abrir motor gráfico web</button>
-      <button class="btn-ghost" onclick="gate('github')">github</button>
     </div>
   </div>
 </div>
@@ -150,10 +149,9 @@ footer span,footer a{font-family:var(--mono);font-size:10px;letter-spacing:-.5px
 
 <div class="tool-cta">
   <div class="tool-cta-title">Pronto para gerar?</div>
-  <div class="tool-cta-sub">Cadastre seu e-mail para liberar o motor gráfico e o repositório no GitHub.</div>
+  <div class="tool-cta-sub">Cadastre seu e-mail para liberar o motor gráfico web.</div>
   <div class="tool-cta-links">
     <button class="tool-cta-link" onclick="gate('motor')">abrir motor gráfico web</button>
-    <button class="btn-ghost" onclick="gate('github')">github</button>
   </div>
 </div>
 
@@ -170,10 +168,10 @@ footer span,footer a{font-family:var(--mono);font-size:10px;letter-spacing:-.5px
       <button class="popup-close" onclick="closeGate()">✕ fechar</button>
     </div>
     <div class="popup-form-title">Libere o<br>VJ Generator</div>
-    <div class="popup-form-sub">Preencha para liberar o motor gráfico web e o repositório no GitHub.</div>
+    <div class="popup-form-sub">Preencha para liberar o motor gráfico web.</div>
     <form id="gateForm" onsubmit="submitGate(event)">
       <input type="hidden" name="_subject" value="Novo lead — VJ Generator">
-      <input type="hidden" name="_autoresponse" value="Olá! Aqui estão os links do VJ Generator. Motor gráfico web: https://www.gyulyia.com/tools/motor-grafico.html — Repositório no GitHub: https://github.com/gyulyia3d-cloud/ai-vj-generator — Para usar com o Claude, instale a skill com o comando /vj (instruções no repositório). GYULYIA®">
+      <input type="hidden" name="_autoresponse" value="Olá! Aqui está o link do VJ Generator, o motor gráfico web: https://www.gyulyia.com/tools/motor-grafico.html — Qualquer dúvida, é só responder. GYULYIA®">
       <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
       <input type="hidden" name="_captcha" value="false">
       <input type="hidden" name="_template" value="table">
@@ -198,7 +196,6 @@ footer span,footer a{font-family:var(--mono);font-size:10px;letter-spacing:-.5px
       <div class="gd-s">Também enviamos os links para <b id="gdEmail"></b>.<br>Confira a caixa de spam se não chegar.</div>
       <div class="gd-links">
         <a class="btn-open" href="motor-grafico.html" target="_blank" rel="noopener">abrir motor gráfico</a>
-        <a class="btn-open ghost" href="https://github.com/gyulyia3d-cloud/ai-vj-generator" target="_blank" rel="noopener">github</a>
       </div>
     </div>
     <div class="popup-note" id="gateNote">seu e-mail é usado apenas para envio de conteúdo da gyulyia® — sem spam</div>
@@ -213,7 +210,7 @@ function updateTime(){
 }
 updateTime();setInterval(updateTime,1000);
 // ── EMAIL GATE ──
-const LINKS={motor:'motor-grafico.html',github:'https://github.com/gyulyia3d-cloud/ai-vj-generator'};
+const LINKS={motor:'motor-grafico.html'};
 let pending='motor';
 function unlocked(){try{return localStorage.getItem('vjg_unlocked')==='1';}catch(e){return false;}}
 function gate(which){
