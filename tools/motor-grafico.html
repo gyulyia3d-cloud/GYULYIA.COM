@@ -431,7 +431,7 @@ html.stagemode #toast,html.stagemode #hint{display:none!important}
    piso de 12px no texto de conteúdo (11px só em microrrótulo). Spec: docs/brand/UI-REDESIGN-PROPOSTA.md */
 :root{
   --s1:#0d0d0d; --s2:#161616; --s3:#202020;
-  --accent:#00ff3c; --accent-ink:#001a07; --accent-soft:rgb(0 255 60 / .18);
+  --accent:#ffffff; --accent-ink:#000000; --accent-soft:rgb(255 255 255 / .18);
   --r:3px;
   --fs-xs:11px; --fs-s:12px; --fs-m:13px; --fs-l:16px; --fs-xl:20px; --fs-2xl:25px;
   --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px; --sp-5:24px; --sp-6:32px;
@@ -440,8 +440,8 @@ html.stagemode #toast,html.stagemode #hint{display:none!important}
   --shadow-pop:0 8px 24px rgb(0 0 0 / .5);
   --well:var(--s2); --soft:var(--s1); --faint:#707070;
 }
-:root[data-theme="light"]{--s1:#f6f6f6; --s2:#ececec; --s3:#e2e2e2; --accent:#007a22; --accent-ink:#ffffff; --accent-soft:rgb(0 122 34 / .16); --track:#d0d0d0; --fill:#555555; --shadow-pop:0 8px 24px rgb(0 0 0 / .16)}
-@media (prefers-color-scheme:light){:root[data-theme="auto"]{--s1:#f6f6f6; --s2:#ececec; --s3:#e2e2e2; --accent:#007a22; --accent-ink:#ffffff; --accent-soft:rgb(0 122 34 / .16); --track:#d0d0d0; --fill:#555555; --shadow-pop:0 8px 24px rgb(0 0 0 / .16)}}
+:root[data-theme="light"]{--s1:#f6f6f6; --s2:#ececec; --s3:#e2e2e2; --accent:#000000; --accent-ink:#ffffff; --accent-soft:rgb(0 0 0 / .12); --track:#d0d0d0; --fill:#555555; --shadow-pop:0 8px 24px rgb(0 0 0 / .16)}
+@media (prefers-color-scheme:light){:root[data-theme="auto"]{--s1:#f6f6f6; --s2:#ececec; --s3:#e2e2e2; --accent:#000000; --accent-ink:#ffffff; --accent-soft:rgb(0 0 0 / .12); --track:#d0d0d0; --fill:#555555; --shadow-pop:0 8px 24px rgb(0 0 0 / .16)}}
 
 /* texto: caixa-alta só em abas, botões, títulos e microrrótulos; rótulos de parâmetro e ajuda em caixa normal */
 html,body{font-size:var(--fs-s);letter-spacing:.01em;text-transform:none}
@@ -638,6 +638,107 @@ input[type=range]:active::-webkit-slider-thumb{background:var(--accent);box-shad
 #barShow{position:absolute;left:50%;bottom:var(--sp-4);transform:translateX(-50%);z-index:6;background:var(--bg);border:1px solid var(--rule)}
 #barShow[hidden]{display:none}
 #app.clean #barShow{display:none}
+
+/* 14a-3 · popover Adicionar (app/add-ui.js): abas por categoria, miniaturas, busca, prévia de um quadro, 2 a 4 parâmetros em linha; em tela estreita vira gaveta */
+#addPop{position:fixed;inset:0;z-index:25;background:transparent}
+#addPop[hidden]{display:none}
+#addPop .box{position:absolute;left:50%;top:50%;transform:none;width:min(760px,calc(100vw - 24px));max-height:min(620px,calc(100dvh - 24px));overflow:auto;background:var(--bg);border:1px solid var(--fg);padding:10px 12px;display:flex;flex-direction:column;gap:8px}
+#addPop .box:not([style*="left"]){transform:translate(-50%,-50%)}
+#addPop header{display:flex;justify-content:space-between;align-items:center;gap:8px}
+#addPop h2{font:600 var(--fs-xs)/1 var(--font-title);letter-spacing:.14em;margin:0}
+#addPop h3{font:600 var(--fs-xs)/1.2 var(--font-title);letter-spacing:.12em;margin:4px 0 6px;display:flex;justify-content:space-between;gap:6px}
+#addQ{width:100%}
+#addTabs{display:flex;flex-wrap:wrap;gap:0;border-bottom:1px solid var(--rule)}
+#addTabs button{border:0;border-bottom:2px solid transparent;min-height:var(--hit);padding:4px 8px;font-family:var(--font-title);font-size:var(--fs-xs);letter-spacing:.04em;color:var(--dim)}
+#addTabs button[aria-selected="true"]{color:var(--fg);border-bottom-color:var(--accent)}
+#addPop .cols{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:12px;min-height:0}
+#addGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:6px;align-content:start}
+.addTile{display:flex;flex-direction:column;align-items:stretch;gap:4px;padding:4px;min-height:0;text-align:left;border:1px solid var(--rule)}
+.addTile .cvw{display:block;height:54px;background:#000;position:relative}
+.addTile canvas{width:100%;height:100%;object-fit:contain;display:block}
+.addTile.nolive .cvw::after{content:'—';position:absolute;inset:0;display:grid;place-items:center;color:var(--faint)}
+.addTile .nm{font-size:var(--fs-xs);letter-spacing:.04em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.addTile .fm{font-size:var(--fs-xs);color:var(--faint);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.addTile:hover{border-color:var(--fg)}
+.addTile[aria-pressed="true"]{border-color:var(--accent)}
+#addPop .side{display:flex;flex-direction:column;gap:6px;min-width:0}
+#addPop .pv{background:#000;border:1px solid var(--rule);display:grid;place-items:center;min-height:60px}
+#addPrev{max-width:100%;height:auto;display:block;image-rendering:auto}
+#addPop .note{margin:0}
+#addCtl .pc{grid-template-columns:84px minmax(0,1fr) 58px 22px}
+#addCtl .pc:has(>input[data-num]){grid-template-columns:84px minmax(0,1fr) 58px 22px;grid-template-areas:"lbl trk val rs";margin:4px 0}
+#addCtl .pc.wide{grid-template-columns:84px minmax(0,1fr) 22px}
+#addPop .acts{display:flex;justify-content:flex-end;margin-top:4px}
+#addGo{border-color:var(--accent)}
+@media (max-width:700px){
+  #addPop{background:rgba(0,0,0,.6)}
+  #addPop .box,#addPop .box:not([style*="left"]){left:0;right:0;top:auto;bottom:0;width:auto;max-height:85dvh;transform:none;border-width:1px 0 0}
+  #addPop .cols{grid-template-columns:1fr}
+  #addGrid{grid-template-columns:repeat(auto-fill,minmax(96px,1fr))}
+}
+
+/* 14b-T1 · timeline somente leitura (app/timeline.js): acoplada embaixo da vista, recolhível, altura arrastável; substitui a linha do scrub quando aberta */
+#tl{--s1:#0d0d0d;--s2:#161616;--s3:#202020;--accent:#ffffff;flex:0 0 auto;display:flex;flex-direction:column;min-height:0;border-top:1px solid var(--rule);background:var(--bg);position:relative}
+#tl.closed #tlBody,#tl.closed #tlGrip{display:none}
+#app.tlon #scrub{display:none}
+#app.clean #tl{display:none}
+#app.tlhide #tl{display:none}
+#tlShow{margin-left:auto}
+#tlShow[hidden]{display:none}
+#tlGrip{flex:0 0 6px;cursor:ns-resize;touch-action:none;margin-top:-3px}
+#tlGrip:hover,#tlGrip:focus-visible{background:var(--accent)}
+#tlBar{display:flex;align-items:center;gap:4px;padding:4px 8px;border-bottom:1px solid var(--rule);flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+#tl.closed #tlBar{border-bottom:0}
+#tlBar button{min-height:24px;padding:2px 8px;font-family:var(--font-title)}
+#tlBar .sp{flex:1}
+#tlBar .rd{font-family:var(--font-title);font-size:var(--fs-xs);color:var(--dim);white-space:nowrap}
+#tlBody{flex:1;min-height:0;display:grid;grid-template-columns:170px minmax(0,1fr)}
+#tlNames{overflow:hidden;border-right:1px solid var(--rule)}
+#tlTracks{overflow:auto;position:relative}
+#tlIn{position:relative;min-width:100%}
+.tln,.tlr{height:20px;box-sizing:border-box;border-bottom:1px solid var(--soft);position:relative}
+.tln.rl,.tlr.rl{height:24px;border-bottom-color:var(--rule)}
+.tln.au,.tlr.au{height:56px}
+.tln{display:flex;align-items:center;gap:6px;padding:0 6px;font-size:var(--fs-xs);color:var(--dim);white-space:nowrap;overflow:hidden}
+.tln .k{font:700 10px/1 var(--font-title);color:var(--faint)}
+.tln .nm{overflow:hidden;text-overflow:ellipsis}
+.tln .tg{flex:0 0 auto;width:22px;height:12px;min-height:0}
+.tln .tg::after{width:6px;height:6px;top:2px;left:2px}
+.tln .tg[aria-pressed="true"]::after{left:12px}
+.tln.off .nm{color:var(--faint)}
+#tlRc,#tlAc{position:absolute;inset:0;width:100%;height:100%;display:block}
+#tlRuler{cursor:col-resize}
+#tlRuler:focus-visible{outline:1px solid var(--accent);outline-offset:-1px}
+.tlph{position:absolute;top:2px;bottom:2px;background:var(--s2);color:var(--dim);font-size:var(--fs-xs);padding:0 4px;overflow:hidden;white-space:nowrap;line-height:16px;border-left:1px solid var(--rule)}
+.tlph.b{background:var(--s3)}
+.tlev{position:absolute;top:0;bottom:0;font-size:var(--fs-xs);color:var(--fg);white-space:nowrap;line-height:20px;padding-left:9px;pointer-events:auto}
+.tlev i{position:absolute;left:-4px;top:6px;width:7px;height:7px;background:var(--fg);transform:rotate(45deg)}
+.tlbar{position:absolute;top:3px;bottom:3px;background-color:var(--s3);background-image:repeating-linear-gradient(90deg,var(--g600) 0 1px,transparent 1px 100%);background-repeat:repeat-x;color:var(--fg);font-size:var(--fs-xs);line-height:14px;padding:0 4px;overflow:hidden;white-space:nowrap;border-left:2px solid var(--fg)}
+.tlbar.hero{border-left-color:var(--accent)}
+.tlbar.wrap{border-left:0;opacity:.55}
+.tlbar.off{opacity:.3}
+.tlend{position:absolute;right:2px;top:0;line-height:20px;font-size:var(--fs-xs);color:var(--faint)}
+.tlend.no{color:var(--fg);font-weight:700}
+.tlr.rl .tlend{line-height:24px;background:var(--bg);padding:0 4px;right:0}
+.tlnone{position:absolute;left:6px;top:0;line-height:20px;font-size:var(--fs-xs);color:var(--faint);white-space:nowrap}
+.tlnote{position:absolute;right:4px;bottom:2px;font-size:var(--fs-xs);color:var(--faint);pointer-events:none}
+#tlHead{position:absolute;top:0;bottom:0;width:1px;background:var(--accent);pointer-events:none;z-index:2}
+@media (min-width:901px){
+  #bar{margin-bottom:calc(var(--tl-h,0px) + var(--sp-4))}
+  #barShow{bottom:calc(var(--tl-h,0px) + var(--sp-4))}
+}
+@media (max-width:700px){#tlBody{grid-template-columns:96px minmax(0,1fr)}}
+/* toque: o olho tem o tamanho do interruptor do painel (WCAG 2.2, 24 px ou mais) e as linhas crescem junto */
+@media (pointer:coarse){
+  .tln,.tlr{height:34px}
+  .tln .tg{width:44px;height:28px}
+  .tln .tg::after{width:20px;height:20px;top:3px;left:3px}
+  .tln .tg[aria-pressed="true"]::after{left:19px}
+  .tlbar{top:8px;bottom:8px}
+  .tlev,.tlend,.tlnone{line-height:34px}
+  .tlev i{top:13px}
+  #tlBar button{min-height:44px}
+}
 /*__STYLE_END__*/
 </style>
 </head>
@@ -890,7 +991,7 @@ const ACC = [
   { n: 'Vermelho alarme', h: '#FF2A3D' }, { n: 'Amarelo sinal', h: '#E8FF00' }, { n: 'Osso', h: '#F4F3EF' }
 ];
 const PALS = {
-  STANDARD: { bg: '#050505', primary: '#F4F3EF', secondary: '#6B6F76', accent: '#00FF3C' },
+  STANDARD: { bg: '#050505', primary: '#F4F3EF', secondary: '#6B6F76', accent: '#FFFFFF' },
   MONO: { bg: '#000000', primary: '#FFFFFF', secondary: '#666666', accent: '#FFFFFF' },
   'BRANCO ALPHA': { bg: '#000000', primary: '#FFFFFF', secondary: '#B8B8B8', accent: '#FFFFFF', field: '#6E6E6E', mode: 'white-alpha' },
   INDUSTRIAL: { bg: '#060606', primary: '#E9E6DF', secondary: '#5A5D63', accent: '#FF4A1C' },
@@ -3814,6 +3915,7 @@ function tick(now) {
   if (!scrubbing) { const s = $('#scrub'); s.max = F.LF - 1; s.value = F.n; }
   $('#vPos').textContent = `${pad(F.n, 4)}/${pad(F.LF, 4)} · C${pad(F.bar + 1, 2)}:${F.beat % 4 + 1}`;
   { const vf = $('#vFrame'); if (vf && document.activeElement !== vf) vf.value = F.n; }
+  TIMELINE.tick(F);   /* fase 14b-T1: só a cabeça de leitura anda a cada quadro */
   if (ST.tr) drawTransition(now);
   const needComp = REC.r || OUTS.length;
   if (needComp) {
@@ -4012,7 +4114,7 @@ function rememberOrig() { P.compositions.forEach(c => { if (!ORIG[P.id + c.id]) 
 
 function renderLayers() {
   const el = pane('lay'), comp = cur();
-  el.innerHTML = `<h2 class="sec">Camadas · ${esc(comp.name)} <span class="lbl">0–9 liga · clique seleciona</span></h2>
+  el.innerHTML = `<h2 class="sec">Camadas · ${esc(comp.name)} <span class="lbl">0–9 liga · clique seleciona <button data-addpop aria-haspopup="dialog" aria-label="Adicionar camada" title="Adicionar camada">+</button></span></h2>
     <div id="lrows">${comp.layers.map((L, i) => `<div class="lrow ${ST.sel === i ? 'sel' : ''} ${ST.solo === i ? 'solo' : ''}" data-i="${i}">
       <button class="tg" data-vis aria-pressed="${L.on}" aria-label="Ligar ${esc(L.name)}"></button><span class="k">L${i}</span>
       <span style="min-width:0"><span class="nm">${esc(L.name)}</span><span class="ty">${esc((famOf(L.type) || [''])[0])} · ${esc(typeLabel(L.type))}${LAYER_ERR.has(L) ? ' · ERRO' : ''}</span></span>
@@ -5570,7 +5672,7 @@ const GENAI = (() => {
     }
     if (led) {
       for (const [k, f] of [['weight', 3], ['stroke', 3]]) if (['tunnel', 'lines', 'shape'].includes(heroT) && typeof heroP[k] === 'number') heroP[k] = pyRound(heroP[k] * f, 1);
-      if (heroT === 'tunnel' && heroP.weight === undefined) heroP.weight = 9;
+      if (heroT === 'tunnel' && heroP.weight === undefined) heroP.weight = 18;   /* 9 virava ~6,7 px numa parede de 800 px: fino demais a 40 m, o herói perdia contraste (galeria 01, GLITCH II) */
       if (heroT === 'bitfield') heroP.cell = Math.trunc((heroP.cell == null ? 14 : heroP.cell) * 2);
     }
     for (const k of ['count', 'points', 'rows']) if (typeof heroP[k] === 'number') heroP[k] = Math.max(1, pyRound(heroP[k] * dens));
@@ -6328,7 +6430,7 @@ function setLang(l, quiet) {
   ST.lang = l === 'en' ? 'en' : 'pt'; store.set('lang', ST.lang); document.documentElement.lang = ST.lang === 'en' ? 'en' : 'pt-BR';
   trBusy = true; try { trTree(document.body); } finally { trBusy = false; } trObs.takeRecords();
   $('#langBtn').textContent = ST.lang === 'en' ? 'EN' : 'PT-BR'; $('#langBtn').setAttribute('aria-label', ST.lang === 'en' ? 'Language: English. Switch to Portuguese' : 'Idioma: português. Mudar para inglês');
-  renderGuide(); if (ST.tab === 'sur') renderSurface(); UX.refresh(); BRIEFGEN.refresh(); if (!$('#howto').hidden) renderHow(); if (!quiet) toast(ST.lang === 'en' ? 'English' : 'Português (Brasil)', 1000);
+  renderGuide(); if (ST.tab === 'sur') renderSurface(); UX.refresh(); BRIEFGEN.refresh(); ADDUI.refresh(); TIMELINE.refresh(); if (!$('#howto').hidden) renderHow(); if (!quiet) toast(ST.lang === 'en' ? 'English' : 'Português (Brasil)', 1000);
 }
 $('#langBtn').onclick = () => setLang(ST.lang === 'en' ? 'pt' : 'en');
 
@@ -8269,6 +8371,433 @@ ${AIS.map((a, i) => `<div class="bgPanel" role="tabpanel" id="wzP_${a.id}" aria-
 })();
 /*__BRIEFGEN_END__*/
 
+/*__ADDUI_START__*/
+/* Popover Adicionar (fase 14a-3): escolher o que entra na composição sem passar pelo painel de propriedades.
+   Abas pelas categorias de FAMILIES, grade de miniaturas, busca; ao escolher, prévia de um quadro (lado maior de 256 px, sem loop contínuo),
+   selects e 2 a 4 parâmetros essenciais em linha, e o botão Adicionar camada. Os demais parâmetros ficam no painel depois de adicionada.
+   Abre pelo + no cabeçalho de Camadas e pelo Adicionar da barra flutuante; fecha com Esc e ao clicar fora; foco preso enquanto aberto;
+   adicionar é um passo só no histórico (um Ctrl+Z desfaz). Em tela estreita vira gaveta. Só apresentação: não muda o render nem o formato.
+   Fonte de verdade: este arquivo; node scripts/embed-modules.mjs embute no index.html entre os marcadores ADDUI. Mesmo escopo do motor (IIFE): sem import/export. */
+const ADDUI = (() => {
+  const PREV = 256, TW = 96, TH = 54;
+  /* sem miniatura ao vivo: Tempo precisa do histórico de quadros, Simulação assa o loop inteiro na CPU, Código só roda depois de autorizado */
+  const NO_LIVE = new Set(['temporal', 'sim', 'code']);
+  const S = { cat: 0, q: '', type: null, hover: null, p: {}, opener: null, queue: [], tid: 0, raf: 0 };
+  const defs = [];   /* lista estável para bindCtls: o conteúdo muda com o tipo escolhido */
+  const SCR = document.createElement('canvas'), SCX = SCR.getContext('2d');
+  const q = s => document.querySelector(s);
+  const norm = s => String(s).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+  const items = () => FAMILIES.flatMap((f, fi) => f[1].map(([t, lab]) => ({ t, lab, fam: f[0], fi })));
+  function visible() {
+    const k = norm(S.q.trim());
+    return k ? items().filter(x => norm(x.lab + ' ' + x.t + ' ' + x.fam).includes(k)) : items().filter(x => x.fi === S.cat);
+  }
+
+  /* Parâmetros que aparecem no popover. Os rótulos de P1 a P4 seguem o preset (paramGroups, o mesmo do painel).
+     Regra atual: na ordem declarada no gerador, até 2 selects e o resto em números, interruptores, cores e texto curto, no máximo 4 ao todo. */
+  function essentialParams(type) {
+    const L = mk(type, '', true, S.type === type ? S.p : {}), name = typeLabel(type).toUpperCase();
+    const g = paramGroups(L).find(x => x[0] === name), all = g ? g[1] : (GEN[type] ? GEN[type].params : []);
+    const usable = d => d.t === 'n' || d.t === 'b' || d.t === 'c' || d.t === 's' || (d.t === 't' && !d.area);
+    let sel = 0;
+    return all.filter(d => usable(d) && (d.t !== 's' || sel++ < 2)).slice(0, 4);
+  }
+
+  /* posição de entrada: logo acima da camada selecionada, como o Adicionar do painel de Camadas */
+  const insertAt = () => { const n = cur().layers.length; return Math.min(Math.max(ST.sel, -1), n - 1) + 1; };
+  const draft = t => mk(t, typeLabel(t).toUpperCase(), true, t === S.type ? clone(S.p) : {});
+
+  /* desenha uma pilha [camada, índice] num canvas, no quadro atual; mesma composição das miniaturas de Composições (drawThumb) */
+  function paintStack(cv, k, stack) {
+    const comp = cur(), W = P.canvas.w, H = P.canvas.h, w = Math.max(2, Math.round(W * k)), h = Math.max(2, Math.round(H * k));
+    if (cv.width !== w) cv.width = w; if (cv.height !== h) cv.height = h; SCR.width = w; SCR.height = h;
+    const c = cv.getContext('2d'), F = frameAt(ST.n, comp); let err = '';
+    c.globalCompositeOperation = 'source-over'; c.globalAlpha = 1; c.fillStyle = '#000'; c.fillRect(0, 0, w, h);
+    for (const [L, i, temp] of stack) {
+      if (!L.on) continue;
+      try { renderLayer(SCX, comp, L, i, F, k, W, H, BELOW_TYPES.has(L.type) ? cv : undefined); } catch (e) { err = String(e && e.message || e); }
+      if (temp && LAYER_ERR.has(L)) { err = LAYER_ERR.get(L); LAYER_ERR.delete(L); }   /* a camada temporária não deixa rastro no mapa de erros */
+      c.globalAlpha = L.opacity; c.globalCompositeOperation = fxOp(L, (BLENDS[L.blend] || BLENDS.normal)[0]); c.drawImage(SCR, 0, 0);
+      c.globalAlpha = 1; c.globalCompositeOperation = 'source-over';
+    }
+    return err;
+  }
+  const below = () => cur().layers.slice(0, insertAt()).map((L, i) => [L, i, false]);
+  function paintTile(cv, t) {
+    if (NO_LIVE.has(t)) return;   /* a grade já marca o botão com .nolive */
+    const W = P.canvas.w, H = P.canvas.h, k = Math.min(TW / W, TH / H), L = mk(t, '', true);
+    /* quem lê a imagem de baixo (filtro, manchas) aparece sobre a composição; o resto aparece sozinho */
+    paintStack(cv, k, (BELOW_TYPES.has(t) ? below() : []).concat([[L, insertAt(), true]]));
+  }
+  function paintPreview() {
+    S.raf = 0; const cv = q('#addPrev'), t = S.hover || S.type; if (!cv) return;
+    const st = q('#addPrevNote');
+    if (!t) { cv.width = 2; cv.height = 2; st.textContent = T3('Escolha um tipo para ver a prévia.', 'Pick a type to see the preview.'); return; }
+    if (NO_LIVE.has(t)) { cv.width = 2; cv.height = 2; st.textContent = T3('Sem prévia aqui: aparece na vista depois de adicionada.', 'No preview here: it shows in the view once added.'); return; }
+    const W = P.canvas.w, H = P.canvas.h, k = PREV / Math.max(W, H);
+    const err = paintStack(cv, k, below().concat([[draft(t), insertAt(), true]]));
+    st.textContent = err ? T3('Erro na prévia: ', 'Preview error: ') + err : T3('Quadro ', 'Frame ') + frameAt(ST.n, cur()).n + T3(' · sobre as camadas de baixo', ' · over the layers below');
+  }
+  const schedule = () => { if (!S.raf) S.raf = requestAnimationFrame(() => { paintPreview(); place(); }); };   /* a prévia muda a altura da caixa: reposiciona para não passar da borda */
+  function pump() {
+    S.tid = 0; const x = S.queue.shift(); if (!x) return;
+    if (x.isConnected) paintTile(x, x.dataset.t);
+    if (S.queue.length) S.tid = setTimeout(pump, 0);
+  }
+
+  function tabsHtml() {
+    const qq = !!S.q.trim();
+    return FAMILIES.map((f, i) => `<button role="tab" id="addTab${i}" data-cat="${i}" aria-selected="${!qq && i === S.cat}" tabindex="${!qq && i === S.cat ? 0 : -1}">${esc(f[0])}</button>`).join('');
+  }
+  function gridHtml() {
+    const v = visible();
+    if (!v.length) return `<p class="note">${T3('Nada encontrado.', 'Nothing found.')}</p>`;
+    return v.map(x => `<button class="addTile${NO_LIVE.has(x.t) ? ' nolive' : ''}" data-t="${x.t}" aria-pressed="${x.t === S.type}" title="${esc(x.fam + ' · ' + x.lab)}"><span class="cvw"><canvas data-t="${x.t}" width="2" height="2" aria-hidden="true"></canvas></span><span class="nm">${esc(x.lab)}</span>${S.q.trim() ? `<span class="fm">${esc(x.fam)}</span>` : ''}</button>`).join('');
+  }
+  function detHtml() {
+    const t = S.type, comp = cur(), at = insertAt(), under = comp.layers[at - 1];
+    const where = under ? T3('Entra acima de ', 'Goes above ') + 'L' + (at - 1) + ' · ' + esc(under.name) : T3('Entra como a primeira camada', 'Goes in as the first layer');
+    if (!t) return `<p class="note">${where}</p>`;
+    const f = famOf(t), p = pm(mk(t, '', true, S.p));
+    defs.length = 0; essentialParams(t).forEach(d => defs.push(d));
+    return `<h3>${esc(typeLabel(t))} <span class="lbl">${esc(f ? f[0] : '')}</span></h3>
+      <div id="addCtl">${defs.map(d => ctlHtml(d, p[d.k])).join('')}</div>
+      <p class="note">${where}. ${T3('Os outros parâmetros ficam no painel.', 'The other parameters stay in the panel.')}</p>
+      <div class="acts"><button id="addGo" class="on">${T3('Adicionar camada', 'Add layer')}</button></div>`;
+  }
+  function render(keepFocus) {
+    const box = q('#addPop .box'); if (!box) return;
+    const fid = keepFocus && document.activeElement && document.activeElement.id;
+    q('#addT').textContent = T3('Adicionar camada', 'Add layer'); q('#addX').setAttribute('aria-label', T3('Fechar', 'Close'));
+    const s = q('#addQ'); s.placeholder = T3('Buscar tipo', 'Search type'); s.setAttribute('aria-label', T3('Buscar tipo de camada', 'Search layer type'));
+    q('#addTabs').innerHTML = tabsHtml(); q('#addTabs').setAttribute('aria-label', T3('Categorias', 'Categories'));
+    renderGrid(); renderDet();
+    if (fid && document.getElementById(fid)) document.getElementById(fid).focus({ preventScroll: true });
+  }
+  function renderGrid() {
+    const g = q('#addGrid'); g.innerHTML = gridHtml(); g.setAttribute('aria-label', T3('Tipos', 'Types'));
+    clearTimeout(S.tid); S.queue = [...g.querySelectorAll('canvas[data-t]')]; S.tid = setTimeout(pump, 0);
+  }
+  function renderDet() { q('#addDet').innerHTML = detHtml(); schedule(); }
+  function choose(t) {
+    if (S.type !== t) { S.type = t; S.p = {}; }
+    q('#addGrid').querySelectorAll('.addTile').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.t === t)));
+    renderDet();
+  }
+
+  /* um passo só no histórico: o rascunho não toca o projeto até aqui */
+  function add() {
+    const t = S.type; if (!t) return null;
+    flushCommit();
+    const comp = cur(), at = insertAt(), L = draft(t);
+    comp.layers.splice(at, 0, L); ST.sel = at;
+    buildStage(); renderLayers(); renderParams(); renderText();
+    commit(true, T3('Adicionar camada: ', 'Add layer: ') + L.name);
+    close(); toast(T3('Camada adicionada: ', 'Layer added: ') + L.name + T3(' · Ctrl+Z desfaz', ' · Ctrl+Z undoes'), 1600);
+    return L;
+  }
+
+  function place() {
+    const root = q('#addPop'), box = q('#addPop .box'), o = S.opener; if (root.hidden) return;
+    box.style.left = box.style.top = box.style.bottom = '';
+    if (matchMedia('(max-width:700px)').matches || !o || !o.getBoundingClientRect) return;   /* gaveta: o CSS posiciona */
+    const r = o.getBoundingClientRect(), bw = box.offsetWidth, bh = box.offsetHeight, vw = root.clientWidth, vh = root.clientHeight;
+    const x = Math.min(Math.max(12, r.left), Math.max(12, vw - bw - 12));
+    const y = r.top > vh / 2 ? r.top - bh - 6 : r.bottom + 6;
+    box.style.left = x + 'px'; box.style.top = Math.min(Math.max(12, y), Math.max(12, vh - bh - 12)) + 'px';
+  }
+  function open(from) {
+    const root = q('#addPop'); if (!root) return;
+    S.opener = from || document.activeElement; S.hover = null;
+    { const f = famOf(S.type || (cur().layers[ST.sel] || {}).type); if (f && !S.type) S.cat = FAMILIES.indexOf(f); }
+    root.hidden = false; render(); place();
+    q('#addBarBtn').setAttribute('aria-expanded', 'true');
+    setTimeout(() => { const s = q('#addQ'); if (s && !root.hidden) s.focus({ preventScroll: true }); }, 20);
+  }
+  function close() {
+    const root = q('#addPop'); if (!root || root.hidden) return;
+    root.hidden = true; clearTimeout(S.tid); S.queue = []; if (S.raf) cancelAnimationFrame(S.raf); S.raf = 0;
+    q('#addBarBtn').setAttribute('aria-expanded', 'false');
+    const o = S.opener; S.opener = null; if (o && o.isConnected && o.focus) o.focus({ preventScroll: true });
+  }
+  const focusables = () => [...q('#addPop .box').querySelectorAll('button,input,select,textarea,[tabindex]')].filter(e => !e.disabled && e.tabIndex >= 0 && e.offsetParent !== null);
+
+  function bind() {
+    const root = q('#addPop');
+    root.addEventListener('pointerdown', e => { if (e.target === root) close(); });
+    root.addEventListener('click', e => {
+      const b = e.target.closest('button'); if (!b) return;
+      if (b.id === 'addX') close();
+      else if (b.id === 'addGo') add();
+      else if (b.dataset.cat != null) { S.cat = +b.dataset.cat; S.q = ''; q('#addQ').value = ''; q('#addTabs').innerHTML = tabsHtml(); renderGrid(); q('#addTab' + S.cat).focus(); }
+      else if (b.classList.contains('addTile')) choose(b.dataset.t);
+    });
+    root.addEventListener('input', e => { if (e.target.id === 'addQ') { S.q = e.target.value; q('#addTabs').innerHTML = tabsHtml(); renderGrid(); } });
+    /* passar o mouse ou focar uma miniatura mostra a prévia dela; sair volta ao tipo escolhido */
+    const grid = q('#addGrid');
+    grid.addEventListener('pointerover', e => { const b = e.target.closest('.addTile'); if (b && S.hover !== b.dataset.t) { S.hover = b.dataset.t; schedule(); } });
+    grid.addEventListener('pointerleave', () => { if (S.hover) { S.hover = null; schedule(); } });
+    grid.addEventListener('focusin', e => { const b = e.target.closest('.addTile'); if (b) { S.hover = b.dataset.t; schedule(); } });
+    grid.addEventListener('focusout', () => { S.hover = null; schedule(); });
+    root.addEventListener('keydown', e => {
+      if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); close(); return; }
+      if (e.key === 'Tab') {
+        const f = focusables(), i = f.indexOf(document.activeElement);
+        if (f.length && e.shiftKey && i <= 0) { e.preventDefault(); f[f.length - 1].focus(); }
+        else if (f.length && !e.shiftKey && i === f.length - 1) { e.preventDefault(); f[0].focus(); }
+      }
+      const tab = e.target.closest('[role=tab]');
+      if (tab && (e.key === 'ArrowRight' || e.key === 'ArrowLeft')) { e.preventDefault(); const n = FAMILIES.length; S.cat = (+tab.dataset.cat + (e.key === 'ArrowRight' ? 1 : n - 1)) % n; S.q = ''; q('#addQ').value = ''; q('#addTabs').innerHTML = tabsHtml(); renderGrid(); q('#addTab' + S.cat).focus(); }
+      if (e.key === 'Enter' && e.target.id === 'addQ') { e.preventDefault(); const v = visible(); if (v.length) { choose(v[0].t); const b = q(`#addGrid .addTile[data-t="${v[0].t}"]`); if (b) b.focus(); } }
+      e.stopPropagation();   /* os atalhos da vista (espaço, 0 a 9, letras) não disparam enquanto se escolhe */
+    });
+    const ctl = q('#addDet');
+    bindCtls(ctl, defs, k => pm(mk(S.type, '', true, S.p))[k], (k, v) => {
+      if (v === undefined) delete S.p[k]; else S.p[k] = v;
+      const d = defs.find(x => x.k === k);
+      /* trocar preset ou forma troca os rótulos e os padrões de P1 a P4 */
+      if (d && d.t === 's' && /^(preset|kind)$/.test(k)) { ['p1', 'p2', 'p3', 'p4'].forEach(x => delete S.p[x]); renderDet(); return; }
+      schedule();
+    });
+    addEventListener('resize', () => { if (!root.hidden) place(); });
+  }
+
+  function refresh() { const b = q('#addBarBtn'); if (b) { b.textContent = T3('Adicionar', 'Add'); b.title = T3('Adicionar camada (abre o popover)', 'Add layer (opens the popover)'); } if (q('#addPop') && !q('#addPop').hidden) render(true); }
+  function init() {
+    if (q('#addPop')) return;
+    const dlg = document.createElement('section'); dlg.id = 'addPop'; dlg.hidden = true; dlg.setAttribute('role', 'dialog'); dlg.setAttribute('aria-modal', 'true'); dlg.setAttribute('aria-labelledby', 'addT');
+    dlg.innerHTML = `<div class="box"><header><h2 id="addT"></h2><button id="addX">×</button></header>
+      <input id="addQ" type="search" autocomplete="off" spellcheck="false">
+      <div id="addTabs" role="tablist"></div>
+      <div class="cols"><div id="addGrid" role="group"></div>
+      <div class="side"><div class="pv"><canvas id="addPrev" width="2" height="2" aria-hidden="true"></canvas></div><p class="note" id="addPrevNote" role="status"></p><div id="addDet"></div></div></div></div>`;
+    document.body.appendChild(dlg);
+    const bar = q('#bar'), sep = bar && bar.querySelector('.sep');
+    if (bar) { const b = document.createElement('button'); b.id = 'addBarBtn'; b.setAttribute('aria-haspopup', 'dialog'); b.setAttribute('aria-expanded', 'false'); b.setAttribute('aria-controls', 'addPop'); bar.insertBefore(b, sep || null); b.onclick = () => open(b); }
+    /* o + do cabeçalho de Camadas é redesenhado com o painel: delegação */
+    document.addEventListener('click', e => { const b = e.target.closest && e.target.closest('[data-addpop]'); if (b) open(b); });
+    bind(); refresh();
+  }
+  if (typeof document !== 'undefined' && typeof $ === 'function') init();
+  return { open, close, add, choose, essentialParams, refresh, NO_LIVE, get state() { return { open: !!q('#addPop') && !q('#addPop').hidden, cat: S.cat, q: S.q, type: S.type, p: clone(S.p), at: insertAt() }; } };
+})();
+/*__ADDUI_END__*/
+
+/*__TIMELINE_START__*/
+/* Timeline T1, somente leitura (fase 14b-T1, docs/brand/UI-REDESIGN-PROPOSTA.md §13): painel acoplado embaixo da vista, recolhível e com altura arrastável.
+   Mostra o que hoje só aparece como números: régua (compassos, tempos, quadros) com a cabeça de leitura ligada ao scrub; fases da composição (meta.compositionIR[i].temporal.phases)
+   e eventos na batida (meta.animationIR[i].events); uma faixa por camada, na ordem do painel de Camadas, com o comportamento (Animation IR e semântica de áudio),
+   o atraso em semicolcheias (p.phase), os ciclos das curvas e se o loop fecha (ciclos inteiros declarados); e a faixa de áudio (ao vivo, gravada ao tocar, ou a fonte sintética do BPM).
+   Não muda projeto, formato nem render: clicar na régua só posiciona a cabeça de leitura (como o scrub); o olho é o mesmo toggleLayer do painel de Camadas.
+   Custo: a régua e o áudio são redesenhados só quando algo muda; a cada quadro só a cabeça de leitura anda (um transform).
+   Fonte de verdade: este arquivo; node scripts/embed-modules.mjs embute no index.html entre os marcadores TIMELINE. Mesmo escopo do motor (IIFE): sem import/export. */
+const TIMELINE = (() => {
+  const S = { hidden: !!store.get('tlHidden', false), open: store.get('tlOpen', null), h: store.get('tlH', 200), zoom: 1, sig: '', k: 0, LF: 0, rec: null, recAt: 0, dirtyAud: true };
+  const BEH_PT = { still: 'parada', drift: 'deriva', beat: 'na batida', follow: 'segue', accent: 'acento', section: 'seção', lead: 'lidera', counter: 'contra', ambient: 'ambiente', reveal: 'revela', hold: 'segura' };
+  const TIER_PT = { hero: 'herói', structure: 'estrutura', ground: 'chão', instrument: 'instrumento', text: 'texto' };
+  const BANDS = [['bass', 'G'], ['mid', 'M'], ['high', 'A'], ['rms', 'N']];
+  const q = s => document.querySelector(s);
+  const word = (m, k) => k ? (ST.lang === 'en' ? k : (m[k] || k)) : '';
+  const meta = () => P.meta || {};
+  const phasesOf = () => { const c = (meta().compositionIR || [])[ST.ci]; return c && c.temporal && Array.isArray(c.temporal.phases) ? c.temporal.phases : null; };
+  const animOf = () => (meta().animationIR || [])[ST.ci] || null;
+  const isText = t => { const f = famOf(t); return !!f && f[0] === 'Texto'; };
+  function tierOf(L) { const t = ANIMATION.tierOf(L); return t || (L.type === 'instrument' ? 'instrument' : isText(L.type) ? 'text' : null); }
+  const lfoCycles = L => (Array.isArray(L.mod) ? L.mod : []).filter(m => m && m.src === 'lfo' && m.cycles != null).map(m => +m.cycles);
+  /* fecha o loop = loop sem emenda ligado e toda curva LFO da camada com ciclos inteiros (o mesmo critério que o motor arredonda em cyc) */
+  const closes = L => !!(P.time.loop && P.time.seamless) && lfoCycles(L).every(c => Number.isInteger(c));
+  function rowInfo(L, i) {
+    const p = pm(L), sx = P.time.bars * 16, ph = ((+p.phase || 0) % 1 + 1) % 1, an = animOf(), tier = tierOf(L);
+    const ab = an && tier && an.hierarchy && an.hierarchy[tier] ? an.hierarchy[tier].behavior : null, tb = L.temporal && L.temporal.behavior;
+    const cyc = lfoCycles(L), c = cyc.length ? Math.max(...cyc) : 0;
+    return { i, L, ph, steps: Math.round(ph * sx * 100) / 100, tier, ab, tb, listens: (L.temporal && L.temporal.listens) || [], cycles: c, closes: closes(L) };
+  }
+  function rowText(r) {
+    const parts = [r.tier ? word(TIER_PT, r.tier) : null, r.ab ? word(BEH_PT, r.ab) : null, r.tb ? word(BEH_PT, r.tb) + (r.listens.length ? ' (' + r.listens.join(', ') + ')' : '') : null].filter(Boolean);
+    return parts.join(' · ') || T3('sem comportamento declarado', 'no declared behaviour');
+  }
+  function rowLabel(r) {
+    return `L${r.i} ${r.L.name}: ${rowText(r)}; ${T3('atraso', 'delay')} ${r.steps} ${T3('semicolcheia(s)', 'sixteenth(s)')}` + (r.cycles ? `; ${r.cycles} ${T3('ciclo(s)', 'cycle(s)')}` : '') + `; ${r.closes ? T3('fecha o loop', 'closes the loop') : T3('não fecha o loop', 'does not close the loop')}` + (r.L.on ? '' : '; ' + T3('desligada', 'off'));
+  }
+  const pct = x => (x * 100).toFixed(4) + '%';
+  function seg(cls, a, b, cyc, wrapRight, txt) {
+    const w = b - a; if (w <= 0) return '';
+    const bg = cyc ? `background-size:${(100 / (cyc * w)).toFixed(4)}% 100%;background-position:${wrapRight ? 'right' : 'left'} 0` : '';
+    return `<span class="${cls}" style="left:${pct(a)};width:${pct(w)};${bg}">${txt ? esc(txt) : ''}</span>`;
+  }
+  function sigOf() {
+    const c = cur(); return [ST.ci, ST.lang, P.id, P.time.bpm, P.time.bars, P.time.loop, P.time.seamless, P.time.mode, P.canvas.fps, !!phasesOf(), !!animOf(),
+      c.layers.map(L => [L.type, L.name, L.on, (L.p || {}).phase, L.temporal && L.temporal.behavior, lfoCycles(L).join(',')].join('|')).join(';')].join('#');
+  }
+
+  function build() {
+    const box = q('#tl'); if (!box) return;
+    const comp = cur(), LF = loopFrames(), bars = P.time.bars, ph = phasesOf(), an = animOf(), rows = comp.layers.map(rowInfo), allClose = rows.every(r => r.closes);
+    S.LF = LF; if (!S.rec || S.rec.n !== LF) S.rec = { n: LF, bass: new Float32Array(LF), mid: new Float32Array(LF), high: new Float32Array(LF), rms: new Float32Array(LF), hit: new Float32Array(LF), has: new Uint8Array(LF) };
+    const names = [`<div class="tln rl">${T3('Régua', 'Ruler')}</div>`, `<div class="tln">${T3('Fases', 'Phases')}</div>`, `<div class="tln">${T3('Eventos', 'Events')}</div>`]
+      .concat(rows.map(r => `<div class="tln ly${r.L.on ? '' : ' off'}"><button class="tg" data-tlvis="${r.i}" aria-pressed="${r.L.on}" aria-label="${T3('Ligar', 'Toggle')} ${esc(r.L.name)}"></button><span class="k">L${r.i}</span><span class="nm">${esc(r.L.name)}</span></div>`))
+      .concat([`<div class="tln au">${T3('Áudio', 'Audio')}</div>`]).join('');
+    const phRow = ph ? ph.map((x, k) => seg('tlph' + (k % 2 ? ' b' : ''), +x.at, k + 1 < ph.length ? +ph[k + 1].at : 1, 0, false, x.name)).join('')
+      : `<span class="tlnone">${T3('sem fases (projeto sem Composition IR)', 'no phases (project without Composition IR)')}</span>`;
+    const evRow = an && Array.isArray(an.events) ? an.events.map(e => `<span class="tlev" style="left:${pct(+e.at)}" title="${esc(e.name + ' · ' + T3('tempo ', 'beat ') + (e.beat + 1))}"><i></i>${esc(e.name)}</span>`).join('')
+      : `<span class="tlnone">${T3('sem eventos (projeto sem Animation IR)', 'no events (project without Animation IR)')}</span>`;
+    const lyRows = rows.map(r => {
+      const cls = 'tlbar' + (r.tier === 'hero' ? ' hero' : '') + (r.L.on ? '' : ' off');
+      const txt = rowText(r) + (r.steps ? ` · +${r.steps}♬` : '') + (r.cycles ? ` · ${r.cycles}×` : '');
+      return `<div class="tlr ly" role="img" aria-label="${esc(rowLabel(r))}">${seg(cls, r.ph, 1, r.cycles, false, txt)}${r.ph > 0 ? seg(cls + ' wrap', 0, r.ph, r.cycles, true, '') : ''}<span class="tlend ${r.closes ? 'ok' : 'no'}" title="${r.closes ? T3('fecha o loop', 'closes the loop') : T3('não fecha o loop', 'does not close the loop')}">${r.closes ? '↻' : '≠'}</span></div>`;
+    }).join('');
+    q('#tlNames').innerHTML = names;
+    q('#tlTracks').innerHTML = `<div id="tlIn" style="width:${S.zoom * 100}%">
+      <div class="tlr rl" id="tlRuler" role="slider" tabindex="0" aria-label="${T3('Posição no loop', 'Loop position')}" aria-valuemin="0" aria-valuemax="${LF - 1}"><canvas id="tlRc" aria-hidden="true"></canvas><span class="tlend ${allClose ? 'ok' : 'no'}">${allClose ? T3('fecha', 'closes') : T3('não fecha', 'open')}</span></div>
+      <div class="tlr" id="tlPh">${phRow}</div><div class="tlr" id="tlEv">${evRow}</div>${lyRows}
+      <div class="tlr au"><canvas id="tlAc" aria-hidden="true"></canvas><span id="tlAuL" class="tlnote"></span></div>
+      <div id="tlHead" aria-hidden="true"></div></div>`;
+    q('#tlPos') && (q('#tlPos').dataset.bars = bars);
+    S.dirtyAud = true; drawRuler(); drawAudio(); tick(ST.F || frameAt(ST.n, comp), true);
+  }
+  function canvasFit(cv) {
+    const r = cv.getBoundingClientRect(), d = Math.min(2, window.devicePixelRatio || 1), w = Math.max(2, Math.round(r.width * d)), h = Math.max(2, Math.round(r.height * d));
+    if (cv.width !== w) cv.width = w; if (cv.height !== h) cv.height = h; return { c: cv.getContext('2d'), w, h, d };
+  }
+  const css = v => getComputedStyle(q('#tl')).getPropertyValue(v).trim() || '#888';
+  function drawRuler() {
+    const cv = q('#tlRc'); if (!cv) return;
+    const { c, w, h, d } = canvasFit(cv), bars = P.time.bars, beats = bars * 4, fg = css('--fg'), dim = css('--faint');
+    c.clearRect(0, 0, w, h); c.font = `${10 * d}px ${css('--font-title') || 'monospace'}`; c.textBaseline = 'top';
+    const pxBeat = w / beats, sixteenth = pxBeat / 4 >= 5 * d, beatLab = pxBeat >= 28 * d;
+    for (let s = 0; s <= beats * 4; s++) {
+      const x = Math.round(s / (beats * 4) * w) + 0.5, isBar = s % 16 === 0, isBeat = s % 4 === 0;
+      if (!isBeat && !sixteenth) continue;
+      c.strokeStyle = isBar ? fg : dim; c.globalAlpha = isBar ? 1 : isBeat ? 0.8 : 0.35; c.beginPath(); c.moveTo(x, h); c.lineTo(x, h - (isBar ? h * 0.7 : isBeat ? h * 0.4 : h * 0.2)); c.stroke();
+      c.globalAlpha = 1; c.fillStyle = isBar ? fg : dim;
+      if (isBar && s < beats * 4) c.fillText(String(s / 16 + 1), x + 3 * d, 2 * d);
+      else if (isBeat && beatLab && s < beats * 4) c.fillText('.' + (s / 4 % 4 + 1), x + 3 * d, 2 * d);
+    }
+  }
+  function drawAudio() {
+    const cv = q('#tlAc'); if (!cv) return; S.dirtyAud = false;
+    const { c, w, h, d } = canvasFit(cv), comp = cur(), LF = S.LF || loopFrames(), live = AUD.live(), R = S.rec;
+    c.clearRect(0, 0, w, h);
+    const val = (k, m) => R.has[m] ? R[k][m] : null;
+    const synth = [];
+    if (!live) for (let n = 0; n < LF; n++) { const F = frameAt(n, comp); synth[F.n] = pseudoAudio(F); }
+    const get = (k, m) => live ? val(k, m) : synth[m] ? synth[m][k] : null;
+    const lane = h / BANDS.length;
+    BANDS.forEach(([k], bi) => {
+      c.strokeStyle = bi === 0 ? css('--accent') : css('--dim'); c.globalAlpha = bi === 0 ? 0.9 : 0.6; c.lineWidth = d; c.beginPath(); let pen = false;
+      for (let m = 0; m < LF; m++) { const v = get(k, m); if (v == null) { pen = false; continue; } const x = (m + 0.5) / LF * w, y = (bi + 1) * lane - Math.min(1, v) * (lane - 2 * d); pen ? c.lineTo(x, y) : c.moveTo(x, y); pen = true; }
+      c.stroke();
+    });
+    /* golpes: pico local do hit acima de 0,5 */
+    c.globalAlpha = 1; c.fillStyle = css('--fg');
+    for (let m = 0; m < LF; m++) { const v = get('hit', m), a = get('hit', (m + LF - 1) % LF), b = get('hit', (m + 1) % LF); if (v != null && v > 0.5 && (a == null || v >= a) && (b == null || v > b)) c.fillRect(Math.round(m / LF * w), 0, Math.max(1, d), 4 * d); }
+    const l = q('#tlAuL'); if (l) l.textContent = live ? T3('ao vivo: gravado ao tocar (G M A N, golpes no topo)', 'live: recorded as it plays (B M H L, hits on top)') : T3('fonte sintética do BPM (G M A N, golpes no topo)', 'synthetic BPM source (B M H L, hits on top)');
+  }
+  /* a cada quadro: só a cabeça de leitura e o rótulo; a cada 30 quadros confere se o projeto mudou */
+  function tick(F, force) {
+    const box = q('#tl'); if (!box || !S.open || S.hidden || !F) return;
+    if (++S.k % 30 === 0 || force) { const s = sigOf(); if (s !== S.sig) { S.sig = s; if (!force) return build(); } if (S.zoom > 1 && !force) follow(F); }
+    if (S.pz !== ST.paused) { S.pz = ST.paused; labels(); }
+    const LF = F.LF || S.LF || 1, x = F.n / LF, hd = q('#tlHead'), rl = q('#tlRuler');
+    if (hd) hd.style.left = pct(x);
+    if (rl) { rl.setAttribute('aria-valuenow', F.n); rl.setAttribute('aria-valuetext', `${T3('quadro', 'frame')} ${F.n} · ${T3('compasso', 'bar')} ${F.bar + 1} ${T3('tempo', 'beat')} ${F.beat % 4 + 1}`); }
+    const pos = q('#tlPos'); if (pos) pos.textContent = `${pad(F.n, 4)}/${pad(LF, 4)} · C${pad(F.bar + 1, 2)}:${F.beat % 4 + 1}`;
+    if (AUD.live() && S.rec && S.rec.n === LF) { const R = S.rec; for (const k of ['bass', 'mid', 'high', 'rms', 'hit']) R[k][F.n] = AUD[k] || 0; R.has[F.n] = 1; if (++S.recAt % 15 === 0) S.dirtyAud = true; }
+    if (S.dirtyAud && S.k % 15 === 0) drawAudio();
+  }
+  function follow(F) { const t = q('#tlTracks'), inn = q('#tlIn'); if (!t || !inn || ST.paused) return; const x = F.n / (F.LF || 1) * inn.offsetWidth; if (x < t.scrollLeft || x > t.scrollLeft + t.clientWidth) t.scrollLeft = x - 16; }
+
+  /* posicionar a cabeça de leitura: como o scrub (pausa e vai ao quadro); no modo reverse o quadro mostrado é LF-1-n */
+  function seek(m) {
+    const LF = loopFrames(); m = clamp(Math.round(m), 0, LF - 1);
+    setPause(true); ST.n = P.time.loop && P.time.mode === 'reverse' ? LF - 1 - m : m; tick(frameAt(ST.n, cur()), true);
+  }
+  function setOpen(v, quiet) {
+    S.open = !!v; store.set('tlOpen', S.open); const box = q('#tl'); if (!box) return;
+    APP.classList.toggle('tlon', S.open && !S.hidden); box.classList.toggle('closed', !S.open);
+    const b = q('#tlTog'); b.setAttribute('aria-expanded', String(S.open)); b.textContent = S.open ? T3('Timeline ▾', 'Timeline ▾') : T3('Timeline ▴', 'Timeline ▴');
+    applyH(); if (S.open && !S.hidden) { S.sig = ''; build(); } setTimeout(fit, 30);
+    if (!quiet) toast(S.open ? T3('Timeline aberta', 'Timeline open') : T3('Timeline recolhida: o scrub volta', 'Timeline collapsed: the scrub is back'), 1100);
+  }
+  /* ocultar: tira a timeline inteira (e devolve o scrub); o botão Timeline na régua da vista traz de volta, como o Ocultar e o Barra da barra flutuante */
+  function setHidden(v, quiet) {
+    S.hidden = !!v; store.set('tlHidden', S.hidden); APP.classList.toggle('tlhide', S.hidden);
+    const sh = q('#tlShow'); if (sh) sh.hidden = !S.hidden;
+    setOpen(S.open, true);
+    if (S.hidden) { const sh2 = q('#tlShow'); if (sh2 && quiet !== 'nofocus' && document.activeElement && document.activeElement.closest && document.activeElement.closest('#tl')) sh2.focus({ preventScroll: true }); }
+    else { const h = q('#tlHide'); if (h && quiet !== 'nofocus' && document.activeElement === q('#tlShow')) h.focus({ preventScroll: true }); }
+    if (!quiet) toast(S.hidden ? T3('Timeline oculta: o botão Timeline, no alto da vista, traz de volta', 'Timeline hidden: the Timeline button, above the view, brings it back') : T3('Timeline de volta', 'Timeline back'), 1400);
+  }
+  function applyH() {
+    const box = q('#tl'); S.h = clamp(Math.round(S.h), 96, Math.max(120, Math.round(innerHeight * 0.6)));
+    box.style.height = S.open ? S.h + 'px' : ''; ROOT_EL.style.setProperty('--tl-h', (S.hidden ? 0 : S.open ? S.h : box.offsetHeight || 0) + 'px');
+    const g = q('#tlGrip'); g.setAttribute('aria-valuenow', S.h); g.setAttribute('aria-valuemax', Math.max(120, Math.round(innerHeight * 0.6)));
+  }
+  function setZoom(z) { S.zoom = clamp(z, 1, 16); const inn = q('#tlIn'); if (inn) inn.style.width = S.zoom * 100 + '%'; q('#tlZv').textContent = S.zoom + '×'; drawRuler(); drawAudio(); }
+  function labels() {
+    const L = (id, pt, en, al) => { const b = q(id); if (!b) return; b.title = T3(pt, en); b.setAttribute('aria-label', T3(al || pt, al ? al : en)); };
+    L('#tlStart', 'Início do loop', 'Loop start'); L('#tlPrev', 'Quadro anterior', 'Previous frame'); L('#tlNext', 'Próximo quadro', 'Next frame');
+    L('#tlZo', 'Diminuir zoom da timeline', 'Timeline zoom out'); L('#tlZi', 'Aumentar zoom da timeline', 'Timeline zoom in');
+    const pl = q('#tlPlay'); if (pl) { pl.textContent = ST.paused ? 'Play' : T3('Pausa', 'Pause'); pl.setAttribute('aria-pressed', String(!ST.paused)); }
+    const au = q('#tlAud'); if (au) { au.textContent = T3('Áudio', 'Audio'); au.setAttribute('aria-pressed', $('#audBtn').getAttribute('aria-pressed')); }
+    const hi = q('#tlHide'); if (hi) { hi.textContent = T3('Ocultar', 'Hide'); hi.title = T3('Ocultar a timeline (o botão Timeline, no alto da vista, traz de volta)', 'Hide the timeline (the Timeline button above the view brings it back)'); }
+    const sh = q('#tlShow'); if (sh) { sh.textContent = T3('Timeline ▴', 'Timeline ▴'); sh.title = T3('Mostrar a timeline', 'Show the timeline'); sh.setAttribute('aria-label', T3('Mostrar a timeline', 'Show the timeline')); }
+    const g = q('#tlGrip'); if (g) g.setAttribute('aria-label', T3('Altura da timeline, arraste ou use as setas', 'Timeline height, drag or use the arrows'));
+  }
+
+  function init() {
+    if (q('#tl')) return;
+    const box = document.createElement('section'); box.id = 'tl'; box.setAttribute('aria-label', 'Timeline');
+    box.innerHTML = `<div id="tlGrip" role="separator" tabindex="0" aria-orientation="horizontal" aria-valuemin="96"></div>
+      <div id="tlBar"><button id="tlStart">⏮</button><button id="tlPrev">‹</button><button id="tlPlay"></button><button id="tlNext">›</button><button id="tlAud"></button>
+      <span id="tlPos" class="rd">0000/0000</span><span class="sp"></span><button id="tlZo">−</button><span id="tlZv" class="rd">1×</span><button id="tlZi">+</button><button id="tlTog" aria-controls="tlBody"></button><button id="tlHide"></button></div>
+      <div id="tlBody"><div id="tlNames"></div><div id="tlTracks"></div></div>`;
+    const view = q('#view'); view.appendChild(box);
+    const vt = q('#vtool'); if (vt) { const sh = document.createElement('button'); sh.id = 'tlShow'; sh.hidden = true; sh.setAttribute('aria-controls', 'tl'); sh.onclick = () => setHidden(false); vt.appendChild(sh); }
+    box.addEventListener('click', e => {
+      const b = e.target.closest('button'); if (!b) return; const F = ST.F || frameAt(ST.n, cur());
+      if (b.dataset.tlvis != null) { toggleLayer(+b.dataset.tlvis); S.sig = ''; build(); return; }
+      if (b.id === 'tlStart') seek(0); else if (b.id === 'tlPrev') seek((F.n - 1 + F.LF) % F.LF); else if (b.id === 'tlNext') seek((F.n + 1) % F.LF);
+      else if (b.id === 'tlPlay') setPause(!ST.paused); else if (b.id === 'tlAud') $('#audBtn').click();
+      else if (b.id === 'tlHide') { setHidden(true); return; } else if (b.id === 'tlZo') setZoom(S.zoom / 2); else if (b.id === 'tlZi') setZoom(S.zoom * 2); else if (b.id === 'tlTog') setOpen(!S.open);
+      labels();
+    });
+    /* régua e faixas: clicar ou arrastar posiciona a cabeça de leitura (não edita nada) */
+    let drag = false; const at = e => { const inn = q('#tlIn'), r = inn.getBoundingClientRect(); return (e.clientX - r.left) / r.width * loopFrames(); };
+    box.addEventListener('pointerdown', e => { if (e.button !== 0 || !e.target.closest('#tlIn') || e.target.closest('button')) return; drag = true; e.target.setPointerCapture && e.target.setPointerCapture(e.pointerId); seek(at(e)); labels(); });
+    box.addEventListener('pointermove', e => { if (drag) seek(at(e)); });
+    const end = () => { drag = false; }; box.addEventListener('pointerup', end); box.addEventListener('pointercancel', end);
+    box.addEventListener('keydown', e => {
+      const F = ST.F || frameAt(ST.n, cur());
+      if (e.target.id === 'tlRuler') {
+        const step = e.shiftKey ? Math.round(F.fpb) : 1; let m = null;
+        if (e.key === 'ArrowRight') m = (F.n + step) % F.LF; else if (e.key === 'ArrowLeft') m = (F.n - step + F.LF * 4) % F.LF; else if (e.key === 'Home') m = 0; else if (e.key === 'End') m = F.LF - 1;
+        if (m != null) { e.preventDefault(); e.stopPropagation(); seek(m); labels(); }
+      }
+      if (e.target.id === 'tlGrip') {
+        const st = e.shiftKey ? 48 : 16; let used = true;
+        if (e.key === 'ArrowUp') S.h += st; else if (e.key === 'ArrowDown') S.h -= st; else if (e.key === 'Enter' || e.key === ' ') setOpen(!S.open, true); else used = false;
+        if (used) { e.preventDefault(); e.stopPropagation(); store.set('tlH', S.h); applyH(); setTimeout(() => { fit(); drawRuler(); drawAudio(); }, 30); }
+      }
+    });
+    const grip = q('#tlGrip'); let gd = null;
+    grip.addEventListener('pointerdown', e => { if (!S.open) return; grip.setPointerCapture(e.pointerId); gd = { y: e.clientY, h: S.h }; document.body.classList.add('resizing'); e.preventDefault(); });
+    grip.addEventListener('pointermove', e => { if (!gd) return; S.h = gd.h - (e.clientY - gd.y); applyH(); });
+    const gend = () => { if (!gd) return; gd = null; document.body.classList.remove('resizing'); store.set('tlH', S.h); applyH(); fit(); drawRuler(); drawAudio(); };
+    grip.addEventListener('pointerup', gend); grip.addEventListener('pointercancel', gend);
+    q('#tlTracks').addEventListener('scroll', () => { q('#tlNames').scrollTop = q('#tlTracks').scrollTop; });
+    q('#tlNames').addEventListener('wheel', e => { q('#tlTracks').scrollTop += e.deltaY; }, { passive: true });
+    new ResizeObserver(() => { if (S.open) { drawRuler(); S.dirtyAud = true; drawAudio(); } }).observe(q('#tlTracks'));
+    /* aberta por padrão em tela larga e alta; o que a pessoa escolheu fica salvo */
+    if (S.open == null) S.open = innerWidth > 900 && innerHeight >= 700;
+    labels(); setHidden(S.hidden, 'nofocus');
+  }
+  function refresh() { if (!q('#tl')) return; labels(); setOpen(S.open, true); }
+  if (typeof document !== 'undefined' && typeof $ === 'function') init();
+  return { tick, build, seek, setOpen, setHidden, setZoom, refresh, rowInfo, closes, get state() { return { hidden: S.hidden, open: S.open, h: S.h, zoom: S.zoom, LF: S.LF }; } };
+})();
+/*__TIMELINE_END__*/
+
 /*__BOOT_START__*/
 /* Eventos de UI, importação, manipulação direta, teclado, briefing e boot (fase 18).
    Fonte de verdade: este arquivo; node scripts/embed-modules.mjs embute no index.html entre os marcadores BOOT. Mesmo escopo do motor (IIFE do index.html): sem import/export. */
@@ -8508,7 +9037,7 @@ function boot() {
   document.fonts && document.fonts.load('800 40px "Martian Mono"').catch(() => {});
   if (!embedded && !saved && !store.get('seenWiz', false)) openWiz();
   raf = requestAnimationFrame(tick);
-  window.AIVJ = { version: VERSION, briefgen: BRIEFGEN, get PAL() { return PAL; }, get RECIPES() { return RECIPES; }, addRecipe, addTestCards, recipeLayer, importFile, parseModel, setLang, setHow, undo, redo, evalExpr, applyTheme, layoutApply, setPanelOpen, setZoneDraw, get hist() { return ST.hist.length; }, get histLabels() { return ST.hl.slice(); }, surface: SC, specOf, applyCalc, renderSpec, specMarkdown, get project() { return P; }, get audio() { return AUD; }, AUDIOSEM, DEPTH, pseudoAudio, synthTimes, applyMods, motionCurve, GENAI, EVALUATOR, flash: FLASH, ONSET, UX, fx: { FX, body: fxBody, op: fxOp }, synth: { SYN, src: synthSrc }, blobs: { X: BLOBX }, layerErrors: () => [...LAYER_ERR.values()], mp4: { X: MP4X, render: mp4Render, run: exportMp4Run }, isf: { X: ISFX, LIB: ISFLIB, lib: isfLib }, modUI: { render: modPanel, params: modNumericParams, sources: MOD_SOURCES }, expRun: exportRun, EXP, surfx: SURFX, region: regionRect, surUI: { state: SUR, applyPreset: surApplyPreset, render: renderSurface }, COMPOSITION, SURFACEIR, ANIMATION, CREATIVE, FIELD: { FLD, GLY, body: fldBody }, SOLID: { SOL, body: solBody }, PARTICLES: { PRT, prog: prtProg }, MIGRATE, applyMods, RG, TM, composeFrame, buildComposeGraph: buildComposeGraph, frameAt, canvasPool: CANVAS_POOL, webgl: WEBGL, glProgram: body => glProg(body), glError: body => GL.err.get(body), glInfo: () => { glInit(); return GL.r ? { version: GL.r.version, context: GL.gl.constructor.name, glsl: GL.gl.getParameter(GL.gl.SHADING_LANGUAGE_VERSION), caps: GL.r.caps, stats: GL.r.stats } : { failure: GL.failure }; }, glMetrics: () => GL.r ? GL.r.metrics() : null, glr: () => GL.r, presets: SURFACE_PRESETS, GEN, FAMILIES, COMMON, modSources: () => MOD_SOURCES.map(x => x[0]), evaluate: lang => EVALUATOR.run(lang), shaderResolve, GLIB, specBins, simBake, parsePly, get LAYERERR() { return LAYER_ERR; }, setSeed, bpmWaves, get GLERR() { return GL.err; }, layerFrame, pm, importJson, frameAt, validate: o => validate(o), GEN, loopFrames, contactSheet, layerAudit, allowCode, loadAssets, toLogo, projectOut, get state() { return ST; }, geom, lintCode, compileCode, setCi(i) { ST.ci = i; refreshAll(); },
+  window.AIVJ = { version: VERSION, briefgen: BRIEFGEN, addUI: ADDUI, timeline: TIMELINE, get PAL() { return PAL; }, get RECIPES() { return RECIPES; }, addRecipe, addTestCards, recipeLayer, importFile, parseModel, setLang, setHow, undo, redo, evalExpr, applyTheme, layoutApply, setPanelOpen, setZoneDraw, get hist() { return ST.hist.length; }, get histLabels() { return ST.hl.slice(); }, surface: SC, specOf, applyCalc, renderSpec, specMarkdown, get project() { return P; }, get audio() { return AUD; }, AUDIOSEM, DEPTH, pseudoAudio, synthTimes, applyMods, motionCurve, GENAI, EVALUATOR, flash: FLASH, ONSET, UX, fx: { FX, body: fxBody, op: fxOp }, synth: { SYN, src: synthSrc }, blobs: { X: BLOBX }, layerErrors: () => [...LAYER_ERR.values()], mp4: { X: MP4X, render: mp4Render, run: exportMp4Run }, isf: { X: ISFX, LIB: ISFLIB, lib: isfLib }, modUI: { render: modPanel, params: modNumericParams, sources: MOD_SOURCES }, expRun: exportRun, EXP, surfx: SURFX, region: regionRect, surUI: { state: SUR, applyPreset: surApplyPreset, render: renderSurface }, COMPOSITION, SURFACEIR, ANIMATION, CREATIVE, FIELD: { FLD, GLY, body: fldBody }, SOLID: { SOL, body: solBody }, PARTICLES: { PRT, prog: prtProg }, MIGRATE, applyMods, RG, TM, composeFrame, buildComposeGraph: buildComposeGraph, frameAt, canvasPool: CANVAS_POOL, webgl: WEBGL, glProgram: body => glProg(body), glError: body => GL.err.get(body), glInfo: () => { glInit(); return GL.r ? { version: GL.r.version, context: GL.gl.constructor.name, glsl: GL.gl.getParameter(GL.gl.SHADING_LANGUAGE_VERSION), caps: GL.r.caps, stats: GL.r.stats } : { failure: GL.failure }; }, glMetrics: () => GL.r ? GL.r.metrics() : null, glr: () => GL.r, presets: SURFACE_PRESETS, GEN, FAMILIES, COMMON, modSources: () => MOD_SOURCES.map(x => x[0]), evaluate: lang => EVALUATOR.run(lang), shaderResolve, GLIB, specBins, simBake, parsePly, get LAYERERR() { return LAYER_ERR; }, setSeed, bpmWaves, get GLERR() { return GL.err; }, layerFrame, pm, importJson, frameAt, validate: o => validate(o), GEN, loopFrames, contactSheet, layerAudit, allowCode, loadAssets, toLogo, projectOut, get state() { return ST; }, geom, lintCode, compileCode, setCi(i) { ST.ci = i; refreshAll(); },
     /* gancho de teste: renderiza a composição ci no quadro n, determinístico, sem tocar no preview */
     renderFrame(ci, n, scale = 0.25, alpha = false) {
       const comp = P.compositions[ci], W = P.canvas.w, H = P.canvas.h, w = Math.round(W * scale), h = Math.round(H * scale);
