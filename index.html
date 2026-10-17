@@ -618,6 +618,12 @@ footer{background:var(--white);position:relative;z-index:2}
 .tool-placeholder{position:absolute;inset:0;background:#0a0a0a;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.18);letter-spacing:-.5px;text-transform:uppercase}
 .tool-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.75) 0%,transparent 55%);opacity:.6;transition:opacity .3s}
 .tool-item:hover .tool-overlay{opacity:1}
+
+/* thumbnail animado (three.js) da Bíblia VJ */
+.tool-thumb-wrap #vj{position:absolute;inset:0;overflow:hidden;background:#000}
+.tool-thumb-wrap #vj canvas{display:block;width:100%;height:100%;transition:transform .6s}
+.tool-item:hover .tool-thumb-wrap #vj canvas{transform:scale(1.04)}
+.tool-thumb-wrap .hud,.tool-thumb-wrap .lbl,.tool-thumb-wrap .cm,.tool-thumb-wrap .tag{display:none}
 .tool-meta{position:absolute;bottom:0;left:0;right:0;padding:24px 28px;display:flex;justify-content:space-between;align-items:flex-end}
 .tool-name{font-family:var(--mono);font-size:14px;letter-spacing:-.5px;text-transform:uppercase;color:var(--white);font-weight:400}
 .tool-tag{font-family:var(--mono);font-size:10px;letter-spacing:-.5px;text-transform:uppercase;color:rgba(255,255,255,.45)}
@@ -862,6 +868,7 @@ footer{background:var(--white);position:relative;z-index:2}
         <a class="tool-item reveal" href="tools/biblia-vj-operacional.html">
           <div class="tool-thumb-wrap">
             <div class="tool-placeholder">bíblia vj operacional preview</div>
+            <div id="vj" aria-hidden="true"></div>
           </div>
           <div class="tool-overlay"></div>
           <div class="tool-meta">
@@ -1687,4 +1694,6 @@ setLang('pt');
 })();
 
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="tools/vj-cover.js"></script>
 </html>

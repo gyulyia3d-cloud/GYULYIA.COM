@@ -78,6 +78,20 @@ footer span,footer a{font-family:var(--mono);font-size:10px;letter-spacing:-.5px
 .popup-btn-send{display:flex;align-items:center;justify-content:center;gap:12px;padding:18px 24px;font-family:var(--mono);font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:var(--black);background:var(--white);border:none;width:100%;cursor:pointer;transition:background .25s;font-weight:700}
 .popup-btn-send:hover{background:rgba(255,255,255,.88)}
 .popup-note{font-family:var(--mono);font-size:9px;letter-spacing:-.3px;color:rgba(255,255,255,.3);text-align:center;padding:14px 24px;text-transform:uppercase}
+
+/* ── capa animada three.js (workflow VJ) ── */
+.tool-hero #vj{position:absolute;inset:0;overflow:hidden;background:#000}
+.tool-hero #vj canvas{display:block;width:100%;height:100%}
+.tool-hero #vj::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.8) 0,rgba(0,0,0,.35) 40%,rgba(0,0,0,0) 65%);pointer-events:none}
+.tool-hero .lbl{position:absolute;left:0;top:0;font-family:var(--mono);font-size:10px;line-height:1.4;letter-spacing:-.5px;text-transform:uppercase;white-space:nowrap;pointer-events:none;color:#fff;opacity:.28;transition:opacity .5s;will-change:transform}
+.tool-hero .lbl b{display:block;font-weight:700;font-size:11px}
+.tool-hero .lbl.on{opacity:1}
+.tool-hero .hud{position:absolute;right:20px;bottom:20px;z-index:3;display:flex;flex-direction:column;gap:12px;font-family:var(--mono);font-size:10px;letter-spacing:-.5px;text-transform:uppercase;pointer-events:none;text-align:right}
+.tool-hero .hud div{opacity:.28;transition:opacity .4s}
+.tool-hero .hud div.on{opacity:1}
+.tool-hero .hud i{display:block;height:1px;background:#fff;width:0;margin:5px 0 0 auto}
+.tool-hero .cm,.tool-hero .tag{display:none}
+@media(max-width:700px){.tool-hero .hud,.tool-hero .lbl{display:none}}
 </style>
 </head>
 <body>
@@ -109,7 +123,8 @@ footer span,footer a{font-family:var(--mono);font-size:10px;letter-spacing:-.5px
 </nav>
 
 <div class="tool-hero">
-  <div class="tool-hero-placeholder">a bíblia do operador vj</div>
+  <div class="tool-hero-placeholder" id="vjFallback">a bíblia do operador vj</div>
+  <div id="vj" aria-hidden="true"></div>
   <div class="tool-hero-content">
     <div class="tool-tag">e-book gratuito · guia operacional · 2026</div>
     <h1 class="tool-title">BÍBLIA VJ<br>OPERACIONAL</h1>
@@ -266,5 +281,7 @@ async function submitGate(e){
   }
 }
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="vj-cover.js"></script>
 </body>
 </html>
