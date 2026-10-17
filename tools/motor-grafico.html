@@ -6,7 +6,7 @@
 <title>AI VJ Generator</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wdth,wght@75..112.5,300..800&family=Archivo+Black&family=Bebas+Neue&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wdth,wght@75..112.5,300..800&family=Manrope:wght@200..800&family=Archivo+Black&family=Bebas+Neue&display=swap" rel="stylesheet">
 <style>
 /*__STYLE_START__*/
 /* layout: régua de rig — viewport fixa à esquerda, coluna de controle de 400px à direita,
@@ -16,7 +16,7 @@
   --g900:#0d0d0d; --g800:#1a1a1a; --g700:#262626; --g600:#333333; --g500:#555555; --g400:#999999; --g300:#cccccc;
   --bg:var(--ink); --fg:var(--paper); --dim:var(--g400); --faint:var(--g500); --rule:var(--g700); --soft:var(--g900); --well:#050505;
   --mono:"Martian Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
-  --display:"Helvetica Neue",Helvetica,Arial,sans-serif;
+  --display:"Manrope",Arial,sans-serif;
   --fs-xs:9.5px; --fs-s:10.5px; --fs-m:12px; --fs-l:15px;
   color-scheme:dark;
 }
@@ -211,7 +211,7 @@ pre.tree{font-size:var(--fs-xs);line-height:1.6;background:var(--well);border:1p
 /* ===== V5 · GYULYIA DS: tipografia, tema, divisor, responsivo, toque ===== */
 :root{
   --font-title:"Martian Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
-  --font-text:"Helvetica Neue",Helvetica,Arimo,Arial,sans-serif;
+  --font-text:"Manrope",Arimo,Arial,sans-serif;
   --mono:var(--font-title); --display:var(--font-title);
   --ease:cubic-bezier(.4,0,.2,1); --t-fast:120ms; --t-base:160ms; --t-slow:200ms;
   --panel-w:440px; --view-h:46dvh; --split:8px;
@@ -229,7 +229,7 @@ pre.tree{font-size:var(--fs-xs);line-height:1.6;background:var(--well);border:1p
   }
 }
 
-/* texto: Helvetica caixa alta · títulos e dados: Martian Mono */
+/* texto: Manrope caixa alta · títulos e dados: Martian Mono */
 html,body{font-family:var(--font-text);font-size:11.5px;letter-spacing:.04em;text-transform:uppercase}
 button,input,select,textarea{font-family:var(--font-text);letter-spacing:.05em}
 h1,h2,h2.sec,#top h1,#wiz h2,#tabs button,.tabs button,summary,.k,.rd,#metrics,.kv dd,input[type=number],input[data-num],.tbl th,.tag,.meter,.mono,#xy,#tap b,#bpmv,#vPos,#foot{font-family:var(--font-title)}
@@ -603,7 +603,7 @@ input[type=range]{height:24px}
 #lib .lrow .ty{text-transform:none;letter-spacing:.02em}
 #lib .lrow input[type=number]{width:56px}
 
-/* 14a-2 · tipografia do DS: Helvetica no texto e nas descrições; Martian Mono em títulos e categorias */
+/* 14a-2 · tipografia do DS: Manrope no texto e nas descrições; Martian Mono em títulos e categorias */
 #tabs button,#libTabs button,#top .seg button,.lbl,.lrow .ty,h2.sec,summary,#libOpen,#panelOpen{font-family:var(--font-title)}
 #tabs button{font-size:var(--fs-xs);letter-spacing:.02em}
 #libTabs button{font-size:var(--fs-xs);letter-spacing:.02em}
@@ -1007,7 +1007,7 @@ const PNAMES = { bg: 'Fundo', primary: 'Primária', secondary: 'Secundária', ac
 function mixHex(a, b, t) { const A = hexRgb(a), B = hexRgb(b); return '#' + A.map((v, i) => Math.round(v + (B[i] - v) * t).toString(16).padStart(2, '0')).join(''); }
 for (const k in PALS) if (!PALS[k].field) PALS[k].field = mixHex(PALS[k].bg, PALS[k].primary, 0.43);
 const FONTS = {
-  mono: '"Martian Mono",ui-monospace,monospace', helvetica: '"Helvetica Neue",Helvetica,Arial,sans-serif',
+  mono: '"Martian Mono",ui-monospace,monospace', helvetica: '"Manrope",Arial,sans-serif',
   archivo: '"Archivo Black","Arial Black",Impact,sans-serif', bebas: '"Bebas Neue",Impact,"Arial Narrow",sans-serif'
 };
 const CUSTOM_FONTS = [];
@@ -9034,7 +9034,7 @@ function boot() {
   const tab = store.get('tab', 'par'); const tb = $(`#tabs [data-tab="${tab}"]`); if (tb && tab !== 'comp' && tab !== 'lay') tb.click(); setLib(store.get('libTab', 'comp')); if (store.get('libOpen', innerWidth >= 1280) === false) openLib(false);
   new ResizeObserver(() => fit()).observe(vp);
   refreshAll(); lastSnap = snap(); initLangHelp();
-  document.fonts && document.fonts.load('800 40px "Martian Mono"').catch(() => {});
+  document.fonts && document.fonts.load('800 40px "Martian Mono"').catch(() => {}); document.fonts && document.fonts.load('700 40px "Manrope"').catch(() => {});
   if (!embedded && !saved && !store.get('seenWiz', false)) openWiz();
   raf = requestAnimationFrame(tick);
   window.AIVJ = { version: VERSION, briefgen: BRIEFGEN, addUI: ADDUI, timeline: TIMELINE, get PAL() { return PAL; }, get RECIPES() { return RECIPES; }, addRecipe, addTestCards, recipeLayer, importFile, parseModel, setLang, setHow, undo, redo, evalExpr, applyTheme, layoutApply, setPanelOpen, setZoneDraw, get hist() { return ST.hist.length; }, get histLabels() { return ST.hl.slice(); }, surface: SC, specOf, applyCalc, renderSpec, specMarkdown, get project() { return P; }, get audio() { return AUD; }, AUDIOSEM, DEPTH, pseudoAudio, synthTimes, applyMods, motionCurve, GENAI, EVALUATOR, flash: FLASH, ONSET, UX, fx: { FX, body: fxBody, op: fxOp }, synth: { SYN, src: synthSrc }, blobs: { X: BLOBX }, layerErrors: () => [...LAYER_ERR.values()], mp4: { X: MP4X, render: mp4Render, run: exportMp4Run }, isf: { X: ISFX, LIB: ISFLIB, lib: isfLib }, modUI: { render: modPanel, params: modNumericParams, sources: MOD_SOURCES }, expRun: exportRun, EXP, surfx: SURFX, region: regionRect, surUI: { state: SUR, applyPreset: surApplyPreset, render: renderSurface }, COMPOSITION, SURFACEIR, ANIMATION, CREATIVE, FIELD: { FLD, GLY, body: fldBody }, SOLID: { SOL, body: solBody }, PARTICLES: { PRT, prog: prtProg }, MIGRATE, applyMods, RG, TM, composeFrame, buildComposeGraph: buildComposeGraph, frameAt, canvasPool: CANVAS_POOL, webgl: WEBGL, glProgram: body => glProg(body), glError: body => GL.err.get(body), glInfo: () => { glInit(); return GL.r ? { version: GL.r.version, context: GL.gl.constructor.name, glsl: GL.gl.getParameter(GL.gl.SHADING_LANGUAGE_VERSION), caps: GL.r.caps, stats: GL.r.stats } : { failure: GL.failure }; }, glMetrics: () => GL.r ? GL.r.metrics() : null, glr: () => GL.r, presets: SURFACE_PRESETS, GEN, FAMILIES, COMMON, modSources: () => MOD_SOURCES.map(x => x[0]), evaluate: lang => EVALUATOR.run(lang), shaderResolve, GLIB, specBins, simBake, parsePly, get LAYERERR() { return LAYER_ERR; }, setSeed, bpmWaves, get GLERR() { return GL.err; }, layerFrame, pm, importJson, frameAt, validate: o => validate(o), GEN, loopFrames, contactSheet, layerAudit, allowCode, loadAssets, toLogo, projectOut, get state() { return ST; }, geom, lintCode, compileCode, setCi(i) { ST.ci = i; refreshAll(); },
