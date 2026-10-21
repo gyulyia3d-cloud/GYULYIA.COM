@@ -717,6 +717,8 @@ input[type=range]:active::-webkit-slider-thumb{background:var(--accent);box-shad
 .tlbar.hero{border-left-color:var(--accent)}
 .tlbar.wrap{border-left:0;opacity:.55}
 .tlbar.off{opacity:.3}
+.tlr.ly{cursor:ew-resize;touch-action:none}
+.tlr.ly:focus-visible{outline:1px solid var(--accent);outline-offset:-1px}
 .tlend{position:absolute;right:2px;top:0;line-height:20px;font-size:var(--fs-xs);color:var(--faint)}
 .tlend.no{color:var(--fg);font-weight:700}
 .tlr.rl .tlend{line-height:24px;background:var(--bg);padding:0 4px;right:0}
@@ -8584,11 +8586,12 @@ const ADDUI = (() => {
 /*__ADDUI_END__*/
 
 /*__TIMELINE_START__*/
-/* Timeline T1, somente leitura (fase 14b-T1, docs/brand/UI-REDESIGN-PROPOSTA.md §13): painel acoplado embaixo da vista, recolhível e com altura arrastável.
+/* Timeline T1 (somente leitura) e T2 (edita o atraso; fase 14b-T1/T2, docs/brand/UI-REDESIGN-PROPOSTA.md §13): painel acoplado embaixo da vista, recolhível e com altura arrastável.
    Mostra o que hoje só aparece como números: régua (compassos, tempos, quadros) com a cabeça de leitura ligada ao scrub; fases da composição (meta.compositionIR[i].temporal.phases)
    e eventos na batida (meta.animationIR[i].events); uma faixa por camada, na ordem do painel de Camadas, com o comportamento (Animation IR e semântica de áudio),
    o atraso em semicolcheias (p.phase), os ciclos das curvas e se o loop fecha (ciclos inteiros declarados); e a faixa de áudio (ao vivo, gravada ao tocar, ou a fonte sintética do BPM).
-   Não muda projeto, formato nem render: clicar na régua só posiciona a cabeça de leitura (como o scrub); o olho é o mesmo toggleLayer do painel de Camadas.
+   T2: arrastar a barra de uma camada (ou ←/→ com foco nela) muda só p.phase, em semicolcheias inteiras, então o loop continua fechando; é um passo de histórico. Eventos seguem só de leitura
+   (nada no render os lê). Sem campo novo, formato ou render: clicar na régua só posiciona a cabeça de leitura (como o scrub); o olho é o mesmo toggleLayer do painel de Camadas.
    Custo: a régua e o áudio são redesenhados só quando algo muda; a cada quadro só a cabeça de leitura anda (um transform).
    Fonte de verdade: este arquivo; node scripts/embed-modules.mjs embute no index.html entre os marcadores TIMELINE. Mesmo escopo do motor (IIFE): sem import/export. */
 const TIMELINE = (() => {
@@ -8619,6 +8622,31 @@ const TIMELINE = (() => {
   function rowLabel(r) {
     return `L${r.i} ${r.L.name}: ${rowText(r)}; ${T3('atraso', 'delay')} ${r.steps} ${T3('semicolcheia(s)', 'sixteenth(s)')}` + (r.cycles ? `; ${r.cycles} ${T3('ciclo(s)', 'cycle(s)')}` : '') + `; ${r.closes ? T3('fecha o loop', 'closes the loop') : T3('não fecha o loop', 'does not close the loop')}` + (r.L.on ? '' : '; ' + T3('desligada', 'off'));
   }
+  /* faixa da camada: um slider (atraso em semicolcheias inteiras, 0 a bars*16-1); o aria-label segue dizendo comportamento, ciclos e se fecha */
+  function rowAttrs(r) {
+    const sx = P.time.bars * 16, k = Math.round(r.ph * sx) % sx;
+    return `role="slider" tabindex="0" data-tlrow="${r.i}" aria-label="${esc(rowLabel(r))}" aria-valuemin="0" aria-valuemax="${sx - 1}" aria-valuenow="${k}" aria-valuetext="${esc(T3('atraso ', 'delay ') + r.steps + T3(' semicolcheia(s)', ' sixteenth(s)')) }"`;
+  }
+  function rowInner(r) {
+    const cls = 'tlbar' + (r.tier === 'hero' ? ' hero' : '') + (r.L.on ? '' : ' off');
+    const txt = rowText(r) + (r.steps ? ` · +${r.steps}♬` : '') + (r.cycles ? ` · ${r.cycles}×` : '');
+    return `${seg(cls, r.ph, 1, r.cycles, false, txt)}${r.ph > 0 ? seg(cls + ' wrap', 0, r.ph, r.cycles, true, '') : ''}<span class="tlend ${r.closes ? 'ok' : 'no'}" title="${r.closes ? T3('fecha o loop', 'closes the loop') : T3('não fecha o loop', 'does not close the loop')}">${r.closes ? '↻' : '≠'}</span>`;
+  }
+  /* regrava só a faixa da camada (sem refazer a régua nem o áudio) */
+  function refreshRow(i) {
+    const el = q(`#tlIn .tlr.ly[data-tlrow="${i}"]`), L = cur().layers[i]; if (!el || !L) return;
+    const r = rowInfo(L, i), tpl = document.createElement('div'); tpl.innerHTML = `<div ${rowAttrs(r)}></div>`;
+    for (const a of tpl.firstChild.attributes) el.setAttribute(a.name, a.value);
+    el.innerHTML = rowInner(r); S.sig = sigOf();
+  }
+  /* muda o atraso para k semicolcheias (módulo o loop); sem tocar em mais nada */
+  function setDelay(i, k) {
+    const L = cur().layers[i]; if (!L) return false; const sx = P.time.bars * 16;
+    L.p = L.p || {}; L.p.phase = (((Math.round(k) % sx) + sx) % sx) / sx; refreshRow(i);
+    if (ST.sel === i) renderParams();
+    return true;
+  }
+  const kOf = (i) => Math.round((((+pm(cur().layers[i]).phase || 0) % 1 + 1) % 1) * P.time.bars * 16);
   const pct = x => (x * 100).toFixed(4) + '%';
   function seg(cls, a, b, cyc, wrapRight, txt) {
     const w = b - a; if (w <= 0) return '';
@@ -8641,11 +8669,7 @@ const TIMELINE = (() => {
       : `<span class="tlnone">${T3('sem fases (projeto sem Composition IR)', 'no phases (project without Composition IR)')}</span>`;
     const evRow = an && Array.isArray(an.events) ? an.events.map(e => `<span class="tlev" style="left:${pct(+e.at)}" title="${esc(e.name + ' · ' + T3('tempo ', 'beat ') + (e.beat + 1))}"><i></i>${esc(e.name)}</span>`).join('')
       : `<span class="tlnone">${T3('sem eventos (projeto sem Animation IR)', 'no events (project without Animation IR)')}</span>`;
-    const lyRows = rows.map(r => {
-      const cls = 'tlbar' + (r.tier === 'hero' ? ' hero' : '') + (r.L.on ? '' : ' off');
-      const txt = rowText(r) + (r.steps ? ` · +${r.steps}♬` : '') + (r.cycles ? ` · ${r.cycles}×` : '');
-      return `<div class="tlr ly" role="img" aria-label="${esc(rowLabel(r))}">${seg(cls, r.ph, 1, r.cycles, false, txt)}${r.ph > 0 ? seg(cls + ' wrap', 0, r.ph, r.cycles, true, '') : ''}<span class="tlend ${r.closes ? 'ok' : 'no'}" title="${r.closes ? T3('fecha o loop', 'closes the loop') : T3('não fecha o loop', 'does not close the loop')}">${r.closes ? '↻' : '≠'}</span></div>`;
-    }).join('');
+    const lyRows = rows.map(r => `<div class="tlr ly" ${rowAttrs(r)}>${rowInner(r)}</div>`).join('');
     q('#tlNames').innerHTML = names;
     q('#tlTracks').innerHTML = `<div id="tlIn" style="width:${S.zoom * 100}%">
       <div class="tlr rl" id="tlRuler" role="slider" tabindex="0" aria-label="${T3('Posição no loop', 'Loop position')}" aria-valuemin="0" aria-valuemax="${LF - 1}"><canvas id="tlRc" aria-hidden="true"></canvas><span class="tlend ${allClose ? 'ok' : 'no'}">${allClose ? T3('fecha', 'closes') : T3('não fecha', 'open')}</span></div>
@@ -8764,6 +8788,24 @@ const TIMELINE = (() => {
     });
     /* régua e faixas: clicar ou arrastar posiciona a cabeça de leitura (não edita nada) */
     let drag = false; const at = e => { const inn = q('#tlIn'), r = inn.getBoundingClientRect(); return (e.clientX - r.left) / r.width * loopFrames(); };
+    /* arrastar a barra de uma camada: relativo ao ponto de partida (clicar sem mover não muda nada); um passo de histórico ao soltar; Esc cancela */
+    let ld = null;
+    const lend = (cancel) => {
+      if (!ld) return; const d = ld; ld = null;
+      if (cancel) { const L = cur().layers[d.i]; if (d.p0 === undefined) delete L.p.phase; else L.p.phase = d.p0; refreshRow(d.i); if (ST.sel === d.i) renderParams(); return; }
+      if (d.moved && kOf(d.i) !== d.k0) commit(true, T3('Atraso da camada: ', 'Layer delay: ') + cur().layers[d.i].name);
+    };
+    box.addEventListener('pointerdown', e => {
+      const row = e.button === 0 && e.target.closest && e.target.closest('#tlIn .tlr.ly'); if (!row || e.target.closest('button')) return;
+      const i = +row.dataset.tlrow; flushCommit(); row.focus({ preventScroll: true });
+      ld = { i, x0: e.clientX, k0: kOf(i), p0: (cur().layers[i].p || {}).phase, w: q('#tlIn').getBoundingClientRect().width, moved: false }; row.setPointerCapture && row.setPointerCapture(e.pointerId); e.stopPropagation();
+    }, true);
+    box.addEventListener('pointermove', e => {
+      if (!ld) return; const sx = P.time.bars * 16, dk = Math.round((e.clientX - ld.x0) / ld.w * sx);
+      if (!ld.moved && !dk) return; ld.moved = true; setDelay(ld.i, ld.k0 + dk);
+    });
+    box.addEventListener('pointerup', () => lend(false)); box.addEventListener('pointercancel', () => lend(true));
+    box.addEventListener('keydown', e => { if (ld && e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); lend(true); } }, true);
     box.addEventListener('pointerdown', e => { if (e.button !== 0 || !e.target.closest('#tlIn') || e.target.closest('button')) return; drag = true; e.target.setPointerCapture && e.target.setPointerCapture(e.pointerId); seek(at(e)); labels(); });
     box.addEventListener('pointermove', e => { if (drag) seek(at(e)); });
     const end = () => { drag = false; }; box.addEventListener('pointerup', end); box.addEventListener('pointercancel', end);
@@ -8773,6 +8815,11 @@ const TIMELINE = (() => {
         const step = e.shiftKey ? Math.round(F.fpb) : 1; let m = null;
         if (e.key === 'ArrowRight') m = (F.n + step) % F.LF; else if (e.key === 'ArrowLeft') m = (F.n - step + F.LF * 4) % F.LF; else if (e.key === 'Home') m = 0; else if (e.key === 'End') m = F.LF - 1;
         if (m != null) { e.preventDefault(); e.stopPropagation(); seek(m); labels(); }
+      }
+      if (e.target.dataset && e.target.dataset.tlrow != null && e.target.classList.contains('ly')) {
+        const i = +e.target.dataset.tlrow, st = e.shiftKey ? 4 : 1; let k = null;
+        if (e.key === 'ArrowRight') k = kOf(i) + st; else if (e.key === 'ArrowLeft') k = kOf(i) - st; else if (e.key === 'Home') k = 0;
+        if (k != null) { e.preventDefault(); e.stopPropagation(); setDelay(i, k); commit(false, T3('Atraso da camada: ', 'Layer delay: ') + cur().layers[i].name); e.target.focus(); }
       }
       if (e.target.id === 'tlGrip') {
         const st = e.shiftKey ? 48 : 16; let used = true;
@@ -8794,7 +8841,7 @@ const TIMELINE = (() => {
   }
   function refresh() { if (!q('#tl')) return; labels(); setOpen(S.open, true); }
   if (typeof document !== 'undefined' && typeof $ === 'function') init();
-  return { tick, build, seek, setOpen, setHidden, setZoom, refresh, rowInfo, closes, get state() { return { hidden: S.hidden, open: S.open, h: S.h, zoom: S.zoom, LF: S.LF }; } };
+  return { tick, build, seek, setOpen, setHidden, setZoom, refresh, rowInfo, closes, setDelay, get state() { return { hidden: S.hidden, open: S.open, h: S.h, zoom: S.zoom, LF: S.LF }; } };
 })();
 /*__TIMELINE_END__*/
 
@@ -9034,7 +9081,7 @@ function boot() {
   const tab = store.get('tab', 'par'); const tb = $(`#tabs [data-tab="${tab}"]`); if (tb && tab !== 'comp' && tab !== 'lay') tb.click(); setLib(store.get('libTab', 'comp')); if (store.get('libOpen', innerWidth >= 1280) === false) openLib(false);
   new ResizeObserver(() => fit()).observe(vp);
   refreshAll(); lastSnap = snap(); initLangHelp();
-  document.fonts && document.fonts.load('800 40px "Martian Mono"').catch(() => {}); document.fonts && document.fonts.load('700 40px "Manrope"').catch(() => {});
+  document.fonts && document.fonts.load('800 40px "Martian Mono"').catch(() => {});
   if (!embedded && !saved && !store.get('seenWiz', false)) openWiz();
   raf = requestAnimationFrame(tick);
   window.AIVJ = { version: VERSION, briefgen: BRIEFGEN, addUI: ADDUI, timeline: TIMELINE, get PAL() { return PAL; }, get RECIPES() { return RECIPES; }, addRecipe, addTestCards, recipeLayer, importFile, parseModel, setLang, setHow, undo, redo, evalExpr, applyTheme, layoutApply, setPanelOpen, setZoneDraw, get hist() { return ST.hist.length; }, get histLabels() { return ST.hl.slice(); }, surface: SC, specOf, applyCalc, renderSpec, specMarkdown, get project() { return P; }, get audio() { return AUD; }, AUDIOSEM, DEPTH, pseudoAudio, synthTimes, applyMods, motionCurve, GENAI, EVALUATOR, flash: FLASH, ONSET, UX, fx: { FX, body: fxBody, op: fxOp }, synth: { SYN, src: synthSrc }, blobs: { X: BLOBX }, layerErrors: () => [...LAYER_ERR.values()], mp4: { X: MP4X, render: mp4Render, run: exportMp4Run }, isf: { X: ISFX, LIB: ISFLIB, lib: isfLib }, modUI: { render: modPanel, params: modNumericParams, sources: MOD_SOURCES }, expRun: exportRun, EXP, surfx: SURFX, region: regionRect, surUI: { state: SUR, applyPreset: surApplyPreset, render: renderSurface }, COMPOSITION, SURFACEIR, ANIMATION, CREATIVE, FIELD: { FLD, GLY, body: fldBody }, SOLID: { SOL, body: solBody }, PARTICLES: { PRT, prog: prtProg }, MIGRATE, applyMods, RG, TM, composeFrame, buildComposeGraph: buildComposeGraph, frameAt, canvasPool: CANVAS_POOL, webgl: WEBGL, glProgram: body => glProg(body), glError: body => GL.err.get(body), glInfo: () => { glInit(); return GL.r ? { version: GL.r.version, context: GL.gl.constructor.name, glsl: GL.gl.getParameter(GL.gl.SHADING_LANGUAGE_VERSION), caps: GL.r.caps, stats: GL.r.stats } : { failure: GL.failure }; }, glMetrics: () => GL.r ? GL.r.metrics() : null, glr: () => GL.r, presets: SURFACE_PRESETS, GEN, FAMILIES, COMMON, modSources: () => MOD_SOURCES.map(x => x[0]), evaluate: lang => EVALUATOR.run(lang), shaderResolve, GLIB, specBins, simBake, parsePly, get LAYERERR() { return LAYER_ERR; }, setSeed, bpmWaves, get GLERR() { return GL.err; }, layerFrame, pm, importJson, frameAt, validate: o => validate(o), GEN, loopFrames, contactSheet, layerAudit, allowCode, loadAssets, toLogo, projectOut, get state() { return ST; }, geom, lintCode, compileCode, setCi(i) { ST.ci = i; refreshAll(); },
