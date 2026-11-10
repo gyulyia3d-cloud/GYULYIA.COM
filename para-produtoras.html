@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<!--
+  Página "Para produtoras" (10/11/2026), com dados confirmados pela Giulia.
+  Ainda não está linkada no index.html nem commitada.
+  Imagens em media/produtoras/ (todas em 16:10):
+    CENA = primeiro frame do vídeo do Instagram;
+    Festa da Luz = foto do portfólio (pág. 10);
+    Racionais, Ivete, Forbes, Leonardo, Nike e Maré Morta = fotos do portfólio (págs. 4 a 9).
+  Os cards do CENA e da Festa da Luz linkam para os posts no Instagram.
+-->
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para produtoras — GYULYIA®</title>
+<meta name="description" content="Visuais de palco, conteúdo para LED, VJ e projeção mapeada para shows, festivais e marcas. Unreal Engine + IA. São Paulo e turnês.">
+<link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@400;500;700&family=Manrope:wght@300;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{--black:#000;--white:#fff;--gray:#aeaca8;--border-w:rgba(255,255,255,0.08);--border-b:rgba(0,0,0,0.08);--mono:"Martian Mono",monospace;--sans:"Manrope",sans-serif}
+body{background:var(--black);color:var(--white);font-family:var(--mono);overflow-x:hidden;cursor:none;-webkit-font-smoothing:antialiased}
+@media (hover:none){body{cursor:auto}.cur,.cur-ring{display:none}}
+.cur{position:fixed;width:8px;height:8px;background:var(--white);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .15s,height .15s}
+.cur-ring{position:fixed;width:32px;height:32px;border:1px solid rgba(255,255,255,.35);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s,height .25s}
+.cur-ring.big{width:56px;height:56px;border-color:rgba(255,255,255,.7)}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:grid;grid-template-columns:1fr 1fr 1fr 1fr;align-items:flex-start;padding:20px;mix-blend-mode:difference}
+.nav-col{display:flex;flex-direction:column;gap:1px}
+.nav-col.r{align-items:flex-end}.nav-col.c{align-items:center;text-align:center}
+.nav-logo,.nav-cell,a.nav-cell{font-size:11px;letter-spacing:-.5px;line-height:1.3em;text-transform:uppercase;color:var(--white);text-decoration:none;opacity:.7;display:block}
+.nav-logo{opacity:1}.nav-links-row{display:flex;gap:0;align-items:center;flex-wrap:wrap}
+.nav-links-row a,.nav-links-row span{font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:var(--white);text-decoration:none;opacity:.7;transition:opacity .2s}
+.nav-links-row a:hover{opacity:1}.nav-links-row .sep{opacity:.4;margin:0 1px}
+.hero{position:relative;height:100vh;min-height:520px;overflow:hidden}
+.hero-media{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.hero-overlay{position:absolute;inset:0;background:rgba(0,0,0,.45);z-index:1}
+.hero-claim{position:absolute;left:20px;right:20px;bottom:72px;z-index:3;font-family:var(--sans);font-weight:300;font-size:clamp(34px,7vw,104px);letter-spacing:-.05em;line-height:.9em;text-transform:uppercase}
+.hero-info{position:absolute;bottom:0;left:0;right:0;z-index:3;padding:5px 20px;border-top:1px solid var(--border-w)}
+.hero-row{display:grid;grid-template-columns:1fr 1fr 1fr 1fr}
+.hero-cell{font-size:11px;letter-spacing:-.5px;line-height:1.3em;text-transform:uppercase;color:var(--white);padding:4px 0}
+.hero-cell.c{text-align:center}.hero-cell.r{text-align:right}
+.corner{position:absolute;width:8px;height:8px;z-index:4}.corner svg{overflow:visible}
+.c-tl{top:20px;left:20px}.c-bl{bottom:20px;left:20px;transform:rotate(270deg)}
+.c-tr{top:20px;right:20px;transform:rotate(90deg)}.c-br{bottom:20px;right:20px;transform:rotate(180deg)}
+.sec-white{background:var(--white);color:var(--black);padding:96px 20px 52px}
+.sec-black{background:var(--black);color:var(--white);padding:96px 20px 52px}
+.proj-title{font-family:var(--sans);font-size:clamp(40px,9vw,140px);font-weight:300;letter-spacing:-.05em;line-height:.85em;text-transform:uppercase;margin-bottom:40px}
+.sec-label{font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:var(--gray);margin-bottom:24px}
+.txt{font-size:11px;letter-spacing:-.5px;text-transform:uppercase;line-height:1.8em}
+.lead{max-width:760px;margin-bottom:52px}
+/* serviços e preços */
+.offers{display:grid;grid-template-columns:repeat(5,1fr);gap:0 24px;border-top:1px solid var(--border-b)}
+.offer{padding:28px 0 32px;border-bottom:1px solid var(--border-b);display:flex;flex-direction:column;gap:12px}
+.offer-h{font-family:var(--sans);font-weight:500;font-size:clamp(18px,1.8vw,24px);letter-spacing:-.02em;line-height:1.1em;text-transform:uppercase}
+.offer-price{font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:var(--black);border-top:1px solid var(--border-b);padding-top:12px;margin-top:auto}
+.offer-price b{font-family:var(--sans);font-weight:700;font-size:16px;letter-spacing:0}
+.offer-cta{display:inline-block;margin-top:12px;font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:var(--black);text-decoration:none;border-bottom:1px solid var(--black);padding-bottom:2px}
+.offer-cta:hover{opacity:.5}
+@media(max-width:1100px){.offers{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:600px){.offers{grid-template-columns:1fr}}
+/* cases */
+.cases{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media(max-width:900px){.cases{grid-template-columns:1fr}}
+.case{border:1px solid var(--border-w);display:flex;flex-direction:column;text-decoration:none;color:var(--white)}
+.case-media{aspect-ratio:16/10;background:#111;overflow:hidden;position:relative}
+.case-media img,.case-media video{width:100%;height:100%;object-fit:cover;display:block}
+.case-body{padding:20px;display:flex;flex-direction:column;gap:14px;flex:1}
+.case-h{font-family:var(--sans);font-weight:300;font-size:clamp(28px,3vw,44px);letter-spacing:-.04em;line-height:.9em;text-transform:uppercase}
+.case-desc{font-size:11px;letter-spacing:-.5px;text-transform:uppercase;line-height:1.7em;opacity:.8}
+.case-meta{display:grid;grid-template-columns:auto 1fr;gap:6px 16px}
+.case-meta dt{font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:var(--gray)}
+.case-meta dd{font-size:11px;letter-spacing:-.5px;text-transform:uppercase}
+.case-link{margin-top:auto;font-size:11px;letter-spacing:-.5px;text-transform:uppercase;opacity:.7}
+/* processo */
+.steps{display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid var(--border-b);counter-reset:s}
+.step{padding:24px 16px 28px 0;border-bottom:1px solid var(--border-b);counter-increment:s}
+.step + .step{padding-left:16px;border-left:1px solid var(--border-b)}
+.step::before{content:"0" counter(s);display:block;font-family:var(--sans);font-weight:300;font-size:40px;letter-spacing:-.05em;line-height:1em;margin-bottom:14px}
+@media(max-width:900px){.steps{grid-template-columns:1fr}.step + .step{padding-left:0;border-left:none}}
+/* clientes */
+.clients{display:flex;flex-wrap:wrap;gap:8px 28px;max-width:1100px}
+.clients span{font-family:var(--sans);font-weight:300;font-size:clamp(20px,2.6vw,36px);letter-spacing:-.04em;text-transform:uppercase;line-height:1.1em}
+/* briefing */
+.brief{display:grid;grid-template-columns:1fr 1fr;gap:40px 72px;max-width:1160px}
+@media(max-width:809px){.brief{grid-template-columns:1fr}}
+.brief ul{list-style:none;border-top:1px solid var(--border-b)}
+.brief li{font-size:11px;letter-spacing:-.5px;text-transform:uppercase;padding:12px 0;border-bottom:1px solid var(--border-b)}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:16px 22px;border:1px solid var(--black);font-size:11px;letter-spacing:-.5px;text-transform:uppercase;text-decoration:none;color:var(--black);transition:background .2s,color .2s}
+.btn.solid{background:var(--black);color:var(--white)}
+.btn:hover{background:var(--black);color:var(--white)}
+.btn.solid:hover{background:transparent;color:var(--black)}
+/* footer (igual às páginas de case) */
+footer{background:#fff;position:relative;z-index:2;color:#000}
+.footer-inner-wrap{padding:0 20px}
+.footer-top-bar{display:grid;grid-template-columns:1fr 1fr 1fr;padding:20px 0;border-top:1px solid rgba(0,0,0,.08);border-bottom:1px solid rgba(0,0,0,.08)}
+.footer-small{font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:#aeaca8;line-height:1.3em}
+.footer-links{display:grid;grid-template-columns:repeat(4,1fr);padding:52px 0}
+@media(max-width:809px){.footer-links{grid-template-columns:repeat(2,1fr);gap:52px 24px}}
+.footer-col h4{font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:#aeaca8;margin-bottom:24px;line-height:1.3em;font-weight:400}
+.footer-col a,.footer-col span{display:block;font-size:11px;letter-spacing:-.5px;text-transform:uppercase;color:#000;line-height:1.3em;text-decoration:none;margin-bottom:1px;transition:opacity .2s}
+.footer-col a:hover{opacity:.4}
+.footer-bottom-bar{display:flex;justify-content:space-between;padding:20px 0;border-top:1px solid rgba(0,0,0,.08)}
+.hl{position:relative;display:inline-block}
+.hl::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .3s}
+.hl:hover::after{transform:scaleX(1);transform-origin:left}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:none}
+@media(max-width:809px){nav{padding:10px;grid-template-columns:1fr 1fr}.nav-col:nth-child(3),.nav-col:nth-child(4){display:none}.hero-row{grid-template-columns:1fr 1fr}.hero-cell.c{display:none}.sec-white,.sec-black{padding:80px 16px 48px}}
+</style>
+</head>
+<body>
+<div class="cur" id="cur"></div><div class="cur-ring" id="curRing"></div>
+<nav>
+  <div class="nav-col">
+    <a href="index.html" class="nav-logo hl">gyulyia®</a>
+    <div class="nav-links-row">
+      <a href="index.html" class="hl">home</a><span class="sep">/</span>
+      <a href="index.html#latest" class="hl">work</a><span class="sep">/</span>
+      <a href="index.html#tools" class="hl">tools</a><span class="sep">/</span>
+      <a href="index.html#about" class="hl">info</a><span class="sep">/</span>
+      <a href="#briefing" class="hl">briefing</a>
+    </div>
+  </div>
+  <div class="nav-col c">
+    <span class="nav-cell">Creative Technologist</span>
+    <span class="nav-cell">Multimedia Artist</span>
+  </div>
+  <div class="nav-col c">
+    <a href="mailto:gyulyia3d@gmail.com" class="nav-cell hl">gyulyia3d@gmail.com</a>
+    <a href="https://instagram.com/gyulyia" target="_blank" rel="noopener" class="nav-cell hl">instagram</a>
+    <a href="https://wa.me/5511981120017" target="_blank" rel="noopener" class="nav-cell hl">whatsapp</a>
+  </div>
+  <div class="nav-col r">
+    <span class="nav-cell" id="navTime">—</span>
+    <span class="nav-cell">GMT-3</span>
+  </div>
+</nav>
+
+<section class="hero">
+  <video class="hero-media" src="https://efjupouazqieacludooz.supabase.co/storage/v1/object/public/videos/ivete.mp4" autoplay muted loop playsinline poster="https://efjupouazqieacludooz.supabase.co/storage/v1/object/public/videos/pedro.png"></video>
+  <div class="hero-overlay"></div>
+  <div class="corner c-tl"><svg viewBox="0 0 8 8" overflow="visible"><path d="M 0 8 L 0 0 L 8 0" fill="none" stroke="white" stroke-width="1.3"/></svg></div>
+  <div class="corner c-bl"><svg viewBox="0 0 8 8" overflow="visible"><path d="M 0 8 L 0 0 L 8 0" fill="none" stroke="white" stroke-width="1.3"/></svg></div>
+  <div class="corner c-tr"><svg viewBox="0 0 8 8" overflow="visible"><path d="M 0 8 L 0 0 L 8 0" fill="none" stroke="white" stroke-width="1.3"/></svg></div>
+  <div class="corner c-br"><svg viewBox="0 0 8 8" overflow="visible"><path d="M 0 8 L 0 0 L 8 0" fill="none" stroke="white" stroke-width="1.3"/></svg></div>
+  <h1 class="hero-claim">Visuais de palco<br>e LED para shows<br>e festivais</h1>
+  <div class="hero-info">
+    <div class="hero-row">
+      <div class="hero-cell">Para produtoras</div>
+      <div class="hero-cell c">Unreal Engine + IA</div>
+      <div class="hero-cell c">São Paulo / turnês</div>
+      <div class="hero-cell r">2026</div>
+    </div>
+  </div>
+</section>
+
+<section class="sec-white">
+  <h2 class="proj-title reveal">Para<br>produtoras</h2>
+  <p class="txt lead reveal">Crio e opero o conteúdo visual do seu show: do conceito ao arquivo na resolução exata do painel, e até a operação ao vivo. Uso Unreal Engine, After Effects, IA generativa e Resolume. Já fiz palco para Pedro Sampaio no Rock in Rio Lisboa, para os dois palcos do CENA Festival e para Racionais MC's. Também trabalhei com Ivete Sangalo, Liniker, Gloria Groove, Rock in Rio e Mochakk.</p>
+
+  <div class="sec-label reveal">Formatos e investimento</div>
+  <div class="offers reveal">
+    <div class="offer">
+      <div class="offer-h">VJ ao vivo</div>
+      <div class="txt">Operação em Resolume com loops feitos para a noite e a identidade do evento. Uso meu notebook; o projetor ou o painel de LED é da casa ou da locadora.</div>
+      <div class="offer-price">a partir de <b>R$ 1.000</b> / noite</div>
+    </div>
+    <div class="offer">
+      <div class="offer-h">Pacote de loops para LED</div>
+      <div class="txt">De 2 a 20 loops com a identidade do artista ou da festa, na resolução e no formato do painel.</div>
+      <div class="offer-price">a partir de <b>R$ 2.000</b></div>
+    </div>
+    <div class="offer">
+      <div class="offer-h">Stage visuals de show ou festival</div>
+      <div class="txt">Direção de arte e conteúdo para todas as telas do palco, por música ou por bloco do show, em Unreal e IA, alinhados com a luz.</div>
+      <div class="offer-price"><b>sob consulta</b><br><a class="offer-cta" href="#briefing">pedir orçamento →</a></div>
+    </div>
+    <div class="offer">
+      <div class="offer-h">LED anamórfico</div>
+      <div class="txt">Conteúdo anamórfico para painéis de LED e fachadas, pensado para o ponto de vista de quem assiste. Entrego os arquivos prontos para a equipe técnica.</div>
+      <div class="offer-price">a partir de <b>R$ 8.000</b></div>
+    </div>
+    <div class="offer">
+      <div class="offer-h">Evento corporativo</div>
+      <div class="txt">Visuais e conteúdo para eventos de marca, convenções e lançamentos, adaptados ao espaço e ao formato da tela.</div>
+      <div class="offer-price"><b>sob consulta</b><br><a class="offer-cta" href="#briefing">pedir orçamento →</a></div>
+    </div>
+  </div>
+  <p class="txt reveal" style="margin-top:20px;color:var(--gray)">Equipe, equipamento e viagem são orçados à parte, com valor de custo informado.</p>
+</section>
+
+<section class="sec-black">
+  <div class="sec-label reveal">Projetos</div>
+  <div class="cases reveal">
+    <a class="case" href="works/pedro-sampaio.html">
+      <div class="case-media"><img src="https://efjupouazqieacludooz.supabase.co/storage/v1/object/public/videos/pedro.png" alt="Pedro Sampaio no Rock in Rio Lisboa 2026" loading="lazy"></div>
+      <div class="case-body">
+        <div class="case-h">Pedro Sampaio</div>
+        <dl class="case-meta">
+          <dt>Evento</dt><dd>Rock in Rio Lisboa 2026</dd>
+          <dt>Papel</dt><dd>Stage visuals + VJ</dd>
+          <dt>Conteúdo</dt><dd>7 clipes de 15 s para o LED do palco</dd>
+          <dt>Prazo</dt><dd>Produção em 2 semanas</dd>
+        </dl>
+        <span class="case-link">ver projeto →</span>
+      </div>
+    </a>
+    <a class="case" href="https://www.instagram.com/p/DTlOCO_Di0A/" target="_blank" rel="noopener">
+      <div class="case-media"><img src="media/produtoras/cena-festival-2025.jpg" alt="Totem de entrada do Mapa Festival CENA 2K25 com placa grafitada" loading="lazy" width="720" height="450"></div>
+      <div class="case-body">
+        <div class="case-h">CENA Festival</div>
+        <dl class="case-meta">
+          <dt>Evento</dt><dd>CENA Festival 2025, dois palcos</dd>
+          <dt>Papel</dt><dd>Projeto de stage visuals e iluminação</dd>
+          <dt>Escala</dt><dd>3 telas por palco · 16 h de show em 3 dias</dd>
+          <dt>Prazo</dt><dd>Produção em 24 h</dd>
+          <dt>Equipe</dt><dd>3 VJs, artista de IA e iluminação LDF Company, sob minha coordenação</dd>
+        </dl>
+        <span class="case-link">ver no instagram →</span>
+      </div>
+    </a>
+    <a class="case" href="https://www.instagram.com/p/DNa4GllOlyn/" target="_blank" rel="noopener">
+      <div class="case-media"><img src="media/produtoras/festa-da-luz-2025.jpg" alt="Projeção mapeada colorida na fachada de um prédio histórico com torre do relógio e público à frente, Festa da Luz 2025" loading="lazy" width="672" height="420"></div>
+      <div class="case-body">
+        <div class="case-h">Festa da Luz</div>
+        <dl class="case-meta">
+          <dt>Evento</dt><dd>Festival de arte pública audiovisual, 2025</dd>
+          <dt>Papel</dt><dd>Obra autoral de projeção mapeada</dd>
+          <dt>Escala</dt><dd>Obra de 2 min apresentada em 3 cidades</dd>
+          <dt>Ferramentas</dt><dd>GLSL shaders + After Effects</dd>
+        </dl>
+        <span class="case-link">ver no instagram →</span>
+      </div>
+    </a>
+    <a class="case" href="works/racionais-mcs.html">
+      <div class="case-media"><img src="media/produtoras/racionais-mcs.jpg" alt="Rua cenográfica da periferia paulistana, com prédios grafitados à noite, para o Racionais MC's" loading="lazy" width="860" height="538"></div>
+      <div class="case-body">
+        <div class="case-h">Racionais MC's</div>
+        <p class="case-desc">Cenografia digital para a apresentação do Racionais na Boogie Week / Podpah, inspirada na periferia paulistana e nas madrugadas dos anos 90.</p>
+        <dl class="case-meta">
+          <dt>Cliente</dt><dd>A77, Podpah e Racionais MC's</dd>
+          <dt>Ano</dt><dd>2024 / 2025</dd>
+          <dt>Papel</dt><dd>Stage visuals</dd>
+          <dt>Ferramentas</dt><dd>Unreal 5 · After Effects</dd>
+        </dl>
+        <span class="case-link">ver projeto →</span>
+      </div>
+    </a>
+    <a class="case" href="works/ivete-sangalo.html">
+      <div class="case-media"><img src="media/produtoras/ivete-sangalo.jpg" alt="Céu violeta com lua cheia e palmeiras, animação para Ivete Sangalo no Rock in Rio Lisboa" loading="lazy" width="908" height="568"></div>
+      <div class="case-body">
+        <div class="case-h">Ivete Sangalo</div>
+        <p class="case-desc">Animações para o espetáculo no Rock in Rio Lisboa, a partir de uma linguagem visual que conecta afrofuturismo, cultura baiana e umbanda, em paleta de violeta e rosa metálico.</p>
+        <dl class="case-meta">
+          <dt>Evento</dt><dd>Rock in Rio Lisboa 2024</dd>
+          <dt>Papel</dt><dd>Stage visuals</dd>
+          <dt>Ferramentas</dt><dd>Unreal 5 · After Effects</dd>
+        </dl>
+        <span class="case-link">ver projeto →</span>
+      </div>
+    </a>
+    <div class="case">
+      <div class="case-media"><img src="media/produtoras/forbes.jpg" alt="Teto e paredes com plantas e luzes neon azuis e verdes, cenografia digital para a Forbes" loading="lazy" width="894" height="558"></div>
+      <div class="case-body">
+        <div class="case-h">Forbes</div>
+        <p class="case-desc">Cenografia digital para palco e LED walls da Forbes Party, no Hotel Rosewood.</p>
+        <dl class="case-meta">
+          <dt>Ano</dt><dd>2024</dd>
+          <dt>Papel</dt><dd>Stage visuals</dd>
+          <dt>Ferramentas</dt><dd>Unreal 5 · After Effects</dd>
+        </dl>
+      </div>
+    </div>
+    <div class="case">
+      <div class="case-media"><img src="media/produtoras/leonardo-da-vinci.jpg" alt="Modelo 3D em preto e branco de uma cidade ideal, com ruas e arcadas" loading="lazy" width="506" height="316"></div>
+      <div class="case-body">
+        <div class="case-h">Os Mundos de Leonardo da Vinci</div>
+        <p class="case-desc">Sala imersiva com projeções feitas com animação 3D, motion e IA. Simula a cidade ideal, projeto urbanístico pensado para a superlotação e a falta de higiene de Milão durante a Peste Negra.</p>
+        <dl class="case-meta">
+          <dt>Cliente</dt><dd>Visualfarm</dd>
+          <dt>Ano</dt><dd>2024</dd>
+          <dt>Papel</dt><dd>Exposição imersiva</dd>
+          <dt>Ferramentas</dt><dd>Unreal 5 · After Effects · Blender</dd>
+        </dl>
+      </div>
+    </div>
+    <div class="case">
+      <div class="case-media"><img src="media/produtoras/nike.jpg" alt="Render 3D de uma pedra suspensa sobre fundo cinza claro" loading="lazy" width="960" height="600"></div>
+      <div class="case-body">
+        <div class="case-h">Nike</div>
+        <p class="case-desc">Produção 3D para animação e impressão em campanha publicitária, do making off ao render final e à impressão 3D.</p>
+        <dl class="case-meta">
+          <dt>Papel</dt><dd>Publicidade 3D</dd>
+          <dt>Ferramentas</dt><dd>Unreal 5 · After Effects · Blender 2026</dd>
+        </dl>
+      </div>
+    </div>
+    <a class="case" href="works/mare-morta.html">
+      <div class="case-media"><img src="media/produtoras/mare-morta.jpg" alt="Fundo marinho com criaturas 3D e corais, cena da videoarte Maré Morta" loading="lazy" width="682" height="426"></div>
+      <div class="case-body">
+        <div class="case-h">Maré Morta</div>
+        <p class="case-desc">Videoarte sobre a crise ambiental de animais marinhos em extinção, entre paisagens imersivas e dados generativos.</p>
+        <dl class="case-meta">
+          <dt>Ano</dt><dd>2025 / 2026</dd>
+          <dt>Espaços</dt><dd>5 espaços expositivos em RS, RJ, ES e SP</dd>
+          <dt>Ferramentas</dt><dd>Unreal 5 · After Effects</dd>
+        </dl>
+        <span class="case-link">ver projeto →</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<section class="sec-white">
+  <div class="sec-label reveal">Como trabalho</div>
+  <div class="steps reveal">
+    <div class="step"><div class="txt">Você manda o briefing e eu respondo no mesmo dia. A proposta vem com o escopo por escrito.</div></div>
+    <div class="step"><div class="txt">Escopo fechado: entregas, formatos, resolução, prazo e duas rodadas de revisão. Começo com 50% de sinal.</div></div>
+    <div class="step"><div class="txt">Prévias a cada 3 dias. Você vê o conteúdo crescer, não só a entrega final.</div></div>
+    <div class="step"><div class="txt">Entrega antes da data do show, testada na resolução e no formato do painel.</div></div>
+    <div class="step"><div class="txt">Operação ao vivo ou passagem para o VJ da casa, com roteiro de cenas.</div></div>
+  </div>
+</section>
+
+<section class="sec-black">
+  <div class="sec-label reveal">Já trabalhei com</div>
+  <div class="clients reveal">
+    <span>Pedro Sampaio</span><span>Racionais MC's</span><span>Ivete Sangalo</span><span>Rock in Rio Lisboa</span><span>Rock in Rio</span><span>CENA Festival</span><span>Liniker</span><span>Gloria Groove</span><span>Mochakk</span><span>Forbes</span><span>Nike</span><span>Visualfarm</span><span>Festa da Luz</span>
+  </div>
+</section>
+
+<section class="sec-white" id="briefing">
+  <h2 class="proj-title reveal">Briefing</h2>
+  <div class="brief reveal">
+    <div>
+      <div class="sec-label">Para orçar rápido, me conte</div>
+      <ul>
+        <li>Data, cidade e local do show ou evento</li>
+        <li>Telas: quantidade, tamanho ou resolução em pixels</li>
+        <li>Duração do show e quantas músicas ou blocos</li>
+        <li>Artista, setlist ou referências visuais</li>
+        <li>Se precisa de VJ no dia ou só dos arquivos</li>
+        <li>Prazo de entrega e faixa de orçamento</li>
+      </ul>
+    </div>
+    <div>
+      <div class="sec-label">Contato</div>
+      <p class="txt">Respondo por WhatsApp ou e-mail. Se tiver o mapa de telas ou o rider técnico, já mande junto.</p>
+      <div class="cta-row">
+        <a class="btn solid" href="https://wa.me/5511981120017?text=Ol%C3%A1%2C%20Giulia!%20Vim%20pela%20p%C3%A1gina%20Para%20produtoras.%20Quero%20or%C3%A7ar%20visuais%20para%3A%20" target="_blank" rel="noopener">WhatsApp →</a>
+        <a class="btn" href="mailto:gyulyia3d@gmail.com?subject=Briefing%20%E2%80%94%20visuais%20de%20palco">gyulyia3d@gmail.com</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner-wrap">
+    <div class="footer-top-bar">
+      <span class="footer-small">all rights reserved</span>
+      <span class="footer-small" style="text-align:center">gyulyia</span>
+      <span class="footer-small" style="text-align:right">©2026</span>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col">
+        <h4>navigation</h4>
+        <a href="index.html" class="hl">home</a>
+        <a href="index.html#latest" class="hl">work</a>
+        <a href="index.html#tools" class="hl">tools</a>
+        <a href="index.html#about" class="hl">info</a>
+      </div>
+      <div class="footer-col">
+        <h4>contacts</h4>
+        <a href="mailto:gyulyia3d@gmail.com" class="hl">gyulyia3d@gmail.com</a>
+        <a href="https://wa.me/5511981120017" class="hl">whatsapp</a>
+      </div>
+      <div class="footer-col">
+        <h4>projetos</h4>
+        <a href="works/pedro-sampaio.html" class="hl">pedro sampaio</a>
+        <a href="works/racionais-mcs.html" class="hl">racionais mc's</a>
+        <a href="works/mare-morta.html" class="hl">maré morta</a>
+      </div>
+      <div class="footer-col">
+        <h4>social</h4>
+        <a href="https://instagram.com/gyulyia" target="_blank" rel="noopener" class="hl">instagram</a>
+      </div>
+    </div>
+    <div class="footer-bottom-bar">
+      <span class="footer-small">all rights reserved — gyulyia® — ©2026</span>
+      <span class="footer-small">são paulo, brazil</span>
+    </div>
+  </div>
+</footer>
+<script>
+const cur=document.getElementById('cur'),ring=document.getElementById('curRing');
+document.addEventListener('mousemove',e=>{cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';ring.style.left=e.clientX+'px';ring.style.top=e.clientY+'px'});
+document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>ring.classList.add('big'));el.addEventListener('mouseleave',()=>ring.classList.remove('big'))});
+function tick(){const t=new Date().toLocaleTimeString('en-GB',{timeZone:'America/Sao_Paulo',hour:'2-digit',minute:'2-digit',second:'2-digit'});const el=document.getElementById('navTime');if(el)el.textContent=t}
+setInterval(tick,1000);tick();
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}}),{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
